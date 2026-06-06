@@ -1,0 +1,48 @@
+/* ============================================================
+   KREDITSEVA THEME — CSS Variables (Homepage Theme)
+============================================================ */
+
+:root {
+
+  /* ── Core Brand ── */
+  --navy:        #0A1F44;
+  --navy-light:  #1E3A6B;
+  --royal:       #1D4ED8;
+  --sky:         #38BDF8;
+
+  /* ── Blue Palette ── */
+  --b900: #040f2d;
+  --b800: #071a4a;
+  --b700: #0a2463;
+  --b600: #1039a0;
+  --b500: #1a52cc;
+  --b400: #3b7cff;
+  --b300: #6fa3ff;
+  --b100: #ddeaff;
+  --b050: #f0f5ff;
+
+  /* ── Accents & Neutrals ── */
+  --cyan:   #00d4ff;
+  --white:  #ffffff;
+  --text:   #0d1b3e;
+  --muted:  #5a6a8a;
+  --light:  #e8edf8;
+
+  /* ── PLX Section Colors ── */
+  --plx-navy-deep:   #060b2e;
+  --plx-navy:        #0d1547;
+  --plx-navy-light:  #1a2470;
+  --plx-blue-bright: #4d7fff;
+  --plx-cyan:        #5ee0ff;
+  --plx-gold:        #ffb947;
+  --plx-purple:      #8b6dff;
+  --plx-green:       #4ade80;
+  --plx-text:        #ffffff;
+  --plx-text-muted:  rgba(255, 255, 255, 0.72);
+  --plx-text-subtle: rgba(255, 255, 255, 0.52);
+
+  /* ── Shadows ── */
+  --shadow-card: 0 24px 64px rgba(4, 15, 45, .18);
+  --shadow-btn:  0 8px 28px rgba(26, 82, 204, .45);
+
+}

@@ -1,0 +1,2304 @@
+
+/* ============================================================
+   STYLES.CSS — MAIN STYLESHEET
+   Sections:
+   01. CSS Variables & Reset
+   02. Navbar
+   03. Logo
+   04. Nav Links
+   05. Dropdown Menu
+   06. Simple Links (Underline Effect)
+   07. Nav Arrow
+   08. Nav Buttons (Apply / Mobile Apply)
+   09. Menu Button (Hamburger)
+   10. Navbar — Mobile Responsive
+   11. Global Buttons (Hero / Primary / Secondary)
+   12. Floating Scroll-to-Top Button
+   13. WhatsApp Float Button
+   14. Site Footer
+   15. Keyframe Animations
+   16. FAQ Section
+   17. Compact CTA Strip
+   18. Loan Card Link Styles
+   19. Popup / Modal Form
+   20. Floating CIBIL Button
+   21. Provider CTA Button
+   22. Floating Call Button
+============================================================ */
+
+
+/* ============================================================
+   01. CSS VARIABLES & RESET
+============================================================ */
+
+:root {
+  /* Blue Palette */
+  --b900: #040f2d;
+  --b800: #071a4a;
+  --b700: #0a2463;
+  --b600: #1039a0;
+  --b500: #1a52cc;
+  --b400: #3b7cff;
+  --b300: #6fa3ff;
+  --b100: #ddeaff;
+  --b050: #f0f5ff;
+
+  /* Accent & Neutrals */
+  --cyan:   #00d4ff;
+  --white:  #ffffff;
+  --text:   #0d1b3e;
+  --muted:  #5a6a8a;
+  --light:  #e8edf8;
+
+  /* Shadows */
+  --shadow-card: 0 24px 64px rgba(4, 15, 45, .18);
+  --shadow-btn:  0 8px 28px rgba(26, 82, 204, .45);
+}
+
+/* Box-sizing reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body{
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+
+/* STICKY SITE HEADER WRAPPER */
+.site-header-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TOP STRIP */
+.top-strip {
+  order: 0;
+  width: 100%;
+  background: #0A1F44;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.12);
+  padding: 7px 90px;
+}
+
+.top-strip-inner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 28px;
+  padding-right: 5px;
+}
+
+.top-strip-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s, opacity 0.2s;
+}
+
+.top-strip-link:hover {
+  opacity: 0.8;
+  color: #fff;
+}
+
+.top-strip-link i {
+  font-size: 0.78rem;
+}
+
+@media (max-width: 768px) {
+  .top-strip {
+    display: none;
+  }
+}
+
+body {
+  
+  background: #f0f5ff;
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100dvh;
+}
+
+
+/* ============================================================
+   02. NAVBAR
+============================================================ */
+
+.main-header {
+  position: relative;
+  width: 100%;
+  z-index: 999;
+  background: #1a52cc;
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  order: 1;
+}
+
+.navbar {
+  max-width: 1280px;
+  margin: auto;
+  height: 78px;
+  padding: 0 0.5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+/* ============================================================
+   03. LOGO
+============================================================ */
+
+.brand-logo {
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  
+}
+
+.brand-logo span {
+  color: #38BDF8;
+}
+
+.brand-dotcom {
+  display: block;
+  font-size: 0.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: right;
+  line-height: 1;
+  margin-top: -4px;
+  
+}
+
+
+/* ============================================================
+   04. NAV LINKS
+============================================================ */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, .82);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: .25s ease;
+}
+
+.nav-links a:hover {
+  color: #38BDF8;
+}
+
+
+/* ============================================================
+   05. DROPDOWN MENU
+============================================================ */
+
+.nav-dropdown {
+  position: relative;
+}
+
+/* Dropdown trigger link — full navbar height for hover area */
+.nav-dropdown > a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 78px;
+}
+
+/* Hidden by default; shown on parent hover */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 240px;
+  padding: 12px;
+  border-radius: 18px;
+  background: #0A1F44;
+  border: 1px solid rgba(56,189,248,0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: .25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-menu a {
+  color: rgba(255,255,255,0.85);
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: .88rem;
+}
+
+.dropdown-menu a:hover {
+  background: rgba(255,255,255,0.06);
+  color: #38BDF8;
+}
+
+
+/* ============================================================
+   06. SIMPLE LINKS (Underline Hover Effect)
+============================================================ */
+
+.simple-link {
+  position: relative;
+}
+
+/* Animated cyan underline on hover */
+.simple-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: #00d4ff;
+  transition: .3s ease;
+}
+
+.simple-link:hover::after {
+  width: 100%;
+}
+
+
+/* ============================================================
+   07. NAV ARROW (Dropdown Chevron)
+============================================================ */
+
+.nav-arrow {
+  width: 14px;
+  height: 14px;
+  opacity: .75;
+  transition: .25s ease;
+  transform: translateY(1px);
+}
+
+/* Rotate arrow when dropdown is open */
+.nav-dropdown:hover .nav-arrow {
+  transform: translateY(1px) rotate(180deg);
+  color: #00d4ff;
+}
+
+
+/* ============================================================
+   08. NAV BUTTONS (Apply / Mobile Apply)
+============================================================ */
+
+.desktop-apply-btn,
+.mobile-apply-btn {
+  text-decoration: none;
+  height: 46px;
+  padding: 0 24px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0A1F44;
+  border: 1.5px solid #fff;
+  color: #ffffff !important;
+  font-size: .9rem;
+  font-weight: 700;
+  transition: .3s ease;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.desktop-apply-btn:hover,
+.mobile-apply-btn:hover {
+  transform: translateY(-2px);
+  background: #2d6bc4;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+/* Mobile apply button hidden on desktop */
+.mobile-apply-btn {
+  display: none;
+}
+
+
+/* ============================================================
+   09. MENU BUTTON (Hamburger — Mobile Only)
+============================================================ */
+
+.menu-btn {
+  display: none;
+  border: none;
+  outline: none;
+  background: none;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+
+/* ============================================================
+   10. NAVBAR — MOBILE RESPONSIVE
+============================================================ */
+
+@media (max-width: 1024px) {
+
+  .navbar {
+    padding: 0 20px;
+  }
+
+  /* Show hamburger, hide desktop apply button */
+  .menu-btn {
+    display: block;
+  }
+
+  .desktop-apply-btn {
+    display: none;
+  }
+
+  /* Full-width slide-down mobile nav panel */
+  .nav-links {
+    position: absolute;
+    top: 74px;
+    left: 0;
+    width: 100%;
+    background: #0A1F44;
+    border-top: 1px solid rgba(56,189,248,0.12);
+    padding: 24px 5%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    display: none; /* toggled via JS .active class */
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  /* Dropdown items full-width on mobile */
+  .nav-dropdown {
+    width: 100%;
+  }
+
+  .nav-dropdown > a {
+    width: 100%;
+    height: auto;
+    padding: 16px 0;
+    justify-content: space-between;
+  }
+
+  /* Static dropdown on mobile (no absolute positioning) */
+  .dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    background: rgba(255, 255, 255, .04);
+    box-shadow: none;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    display: none; /* shown on :hover */
+  }
+
+  .nav-dropdown:hover .dropdown-menu {
+    display: flex;
+  }
+
+  .dropdown-menu a {
+    color: rgba(255, 255, 255, .78);
+  }
+
+  .dropdown-menu a:hover {
+    background: rgba(255, 255, 255, .05);
+    color: #00d4ff;
+  }
+
+  .simple-link {
+    padding: 16px 0;
+    width: 100%;
+  }
+
+  /* Mobile apply button shown inside nav panel */
+  .mobile-apply-btn {
+    display: flex;
+    width: 100%;
+    margin-top: 16px;
+  }
+}
+
+/* Hide nav tag on tablets */
+@media (max-width: 768px) {
+  nav .nav-tag { display: none; }
+}
+
+/* Hide nav CTA text on small phones */
+@media (max-width: 640px) {
+  .nav-cta { display: none; }
+}
+
+
+/* ============================================================
+   11. GLOBAL BUTTONS (Hero / Primary / Secondary)
+============================================================ */
+
+.hero-btn {
+  text-decoration: none;
+  height: 54px;
+  padding: 0 28px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .95rem;
+  font-weight: 600;
+  transition: .3s ease;
+}
+
+/* Gradient filled button */
+.primary-btn {
+  background: linear-gradient(135deg, #1a52cc, #00cfff);
+  color: #fff;
+  box-shadow: 0 14px 30px rgba(0, 212, 255, .18);
+}
+
+.primary-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 34px rgba(0, 212, 255, .28);
+}
+
+/* Ghost / outline button */
+.secondary-btn {
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .12);
+  color: #fff;
+  backdrop-filter: blur(12px);
+}
+
+.secondary-btn:hover {
+  background: rgba(255, 255, 255, .12);
+  border-color: rgba(0, 212, 255, .35);
+  transform: translateY(-3px);
+}
+
+/* Hero CTA group — centered & full-width on mobile */
+@media (max-width: 768px) {
+  .hero-cta {
+    justify-content: center;
+    margin: 24px 0 28px;
+  }
+
+  .hero-btn {
+    width: 100%;
+    max-width: 260px;
+  }
+}
+
+
+/* ============================================================
+   12. FLOATING SCROLL-TO-TOP BUTTON
+============================================================ */
+
+.scroll-top-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 20px;
+  width: 56px;
+  height: 56px;
+  border: none;
+  outline: none;
+  border-radius: 18px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #0f52cc, #00cfff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 18px 40px rgba(0, 212, 255, .22);
+
+  /* Hidden by default; shown via JS .show class */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(.92);
+  transition: all .3s ease;
+  z-index: 9999;
+}
+
+.scroll-top-btn.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* Arrow icon inside button */
+.scroll-icon {
+  width: 22px;
+  height: 22px;
+  stroke: #fff;
+  stroke-width: 2.4;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: .3s ease;
+}
+
+.scroll-top-btn:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 24px 50px rgba(0, 212, 255, .35);
+}
+
+.scroll-top-btn:hover .scroll-icon {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .scroll-top-btn {
+    width: 48px;
+    height: 48px;
+    right: 13px;
+    bottom: 20px;
+    border-radius: 14px;
+  }
+
+  .scroll-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+
+/* ============================================================
+   13. WHATSAPP FLOAT BUTTON
+============================================================ */
+
+.whatsapp-float {
+  position: fixed;
+  right: 24px;
+  bottom: 86px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #25D366, #1ebe5d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 14px 35px rgba(37, 211, 102, .30);
+  z-index: 99999;
+  transition: all .3s ease;
+}
+
+.whatsapp-float i {
+  font-size: 30px;
+  color: #fff;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 20px 45px rgba(37, 211, 102, .45);
+}
+
+/* Pulse ring animation around button */
+.whatsapp-float::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(37, 211, 102, .35);
+  animation: whatsappPulse 2s infinite;
+}
+
+@media (max-width: 768px) {
+  .whatsapp-float {
+    width: 50px;
+    height: 50px;
+    right: 16px;
+    bottom: 72px;
+  }
+
+  .whatsapp-float i {
+    font-size: 24px;
+  }
+}
+
+
+/* ============================================================
+   14. SITE FOOTER
+============================================================ */
+
+.site-footer {
+  background: #2d6be4;
+  border-top: 1px solid rgba(255, 255, 255, .15);
+  margin-top: 70px;
+}
+
+/* 4-column footer grid */
+.footer-container {
+  max-width: 1280px;
+  margin: auto;
+  padding: 70px 5% 40px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 50px;
+}
+
+/* Brand / Logo column */
+.footer-logo {
+  text-decoration: none;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  
+}
+
+.footer-logo span {
+  color: #00d4ff;
+}
+
+.footer-brand p {
+  margin-top: 18px;
+  color: rgba(255, 255, 255, .95);
+  font-size: .95rem;
+  line-height: 1.7;
+  max-width: 320px;
+}
+
+/* Contact links in footer brand column */
+.footer-contact {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-contact a {
+  text-decoration: none;
+  color: #fff;
+  font-size: .92rem;
+  transition: .25s ease;
+}
+
+.footer-contact a:hover {
+  color: #00d4ff;
+}
+
+.footer-contact a[href^="mailto"] {
+  font-size: 1.05rem;
+}
+
+.footer-contact a[href^="mailto"] .fa-envelope,
+.footer-contact a[href^="mailto"] i {
+  font-size: 1.15rem;
+}
+
+/* Footer link columns */
+.footer-links h4 {
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 18px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #fff;
+  font-size: .92rem;
+  margin-bottom: 12px;
+  transition: .25s ease;
+}
+
+.footer-links a:hover {
+  color: #00d4ff;
+  transform: translateX(4px);
+}
+
+/* Footer bottom copyright bar */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, .2);
+  padding: 18px 5%;
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: rgba(255, 255, 255, .9);
+  font-size: .85rem;
+}
+
+/* Footer — Tablet: 2 columns */
+@media (max-width: 1024px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .footer-brand p {
+    max-width: 100%;
+  }
+}
+
+/* Footer — Mobile: single column, centered */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    text-align: center;
+    padding: 55px 6% 30px;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-brand p {
+    max-width: 100%;
+    font-size: .9rem;
+  }
+
+  .footer-contact,
+  .footer-links {
+    align-items: center;
+  }
+
+  .footer-links h4 {
+    margin-bottom: 14px;
+  }
+
+  .footer-links a {
+    margin-bottom: 10px;
+    font-size: .9rem;
+  }
+
+  .footer-logo {
+    font-size: 1.8rem;
+  }
+}
+
+/* Footer — Small phones */
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 45px 6% 25px;
+  }
+
+  .footer-logo {
+    font-size: 1.6rem;
+  }
+
+  .footer-brand p {
+    font-size: .85rem;
+    line-height: 1.6;
+  }
+
+  .footer-contact a,
+  .footer-links a {
+    font-size: .85rem;
+  }
+}
+
+
+/* ============================================================
+   15. KEYFRAME ANIMATIONS
+============================================================ */
+
+/* Slide up fade-in (used for hero elements) */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Vertical float loop (used for decorative images) */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-20px); }
+}
+
+/* Cursor blink (used for typewriter effect) */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .3; }
+}
+
+/* Pop in from scale 0 (used for badges/chips) */
+@keyframes pop {
+  from { opacity: 0; transform: scale(.4); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* WhatsApp pulse ring */
+@keyframes whatsappPulse {
+  0%   { transform: scale(.9); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+
+/* ============================================================
+   16. FAQ SECTION
+============================================================ */
+
+.loan-faq-section {
+  display: block;
+  width: 100%;
+  clear: both;
+  overflow: hidden;
+  padding: 50px 20px 80px;
+  margin-top: 0 !important;
+  background: #f8fbff;
+  position: relative;
+}
+
+/* Full-width container reset */
+.loan-faq-section .container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+/* Centered content columns */
+.faq-heading,
+.faq-wrapper,
+.faq-load-more {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Section heading */
+.faq-heading {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.faq-heading span {
+  display: inline-block;
+  color: var(--cyan);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.faq-heading h2 {
+  
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 1.15;
+  margin: 0 0 14px;
+  color: #012056;
+}
+
+/* Gradient highlight word in heading */
+.faq-heading h2 span {
+  font-size: 62px;
+  background: linear-gradient(135deg, #1a52cc, #4875d6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.faq-heading p {
+  color: #5d6785;
+  font-size: 1rem;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* FAQ list wrapper */
+.faq-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
+/* Individual FAQ card */
+.faq-item {
+  width: 100%;
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid rgba(4, 15, 45, 0.06);
+  box-shadow: 0 10px 28px rgba(4, 15, 45, 0.05);
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+
+.faq-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(4, 15, 45, 0.08);
+}
+
+/* Clickable question row */
+.faq-question {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 22px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--b900);
+}
+
+/* +/− icon badge */
+.faq-question span {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  background: rgba(0, 212, 255, 0.1);
+  color: var(--b500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* Answer panel — shown when .active is on parent */
+.faq-answer {
+  display: none;
+  padding: 0 24px 22px;
+}
+
+.faq-item.active .faq-answer {
+  display: block;
+}
+
+.faq-answer p {
+  margin: 0;
+  color: #5d6785;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* Extra FAQs hidden until "Load More" is clicked */
+.hidden-faq {
+  display: none;
+}
+
+.hidden-faq.show {
+  display: block;
+}
+
+/* Load More button */
+.faq-load-more {
+  display: block;
+  margin-top: 30px;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #1a52cc, #00cfff);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(26, 82, 204, 0.18);
+}
+
+/* FAQ — Mobile */
+@media (max-width: 768px) {
+  .loan-faq-section {
+    padding: 50px 16px;
+  }
+
+  .faq-heading,
+  .faq-wrapper {
+    max-width: 100%;
+  }
+
+  .faq-load-more {
+    max-width: 70%;
+  }
+
+  .faq-heading h2 {
+    font-size: 2rem;
+  }
+
+  .faq-heading h2 span {
+    font-size: 52px;
+  }
+
+  .faq-heading p {
+    font-size: 0.9rem;
+  }
+
+  .faq-question {
+    padding: 16px;
+    font-size: 0.9rem;
+  }
+
+  .faq-question span {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    font-size: 1rem;
+  }
+
+  .faq-answer {
+    padding: 0 16px 16px;
+  }
+
+  .faq-answer p {
+    font-size: 0.85rem;
+  }
+
+  .faq-load-more {
+    width: 100%;
+  }
+}
+
+
+/* ============================================================
+   17. COMPACT CTA STRIP
+============================================================ */
+
+.pl-cta-banner {
+  padding: 60px 6%;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.pl-cta-card {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.pl-cta-card-inner {
+  background: linear-gradient(135deg, #0A1F44 0%, #1a52cc 60%, #1563e0 100%);
+  border-radius: 24px;
+  padding: 40px 48px;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(26,82,204,0.25);
+}
+
+.pl-cta-pill {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 5px 16px;
+  border-radius: 50px;
+  margin-bottom: 16px;
+}
+
+.pl-cta-card-inner h2 {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 10px;
+  line-height: 1.25;
+}
+
+.pl-cta-card-inner p {
+  color: rgba(255,255,255,0.75);
+  font-size: 0.92rem;
+  margin: 0 0 24px;
+}
+
+.pl-cta-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 28px;
+}
+
+.pl-cta-stat {
+  text-align: center;
+  padding: 0 24px;
+}
+
+.pl-cta-stat strong {
+  display: block;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.pl-cta-stat span {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.pl-cta-stat-div {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,0.25);
+}
+
+.pl-cta-banner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 36px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fff, #e8f0ff);
+  color: #1a52cc;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  transition: all .25s ease;
+  white-space: nowrap;
+  border: none;
+}
+.pl-cta-banner-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.25);
+  background: #fff;
+}
+
+@media (max-width: 600px) {
+  .pl-cta-banner { padding: 40px 5%; }
+  .pl-cta-card-inner { padding: 28px 20px; }
+  .pl-cta-stat { padding: 0 14px; }
+  .pl-cta-stat strong { font-size: 1rem; }
+  .pl-cta-banner-btn { width: 100%; justify-content: center; }
+}
+
+
+/* ============================================================
+   18. LOAN CARD LINK STYLES
+============================================================ */
+
+/* Anchor inside card heading — inherits card color */
+.loan-card h3 a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.loan-card h3 a:hover {
+  color: #0d6efd;
+}
+
+/* Preserve colour on visited/active states */
+.loan-card h3 a,
+.loan-card h3 a:visited,
+.loan-card h3 a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* ============================================================
+   19. POPUP / MODAL FORM
+============================================================ */
+
+/* Full-screen backdrop */
+.ks-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 18, 45, 0.78);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 999999;
+
+  /* Hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* Shown via JS .active class */
+.ks-popup-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Modal card */
+.ks-popup-modal {
+  width: 100%;
+  max-width: 760px;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 20px 28px 28px;
+  position: relative;
+  max-height: 85vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.22);
+
+  /* Slide-up entrance animation */
+  transform: translateY(30px) scale(0.96);
+  opacity: 0;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+
+  /* Custom thin scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 157, 255, 0.35) transparent;
+}
+
+.ks-popup-overlay.active .ks-popup-modal {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* Scrollbar — WebKit */
+.ks-popup-modal::-webkit-scrollbar        { width: 10px; }
+.ks-popup-modal::-webkit-scrollbar-track  { background: transparent; border-radius: 20px; }
+.ks-popup-modal::-webkit-scrollbar-thumb  { background: rgba(0, 157, 255, 0.28); border-radius: 20px; border: 3px solid #ffffff; }
+.ks-popup-modal::-webkit-scrollbar-thumb:hover { background: rgba(0, 157, 255, 0.45); }
+
+/* Close (×) button */
+.ks-popup-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: #eef5ff;
+  color: #0a1f4d;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 20;
+  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ks-popup-close:hover {
+  background: #00bfff;
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+/* Modal header */
+.ks-popup-header {
+  text-align: center;
+  margin-bottom: 16px;
+  padding-top: 8px;
+}
+
+.ks-popup-header h2 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #071c4d;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.ks-popup-header p {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* 2-column form grid */
+.ks-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+/* Form field wrapper */
+.ks-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.ks-field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0a1f4d;
+  margin-bottom: 7px;
+}
+
+.ks-field input,
+.ks-field select {
+  width: 100%;
+  height: 52px;
+  padding: 0 15px;
+  border: 1.5px solid #d9e2f0;
+  border-radius: 14px;
+  background: #fff;
+  font-size: 15px;
+  color: #111827;
+  outline: none;
+  transition: 0.3s ease;
+  box-sizing: border-box;
+}
+
+.ks-field input::placeholder {
+  color: #8a94a8;
+}
+
+.ks-field input:focus,
+.ks-field select:focus {
+  border-color: #00bfff;
+  box-shadow: 0 0 0 4px rgba(0, 191, 255, 0.12);
+}
+
+/* Validation error state */
+.ks-field.error input,
+.ks-field.error select {
+  border-color: #e53935;
+  box-shadow: 0 0 0 4px rgba(229, 57, 53, 0.08);
+}
+
+.ks-error {
+  min-height: 16px;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #e53935;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* Success message shown after submission */
+.ks-success-message {
+  display: none;
+  margin-top: 12px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #eafbf1;
+  color: #15803d;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Submit button */
+.ks-submit-btn {
+  width: 100%;
+  height: 56px;
+  margin-top: 18px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #009dff, #00c8ff);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.ks-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 157, 255, 0.22);
+}
+
+/* Prevent body scroll when popup is open */
+body.popup-open {
+  overflow: hidden;
+}
+
+/* Popup — Tablet */
+@media (max-width: 992px) {
+  .ks-popup-modal {
+    max-width: 700px;
+  }
+}
+
+/* Popup — Mobile (bottom sheet style) */
+@media (max-width: 768px) {
+  .ks-popup-overlay {
+    align-items: flex-end;
+    padding: 8px;
+  }
+
+  .ks-popup-modal {
+    max-width: 100%;
+    max-height: 92vh;
+    padding: 20px;
+    border-radius: 22px 22px 0 0;
+    transform: translateY(60px);
+  }
+
+  .ks-form-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .ks-popup-header {
+    margin-bottom: 18px;
+  }
+
+  .ks-popup-header h2 {
+    font-size: 24px;
+  }
+
+  .ks-popup-header p {
+    font-size: 13px;
+  }
+
+  .ks-field input,
+  .ks-field select {
+    height: 50px;
+    font-size: 14px;
+  }
+
+  .ks-submit-btn {
+    height: 52px;
+    font-size: 15px;
+  }
+
+  .ks-popup-close {
+    width: 38px;
+    height: 38px;
+    font-size: 24px;
+  }
+
+  .ks-popup-modal::-webkit-scrollbar       { width: 6px; }
+  .ks-popup-modal::-webkit-scrollbar-thumb { border: 2px solid #ffffff; }
+}
+
+
+/* ============================================================
+   20. FLOATING CIBIL BUTTON
+============================================================ */
+
+
+
+/* ============================================================
+   21. PROVIDER CTA BUTTON
+============================================================ */
+
+.provider-cta {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--b500), var(--cyan));
+  color: #fff;
+  font-size: 1.10rem;
+  font-weight: 600;
+  padding: 13px 32px;
+  border-radius: 10px;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s ease;
+}
+
+.provider-cta:hover {
+  opacity: 0.88;
+}
+
+/* Provider section — Mobile */
+@media (max-width: 768px) {
+  .loan-provider-section {
+    padding: 55px 16px;
+  }
+
+  .provider-content-box {
+    padding: 24px;
+    border-radius: 16px;
+  }
+
+  .provider-content-box h2 {
+    font-size: 1.9rem;
+  }
+
+  .provider-intro {
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+  }
+
+  .provider-item {
+    gap: 12px;
+    padding-bottom: 18px;
+  }
+
+  .check-icon {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    font-size: 0.9rem;
+  }
+
+  .provider-item h3 {
+    font-size: 0.95rem;
+  }
+
+  .provider-item p {
+    font-size: 0.84rem;
+  }
+}
+
+
+/* ============================================================
+   22. FLOATING CALL BUTTON
+   Links to: tel:+919138130188
+============================================================ */
+
+.call-float {
+  position: fixed;
+  right: 24px;
+  bottom: 154px; /* scroll(20) + scroll-h(56) + gap(10) + wa-h(58) + gap(10) = 154 */
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #0A1F44;
+  border: 2px solid #38BDF8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(10, 31, 68, 0.3);
+  z-index: 99999;
+  transition: all .3s ease;
+}
+
+/* Phone icon */
+.call-float i {
+  font-size: 26px;
+  color: #38BDF8;
+}
+
+.call-float:hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 20px 45px rgba(255, 87, 34, .48);
+}
+
+/* Ripple ring animation */
+.call-float::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 87, 34, .38);
+  animation: callPulse 2s infinite;
+}
+
+@keyframes callPulse {
+  0%   { transform: scale(.9); opacity: 1; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+
+/* Call button — Mobile */
+/* scroll(14) + scroll-h(48) + gap(10) + wa-h(50) + gap(10) = 132 */
+@media (max-width: 768px) {
+  .call-float {
+    width: 44px;
+    height: 44px;
+    left: auto;
+    right: 12px;
+    bottom: 150px;
+  }
+  .call-float i { font-size: 18px; }
+  .whatsapp-float {
+    width: 44px;
+    height: 44px;
+    left: auto;
+    right: 12px;
+    bottom: 83px;
+  }
+  .whatsapp-float i { font-size: 22px; }
+  .whatsapp-float::before { display: none; }
+}
+
+
+/* =========================
+   EMI CALCULATOR — REDESIGNED
+========================= */
+
+.emi-section {
+  padding: 60px 6% 60px;
+  background: #eef4ff;
+  position: relative;
+  overflow: hidden;
+  margin-top: 0;
+}
+
+.emi-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* HEADING */
+.emi-head {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.emi-eyebrow {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #1a52cc;
+  margin-bottom: 3px;
+}
+
+.emi-head h2 {
+  
+  font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+  font-weight: 700;
+  color: #012056;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.emi-head h2 span {
+  background: linear-gradient(135deg, #1a52cc, #0172a3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.emi-head p {
+  color: #5d6785;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* MAIN CARD */
+.emi-card {
+  background: #fff;
+  border: 1px solid rgba(26,82,204,0.1);
+  border-radius: 28px;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 0;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(4,15,45,0.08);
+}
+
+/* LEFT — chart side */
+.emi-left {
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border-right: 1px solid rgba(26,82,204,0.08);
+  background: linear-gradient(180deg, #f0f7ff 0%, #f8fbff 100%);
+}
+
+.emi-left h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #012056;
+  letter-spacing: -0.3px;
+}
+
+/* FIELD */
+.emi-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.emi-field-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.emi-field-head label {
+  font-size: 0.92em;
+  font-weight: 600;
+  color: #05132f;
+}
+
+.emi-val-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #d0dff5;
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 140px;
+}
+
+.emi-val-box input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #05132f;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 8px 10px;
+  width: 80px;
+}
+
+.emi-prefix, .emi-suffix {
+  background: rgba(0,207,255,0.15);
+  color: #00cfff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 12px;
+}
+
+/* RANGE SLIDER */
+.emi-field input[type="range"] {
+  width: 100%;
+  appearance: none;
+  height: 6px;
+  border-radius: 20px;
+  background: linear-gradient(to right, #1a52cc 0%, #d0dff5 0%);
+  outline: none;
+  cursor: pointer;
+}
+
+.emi-field input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #1a52cc;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(26,82,204,0.35);
+  transition: transform 0.15s;
+}
+
+.emi-field input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.emi-range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: #8a9ab8;
+}
+
+/* TENURE BOX */
+.emi-tenure-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #d0dff5;
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 140px;
+}
+
+.emi-tenure-box input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #05132f;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 8px 10px;
+  width: 50px;
+}
+
+.emi-tenure-toggle {
+  display: flex;
+}
+
+.emi-tenure-toggle button {
+  border: none;
+  background: transparent;
+  color: #8a9ab8;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.emi-tenure-toggle button.active {
+  background: rgba(26,82,204,0.1);
+  color: #012056;
+}
+
+/* RESULTS ROW */
+.emi-results-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  background: #f0f5ff;
+  border: 1px solid rgba(26,82,204,0.08);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.emi-res-item {
+  text-align: center;
+  border-right: 1px solid rgba(26,82,204,0.12);
+}
+
+.emi-res-item:last-child {
+  border-right: none;
+}
+
+.emi-res-item span {
+  display: block;
+  font-size: 0.72rem;
+  color: #8a9ab8;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.emi-res-item strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #05132f;
+}
+
+.emi-res-highlight strong {
+  color: #1a52cc;
+  font-size: 1.1rem;
+}
+
+/* APPLY BTN */
+.emi-apply-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1a52cc, #00cfff);
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 28px rgba(26,82,204,0.35);
+  transition: all .25s ease;
+}
+
+.emi-apply-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(26,82,204,0.45);
+}
+
+.emi-disclaimer {
+  font-size: 0.89rem;
+  color: #8a9ab8;
+  text-align: center;
+  margin: 0;
+  font-weight: 500;
+}
+
+.emi-disclaimer i {
+  margin-right: 5px;
+  color: #1a52cc;
+}
+
+/* RIGHT — controls side */
+.emi-right {
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  background: #fff;
+}
+
+.emi-right h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #05132f;
+  margin: 0;
+  text-align: center;
+}
+
+.emi-donut-wrap {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  flex-shrink: 0;
+  margin: 0 auto;
+}
+
+.emi-donut-wrap canvas {
+  width: 250px !important;
+  height: 250px !important;
+}
+
+.emi-donut-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.emi-donut-label {
+  display: block;
+  font-size: 0.7rem;
+  color: #8a9ab8;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.emi-donut-center strong {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #05132f;
+  white-space: nowrap;
+}
+
+.emi-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.emi-leg-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid rgba(26,82,204,0.08);
+  border-radius: 10px;
+  padding: 10px 14px;
+  width: 100%;
+}
+
+.emi-leg-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.emi-leg-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.emi-leg-text span {
+  font-size: 0.72rem;
+  color: #8a9ab8;
+  font-weight: 500;
+}
+
+.emi-leg-text strong {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #05132f;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .emi-card {
+    grid-template-columns: 1fr;
+  }
+  .emi-left { border-right: none; border-bottom: 1px solid rgba(26,82,204,0.08); }
+  .emi-right { padding: 28px 24px; }
+  .emi-donut-wrap { width: 180px; height: 180px; }
+}
+
+/* MOBILE */
+@media (max-width: 640px) {
+  .emi-section { padding: 40px 4%; }
+  .emi-head { margin-bottom: 24px; }
+  .emi-head h2 { font-size: 1.3rem; }
+  .emi-head p { font-size: 0.85rem; }
+  .emi-left { padding: 20px 16px; gap: 14px; }
+  .emi-donut-wrap { width: 200px !important; height: 200px !important; }
+  .emi-donut-wrap canvas { width: 200px !important; height: 200px !important; }
+  .emi-legend { flex-direction: row; flex-wrap: wrap; }
+  .emi-leg-item { flex: 1; min-width: 140px; padding: 8px 12px; }
+  .emi-leg-text span { font-size: 0.68rem; }
+  .emi-leg-text strong { font-size: 0.82rem; }
+  .emi-right { padding: 20px 16px; gap: 16px; }
+  .emi-results-row { grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 12px; }
+  .emi-res-item { border-right: none; border-bottom: 1px solid rgba(26,82,204,0.1); padding: 10px 6px; }
+  .emi-res-item:nth-child(odd) { border-right: 1px solid rgba(26,82,204,0.1); }
+  .emi-res-item:nth-last-child(-n+2) { border-bottom: none; }
+  .emi-val-box { min-width: 110px; }
+  .emi-field-head label { font-size: 0.85rem; }
+}
+
+
+
+/* ============================================================
+   TRENDING SEARCHES SECTION
+============================================================ */
+.trending-searches-section {
+  background: #eef2f7;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.trending-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header row — clickable toggle */
+.trending-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 22px 0 20px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.trending-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.trending-arrow {
+  font-size: 0.85rem;
+  color: #555;
+  transition: transform 0.3s ease;
+}
+
+.trending-arrow.collapsed {
+  transform: rotate(180deg);
+}
+
+/* Body — collapsible */
+.trending-body {
+  padding-bottom: 28px;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.trending-body.hidden {
+  display: none;
+}
+
+/* 4-column grid */
+.trending-categories {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px 24px;
+  margin-bottom: 24px;
+}
+
+.trending-col h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+}
+
+.trending-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.trending-col ul li a {
+  font-size: 0.85rem;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.trending-col ul li a:hover {
+  color: #1a52cc;
+}
+
+/* Calculators row */
+.trending-calculators {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.trending-calc-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+.trending-calc-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+.trending-calc-links a {
+  font-size: 0.82rem;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.trending-calc-links a:hover { color: #1a52cc; }
+
+/* Loan Amount Pages */
+.trending-amounts {
+  margin-bottom: 20px;
+}
+
+.trending-sub-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 10px;
+}
+
+.trending-amount-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+.trending-amount-links a {
+  font-size: 0.82rem;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.trending-amount-links a:hover { color: #1a52cc; }
+
+/* Divider */
+.trending-divider {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 18px 0;
+}
+
+/* Location & Salary accordions */
+.trending-location,
+.trending-salary {
+  margin-bottom: 16px;
+}
+
+.trending-location-accordions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.tl-accordion {
+  position: relative;
+}
+
+.tl-acc-btn {
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  font-family: inherit;
+}
+
+.tl-acc-btn span {
+  font-size: 1.1rem;
+  transition: transform 0.25s;
+  display: inline-block;
+}
+
+.tl-acc-btn.open span {
+  transform: rotate(180deg);
+}
+
+.tl-acc-body {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #dde3ed;
+  border-radius: 6px;
+  padding: 10px 14px;
+  min-width: 160px;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tl-acc-body.open {
+  display: flex;
+}
+
+.tl-acc-body a {
+  font-size: 0.82rem;
+  color: #333;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.tl-acc-body a:hover { color: #1a52cc; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .trending-categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .trending-categories {
+    grid-template-columns: 1fr;
+  }
+  .trending-title { font-size: 1.1rem; }
+  .trending-calculators { flex-direction: column; gap: 8px; }
+}
+
+

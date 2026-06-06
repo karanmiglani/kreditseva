@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- DYNAMIC: SEO meta from backend -->
+  <title>Blog & Financial Tips | KreditSeva</title>
+  <meta name="description" content="Expert tips on personal loans, business loans, credit scores and financial planning. Read KreditSeva's latest blogs.">
+  <!-- END DYNAMIC -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/theme.css" />
+  <link rel="stylesheet" href="/css/blogs-list.css" />
+  <link rel="stylesheet" href="/css/loader.css" />
+</head>
+
+<body>
+  <!-- PAGE LOADER -->
+  <div id="ks-loader">
+    <div class="ks-loader-bar-wrap"><div class="ks-loader-bar"></div></div>
+    <div class="ks-loader-logo">Kredit<span>Seva</span><small>.com</small></div>
+    <p class="ks-loader-tag">Ab Loan Lena Hua Aasaan</p>
+    <div class="ks-loader-dots"><span></span><span></span><span></span></div>
+  </div>
+
+
+  <!-- HEADER -->
+  <div class="site-header-wrap">
+    <div class="top-strip">
+      <div class="top-strip-inner">
+        <a href="/become-our-partner" class="top-strip-link" style="font-size:14px;">
+          <i class="fa-solid fa-handshake" style="color:#D2956A;font-size:18px;"></i> Become Our Partner
+        </a>
+        <a href="/check_cibil_score" class="top-strip-link" style="font-size:14px;">
+          <i class="fa-solid fa-chart-simple" style="color:#4ade80;font-size:18px;"></i> Check Your Credit Score
+        </a>
+        <a href="tel:+919990033593" class="top-strip-link" style="font-size:14px;">
+          <i class="fa-solid fa-phone" style="color:#ef4444;font-size:18px;"></i> +91-99900-33593
+        </a>
+        <a href="https://wa.me/919990033593" class="top-strip-link" target="_blank" rel="noopener" style="font-size:14px;">
+          <i class="fa-brands fa-whatsapp" style="color:#fff;background:#25D366;border-radius:50%;padding:3px;font-size:18px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;"></i> +91-99900-33593
+        </a>
+      </div>
+    </div>
+    <header class="main-header">
+      <div class="navbar">
+        <a href="/" class="brand-logo">Kredit<span>Seva</span><small class="brand-dotcom">.com</small></a>
+        <button class="menu-btn" id="menuBtn">☰</button>
+        <nav class="nav-links" id="navLinks">
+          <a href="/" class="simple-link">Home</a>
+          <div class="nav-dropdown">
+            <a href="javascript:void(0)">Personal Loan
+              <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="dropdown-menu">
+              <a href="/personal-overdraft">Personal Overdraft</a>
+              <a href="/balance-transfer">Balance Transfer</a>
+              <a href="/debt-consildation">Debt Consolidation</a>
+              <a href="/insta-loan">Insta Loan</a>
+            </div>
+          </div>
+          <div class="nav-dropdown">
+            <a href="#">Business Loan
+              <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="dropdown-menu">
+              <a href="/working-capital">Working Capital</a>
+              <a href="/unsecured-business-loan">Unsecured Business Loan</a>
+              <a href="/business-overdraft">Business Overdraft</a>
+            </div>
+          </div>
+          <div class="nav-dropdown">
+            <a href="#">Professional Loan
+              <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="dropdown-menu">
+              <a href="/loan-for-ca">Loan For CA</a>
+              <a href="/loan-for-cs">Loan For CS</a>
+              <a href="/loan-for-doctor">Loan For Doctors</a>
+            </div>
+          </div>
+          <div class="nav-dropdown">
+            <a href="#">Secured Loan
+              <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="dropdown-menu">
+              <a href="/loan-against-property">Loan Against Property</a>
+              <a href="/home-loan">Home Loan</a>
+              <a href="/car-loan">Car Loan</a>
+            </div>
+          </div>
+          <a href="/credit-card" class="simple-link">Credit Cards</a>
+          <a href="#" onclick="openLoanPopup()" class="mobile-apply-btn">Apply Now</a>
+        </nav>
+        <a href="#" onclick="openLoanPopup()" class="desktop-apply-btn">Apply Now</a>
+      </div>
+    </header>
+  </div>
+
+
+  <!-- =====================================================
+    BLOG HERO BANNER
+  ====================================================== -->
+  <section class="bl-hero" data-animate>
+    <!-- Decorative shapes -->
+    <div class="bl-shape bl-shape-1"></div>
+    <div class="bl-shape bl-shape-2"></div>
+    <div class="bl-shape bl-shape-3"></div>
+    <div class="bl-shape bl-shape-4"></div>
+    <div class="bl-hero-inner">
+      <p class="bl-hero-eyebrow"><i class="fa-solid fa-pen-nib"></i> KreditSeva Blog</p>
+      <h1>Financial Tips, Loan Guides<br>&amp; Expert Insights</h1>
+      <p class="bl-hero-sub">Stay informed with expert articles on personal finance, loan strategies, and credit health.</p>
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+    CATEGORY FILTER TABS
+    DYNAMIC: Active tab highlighted based on ?cat= query param
+    Backend: GET /blogs?cat=personal-loan  OR  /api/blogs?cat=personal-loan
+  ====================================================== -->
+  <div class="bl-filter-wrap">
+    <div class="bl-filter-inner">
+      <div class="bl-tabs" id="blTabs">
+        <!-- DYNAMIC: loop categories from backend, add class="active" to current -->
+        <button class="bl-tab active" data-cat="all">All</button>
+        <button class="bl-tab" data-cat="personal-loan">Personal Loan</button>
+        <button class="bl-tab" data-cat="business-loan">Business Loan</button>
+        <button class="bl-tab" data-cat="professional-loan">Professional Loan</button>
+        <button class="bl-tab" data-cat="secured-loan">Secured Loan</button>
+        <button class="bl-tab" data-cat="credit-score">Credit Score</button>
+        <button class="bl-tab" data-cat="investment">Investment</button>
+        <!-- END DYNAMIC -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =====================================================
+    MAIN CONTENT AREA
+  ====================================================== -->
+  <main class="bl-main">
+    <div class="bl-layout" data-animate>
+
+      <!-- ================================================
+        LEFT: POSTS
+      ================================================= -->
+      <div class="bl-posts-col">
+        <% if(fb.length > 0){ %>
+        <!-- DYNAMIC: show only if featured_post exists -->
+        <a href="/blog-detail" class="bl-featured" id="blFeatured">
+          <!-- DYNAMIC: featured_post.image -->
+          <div class="bl-featured-img" data-animate>
+            <img src="<%= fb.featured_image %>" alt="Types of Debt Funds" />
+            <span class="bl-feat-badge"><i class="fa-solid fa-fire"></i> Featured</span>
+          </div>
+          <div class="bl-featured-body" data-animate>
+            <!-- DYNAMIC: featured_post.category -->
+            <span class="blc-badge blc-personal"><%= fb.category %></span>
+            <!-- DYNAMIC: featured_post.title -->
+            <h2><%= fb.title %></h2>
+            <!-- DYNAMIC: featured_post.excerpt -->
+            <p><%= fb.meta_desc %></p>
+            <div class="bl-feat-meta">
+              <!-- DYNAMIC: featured_post.author_name, featured_post.published_date, featured_post.read_time -->
+              <span><i class="fa-regular fa-user"></i> KreditSeva Team</span>
+              <span><i class="fa-regular fa-calendar"></i> Jan 15, 2026</span>
+              <span><i class="fa-regular fa-clock"></i> <%= fb.read_time %> mins</span>
+            </div>
+          </div>
+        </a>
+        <% } %>
+        <!-- END DYNAMIC featured -->
+
+
+        <!-- -----------------------------------------------
+          POSTS GRID
+          DYNAMIC: Loop posts[] from backend
+          Each card = one blog post
+          JS replaces this section on filter/search/pagination
+        ----------------------------------------------- -->
+        <div class="bl-grid" id="blGrid" data-animate>
+
+          <!-- ---- CARD 1 ---- -->
+          <!-- DYNAMIC: posts[0] -->
+<% if (blogs.length > 0) { %>
+
+  <% blogs.forEach((blog, index) => { %>
+
+    <a href="blog/<%= blog.slug %>" class="bl-card" data-cat="<%= blog.category %>">
+      
+      <div class="bl-card-img">
+        <img src="<%= blog.featured_image %>" alt="MSME Loan Tips" />
+
+        <span class="blc-badge blc-business">
+          <%= blog.category
+              ? blog.category
+                  .split('-')
+                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(' ')
+              : ""
+          %>
+        </span>
+      </div>
+
+      <div class="bl-card-body">
+        <h3><%= blog.title %></h3>
+
+        <p><%= blog.meta_desc %></p>
+
+        <div class="bl-card-meta">
+          <span>
+            <i class="fa-regular fa-calendar"></i>
+            <%= new Date(blog.created_at).toLocaleDateString() %>
+          </span>
+
+          <span>
+            <i class="fa-regular fa-clock"></i>
+            <%= blog.read_time %> min
+          </span>
+        </div>
+      </div>
+
+    </a>
+
+  <% }) %>
+
+<% } %>
+        </div>
+        <!-- END DYNAMIC blGrid -->
+
+
+        <!-- -----------------------------------------------
+          SKELETON LOADERS — shown during JS fetch
+          JS adds class "bl-loading" to bl-posts-col to show these
+        ----------------------------------------------- -->
+        <div class="bl-skeletons" id="blSkeletons">
+          <div class="bl-skel-card"><div class="bl-skel-img"></div><div class="bl-skel-line w80"></div><div class="bl-skel-line w60"></div><div class="bl-skel-line w40"></div></div>
+          <div class="bl-skel-card"><div class="bl-skel-img"></div><div class="bl-skel-line w80"></div><div class="bl-skel-line w60"></div><div class="bl-skel-line w40"></div></div>
+          <div class="bl-skel-card"><div class="bl-skel-img"></div><div class="bl-skel-line w80"></div><div class="bl-skel-line w60"></div><div class="bl-skel-line w40"></div></div>
+        </div>
+
+
+        <!-- -----------------------------------------------
+          LOAD MORE BUTTON
+          DYNAMIC: JS sends GET /api/blogs?page=2&cat=X
+          Hide when no more posts (backend returns has_more: false)
+        ----------------------------------------------- -->
+        <div class="bl-load-wrap">
+          <!-- DYNAMIC: hide if total_posts <= per_page -->
+          <button class="bl-load-btn" id="blLoadMore" data-page="1" data-cat="all">
+            <span id="blLoadText">Load More Articles</span>
+            <span id="blLoadSpinner" class="bl-spinner" style="display:none;"></span>
+          </button>
+          <!-- DYNAMIC: show when all posts loaded -->
+          <p class="bl-no-more" id="blNoMore" style="display:none;">You've read everything! <a href="#">Back to top ↑</a></p>
+        </div>
+
+      </div>
+      <!-- END posts col -->
+
+
+      <!-- ================================================
+        RIGHT: SIDEBAR
+      ================================================= -->
+      <aside class="bl-sidebar">
+
+        <!-- CTA -->
+        <div class="bls-cta">
+          <div class="bls-cta-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+          <h4>Need a Loan?</h4>
+          <p>Get instant approval on personal &amp; business loans at best rates.</p>
+          <a href="#" onclick="openLoanPopup()" class="bls-cta-btn">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <!-- Credit Score CTA -->
+        <div class="bls-score">
+          <i class="fa-solid fa-star bls-score-icon"></i>
+          <h4>Free Credit Score Check</h4>
+          <p>Zero impact on your score. Instant results.</p>
+          <a href="/check_cibil_score" class="bls-score-btn">Check Now — It's Free</a>
+        </div>
+
+      </aside>
+
+    </div>
+  </main>
+
+
+  <!-- FOOTER -->
+    <footer class="site-footer">
+    <div class="footer-container" data-animate>
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">Kredit<span>Seva</span></a>
+        <p style="color:#fff;margin-top:6px;font-size:.85rem;font-weight:600;">Ab Loan Lena Hua Aasaan</p>
+        <p>Fast, secure and hassle-free loan solutions for personal, business, professional and secured loan needs.</p>
+        <div class="footer-contact">
+          <a href="tel:+919990033593"><i class="fa-solid fa-phone"></i> +91-99900-33593</a>
+          <a href="mailto:support@kreditseva.com"><i class="fa-solid fa-envelope"></i> support@kreditseva.com</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="/">Home</a>
+        <a href="/about-us">About Us</a>
+        <a href="/blogs">Blogs</a>
+        <a href="/contact-us">Contact Us</a>
+      </div>
+      <div class="footer-links">
+        <h4>Loan Categories</h4>
+        <a href="/personal-loan">Personal Loan</a>
+        <a href="/business-loan">Business Loan</a>
+        <a href="/professional-loan">Professional Loan</a>
+        <a href="/secured-loan">Secured Loan</a>
+      </div>
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms-conditon">Terms & Conditions</a>
+        <a href="/disclaimer">Disclaimer</a>
+        <a href="/grievance-redressal">Grievance Redressal</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 KreditSeva. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Go to top">
+    <svg viewBox="0 0 24 24" class="scroll-icon"><path d="M12 19V6"/><path d="M6 12L12 6L18 12"/></svg>
+  </button>
+  <a href="https://wa.me/919138130188" target="_blank" rel="noopener" class="whatsapp-float">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+  <a href="tel:+919990033593" class="call-float"><i class="fa-solid fa-phone"></i></a>
+
+  <script src="/js/custom.js"></script>
+  <script src="/js/popup.js"></script>
+  <script src="/js/blog-list.js"></script>
+  <script src="/js/loader.js"></script>
+  <script src="/js/smooth-scroll.js"></script>
+</body>
+</html>

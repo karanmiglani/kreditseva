@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check Credit Score Free | KreditSeva</title>
+  <meta name="description" content="Check your CIBIL credit score for free instantly. Coming soon on KreditSeva.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/theme.css" />
+
+  <style>
+    body { background: #f0f4ff; }
+    .site-footer { margin-top: 0; }
+
+    .cs-page {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(0,212,255,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 20%, rgba(26,82,204,0.08) 0%, transparent 50%),
+        #f0f4ff;
+    }
+
+    .cs-card {
+      background: #fff;
+      border: 1px solid #e2eaf8;
+      border-radius: 28px;
+      padding: 64px 56px;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(13,21,71,0.10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Top accent */
+    .cs-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #1a52cc, #00cfff, #4d7fff);
+    }
+
+    .cs-icon-wrap {
+      width: 80px; height: 80px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #eef3ff, #dde8ff);
+      border: 1px solid #c8d9ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      font-size: 2rem;
+      color: #1a52cc;
+    }
+
+    .cs-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #f97316;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      padding: 5px 14px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+    }
+
+    .cs-card h1 {
+      
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 800;
+      color: #0d1547;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    .cs-card h1 span {
+      background: linear-gradient(135deg, #1a52cc, #00cfff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .cs-card p {
+      font-size: 0.97rem;
+      color: #64748b;
+      line-height: 1.75;
+      max-width: 440px;
+      margin: 0 auto 36px;
+    }
+
+    /* Features */
+    .cs-features {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .cs-feature {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: #f5f8ff;
+      border: 1px solid #e2eaf8;
+      border-radius: 50px;
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .cs-feature i {
+      color: #22c55e;
+      font-size: 0.78rem;
+    }
+
+    /* Notify form */
+    .cs-notify {
+      display: flex;
+      gap: 10px;
+      max-width: 420px;
+      margin: 0 auto 20px;
+    }
+
+    .cs-notify input {
+      flex: 1;
+      height: 48px;
+      padding: 0 16px;
+      border: 1.5px solid #e2eaf8;
+      border-radius: 12px;
+      background: #f8faff;
+      font-size: 0.9rem;
+      
+      color: #0d1547;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .cs-notify input::placeholder { color: #b0bac9; }
+
+    .cs-notify input:focus {
+      border-color: #1a52cc;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(26,82,204,0.08);
+    }
+
+    .cs-notify button {
+      height: 48px;
+      padding: 0 22px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #1a52cc, #4d7fff);
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 700;
+      
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 20px rgba(26,82,204,0.28);
+    }
+
+    .cs-notify button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(26,82,204,0.38);
+    }
+
+    .cs-hint {
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+
+    .cs-hint i { color: #22c55e; margin-right: 4px; }
+
+    @media (max-width: 540px) {
+      .cs-card { padding: 44px 24px; }
+      .cs-notify { flex-direction: column; }
+      .cs-notify button { width: 100%; }
+    }
+  </style>
+  <link rel="stylesheet" href="/css/loader.css" />
+</head>
+
+<body>
+  <!-- PAGE LOADER -->
+  <div id="ks-loader">
+    <div class="ks-loader-bar-wrap"><div class="ks-loader-bar"></div></div>
+    <div class="ks-loader-logo">Kredit<span>Seva</span><small>.com</small></div>
+    <p class="ks-loader-tag">Ab Loan Lena Hua Aasaan</p>
+    <div class="ks-loader-dots"><span></span><span></span><span></span></div>
+  </div>
+
+
+  <!-- HEADER -->
+  <div class="site-header-wrap">
+    <div class="top-strip">
+      <div class="top-strip-inner">
+        <a href="/become-our-partner" class="top-strip-link" style="font-size:14px;">
+          <i class="fa-solid fa-handshake" style="color:#D2956A; font-size:18px;"></i> Become Our Partner
+        </a>
+        <a href="/check_cibil_score" class="top-strip-link" style="font-size:14px;">
+          <i class="fa-solid fa-chart-simple" style="color:#4ade80; font-size:18px;"></i> Check Your Credit Score
+        </a>
+        <a href="tel:+919990033593" class="top-strip-link" style="font-size:14px;">
+          <i class="fa-solid fa-phone" style="color:#ef4444; font-size:18px;"></i> +91-99900-33593
+        </a>
+        <a href="https://wa.me/919990033593" class="top-strip-link" target="_blank" rel="noopener" style="font-size:14px;">
+          <i class="fa-brands fa-whatsapp" style="color:#fff; background:#25D366; border-radius:50%; padding:3px; font-size:18px; width:26px; height:26px; display:inline-flex; align-items:center; justify-content:center;"></i> +91-99900-33593
+        </a>
+      </div>
+    </div>
+    <header class="main-header">
+      <div class="navbar">
+        <a href="/" class="brand-logo">Kredit<span>Seva</span><small class="brand-dotcom">.com</small></a>
+        <button class="menu-btn" id="menuBtn">☰</button>
+        <nav class="nav-links" id="navLinks">
+          <a href="/" class="simple-link">Home</a>
+          <div class="nav-dropdown">
+            <a href="javascript:void(0)">Personal Loan
+              <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="dropdown-menu">
+              <a href="/personal-overdraft">Personal Overdraft</a>
+              <a href="/balance-transfer">Balance Transfer</a>
+              <a href="/debt-consildation">Debt Consolidation</a>
+              <a href="/insta-loan">Insta Loan</a>
+            </div>
+          </div>
+          <div class="nav-dropdown">
+            <a href="#">Business Loan
+              <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="dropdown-menu">
+              <a href="/working-capital">Working Capital</a>
+              <a href="/unsecured-business-loan">Unsecured Business Loan</a>
+              <a href="/business-overdraft">Business Overdraft</a>
+            </div>
+          </div>
+          <div class="nav-dropdown">
+            <a href="#">Professional Loan
+              <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="dropdown-menu">
+              <a href="/loan-for-ca">Loan For CA</a>
+              <a href="/loan-for-cs">Loan For CS</a>
+              <a href="/loan-for-doctor">Loan For Doctors</a>
+            </div>
+          </div>
+          <div class="nav-dropdown">
+            <a href="#">Secured Loan
+              <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="dropdown-menu">
+              <a href="/loan-against-property">Loan Against Property</a>
+              <a href="/home-loan">Home Loan</a>
+              <a href="/car-loan">Car Loan</a>
+            </div>
+          </div>
+          <a href="/credit-card" class="simple-link">Credit Cards</a>
+          <a href="#" onclick="openLoanPopup()" class="mobile-apply-btn">Apply Now</a>
+        </nav>
+        <a href="#" onclick="openLoanPopup()" class="desktop-apply-btn">Apply Now</a>
+      </div>
+    </header>
+  </div>
+
+  <!-- COMING SOON -->
+  <section class="cs-page" data-animate>
+    <div class="cs-card">
+
+      <div class="cs-icon-wrap">
+        <i class="fa-solid fa-chart-simple"></i>
+      </div>
+
+      <span class="cs-tag"><i class="fa-solid fa-clock"></i> Launching Soon</span>
+
+      <h1>Check Your <span>Credit Score</span><br>for Free</h1>
+
+      <p>We're building something powerful — an instant, free CIBIL score checker with personalised loan offers from 45+ lenders. Stay tuned!</p>
+
+      <div class="cs-features">
+        <div class="cs-feature"><i class="fa-solid fa-check"></i> 100% Free</div>
+        <div class="cs-feature"><i class="fa-solid fa-check"></i> Instant Result</div>
+        <div class="cs-feature"><i class="fa-solid fa-check"></i> No Score Impact</div>
+        <div class="cs-feature"><i class="fa-solid fa-check"></i> 50+ Lender Offers</div>
+      </div>
+
+      <div class="cs-notify">
+        <input type="tel" placeholder="Enter your mobile number" maxlength="10" id="cs-mobile" />
+        <button onclick="csNotify()">Notify Me</button>
+      </div>
+
+      <p class="cs-hint"><i class="fa-solid fa-shield-halved"></i> We'll notify you the moment it launches. No spam.</p>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+    <footer class="site-footer">
+    <div class="footer-container" data-animate>
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">Kredit<span>Seva</span></a>
+        <p style="color:#fff;margin-top:6px;font-size:.85rem;font-weight:600;">Ab Loan Lena Hua Aasaan</p>
+        <p>Fast, secure and hassle-free loan solutions for personal, business, professional and secured loan needs.</p>
+        <div class="footer-contact">
+          <a href="tel:+919990033593"><i class="fa-solid fa-phone"></i> +91-99900-33593</a>
+          <a href="mailto:support@kreditseva.com"><i class="fa-solid fa-envelope"></i> support@kreditseva.com</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="/">Home</a>
+        <a href="/about-us">About Us</a>
+        <a href="/blogs">Blogs</a>
+        <a href="/contact-us">Contact Us</a>
+      </div>
+      <div class="footer-links">
+        <h4>Loan Categories</h4>
+        <a href="/personal-loan">Personal Loan</a>
+        <a href="/business-loan">Business Loan</a>
+        <a href="/professional-loan">Professional Loan</a>
+        <a href="/secured-loan">Secured Loan</a>
+      </div>
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms-conditon">Terms & Conditions</a>
+        <a href="/disclaimer">Disclaimer</a>
+        <a href="/grievance-redressal">Grievance Redressal</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 KreditSeva. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Go to top">
+    <svg viewBox="0 0 24 24" class="scroll-icon"><path d="M12 19V6"/><path d="M6 12L12 6L18 12"/></svg>
+  </button>
+  <a href="https://wa.me/919138130188" target="_blank" rel="noopener" class="whatsapp-float">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+  <a href="tel:+919990033593" class="call-float">
+    <i class="fa-solid fa-phone"></i>
+  </a>
+
+  <script src="/js/custom.js"></script>
+  <script src="/js/popup.js"></script>
+  <script>
+    function csNotify() {
+      const val = document.getElementById('cs-mobile').value;
+      if (val.length === 10) {
+        alert('Thank you! We will notify you when Credit Score feature launches.');
+        document.getElementById('cs-mobile').value = '';
+      } else {
+        alert('Please enter a valid 10-digit mobile number.');
+      }
+    }
+  </script>
+  <script src="/js/loader.js"></script>
+  <script src="/js/smooth-scroll.js"></script>
+</body>
+</html>

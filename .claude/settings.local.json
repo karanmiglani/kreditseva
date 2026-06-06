@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -v -E \"\\\\.\\(png|jpg|jpeg|svg|webp|DS_Store|lock\\)$\")",
+      "Bash(mysql *)"
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+const path = require('path');
+const fs = require('fs');
+const pageRoutes = require('./routes/pageRoutes');
+const app = express();
+const cookieParser = require('cookie-parser');
+app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
+
+const autRoutes = require('./routes/authRoutes');
+const blogRoutes = require('./routes/blogRoutes');
+
+
+
+// Static files
+
+app.use('/css', express.static(path.join(__dirname,'../css')));
+app.use('/js', express.static(path.join(__dirname,'../js')));
+app.use('/images', express.static(path.join(__dirname,'../images')));
+app.use('/pages', express.static(path.join(__dirname,'../pages')));
+app.use('/admin', express.static(path.join(__dirname,'../admin'), {
+    index : false
+}));
+
+app.set('view engine' , 'ejs');
+app.set('views', path.join(__dirname,'../views'));
+app.use(pageRoutes);
+app.use('/api/auth',autRoutes);
+app.use('/api/blog/', blogRoutes);
+
+
+const port = process.env.PORT;
+
+
+app.listen(port,() => {
+    console.log("Server runing at port 3000...");
+})

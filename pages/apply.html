@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply for Loan | KreditSeva – Ab Loan Lena Hua Aasaan</title>
+  <meta name="description" content="Apply for Personal, Business, Professional or Secured Loan with KreditSeva." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/loader.css" />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    .desktop-apply-btn, .mobile-apply-btn { display: none !important; }
+
+    .ap-page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 114px); /* 78px navbar + 36px top-strip */
+    }
+
+    /* ══════════════ LEFT ══════════════ */
+    .ap-left {
+      background: linear-gradient(135deg, #bcd9fd 0%, #cce6ff 50%, #ddf0ff 100%);
+      padding: 60px 52px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 40px;
+      position: relative;
+    }
+
+    .ap-left::before { display: none; }
+
+    .ap-left-inner { position: relative; z-index: 1; }
+
+    .ap-wavy {
+      display: inline-block;
+      background: linear-gradient(90deg, #1a52cc 0%, #1a52cc 30%, #7eb8ff 50%, #1a52cc 70%, #1a52cc 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: ap-shimmer 2.5s linear infinite;
+    }
+
+    @keyframes ap-shimmer {
+      0%   { background-position: 200% center; }
+      100% { background-position: -200% center; }
+    }
+
+    .ap-left h1 {
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 700;
+      color: #0d1b3e;
+      line-height: 1.3;
+      margin-bottom: 36px;
+    }
+
+    .ap-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ap-bullet {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .ap-bullet-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .ap-bullet-icon i {
+      width: 20px !important;
+      height: 20px !important;
+    }
+
+    .ap-bullet-text {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #475569;
+      line-height: 1.55;
+      padding-top: 10px;
+    }
+
+    /* stats bar */
+    .ap-stats-bar {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(26,82,204,0.2);
+      border: 1px solid rgba(26,82,204,0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 0;
+    }
+
+    .ap-sstat {
+      background: #1a52cc;
+      padding: 12px 10px;
+      text-align: center;
+    }
+
+    .ap-sstat strong,
+    .ap-sstat strong .ks-count {
+      display: block;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff !important;
+      margin-bottom: 4px;
+    }
+
+    .ap-sstat span {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+    }
+
+    /* ══════════════ RIGHT ══════════════ */
+    .ap-right {
+      background: #fff;
+      padding: 28px 36px 28px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* progress bar */
+    .ap-progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .ap-progress-bar {
+      flex: 1;
+      height: 6px;
+      background: #e2eaf8;
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+    .ap-progress-fill {
+      height: 100%;
+      width: 30%;
+      background: linear-gradient(90deg, #1a52cc, #00cfff);
+      border-radius: 50px;
+      transition: width 0.4s ease;
+    }
+
+    .ap-progress-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #1a52cc;
+      white-space: nowrap;
+    }
+
+    .ap-back-btn {
+      display: inline-flex;
+      align-self: flex-start;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #5a6a8a;
+      text-decoration: none;
+      margin-bottom: 16px;
+      padding: 7px 16px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      transition: all 0.18s;
+    }
+
+    .ap-back-btn:hover { color: #1a52cc; box-shadow: 0 4px 14px rgba(26,82,204,0.15); transform: translateY(-1px); }
+
+    .ap-form-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0d1b3e;
+      margin-bottom: 18px;
+    }
+
+    /* section label */
+    .ap-flabel {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #0d1b3e;
+      margin-bottom: 10px;
+    }
+
+    .ap-flabel span { color: #ef4444; }
+
+    /* selection cards */
+    .ap-sel-cards {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .ap-sel-card {
+      flex: 1;
+      min-width: 100px;
+      border: 1.5px solid #e2eaf8;
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.18s;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #5a6a8a;
+      background: #f8faff;
+      user-select: none;
+    }
+
+    .ap-sel-card i { font-size: 1rem; color: #94a3b8; }
+
+    .ap-sel-card:hover { border-color: #1a52cc; color: #1a52cc; }
+
+    .ap-sel-card.active {
+      border-color: #1a52cc;
+      background: #fff;
+      color: #1a52cc;
+      font-weight: 600;
+      box-shadow: 0 0 0 3px rgba(26,82,204,0.08);
+    }
+
+    .ap-sel-card.active i { color: #1a52cc; }
+
+    /* pill options (loan category) */
+    .ap-loan-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+      align-items: start;
+    }
+
+    .ap-loan-left .select2-container { width: 100% !important; }
+
+    .ap-loan-right {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .ap-loan-right .ap-pill {
+      text-align: center;
+      padding: 7px 10px;
+      font-size: 0.76rem;
+    }
+
+    .ap-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .ap-pill {
+      border: 1.5px solid #e2eaf8;
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #5a6a8a;
+      background: #f8faff;
+      cursor: pointer;
+      transition: all 0.18s;
+      user-select: none;
+    }
+
+    .ap-pill:hover { border-color: #1a52cc; color: #1a52cc; }
+
+    .ap-pill.active {
+      border-color: #1a52cc;
+      background: #fff;
+      color: #1a52cc;
+      font-weight: 600;
+      box-shadow: 0 0 0 3px rgba(26,82,204,0.08);
+    }
+
+    /* text inputs */
+    .ap-fields-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 12px;
+      row-gap: 6px;
+    }
+
+    .ap-field {
+      margin-bottom: 0;
+    }
+
+    .ap-field input,
+    .ap-field select {
+      width: 100%;
+      border: 1.5px solid #e2eaf8;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      font-weight: 400;
+      font-family: 'Open Sans', sans-serif;
+      color: #0d1b3e;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      appearance: none;
+    }
+
+    .ap-field input::placeholder { color: #b0bec5; }
+
+    .ap-field input:focus,
+    .ap-field select:focus {
+      border-color: #1a52cc;
+      box-shadow: 0 0 0 3px rgba(26,82,204,0.07);
+    }
+
+
+    /* Select2 theme override */
+    .select2-container--default .select2-selection--single {
+      border: 1.5px solid #e2eaf8;
+      border-radius: 10px;
+      height: 40px;
+      background: #fff;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+      line-height: 38px;
+      padding-left: 14px;
+      font-size: 0.88rem;
+      color: #0d1b3e;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+      height: 38px;
+      right: 8px;
+    }
+
+    .select2-container--default.select2-container--open .select2-selection--single,
+    .select2-container--default.select2-container--focus .select2-selection--single {
+      border-color: #1a52cc;
+      box-shadow: 0 0 0 3px rgba(26,82,204,0.07);
+      outline: none;
+    }
+
+    .select2-dropdown {
+      border: 1.5px solid #e2eaf8;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(4,15,45,0.1);
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.85rem;
+    }
+
+    .select2-container--default .select2-results__option--highlighted {
+      background: #1a52cc;
+    }
+
+    .select2-container--default .select2-results__group {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #94a3b8;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 8px 12px 4px;
+    }
+
+    .select2-search--dropdown .select2-search__field {
+      border: 1.5px solid #e2eaf8;
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.83rem;
+      outline: none;
+    }
+
+    .select2-search--dropdown .select2-search__field:focus {
+      border-color: #1a52cc;
+    }
+
+    .ap-err {
+      font-size: 0.7rem;
+      color: #ef4444;
+      margin-top: 4px;
+      min-height: 13px;
+      display: block;
+    }
+
+    /* consent */
+    .ap-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin-bottom: 20px;
+    }
+
+    .ap-consent input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: #1a52cc;
+    }
+
+    .ap-consent label {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      line-height: 1.55;
+      cursor: pointer;
+    }
+
+    .ap-consent label a { color: #1a52cc; text-decoration: none; }
+
+    /* submit */
+    .ap-submit {
+      width: 100%;
+      padding: 15px;
+      background: #1a52cc;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Open Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.22s;
+      letter-spacing: 0.3px;
+    }
+
+    .ap-submit:hover { background: #1039a0; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(26,82,204,0.3); }
+
+    .ap-success {
+      display: none;
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .ap-success i { font-size: 1.4rem; color: #22c55e; display: block; margin-bottom: 6px; }
+    .ap-success h4 { font-size: 0.9rem; font-weight: 600; color: #15803d; }
+    .ap-success p { font-size: 0.76rem; color: #166534; margin-top: 3px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .ap-page { grid-template-columns: 1fr; }
+      .ap-left { display: none; }
+      .ap-right { padding: 36px 24px; justify-content: flex-start; }
+      .ap-fields-grid { grid-template-columns: 1fr; }
+      .ap-field input,
+      .ap-field select { border-color: #c4d4f5; background: #f5f8ff; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PAGE LOADER -->
+  <div id="ks-loader">
+    <div class="ks-loader-bar-wrap"><div class="ks-loader-bar"></div></div>
+    <div class="ks-loader-logo">Kredit<span>Seva</span><small>.com</small></div>
+    <p class="ks-loader-tag">Ab Loan Lena Hua Aasaan</p>
+    <div class="ks-loader-dots"><span></span><span></span><span></span></div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="site-header-wrap">
+    <div class="top-strip">
+      <div class="top-strip-inner">
+        <a href="/become-our-partner" class="top-strip-link" style="font-size:14px;">
+          <i class="fa-solid fa-handshake" style="color:#D2956A;font-size:18px;"></i> Become Our Partner
+        </a>
+        <a href="/check_cibil_score" class="top-strip-link" style="font-size:14px;">
+          <i class="fa-solid fa-chart-simple" style="color:#4ade80;font-size:18px;"></i> Check Credit Score
+        </a>
+        <a href="tel:+919990033593" class="top-strip-link" style="font-size:14px;">
+          <i class="fa-solid fa-phone" style="color:#ef4444;font-size:18px;"></i> +91-99900-33593
+        </a>
+        <a href="https://wa.me/919990033593" class="top-strip-link" target="_blank" rel="noopener" style="font-size:14px;">
+          <i class="fa-brands fa-whatsapp" style="color:#fff;background:#25D366;border-radius:50%;padding:3px;font-size:18px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;"></i> WhatsApp
+        </a>
+      </div>
+    </div>
+    <header class="main-header">
+      <div class="navbar">
+        <a href="/" class="brand-logo">Kredit<span>Seva</span><small class="brand-dotcom">.com</small></a>
+        <button class="menu-btn" id="menuBtn">☰</button>
+        <nav class="nav-links" id="navLinks">
+          <a href="/" class="simple-link">Home</a>
+          <div class="nav-dropdown">
+            <a href="javascript:void(0)">Personal Loan <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <div class="dropdown-menu">
+              <a href="/personal-overdraft">Personal Overdraft</a>
+              <a href="/balance-transfer">Balance Transfer</a>
+              <a href="/debt-consildation">Debt Consolidation</a>
+              <a href="/insta-loan">Insta Loan</a>
+            </div>
+          </div>
+          <div class="nav-dropdown">
+            <a href="#">Business Loan <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <div class="dropdown-menu">
+              <a href="/working-capital">Working Capital</a>
+              <a href="/unsecured-business-loan">Unsecured Business Loan</a>
+              <a href="/business-overdraft">Business Overdraft</a>
+            </div>
+          </div>
+          <div class="nav-dropdown">
+            <a href="#">Professional Loan <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <div class="dropdown-menu">
+              <a href="/loan-for-ca">Loan For CA</a>
+              <a href="/loan-for-cs">Loan For CS</a>
+              <a href="/loan-for-doctor">Loan For Doctors</a>
+            </div>
+          </div>
+          <div class="nav-dropdown">
+            <a href="#">Secured Loan <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <div class="dropdown-menu">
+              <a href="/loan-against-property">Loan Against Property</a>
+              <a href="/home-loan">Home Loan</a>
+              <a href="/car-loan">Car Loan</a>
+            </div>
+          </div>
+          <a href="/credit-card" class="simple-link">Credit Cards</a>
+          <a href="/apply" class="mobile-apply-btn">Apply Now</a>
+        </nav>
+        <a href="/apply" class="desktop-apply-btn">Apply Now</a>
+      </div>
+    </header>
+  </div>
+
+  <div class="ap-page">
+
+    <!-- LEFT -->
+    <div class="ap-left">
+      <div class="ap-left-inner">
+        <h1>Your Dream is<br><span class="ap-wavy">4 Steps Away.</span><br><span style="font-size:0.65em;font-weight:600;">Apply, Approve, Receive — Effortlessly.</span></h1>
+
+        <div class="ap-bullets">
+          <div class="ap-bullet">
+            <div class="ap-bullet-icon" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4);box-shadow:0 4px 12px rgba(14,165,233,0.35);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="ap-bullet-text">Personal Loans at interest rates starting from 9.99% per annum</div>
+          </div>
+          <div class="ap-bullet">
+            <div class="ap-bullet-icon" style="background:linear-gradient(135deg,#10b981,#34d399);box-shadow:0 4px 12px rgba(16,185,129,0.35);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="ap-bullet-text">Expand your business with quick approval Business Loans</div>
+          </div>
+          <div class="ap-bullet">
+            <div class="ap-bullet-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);box-shadow:0 4px 12px rgba(245,158,11,0.35);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="ap-bullet-text">Save up to 50% with Debt Consolidation — pay just 1 EMI</div>
+          </div>
+          <div class="ap-bullet">
+            <div class="ap-bullet-icon" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);box-shadow:0 4px 12px rgba(139,92,246,0.35);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="ap-bullet-text">Compare offers from 90+ banks & NBFCs — completely free</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ap-stats-bar ks-stats-bar">
+        <div class="ap-sstat">
+          <strong><span class="ks-count" data-target="1" data-suffix="L+">0</span></strong>
+          <span>Customers Served</span>
+        </div>
+        <div class="ap-sstat">
+          <strong><span class="ks-count" data-target="90" data-suffix="+">0</span></strong>
+          <span>Lenders</span>
+        </div>
+        <div class="ap-sstat">
+          <strong><span class="ks-count" data-prefix="₹" data-target="500" data-suffix="Cr+">0</span></strong>
+          <span>Loans Disbursed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="ap-right">
+
+      <a href="javascript:history.back()" class="ap-back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg> Back</a>
+
+      <div class="ap-form-title">Enter Your Basic Details</div>
+
+      <form id="applyForm" novalidate>
+
+        <!-- Work Profile -->
+        <div class="ap-flabel">Current Work Profile <span>*</span></div>
+        <div class="ap-sel-cards">
+          <div class="ap-sel-card active" data-group="work" data-val="Salaried">
+            <i class="fa-solid fa-user-tie"></i> Salaried
+          </div>
+          <div class="ap-sel-card" data-group="work" data-val="Self Employed">
+            <i class="fa-solid fa-store"></i> Self-Employed
+          </div>
+          <div class="ap-sel-card" data-group="work" data-val="Business Owner">
+            <i class="fa-solid fa-briefcase"></i> Business Owner
+          </div>
+        </div>
+        <input type="hidden" id="af-occupation" value="Salaried" />
+
+        <div class="ap-fields-grid">
+
+          <div class="ap-field">
+            <div class="ap-flabel">Full Name <span>*</span></div>
+            <input type="text" id="af-name" placeholder="Enter your full name" />
+            <span class="ap-err" id="err-name"></span>
+          </div>
+
+          <div class="ap-field">
+            <div class="ap-flabel">Mobile Number <span>*</span></div>
+            <input type="tel" id="af-phone" maxlength="10" placeholder="10-digit mobile number" />
+            <span class="ap-err" id="err-phone"></span>
+          </div>
+
+          <div class="ap-field">
+            <div class="ap-flabel">City <span>*</span></div>
+            <input type="text" id="af-city" placeholder="Enter your city" />
+            <span class="ap-err" id="err-city"></span>
+          </div>
+
+          <div class="ap-field">
+            <div class="ap-flabel">Net Monthly Income <span>*</span></div>
+            <select id="af-income">
+              <option value="">Select Income</option>
+              <option>Below ₹25,000</option>
+              <option>₹25,000 – ₹50,000</option>
+              <option>₹50,000 – ₹1 Lakh</option>
+              <option>₹1 Lakh – ₹3 Lakh</option>
+              <option>Above ₹3 Lakh</option>
+            </select>
+            <span class="ap-err" id="err-income"></span>
+          </div>
+
+          <div class="ap-field">
+            <div class="ap-flabel">Loan Category <span>*</span></div>
+            <select id="af-product">
+              <option value="">Select Loan Type</option>
+              <optgroup label="Personal Loans">
+                <option value="Personal Loan">Personal Loan</option>
+                <option value="Personal Overdraft">Personal Overdraft</option>
+                <option value="Balance Transfer">Balance Transfer</option>
+                <option value="Debt Consolidation">Debt Consolidation</option>
+                <option value="Insta Loan">Insta Loan</option>
+              </optgroup>
+              <optgroup label="Business Loans">
+                <option value="Business Loan">Business Loan</option>
+                <option value="Working Capital">Working Capital</option>
+                <option value="Unsecured Business Loan">Unsecured Business Loan</option>
+                <option value="Business Overdraft">Business Overdraft</option>
+              </optgroup>
+              <optgroup label="Professional Loans">
+                <option value="Professional Loan">Professional Loan</option>
+                <option value="Loan for CA">Loan for CA</option>
+                <option value="Loan for CS">Loan for CS</option>
+                <option value="Loan for Doctor">Loan for Doctor</option>
+              </optgroup>
+              <optgroup label="Secured Loans">
+                <option value="Loan Against Property">Loan Against Property</option>
+                <option value="Home Loan">Home Loan</option>
+                <option value="Car Loan">Car Loan</option>
+              </optgroup>
+              <optgroup label="Other">
+                <option value="Credit Card">Credit Card</option>
+              </optgroup>
+            </select>
+            <span class="ap-err" id="err-product"></span>
+          </div>
+
+          <div class="ap-field">
+            <div class="ap-flabel">PAN Card <span style="font-weight:400;color:#94a3b8;">(Optional)</span></div>
+            <input type="text" id="af-pan" maxlength="10" placeholder="ABCDE1234F" style="text-transform:uppercase;" />
+            <span class="ap-err" id="err-pan"></span>
+          </div>
+
+        </div>
+
+        <div class="ap-consent">
+          <input type="checkbox" id="ap-consent-chk" checked />
+          <label for="ap-consent-chk">By continuing, you agree to KreditSeva's <a href="/terms-conditon">Terms & Conditions</a>, <a href="/privacy-policy">Privacy Policy</a>, and authorise contact via Call, SMS, Email, or WhatsApp.</label>
+        </div>
+
+        <button type="submit" class="ap-submit" id="apply-btn">Apply Now</button>
+
+        <div class="ap-success" id="apply-success">
+          <i class="fa-solid fa-circle-check"></i>
+          <h4>Application Submitted!</h4>
+          <p>Our loan expert will call you within 30 minutes.</p>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <a href="https://wa.me/919138130188" target="_blank" rel="noopener" class="whatsapp-float" style="right:8px; bottom:16px;"><i class="fa-brands fa-whatsapp"></i></a>
+  <a href="tel:+919990033593" class="call-float" style="right:8px; bottom:84px;"><i class="fa-solid fa-phone"></i></a>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="/js/custom.js"></script>
+  <script src="/js/loader.js"></script>
+
+  <script>
+  $(document).ready(function() {
+    $('#af-product').select2({
+      placeholder: 'Select Loan Type',
+      allowClear: true,
+      width: '100%'
+    });
+  });
+  </script>
+
+  <script>
+  (function () {
+    document.querySelectorAll('.ap-sel-card').forEach(function(card) {
+      card.addEventListener('click', function() {
+        var group = card.getAttribute('data-group');
+        document.querySelectorAll('.ap-sel-card[data-group="' + group + '"]').forEach(function(c) { c.classList.remove('active'); });
+        card.classList.add('active');
+        document.getElementById('af-occupation').value = card.getAttribute('data-val');
+      });
+    });
+  })();
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,557 @@
+/* ============================================================
+   ABOUT US PAGE — about.css
+============================================================ */
+
+/* Remove gap between CTA and footer */
+body { background: #040f2d; }
+.site-footer { margin-top: 0; }
+
+.au-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ---- Shared eyebrow ---- */
+.au-section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #00d4ff;
+  padding: 6px 16px;
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.22);
+  border-radius: 50px;
+  margin-bottom: 18px;
+}
+
+/* ---- Shared section head ---- */
+.au-section-head {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 60px;
+}
+
+.au-section-head h2 {
+  
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 800;
+  color: #0d1547;
+  line-height: 1.15;
+  margin-bottom: 14px;
+  letter-spacing: -0.5px;
+}
+
+.au-section-head h2 span {
+  background: linear-gradient(135deg, #1a52cc, #00cfff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-style: italic;
+  padding-right: 4px;
+}
+
+.au-section-head p {
+  font-size: 1rem;
+  color: #5a6a8a;
+  line-height: 1.75;
+}
+
+/* ============================================================
+   HERO
+============================================================ */
+.au-hero {
+  position: relative;
+  padding: 90px 32px 80px;
+  background: linear-gradient(135deg, #030c22 0%, #071540 50%, #0a1f5c 100%);
+  overflow: hidden;
+  text-align: center;
+}
+
+.au-hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+}
+
+.au-orb-1 {
+  width: 500px; height: 500px;
+  background: rgba(0,212,255,0.08);
+  top: -200px; right: -100px;
+}
+
+.au-orb-2 {
+  width: 400px; height: 400px;
+  background: rgba(26,82,204,0.1);
+  bottom: -150px; left: -80px;
+}
+
+.au-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.au-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #00d4ff;
+  padding: 7px 18px;
+  background: rgba(0,212,255,0.12);
+  border: 1px solid rgba(0,212,255,0.25);
+  border-radius: 50px;
+  margin-bottom: 24px;
+}
+
+.au-hero h1 {
+  
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+
+.au-hero h1 span {
+  background: linear-gradient(135deg, #5ee0ff, #4d7fff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-style: italic;
+  padding-right: 6px;
+  overflow: visible;
+  display: inline;
+}
+
+.au-hero p {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.75;
+  max-width: 620px;
+  margin: 0 auto 48px;
+}
+
+/* Hero stats */
+.au-hero-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 28px 40px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.au-hstat {
+  flex: 1;
+  text-align: center;
+}
+
+.au-hstat strong {
+  display: block;
+  
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.au-hstat span {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.au-hstat-div {
+  width: 1px;
+  height: 40px;
+  background: rgba(255,255,255,0.12);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   OUR STORY
+============================================================ */
+.au-story {
+  padding: 100px 32px;
+  background: #f5f8ff;
+}
+
+.au-story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+
+.au-story-left .au-section-eyebrow {
+  color: #1a52cc;
+  background: rgba(26,82,204,0.08);
+  border-color: rgba(26,82,204,0.2);
+}
+
+.au-story-left h2 {
+  
+  font-size: clamp(1.9rem, 3vw, 2.8rem);
+  font-weight: 800;
+  color: #0d1547;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.au-story-left h2 span {
+  background: linear-gradient(135deg, #1a52cc, #00cfff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-style: italic;
+  padding-right: 4px;
+}
+
+.au-story-left p {
+  font-size: 0.97rem;
+  color: #5a6a8a;
+  line-height: 1.8;
+  margin-bottom: 18px;
+}
+
+.au-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #1a52cc, #4d7fff);
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 13px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  margin-top: 10px;
+  box-shadow: 0 10px 28px rgba(26,82,204,0.3);
+  transition: all 0.25s ease;
+}
+
+.au-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(26,82,204,0.4);
+}
+
+/* Value cards grid */
+.au-story-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.au-value-card {
+  background: #fff;
+  border: 1px solid #e8eef8;
+  border-radius: 20px;
+  padding: 24px 20px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(13,21,71,0.05);
+}
+
+.au-value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(13,21,71,0.1);
+  border-color: rgba(26,82,204,0.2);
+}
+
+.au-value-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.au-value-icon i {
+  font-size: 1.1rem;
+  color: var(--ic, #00d4ff);
+}
+
+.au-value-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0d1547;
+  margin-bottom: 8px;
+}
+
+.au-value-card p {
+  font-size: 0.84rem;
+  color: #5a6a8a;
+  line-height: 1.65;
+}
+
+/* ============================================================
+   WHAT WE OFFER
+============================================================ */
+.au-offer {
+  padding: 100px 32px;
+  background: #fff;
+}
+
+.au-offer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.au-offer-card {
+  background: #f5f8ff;
+  border: 1px solid #e2eaf8;
+  border-radius: 20px;
+  padding: 30px 24px;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.au-offer-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1a52cc, #00cfff);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.au-offer-card:hover::before {
+  transform: scaleX(1);
+}
+
+.au-offer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 44px rgba(26,82,204,0.12);
+  border-color: rgba(26,82,204,0.2);
+}
+
+.au-offer-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #1a52cc, #4d7fff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 20px rgba(26,82,204,0.25);
+}
+
+.au-offer-icon i {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.au-offer-card h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0d1547;
+  margin-bottom: 8px;
+}
+
+.au-offer-card p {
+  font-size: 0.87rem;
+  color: #5a6a8a;
+  line-height: 1.7;
+}
+
+/* ============================================================
+   WHY KREDITSEVA
+============================================================ */
+.au-why {
+  padding: 100px 32px;
+  background: linear-gradient(135deg, #030c22 0%, #071540 60%, #0a1f5c 100%);
+}
+
+.au-why .au-section-head h2 {
+  color: #fff;
+}
+
+.au-why .au-section-head h2 span {
+  background: linear-gradient(135deg, #5ee0ff, #4d7fff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.au-why .au-section-head p {
+  color: rgba(255,255,255,0.55);
+}
+
+.au-why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.au-why-item {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 20px;
+  padding: 32px 26px;
+  transition: all 0.25s ease;
+}
+
+.au-why-item:hover {
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(0,212,255,0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 44px rgba(0,0,0,0.25);
+}
+
+.au-why-num {
+  
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.08);
+  line-height: 1;
+  margin-bottom: 16px;
+  letter-spacing: -2px;
+}
+
+.au-why-item h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.au-why-item p {
+  font-size: 0.87rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   CTA STRIP
+============================================================ */
+.au-cta-strip {
+  padding: 80px 32px;
+  background: linear-gradient(135deg, #0a1f5c 0%, #1a52cc 50%, #0a2463 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative orbs */
+.au-cta-strip::before {
+  content: "";
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: rgba(0,212,255,0.08);
+  filter: blur(80px);
+  top: -150px; right: -80px;
+  pointer-events: none;
+}
+
+.au-cta-strip::after {
+  content: "";
+  position: absolute;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  filter: blur(60px);
+  bottom: -100px; left: -60px;
+  pointer-events: none;
+}
+
+.au-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+
+.au-cta-inner h2 {
+  
+  font-size: clamp(1.7rem, 2.5vw, 2.4rem);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.au-cta-inner p {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.75);
+}
+
+.au-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  color: #1a52cc;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 16px 36px;
+  border-radius: 50px;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.au-cta-btn:hover {
+  background: #f0f5ff;
+  transform: translateY(-3px);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.3);
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 991px) {
+  .au-story-grid { grid-template-columns: 1fr; gap: 48px; }
+  .au-offer-grid { grid-template-columns: repeat(2, 1fr); }
+  .au-why-grid { grid-template-columns: repeat(2, 1fr); }
+  .au-hero-stats { padding: 24px 20px; }
+}
+
+@media (max-width: 640px) {
+  .au-hero { padding: 60px 20px 56px; }
+  .au-hero h1 { font-size: 2.2rem; }
+  .au-hero-stats { flex-wrap: wrap; }
+  .au-hstat { flex: 1 1 40%; padding: 10px 0; }
+  .au-hstat-div { display: none; }
+  .au-story, .au-offer, .au-why { padding: 64px 20px; }
+  .au-offer-grid { grid-template-columns: 1fr; }
+  .au-why-grid { grid-template-columns: 1fr; }
+  .au-story-right { grid-template-columns: 1fr; }
+  .au-cta-inner { flex-direction: column; text-align: center; }
+  .au-cta-btn { width: 100%; justify-content: center; }
+}

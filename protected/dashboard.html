@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | KreditSeva Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sb-logo">Kredit<span>Seva</span> <small>Admin</small></div>
+
+    <nav class="sb-nav">
+      <a href="/admin/dashboard" class="sb-link active">
+        <i class="fa-solid fa-gauge-high"></i> Dashboard
+      </a>
+      <a href="/admin/blogs" class="sb-link">
+        <i class="fa-solid fa-pen-nib"></i> Blogs
+      </a>
+      <a href="#" class="sb-link">
+        <i class="fa-solid fa-file-invoice"></i> Loan Applications
+      </a>
+      <a href="#" class="sb-link">
+        <i class="fa-solid fa-users"></i> Users
+      </a>
+      <a href="#" class="sb-link">
+        <i class="fa-solid fa-chart-bar"></i> Reports
+      </a>
+      <a href="#" class="sb-link">
+        <i class="fa-solid fa-gear"></i> Settings
+      </a>
+    </nav>
+
+    <button class="sb-logout" id="logoutBtn">
+      <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </button>
+
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <button class="topbar-toggle" id="sidebarToggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="topbar-title">Dashboard</div>
+      <div class="topbar-admin">
+        <div class="topbar-avatar" id="adminAvatar">A</div>
+        <div class="topbar-info">
+          <span class="topbar-name" id="adminName">Admin</span>
+          <span class="topbar-role" id="adminRole">Super Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page content -->
+    <div class="content">
+
+      <!-- Welcome -->
+      <div class="welcome">
+        <div>
+          <h2 class="welcome-title">Welcome back, <span id="welcomeName">Admin</span> 👋</h2>
+          <p class="welcome-sub">Here's what's happening with KreditSeva today.</p>
+        </div>
+        <div class="welcome-date" id="welcomeDate"></div>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="stats-grid">
+
+        <div class="stat-card">
+          <div class="stat-icon stat-icon--blue">
+            <i class="fa-solid fa-file-invoice"></i>
+          </div>
+          <div class="stat-body">
+            <span class="stat-label">Total Applications</span>
+            <span class="stat-value" id="statTotal">—</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon stat-icon--yellow">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <div class="stat-body">
+            <span class="stat-label">Pending</span>
+            <span class="stat-value" id="statPending">—</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon stat-icon--green">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div class="stat-body">
+            <span class="stat-label">Approved</span>
+            <span class="stat-value" id="statApproved">—</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon stat-icon--red">
+            <i class="fa-solid fa-circle-xmark"></i>
+          </div>
+          <div class="stat-body">
+            <span class="stat-label">Rejected</span>
+            <span class="stat-value" id="statRejected">—</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Quick Actions</h3>
+        </div>
+        <div style="display:flex; gap:12px; padding:20px; flex-wrap:wrap;">
+          <a href="blogs.html" style="display:inline-flex; align-items:center; gap:8px; padding:12px 20px; background:#eff4ff; color:#1a52cc; border-radius:10px; font-weight:700; font-size:0.88rem; text-decoration:none; transition:background 0.18s;">
+            <i class="fa-solid fa-pen-nib"></i> Manage Blogs
+          </a>
+          <a href="/admin/blog-editor" style="display:inline-flex; align-items:center; gap:8px; padding:12px 20px; background:linear-gradient(135deg,#0d1547,#1a52cc); color:#fff; border-radius:10px; font-weight:700; font-size:0.88rem; text-decoration:none; box-shadow:0 4px 14px rgba(26,82,204,0.25); transition:opacity 0.18s;">
+            <i class="fa-solid fa-plus"></i> New Blog Post
+          </a>
+        </div>
+      </div>
+
+      <!-- Recent Applications Table -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Recent Applications</h3>
+          <a href="#" class="card-link">View All <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="table-wrap">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th>#ID</th>
+                <th>Applicant</th>
+                <th>Loan Type</th>
+                <th>Amount</th>
+                <th>Applied On</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="recentTableBody">
+              <tr>
+                <td colspan="6" class="tbl-empty">Loading...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Sidebar overlay (mobile) -->
+  <div class="sb-overlay" id="sbOverlay"></div>
+  <script src="js/check-auth.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

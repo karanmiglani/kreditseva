@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | KreditSeva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+  <div class="login-box">
+
+    <div class="lb-logo">Kredit<span>Seva</span> <small>Admin</small></div>
+
+    <h1>Sign In</h1>
+    <p class="lb-sub">Enter your credentials to access the admin panel</p>
+
+    <form id="loginForm">
+
+      <div class="lb-field" id="fieldEmail">
+        <label for="adminEmail">Email</label>
+        <div class="lb-input">
+          <i class="fa-regular fa-envelope"></i>
+          <input type="email" id="adminEmail" placeholder="admin@kreditseva.com" autocomplete="email" />
+        </div>
+        <span class="lb-err" id="emailErr"></span>
+      </div>
+
+      <div class="lb-field" id="fieldPassword">
+        <label for="adminPassword">Password</label>
+        <div class="lb-input">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="adminPassword" placeholder="Enter password" autocomplete="current-password" />
+          <button type="button" id="togglePass"><i class="fa-regular fa-eye"></i></button>
+        </div>
+        <span class="lb-err" id="passErr"></span>
+      </div>
+
+      <div class="lb-alert" id="loginAlert" style="display:none;">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span id="loginAlertMsg"></span>
+      </div>
+
+      <button type="submit" class="lb-btn" id="loginBtn">
+        <span id="btnText">Sign In</span>
+        <span id="btnSpinner" class="lb-spinner" style="display:none;"></span>
+      </button>
+
+    </form>
+
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

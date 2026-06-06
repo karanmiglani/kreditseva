@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Editor | KreditSeva Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/blogs-admin.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sb-logo">Kredit<span>Seva</span> <small>Admin</small></div>
+
+    <nav class="sb-nav">
+      <a href="/admin/dashboard" class="sb-link active">
+        <i class="fa-solid fa-gauge-high"></i> Dashboard
+      </a>
+      <a href="/admin/blogs" class="sb-link">
+        <i class="fa-solid fa-pen-nib"></i> Blogs
+      </a>
+      <a href="#" class="sb-link">
+        <i class="fa-solid fa-file-invoice"></i> Loan Applications
+      </a>
+      <a href="#" class="sb-link">
+        <i class="fa-solid fa-users"></i> Users
+      </a>
+      <a href="#" class="sb-link">
+        <i class="fa-solid fa-chart-bar"></i> Reports
+      </a>
+      <a href="#" class="sb-link">
+        <i class="fa-solid fa-gear"></i> Settings
+      </a>
+    </nav>
+
+    <button class="sb-logout" id="logoutBtn">
+      <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </button>
+
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <button class="topbar-toggle" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+      <div class="topbar-title" id="editorPageTitle">New Blog</div>
+      <div class="topbar-admin">
+        <div class="topbar-avatar" id="adminAvatar">A</div>
+        <div class="topbar-info">
+          <span class="topbar-name" id="adminName">Admin</span>
+          <span class="topbar-role" id="adminRole">Super Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="content">
+
+      <form id="blogForm">
+
+        <div class="editor-layout">
+
+          <!-- Left: main content -->
+          <div class="editor-main">
+
+            <!-- Title -->
+            <div class="editor-card">
+              <input
+                type="text"
+                id="blogTitle"
+                class="title-input"
+                placeholder="Blog title likhein..."
+                maxlength="150"
+              />
+              <!-- Slug preview -->
+              <div class="slug-row">
+                <span class="slug-label">Slug:</span>
+                <span class="slug-val" id="slugPreview">blog-title-yahaan-aayega</span>
+              </div>
+            </div>
+
+            <!-- Rich Text Editor -->
+            <div class="editor-card editor-card--nopad">
+              <textarea id="blogEditor"></textarea>
+            </div>
+
+            <!-- SEO Section -->
+            <div class="editor-card">
+              <h4 class="section-heading"><i class="fa-solid fa-magnifying-glass"></i> SEO Settings</h4>
+              <div class="form-group">
+                <label>Meta Title</label>
+                <input type="text" id="metaTitle" placeholder="SEO ke liye title (60 char max)" maxlength="60" />
+                <span class="char-count" id="metaTitleCount">0/60</span>
+              </div>
+              <div class="form-group">
+                <label>Meta Description</label>
+                <textarea id="metaDesc" rows="3" placeholder="SEO ke liye description (160 char max)" maxlength="160"></textarea>
+                <span class="char-count" id="metaDescCount">0/160</span>
+              </div>
+              <div class="form-group">
+                <label>Meta Keywords</label>
+                <input type="text" id="metaKeywords" placeholder="e.g. personal loan, EMI tips, CIBIL score" />
+                <small style="color:#94a3b8; font-size:0.72rem; font-weight:600;">Comma se alag karein — Google ke liye</small>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: settings panel -->
+          <div class="editor-side">
+
+            <!-- Publish box -->
+            <div class="editor-card">
+              <h4 class="section-heading"><i class="fa-solid fa-upload"></i> Publish</h4>
+              <div class="form-group">
+                <label>Status</label>
+                <select id="blogStatus">
+                  <option value="draft">Draft</option>
+                  <option value="published">Published</option>
+                </select>
+              </div>
+              <div class="publish-actions">
+                <button type="button" class="btn-ghost" id="saveDraftBtn">
+                  <i class="fa-regular fa-floppy-disk"></i> Save Draft
+                </button>
+                <button type="submit" class="btn-primary" id="publishBtn">
+                  <span id="publishBtnText">Publish</span>
+                  <span id="publishSpinner" class="btn-spinner" style="display:none;"></span>
+                </button>
+              </div>
+              <!-- Save feedback -->
+              <p class="save-msg" id="saveMsg"></p>
+            </div>
+
+            <!-- Category -->
+            <div class="editor-card">
+              <h4 class="section-heading"><i class="fa-solid fa-tag"></i> Category</h4>
+              <div class="form-group">
+                <select id="blogCategory">
+                  <option value="">-- Select --</option>
+                  <option value="personal-loan">Personal Loan</option>
+                  <option value="business-loan">Business Loan</option>
+                  <option value="professional-loan">Professional Loan</option>
+                  <option value="secured-loan">Secured Loan</option>
+                  <option value="credit-score">Credit Score</option>
+                  <option value="investment">Investment</option>
+                  <option value="others">Others</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Featured Image -->
+            <div class="editor-card">
+              <h4 class="section-heading"><i class="fa-solid fa-image"></i> Featured Image</h4>
+              <div class="img-upload-area" id="imgUploadArea">
+                <img id="imgPreview" src="" alt="" style="display:none;" />
+                <div class="img-placeholder" id="imgPlaceholder">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                  <span>Click karein ya drag & drop</span>
+                  <small>PNG, JPG — max 2MB</small>
+                </div>
+                <input type="file" id="featuredImg" accept="image/*" style="display:none;" />
+              </div>
+              <button type="button" class="btn-ghost btn-sm" id="removeImgBtn" style="display:none; margin-top:8px;">
+                <i class="fa-solid fa-trash"></i> Remove
+              </button>
+            </div>
+
+            <!-- Read Time -->
+            <div class="editor-card">
+              <h4 class="section-heading"><i class="fa-regular fa-clock"></i> Read Time</h4>
+              <div class="form-group">
+                <div class="read-time-row">
+                  <input type="number" id="readTime" value="5" min="1" max="60" />
+                  <span>min read</span>
+                </div>
+                <p class="read-time-auto" id="readTimeAuto"></p>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="sb-overlay" id="sbOverlay"></div>
+
+  <script src="libs/tinymce/js/tinymce/tinymce.min.js"></script>
+  <script src="js/check-auth.js"></script>
+  <script src="js/blog-editor.js"></script>
+</body>
+</html>
