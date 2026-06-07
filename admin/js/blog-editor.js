@@ -112,7 +112,7 @@
     try {
 
       const resp = await fetch(
-        `http://localhost:3000/api/blog/get-blog/${blogId}`,
+        `https://kreditseva.onrender.com/api/blog/get-blog/${blogId}`,
         {
           method: 'GET',
           credentials: 'include'
@@ -481,8 +481,8 @@
     try {
 
       const url = blogId
-        ? `http://localhost:3000/api/blog/update-blog/${blogId}`
-        : `http://localhost:3000/api/blog/add-blog`;
+        ? `https://kreditseva.onrender.com/api/blog/update-blog/${blogId}`
+        : `https://kreditseva.onrender.com/api/blog/add-blog`;
 
       const method = blogId
         ? 'PUT'

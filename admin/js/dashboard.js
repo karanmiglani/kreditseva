@@ -37,7 +37,7 @@
   /* ── Load stats from API ── */
   async function loadStats() {
     try {
-      const res  = await fetch('http://localhost:5000/api/admin/stats', {
+      const res  = await fetch('https://kreditseva.onrender.com/api/admin/stats', {
         headers: { Authorization: 'Bearer ' + token }
       });
       const data = await res.json();
@@ -58,7 +58,7 @@
     const tbody = document.getElementById('recentTableBody');
 
     try {
-      const res  = await fetch('http://localhost:5000/api/admin/applications?limit=8', {
+      const res  = await fetch('https://kreditseva.onrender.com/api/admin/applications?limit=8', {
         headers: { Authorization: 'Bearer ' + token }
       });
       const data = await res.json();

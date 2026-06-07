@@ -20,7 +20,7 @@
 
   async function getBlogs(page = 1){
     try{
-      const resp = await fetch(`http://localhost:3000/api/blog/get-blogs?page=${page}&limit=${limit}`,{
+      const resp = await fetch(`https://kreditseva.onrender.com/api/blog/get-blogs?page=${page}&limit=${limit}`,{
         method : "GET",
         credentials : 'include'
       });
@@ -160,7 +160,7 @@ function renderPagination(totalPages, currentPage){
 
   async function deleteBlogs(blogId){
     try {
-      const resp = await fetch(`http://localhost:3000/api/blog/delete-blog/${blogId}`, {
+      const resp = await fetch(`https://kreditseva.onrender.com/api/blog/delete-blog/${blogId}`, {
       method : 'DELETE',
       credentials : 'include'
     });

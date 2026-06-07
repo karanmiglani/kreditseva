@@ -234,7 +234,7 @@ function initPopup() {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/api/loan-application", {
+      const response = await fetch("https://kreditseva.onrender.com/api/loan-application", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

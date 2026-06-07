@@ -4,7 +4,7 @@
 
     async function checkAuth(){
         try{
-            const resp = await fetch('http://localhost:3000/api/auth/check-auth', {
+            const resp = await fetch('https://kreditseva.onrender.com/api/auth/check-auth', {
                 credentials : 'include'
             });
             const data = await resp.json();
