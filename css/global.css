@@ -2242,6 +2242,8 @@ body.popup-open {
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
   gap: 6px;
   padding: 4px 0;
   font-family: inherit;
