@@ -132,14 +132,16 @@
         <form class="pl-form" onsubmit="return false;">
           <div class="pl-form-field">
             <label>Full Name</label>
-            <input type="text" placeholder="Enter your full name"/>
+            <input type="text" id="heroName" placeholder="Enter your full name"/>
+            <span class="pl-field-err" id="err-heroName"></span>
           </div>
           <div class="pl-form-field">
             <label>Mobile Number</label>
             <div class="pl-phone-wrap">
               <span class="pl-phone-code"><i class="fa-solid fa-phone"></i> +91</span>
-              <input type="tel" placeholder="Enter mobile number" maxlength="10"/>
+              <input type="tel" id="heroPhone" placeholder="Enter mobile number" maxlength="10"/>
             </div>
+            <span class="pl-field-err" id="err-heroPhone"></span>
           </div>
           <button type="submit" class="pl-form-btn" onclick="openLoanPopup('<%= page.popup %>')">
             Proceed — Check Eligibility
@@ -254,7 +256,7 @@
           </div>
           <div class="pl-elig-items">
             <div class="pl-elig-item"><div class="pl-elig-item-icon" style="background:rgba(0,207,255,0.1);color:#00a8d6;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div><div><span>Age</span><strong>21 to 60 years</strong></div></div>
-            <div class="pl-elig-item"><div class="pl-elig-item-icon" style="background:rgba(74,222,128,0.1);color:#22a85a;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg></div><div><span>Monthly Income</span><strong>₹20,000+</strong></div></div>
+            <div class="pl-elig-item"><div class="pl-elig-item-icon" style="background:rgba(74,222,128,0.1);color:#22a85a;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg></div><div><span>Monthly Income</span><strong><%= page.minIncome %>+</strong></div></div>
             <div class="pl-elig-item"><div class="pl-elig-item-icon" style="background:rgba(255,185,71,0.1);color:#c47e00;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><span>Credit Score</span><strong>650+ preferred</strong></div></div>
             <div class="pl-elig-item"><div class="pl-elig-item-icon" style="background:rgba(139,109,255,0.1);color:#6c4edb;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/></svg></div><div><span>Employment</span><strong>Salaried / Self-employed</strong></div></div>
           </div>
