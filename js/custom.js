@@ -70,6 +70,49 @@ if (ksBars.length) {
 }
 
 // ================================================================
+//  TRENDING SEARCHES — Collapse/Expand + Location Accordion
+//  IDs: #trendingToggle, #trendingBody
+//  Classes: .trending-arrow, .tl-acc-btn, .tl-acc-body
+// ================================================================
+
+const trendingToggle = document.getElementById('trendingToggle');
+const trendingBody   = document.getElementById('trendingBody');
+const trendingArrow  = trendingToggle && trendingToggle.querySelector('.trending-arrow');
+
+// Header click pe poora section collapse/expand
+if (trendingToggle && trendingBody) {
+  trendingToggle.addEventListener('click', () => {
+    const hidden = trendingBody.classList.toggle('hidden');
+    if (trendingArrow) trendingArrow.classList.toggle('collapsed', hidden);
+  });
+}
+
+// Location accordion — ek baar mein sirf ek open
+document.querySelectorAll('.tl-acc-btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const accBody = btn.nextElementSibling;
+    const isOpen  = accBody.classList.contains('open');
+
+    // Pehle sab band karo
+    document.querySelectorAll('.tl-acc-body').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.tl-acc-btn').forEach(b => b.classList.remove('open'));
+
+    // Agar band tha toh kholo
+    if (!isOpen) {
+      accBody.classList.add('open');
+      btn.classList.add('open');
+    }
+  });
+});
+
+// Bahar click karne pe accordion band karo
+document.addEventListener('click', () => {
+  document.querySelectorAll('.tl-acc-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.tl-acc-btn').forEach(b => b.classList.remove('open'));
+});
+
+// ================================================================
 //  UNIVERSAL SCROLL REVEAL — data-animate attribute
 //  Usage: <div data-animate="fade-up"> ya fade-left, fade-right, fade-in, zoom
 //  Optional: data-delay="300" (ms)
