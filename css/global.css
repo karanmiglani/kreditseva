@@ -767,12 +767,13 @@ body {
     grid-template-columns: 1fr;
     gap: 20px;
     padding: 30px 5% 20px;
+    text-align: center;
   }
 
   .footer-brand {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .footer-brand p {
@@ -783,6 +784,7 @@ body {
 
   .footer-links {
     gap: 4px;
+    align-items: center;
   }
 
   .footer-links h4 {
