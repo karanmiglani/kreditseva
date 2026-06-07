@@ -38,6 +38,10 @@ app.use('/api/blog/', blogRoutes);
 const port = process.env.PORT;
 
 
-app.listen(port,() => {
+const server = app.listen(port,() => {
     console.log("Server runing at port 3000...");
 })
+
+server.on('error', (err) => {
+    console.error('Listen Error:', err);
+});
