@@ -2309,4 +2309,24 @@ body.popup-open {
   .trending-calculators { flex-direction: column; gap: 8px; }
 }
 
+/* ================================================================
+   HERO FORM — Error messages (used in loan-amount & loan-city pages)
+================================================================ */
+
+.pl-field-err {
+  display: none;
+  font-size: 0.72rem;
+  color: #ef4444;
+  margin-top: 4px;
+}
+
+.pl-form-field.has-error input {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.08);
+}
+
+.pl-form-field.has-error .pl-field-err {
+  display: block;
+}
+
 
