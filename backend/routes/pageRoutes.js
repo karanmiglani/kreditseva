@@ -3,6 +3,7 @@ const path = require('path');
 const authMiddleware = require('../midllewares/authMiddleware');
 const { getLatestBlogs, featuredBlog, getBlog, getRecentArticles, relatedArticle } = require('../services/blogService');
 const loanAmountPages = require('../data/loanAmountPages');
+const { getPage: getCityPage } = require('../data/loanCityPages');
 const router = express.Router();
 
 
@@ -160,13 +161,19 @@ router.get('/apply', (req, resp) => {
     resp.sendFile(path.join(__dirname,'../../pages/apply.html'));
 });
 
-// Loan Amount Dynamic Pages
+// Loan Amount & City Dynamic Pages
 router.get('/loan/:slug', (req, resp) => {
-    const page = loanAmountPages[req.params.slug];
-    if (!page) return resp.status(404).sendFile(path.join(__dirname, '../../pages/404.html'), err => {
-        if (err) resp.status(404).send('Page not found');
-    });
-    resp.render('loan-amount', { page });
+    const slug = req.params.slug;
+
+    // Pehle amount pages check karo
+    const amountPage = loanAmountPages[slug];
+    if (amountPage) return resp.render('loan-amount', { page: amountPage });
+
+    // Phir city pages check karo
+    const cityPage = getCityPage(slug);
+    if (cityPage) return resp.render('loan-city', { page: cityPage });
+
+    resp.status(404).send('Page not found');
 });
 
 router.get('/admin', (req,resp) => {
