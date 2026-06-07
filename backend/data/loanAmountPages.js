@@ -57,7 +57,7 @@ const loanAmountPages = {
     metaDesc: 'Apply for ₹10 Lakh Personal Loan online. Compare offers from 90+ banks & NBFCs. Low interest rates starting 9.99% p.a. Quick approval, minimal documents.',
     heroDesc: 'Get ₹10 Lakh personal loan with best rates from 90+ banks and NBFCs. No collateral, fast approval.',
     whatDesc1: 'A ₹10 Lakh personal loan is perfect for big-ticket expenses — overseas education, major home renovation, or debt consolidation.',
-    whatDesc2: 'KreditSeva's expert team helps you get ₹10 Lakh at the lowest available rate from 90+ lenders — completely free guidance.',
+    whatDesc2: 'KreditSeva\'s expert team helps you get ₹10 Lakh at the lowest available rate from 90+ lenders — completely free guidance.',
   },
   'personal-loan-15-lakh': {
     slug: 'personal-loan-15-lakh',
@@ -105,7 +105,7 @@ const loanAmountPages = {
     metaDesc: 'Apply for ₹30 Lakh Personal Loan online. Compare offers from 90+ banks & NBFCs. Low interest rates starting 9.99% p.a. Quick approval, minimal documents.',
     heroDesc: 'Get ₹30 Lakh personal loan from 90+ top lenders. Instant approval, no collateral, best rates.',
     whatDesc1: 'A ₹30 Lakh personal loan is suitable for high-value financial requirements — premium property interiors, large medical expenses, or major debt restructuring.',
-    whatDesc2: 'KreditSeva's network of 90+ lenders ensures you get the best possible rate for ₹30 Lakh — with end-to-end expert support.',
+    whatDesc2: 'KreditSeva\'s network of 90+ lenders ensures you get the best possible rate for ₹30 Lakh — with end-to-end expert support.',
   },
   'personal-loan-35-lakh': {
     slug: 'personal-loan-35-lakh',
@@ -153,7 +153,7 @@ const loanAmountPages = {
     metaDesc: 'Apply for ₹50 Lakh Personal Loan online. Compare offers from 90+ banks & NBFCs. Low interest rates starting 9.99% p.a. Quick approval, minimal documents.',
     heroDesc: 'Get ₹50 Lakh personal loan — the maximum unsecured personal loan — from 90+ top banks and NBFCs at best rates.',
     whatDesc1: 'A ₹50 Lakh personal loan is the maximum unsecured personal loan available in India, suitable for high-net-worth individuals with premium financial needs.',
-    whatDesc2: 'KreditSeva's expert team and 90+ lender network ensures you get the best rate for ₹50 Lakh — with zero cost to you.',
+    whatDesc2: 'KreditSeva\'s expert team and 90+ lender network ensures you get the best rate for ₹50 Lakh — with zero cost to you.',
   },
 };
 
