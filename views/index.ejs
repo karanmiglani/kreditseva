@@ -699,6 +699,110 @@
     </div>
   </section>
 
+  <section class="emi-section" data-animate id="emi-calculator">
+    <div class="emi-wrap">
+
+      <div class="emi-head">
+        <span class="emi-eyebrow">EMI CALCULATOR</span>
+        <h2>Personal Loan <span>EMI Calculator</span></h2>
+        <p>Adjust the sliders to calculate your monthly EMI, total interest, and repayment amount instantly.</p>
+      </div>
+
+      <div class="emi-card">
+
+        <div class="emi-left">
+          <h3>Loan Break-up</h3>
+          <div class="emi-donut-wrap">
+            <canvas id="emiPieChart"></canvas>
+            <div class="emi-donut-center">
+              <span class="emi-donut-label">Total</span>
+              <strong id="emiDonutTotal">₹ 0</strong>
+            </div>
+          </div>
+          <div class="emi-legend">
+            <div class="emi-leg-item">
+              <span class="emi-leg-dot" style="background:#1a52cc;"></span>
+              <span>Principal Amount</span>
+            </div>
+            <div class="emi-leg-item">
+              <span class="emi-leg-dot" style="background:#00cfff;"></span>
+              <span>Total Interest</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="emi-right">
+
+          <div class="emi-field">
+            <div class="emi-field-head">
+              <label>Loan Amount</label>
+              <div class="emi-val-box">
+                <span class="emi-prefix">₹</span>
+                <input type="number" id="loanAmount" value="1000000">
+              </div>
+            </div>
+            <input type="range" id="loanRange" min="50000" max="5000000" step="50000" value="1000000">
+            <div class="emi-range-labels"><span>₹50K</span><span>₹50L</span></div>
+          </div>
+
+          <div class="emi-field">
+            <div class="emi-field-head">
+              <label>Rate of Interest</label>
+              <div class="emi-val-box">
+                <input type="number" id="interestRate" value="12">
+                <span class="emi-suffix">%</span>
+              </div>
+            </div>
+            <input type="range" id="rateRange" min="1" max="30" step="0.5" value="12">
+            <div class="emi-range-labels"><span>1%</span><span>30%</span></div>
+          </div>
+
+          <div class="emi-field">
+            <div class="emi-field-head">
+              <label>Loan Tenure</label>
+              <div class="emi-val-box emi-tenure-box">
+                <input type="number" id="loanTenure" value="2">
+                <div class="emi-tenure-toggle">
+                  <button type="button" class="active" data-unit="years">Yr</button>
+                  <button type="button" data-unit="months">Mo</button>
+                </div>
+              </div>
+            </div>
+            <input type="range" id="tenureRange" min="1" max="10" step="1" value="2">
+            <div class="emi-range-labels"><span>1 Yr</span><span>10 Yr</span></div>
+          </div>
+
+          <div class="emi-results-row">
+            <div class="emi-res-item emi-res-highlight">
+              <span>Monthly EMI</span>
+              <strong id="monthlyEmi">₹ 0</strong>
+            </div>
+            <div class="emi-res-item">
+              <span>Principal</span>
+              <strong id="principalAmount">₹ 0</strong>
+            </div>
+            <div class="emi-res-item">
+              <span>Total Interest</span>
+              <strong id="totalInterest">₹ 0</strong>
+            </div>
+            <div class="emi-res-item">
+              <span>Total Payable</span>
+              <strong id="totalPayable">₹ 0</strong>
+            </div>
+          </div>
+
+          <a href="/apply" class="emi-apply-btn">
+            Apply Now
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+
+          <p class="emi-disclaimer"><i class="fas fa-shield-alt"></i> Indicative values only. Actual EMI may vary based on lender terms.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
 
   <!-- =========================
        TESTIMONIALS — REDESIGNED
@@ -980,110 +1084,6 @@
   <!-- =========================
        TRENDING SEARCHES SECTION
   ========================= -->
-  <section class="emi-section" data-animate id="emi-calculator">
-    <div class="emi-wrap">
-
-      <div class="emi-head">
-        <span class="emi-eyebrow">EMI CALCULATOR</span>
-        <h2>Personal Loan <span>EMI Calculator</span></h2>
-        <p>Adjust the sliders to calculate your monthly EMI, total interest, and repayment amount instantly.</p>
-      </div>
-
-      <div class="emi-card">
-
-        <div class="emi-left">
-          <h3>Loan Break-up</h3>
-          <div class="emi-donut-wrap">
-            <canvas id="emiPieChart"></canvas>
-            <div class="emi-donut-center">
-              <span class="emi-donut-label">Total</span>
-              <strong id="emiDonutTotal">₹ 0</strong>
-            </div>
-          </div>
-          <div class="emi-legend">
-            <div class="emi-leg-item">
-              <span class="emi-leg-dot" style="background:#1a52cc;"></span>
-              <span>Principal Amount</span>
-            </div>
-            <div class="emi-leg-item">
-              <span class="emi-leg-dot" style="background:#00cfff;"></span>
-              <span>Total Interest</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="emi-right">
-
-          <div class="emi-field">
-            <div class="emi-field-head">
-              <label>Loan Amount</label>
-              <div class="emi-val-box">
-                <span class="emi-prefix">₹</span>
-                <input type="number" id="loanAmount" value="1000000">
-              </div>
-            </div>
-            <input type="range" id="loanRange" min="50000" max="5000000" step="50000" value="1000000">
-            <div class="emi-range-labels"><span>₹50K</span><span>₹50L</span></div>
-          </div>
-
-          <div class="emi-field">
-            <div class="emi-field-head">
-              <label>Rate of Interest</label>
-              <div class="emi-val-box">
-                <input type="number" id="interestRate" value="12">
-                <span class="emi-suffix">%</span>
-              </div>
-            </div>
-            <input type="range" id="rateRange" min="1" max="30" step="0.5" value="12">
-            <div class="emi-range-labels"><span>1%</span><span>30%</span></div>
-          </div>
-
-          <div class="emi-field">
-            <div class="emi-field-head">
-              <label>Loan Tenure</label>
-              <div class="emi-val-box emi-tenure-box">
-                <input type="number" id="loanTenure" value="2">
-                <div class="emi-tenure-toggle">
-                  <button type="button" class="active" data-unit="years">Yr</button>
-                  <button type="button" data-unit="months">Mo</button>
-                </div>
-              </div>
-            </div>
-            <input type="range" id="tenureRange" min="1" max="10" step="1" value="2">
-            <div class="emi-range-labels"><span>1 Yr</span><span>10 Yr</span></div>
-          </div>
-
-          <div class="emi-results-row">
-            <div class="emi-res-item emi-res-highlight">
-              <span>Monthly EMI</span>
-              <strong id="monthlyEmi">₹ 0</strong>
-            </div>
-            <div class="emi-res-item">
-              <span>Principal</span>
-              <strong id="principalAmount">₹ 0</strong>
-            </div>
-            <div class="emi-res-item">
-              <span>Total Interest</span>
-              <strong id="totalInterest">₹ 0</strong>
-            </div>
-            <div class="emi-res-item">
-              <span>Total Payable</span>
-              <strong id="totalPayable">₹ 0</strong>
-            </div>
-          </div>
-
-          <a href="/apply" class="emi-apply-btn">
-            Apply Now
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-
-          <p class="emi-disclaimer"><i class="fas fa-shield-alt"></i> Indicative values only. Actual EMI may vary based on lender terms.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
   <section class="trending-searches-section" data-animate>
     <div class="trending-container" data-animate>
 
