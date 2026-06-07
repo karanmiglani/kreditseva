@@ -2107,7 +2107,7 @@ body.popup-open {
 /* Body — collapsible */
 .trending-body {
   padding-bottom: 28px;
-  overflow: hidden;
+  overflow: visible;
   transition: max-height 0.4s ease, opacity 0.3s ease;
 }
 
