@@ -4,6 +4,7 @@ const authMiddleware = require('../midllewares/authMiddleware');
 const { getLatestBlogs, featuredBlog, getBlog, getRecentArticles, relatedArticle } = require('../services/blogService');
 const loanAmountPages = require('../data/loanAmountPages');
 const { getPage: getCityPage } = require('../data/loanCityPages');
+const { route } = require('./pageRoutes');
 const router = express.Router();
 
 
@@ -94,6 +95,21 @@ router.get('/home-loan',(req,resp) => {
     resp.sendFile(path.join(__dirname,'../../pages/home-loan.html'));
 });
 
+// Cibil sore
+router.get('/check-my-credit-score', (req,resp) => {
+    resp.sendFile(path.join(__dirname,"../../pages/check_cibil_score.html"));
+})
+
+// About us
+router.get('/about-us', (req,resp) => {
+    resp.sendFile(path.join(__dirname, "../../pages/about-us.html"))
+})
+
+// Become Our partner
+router.get('/become-our-partner', (req,resp) => {
+    resp.sendFile(path.join(__dirname, "../../pages/become-our-partner.html"))
+})
+
 router.get('/blogs', async (req, resp) => {
     try {
         const fb = await featuredBlog();
@@ -157,7 +173,7 @@ router.get('/blog/:slug', async (req, resp) => {
 
 });
 
-router.get('/apply', (req, resp) => {
+router.get('/apply-now', (req, resp) => {
     resp.sendFile(path.join(__dirname,'../../pages/apply.html'));
 });
 
