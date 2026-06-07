@@ -6,7 +6,10 @@ const fs = require('fs');
 const pageRoutes = require('./routes/pageRoutes');
 const app = express();
 const cookieParser = require('cookie-parser');
-app.use(cors());
+app.use(cors({
+  origin: ['https://kreditseva.onrender.com', 'https://www.kreditseva.com', 'http://localhost:3000'],
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 
