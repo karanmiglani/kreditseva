@@ -2231,8 +2231,7 @@ body.popup-open {
 
 .tl-accordion {
   position: relative;
-  min-width: 180px;
-  flex: 1 1 180px;
+  min-width: 160px;
 }
 
 .tl-acc-btn {
@@ -2242,10 +2241,8 @@ body.popup-open {
   font-weight: 600;
   color: #1a1a2e;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
   gap: 6px;
   padding: 4px 0;
   font-family: inherit;
