@@ -6,6 +6,7 @@ const loanTypes = {
     tenure: '60 months',
     popup: 'Personal Loan',
     desc: 'unsecured personal loan',
+    minIncome: '₹20,000',
   },
   'business-loan': {
     name: 'Business Loan',
@@ -14,6 +15,7 @@ const loanTypes = {
     tenure: '84 months',
     popup: 'Business Loan',
     desc: 'unsecured business loan',
+    minIncome: '₹25,000',
   },
   'home-loan': {
     name: 'Home Loan',
@@ -22,6 +24,7 @@ const loanTypes = {
     tenure: '360 months',
     popup: 'Home Loan',
     desc: 'home loan',
+    minIncome: '₹30,000',
   },
   'instant-loan': {
     name: 'Instant Loan',
@@ -30,6 +33,7 @@ const loanTypes = {
     tenure: '60 months',
     popup: 'Instant Loan',
     desc: 'instant personal loan',
+    minIncome: '₹15,000',
   },
 };
 
@@ -94,6 +98,7 @@ function getPage(slug) {
     tenure: loan.tenure,
     popup: loan.popup,
     desc: loan.desc,
+    minIncome: loan.minIncome,
     title: `${loan.name} in ${city.name} — Starting @ ${loan.rate}% p.a. | KreditSeva`,
     metaDesc: `Apply for ${loan.name} in ${city.name}. Compare offers from 90+ banks & NBFCs. Interest rates starting ${loan.rate}% p.a. Quick approval, minimal documentation.`,
     heroDesc: `Looking for a ${loan.desc} in ${city.name}? KreditSeva helps you compare offers from 90+ lenders and get the best rate — fast approval, no collateral, 100% online.`,
