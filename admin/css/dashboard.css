@@ -1,7 +1,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   background: #f0f5ff;
   min-height: 100vh;
   display: flex;
@@ -388,9 +388,10 @@ body {
 ================================================================ */
 
 div.dt-container {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 0.84rem;
   color: #0d1547;
+  margin: 8px 4px;
 }
 
 /* Top controls — length + search */
@@ -419,7 +420,7 @@ div.dt-container .dt-search input {
   border-radius: 8px;
   padding: 6px 12px;
   font-size: 0.82rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   color: #0d1547;
   outline: none;
   background: #fff;
