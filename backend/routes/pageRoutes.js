@@ -212,6 +212,10 @@ router.get('/admin/blog-editor' , authMiddleware, (req, resp) => {
     resp.sendFile(path.join(__dirname, '../../protected/blog-editor.html'))
 })
 
+router.get('/admin/loan-applications', authMiddleware, (req, resp) => {
+    resp.sendFile(path.join(__dirname, '../../protected/loan-applications.html'))
+})
+
 router.post('/apply-now/save-lead', saveLead)
 
 module.exports = router;

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loan Applications | KreditSeva Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <style>
+    /* ── Filter Bar ── */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      padding: 16px 24px;
+      border-bottom: 1px solid #f1f5ff;
+      background: #fafbff;
+    }
+
+    .filter-bar input[type="text"],
+    .filter-bar input[type="date"],
+    .filter-bar select {
+      border: 1.5px solid #e2eaf8;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600;
+      color: #0d1547;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.18s;
+    }
+
+    .filter-bar input[type="text"] {
+      min-width: 200px;
+    }
+
+    .filter-bar input[type="text"]:focus,
+    .filter-bar input[type="date"]:focus,
+    .filter-bar select:focus {
+      border-color: #1a52cc;
+      box-shadow: 0 0 0 3px rgba(26,82,204,0.07);
+    }
+
+    .filter-bar input[type="text"]::placeholder {
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    .filter-search-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .filter-search-wrap i {
+      position: absolute;
+      left: 10px;
+      color: #94a3b8;
+      font-size: 0.8rem;
+    }
+
+    .filter-search-wrap input {
+      padding-left: 30px !important;
+    }
+
+    .filter-date-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .filter-bar .btn-reset {
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-family: 'Open Sans', sans-serif;
+      color: #64748b;
+      background: #f1f5ff;
+      border: 1.5px solid #e2eaf8;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .filter-bar .btn-reset:hover {
+      background: #e2eaf8;
+      color: #0d1547;
+    }
+
+    /* ── Status badges ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .badge--new       { background: #eff4ff; color: #1a52cc; }
+    .badge--contacted { background: #fefce8; color: #ca8a04; }
+    .badge--converted { background: #f0fdf4; color: #16a34a; }
+    .badge--rejected  { background: #fef2f2; color: #dc2626; }
+
+    /* ── Export btn ── */
+    .btn-export {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-family: 'Open Sans', sans-serif;
+      color: #1a52cc;
+      background: #eff4ff;
+      border: 1.5px solid #c7d9ff;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.18s;
+    }
+
+    .btn-export:hover {
+      background: #1a52cc;
+      color: #fff;
+      border-color: #1a52cc;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .page-header h2 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #0d1547;
+    }
+
+    .page-header p {
+      font-size: 0.82rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">Kredit<span>Seva</span> <small>Admin</small></div>
+    <nav class="sb-nav">
+      <a href="/admin/dashboard" class="sb-link">
+        <i class="fa-solid fa-gauge-high"></i> Dashboard
+      </a>
+      <a href="/admin/blogs" class="sb-link">
+        <i class="fa-solid fa-pen-nib"></i> Blogs
+      </a>
+      <a href="/admin/loan-applications" class="sb-link active">
+        <i class="fa-solid fa-file-invoice"></i> Loan Applications
+      </a>
+      <a href="#" class="sb-link">
+        <i class="fa-solid fa-users"></i> Users
+      </a>
+      <a href="#" class="sb-link">
+        <i class="fa-solid fa-chart-bar"></i> Reports
+      </a>
+      <a href="#" class="sb-link">
+        <i class="fa-solid fa-gear"></i> Settings
+      </a>
+    </nav>
+    <button class="sb-logout" id="logoutBtn">
+      <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </button>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <button class="topbar-toggle" id="sidebarToggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="topbar-title">Loan Applications</div>
+      <div class="topbar-admin">
+        <div class="topbar-avatar" id="adminAvatar">A</div>
+        <div class="topbar-info">
+          <span class="topbar-name" id="adminName">Admin</span>
+          <span class="topbar-role">Super Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="content">
+
+      <div class="page-header">
+        <div>
+          <h2>Loan Applications</h2>
+          <p>View and manage all incoming loan applications.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">All Applications</h3>
+          <button class="btn-export" id="exportBtn">
+            <i class="fa-solid fa-download"></i> Export CSV
+          </button>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+          <div class="filter-search-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search by name or phone..." />
+          </div>
+          <select id="filterCity">
+            <option value="">All Cities</option>
+          </select>
+          <select id="filterProduct">
+            <option value="">All Products</option>
+          </select>
+          <select id="filterStatus">
+            <option value="">All Status</option>
+            <option value="new">New</option>
+            <option value="contacted">Contacted</option>
+            <option value="converted">Converted</option>
+            <option value="rejected">Rejected</option>
+          </select>
+          <div class="filter-date-wrap">
+            From <input type="date" id="dateFrom" />
+            To   <input type="date" id="dateTo" />
+          </div>
+          <button class="btn-reset" id="resetFilters">
+            <i class="fa-solid fa-rotate-left"></i> Reset
+          </button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrap">
+          <table class="tbl" id="applicationsTable">
+            <thead>
+              <tr>
+                <th>#ID</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>City</th>
+                <th>Product</th>
+                <th>Occupation</th>
+                <th>Monthly Salary</th>
+                <th>PAN Card</th>
+                <th>Outstanding</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="applicationsTableBody">
+              <tr>
+                <td colspan="11" class="tbl-empty">No applications found.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Sidebar overlay -->
+  <div class="sb-overlay" id="sbOverlay"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
+  <script src="js/check-auth.js"></script>
+  <script src="js/loan-applications.js"></script>
+</body>
+</html>
