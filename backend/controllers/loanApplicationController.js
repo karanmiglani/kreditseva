@@ -12,8 +12,8 @@ const saveLead = async  (req, resp) => {
                 message : 'Required fields are mandatory.'
             })
         }
-        const sql = "INSERT INTO loan_applications(name, phone_number, city, net_monthly_salary, product, occupation, pancard, source) values (?,?,?,?,?,?,?,?)";
-        const [result] = await db.query(sql,[name,phone_number,city,net_monthly_salary,product,occupation,panCard,source]);
+        const sql = "INSERT INTO loan_applications(name, phone_number, city, net_monthly_salary, product, occupation, pancard, total_outstanding_amount,source) values (?,?,?,?,?,?,?,?,?)";
+        const [result] = await db.query(sql,[name,phone_number,city,net_monthly_salary,product,occupation,panCard,total_outstanding_amount,source]);
         if(result.affectedRows === 0){
             return resp.status(400).json({
                 success : false,
