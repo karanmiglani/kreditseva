@@ -83,7 +83,17 @@
           </div>
           <div class="stat-body">
             <span class="stat-label">Total Applications</span>
-            <span class="stat-value" id="statTotal">—</span>
+            <span class="stat-value" id="statTotalApplications">—</span>
+          </div>
+        </div>
+
+                <div class="stat-card">
+          <div class="stat-icon stat-icon--blue">
+            <i class="fa-solid fa-file-invoice"></i>
+          </div>
+          <div class="stat-body">
+            <span class="stat-label">Total Blogs</span>
+            <span class="stat-value" id="statTotalBlogs">—</span>
           </div>
         </div>
 
@@ -92,7 +102,7 @@
             <i class="fa-solid fa-clock"></i>
           </div>
           <div class="stat-body">
-            <span class="stat-label">Pending</span>
+            <span class="stat-label">Draft Blogs</span>
             <span class="stat-value" id="statPending">—</span>
           </div>
         </div>
@@ -102,20 +112,12 @@
             <i class="fa-solid fa-circle-check"></i>
           </div>
           <div class="stat-body">
-            <span class="stat-label">Approved</span>
+            <span class="stat-label">Published Blogs</span>
             <span class="stat-value" id="statApproved">—</span>
           </div>
         </div>
 
-        <div class="stat-card">
-          <div class="stat-icon stat-icon--red">
-            <i class="fa-solid fa-circle-xmark"></i>
-          </div>
-          <div class="stat-body">
-            <span class="stat-label">Rejected</span>
-            <span class="stat-value" id="statRejected">—</span>
-          </div>
-        </div>
+    
 
       </div>
 
@@ -145,11 +147,15 @@
             <thead>
               <tr>
                 <th>#ID</th>
-                <th>Applicant</th>
-                <th>Loan Type</th>
-                <th>Amount</th>
-                <th>Applied On</th>
-                <th>Status</th>
+                <th>Name</th>
+                <th>Mobile Number</th>
+                <th>City</th>
+                <th>Monthly Salary</th>
+                <th>Product</th>
+                <th>Occupation</th>
+                <th>Pan Card</th>
+                <th>Total Outstanding</th>
+                <th>Date</th>
               </tr>
             </thead>
             <tbody id="recentTableBody">

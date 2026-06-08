@@ -1,113 +1,119 @@
 (function () {
 
-  /* ── Auth guard ── */
-  // const token = localStorage.getItem('ks_admin_token');
-  // if (!token) {
-  //   window.location.href = 'index.html';
-  //   return;
-  // }
-
-  
 
   /* ── Set current date ── */
   const dateEl = document.getElementById('welcomeDate');
   if (dateEl) {
     const now = new Date();
     dateEl.textContent = now.toLocaleDateString('en-IN', {
-      weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
     });
   }
 
-  /* ── Decode JWT and show admin info ── */
-  try {
-    const name  = localStorage.getItem('admin-name');
-    const initial = name.charAt(0).toUpperCase();
-    document.getElementById('adminAvatar').textContent  = initial;
-    document.getElementById('welcomeName').textContent  = name;
-  } catch (e) {
-    /* token malformed — ignore, guard already checked existence */
-  }
+  /* ── Admin Info ── */
+  const name = localStorage.getItem('admin-name') || 'Admin';
 
-  /* ── Load stats from API ── */
-  async function loadStats() {
+  document.getElementById('adminAvatar').textContent =
+    name.charAt(0).toUpperCase();
+
+  document.getElementById('welcomeName').textContent = name;
+
+  /* ── Dummy Stats ── */
+  // Get Stats
+  async function getStats() {
     try {
-      const res  = await fetch('https://kreditseva.onrender.com/api/admin/stats', {
-        headers: { Authorization: 'Bearer ' + token }
-      });
-      const data = await res.json();
-
+      const resp = await fetch(`${window.location.origin}/api/dashboard/get-stats`, {
+        method: 'GET',
+        credentials: 'include'
+      })
+      const data = await resp.json();
       if (data.success) {
-        document.getElementById('statTotal').textContent    = data.total    ?? 0;
-        document.getElementById('statPending').textContent  = data.pending  ?? 0;
-        document.getElementById('statApproved').textContent = data.approved ?? 0;
-        document.getElementById('statRejected').textContent = data.rejected ?? 0;
+        document.getElementById('statTotalApplications').textContent = data.totalApplication;
+        document.getElementById('statTotalBlogs').textContent = data.totalBlogs;
+        document.getElementById('statPending').textContent = data.draft;
+        document.getElementById('statApproved').textContent = data.published;
+        const tbody = document.getElementById('recentTableBody');
+
+        if (data.leads?.length) {
+          tbody.innerHTML = data.leads.map(lead => `
+    <tr>
+      <td>${lead.id}</td>
+      <td>${formatText(lead.name)}</td>
+      <td>${lead.phone_number || '-'}</td>
+      <td>${formatText(lead.city)}</td>
+      <td>${formatCurrency(lead.net_monthly_salary)}</td>
+      <td>${formatText(lead.product)}</td>
+      <td>${formatText(lead.occupation)}</td>
+      <td>${lead.pancard?.toUpperCase() || '-'}</td>
+      <td>${formatCurrency(lead.total_outstanding_amount)}</td>
+      <td>
+        ${new Date(lead.created_at).toLocaleDateString('en-IN', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+          })}
+      </td>
+    </tr>
+  `).join('');
+        } else {
+          tbody.innerHTML = `
+    <tr>
+      <td colspan="10" class="tbl-empty">
+        No applications found
+      </td>
+    </tr>
+  `;
+        }
+
       }
-    } catch (err) {
-      /* API not ready — show dashes */
+    } catch (error) {
+      console.error(error);
     }
   }
 
-  /* ── Load recent applications ── */
-  async function loadRecent() {
-    const tbody = document.getElementById('recentTableBody');
+  getStats();
 
-    try {
-      const res  = await fetch('https://kreditseva.onrender.com/api/admin/applications?limit=8', {
-        headers: { Authorization: 'Bearer ' + token }
-      });
-      const data = await res.json();
+  // Helpers
+  function formatText(value) {
+    if (!value) return '-';
 
-      if (data.success && data.applications?.length) {
-        tbody.innerHTML = data.applications.map(app => `
-          <tr>
-            <td>#${app.id}</td>
-            <td>${app.name}</td>
-            <td>${app.loan_type}</td>
-            <td>₹${Number(app.amount).toLocaleString('en-IN')}</td>
-            <td>${new Date(app.created_at).toLocaleDateString('en-IN')}</td>
-            <td>${badgeHtml(app.status)}</td>
-          </tr>
-        `).join('');
-      } else {
-        tbody.innerHTML = '<tr><td colspan="6" class="tbl-empty">No applications found.</td></tr>';
-      }
-    } catch (err) {
-      tbody.innerHTML = '<tr><td colspan="6" class="tbl-empty">Could not load data. Connect API.</td></tr>';
-    }
+    return value
+      .toString()
+      .replace(/-/g, ' ')
+      .toLowerCase()
+      .replace(/\b\w/g, char => char.toUpperCase());
   }
 
-  function badgeHtml(status) {
-    const map = {
-      pending:  ['badge--pending',  'fa-clock',        'Pending'],
-      approved: ['badge--approved', 'fa-circle-check', 'Approved'],
-      rejected: ['badge--rejected', 'fa-circle-xmark', 'Rejected'],
-    };
-    const [cls, icon, label] = map[status] || map.pending;
-    return `<span class="badge ${cls}"><i class="fa-solid ${icon}"></i>${label}</span>`;
+  function formatCurrency(value) {
+    if (!value || isNaN(value)) return '-';
+
+    return `₹${Number(value).toLocaleString('en-IN')}`;
   }
 
-  loadStats();
-  loadRecent();
+
 
   /* ── Logout ── */
-  document.getElementById('logoutBtn').addEventListener('click', function () {
+  document.getElementById('logoutBtn')?.addEventListener('click', function () {
     localStorage.removeItem('ks_admin_token');
     window.location.href = 'index.html';
   });
 
-  /* ── Sidebar toggle (mobile) ── */
-  const sidebar  = document.getElementById('sidebar');
-  const overlay  = document.getElementById('sbOverlay');
+  /* ── Sidebar Toggle ── */
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sbOverlay');
   const toggleBtn = document.getElementById('sidebarToggle');
 
-  toggleBtn.addEventListener('click', function () {
-    sidebar.classList.toggle('open');
-    overlay.classList.toggle('open');
+  toggleBtn?.addEventListener('click', function () {
+    sidebar?.classList.toggle('open');
+    overlay?.classList.toggle('open');
   });
 
-  overlay.addEventListener('click', function () {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('open');
+  overlay?.addEventListener('click', function () {
+    sidebar?.classList.remove('open');
+    overlay?.classList.remove('open');
   });
 
 })();

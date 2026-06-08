@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 const autRoutes = require('./routes/authRoutes');
 const blogRoutes = require('./routes/blogRoutes');
-
+const dashBoardRoutes = require('./routes/dashboardRoutes');
 
 
 // Static files
@@ -33,6 +33,7 @@ app.set('views', path.join(__dirname,'../views'));
 app.use(pageRoutes);
 app.use('/api/auth',autRoutes);
 app.use('/api/blog/', blogRoutes);
+app.use('/api/dashboard',dashBoardRoutes);
 
 
 const port = process.env.PORT;
