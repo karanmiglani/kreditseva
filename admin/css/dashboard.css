@@ -331,7 +331,9 @@ body {
 
 .tbl tbody tr:last-child td { border-bottom: none; }
 
-.tbl tbody tr:hover td { background: #f8faff; }
+.tbl tbody tr:nth-child(even) td { background: #f8faff; }
+
+.tbl tbody tr:hover td { background: #eef3ff; }
 
 .tbl-empty {
   text-align: center;
