@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
   <link rel="stylesheet" href="css/dashboard.css" />
 </head>
 <body>
@@ -143,7 +144,7 @@
           <a href="#" class="card-link">View All <i class="fa-solid fa-arrow-right"></i></a>
         </div>
         <div class="table-wrap">
-          <table class="tbl">
+          <table class="tbl" id="leadTable">
             <thead>
               <tr>
                 <th>#ID</th>
@@ -172,6 +173,8 @@
 
   <!-- Sidebar overlay (mobile) -->
   <div class="sb-overlay" id="sbOverlay"></div>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
   <script src="js/check-auth.js"></script>
   <script src="js/dashboard.js"></script>
 </body>

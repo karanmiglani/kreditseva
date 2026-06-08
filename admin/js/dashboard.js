@@ -21,6 +21,7 @@
 
   document.getElementById('welcomeName').textContent = name;
 
+
   /* ── Dummy Stats ── */
   // Get Stats
   async function getStats() {
@@ -58,6 +59,12 @@
       </td>
     </tr>
   `).join('');
+    new DataTable('#leadTable', {
+    pageLength : 25,
+    ordering : true,
+    searching : true,
+    info : true
+  })
         } else {
           tbody.innerHTML = `
     <tr>
