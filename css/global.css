@@ -1126,7 +1126,7 @@ body {
 
 .pl-cta-card-inner h2 {
   font-size: clamp(1.4rem, 2.5vw, 2rem);
-  font-weight: 800;
+  font-weight: 700;
   color: #fff;
   margin: 0 0 10px;
   line-height: 1.25;
