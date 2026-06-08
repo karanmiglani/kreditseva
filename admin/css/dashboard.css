@@ -316,7 +316,7 @@ body {
 
 /* ─── TABLE ───────────────────────────────────────── */
 .table-wrap {
-  overflow-x: auto;
+  overflow-x: unset;
   width: 100%;
   -webkit-overflow-scrolling: touch;
 }
@@ -513,4 +513,13 @@ div.dt-container .dt-paging .dt-paging-button.current {
 div.dt-container .dt-paging .dt-paging-button.disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+.dt-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table.dataTable {
+  min-width: 1400px;
 }

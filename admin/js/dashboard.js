@@ -60,6 +60,7 @@
             ordering:   true,
             searching:  true,
             info:       true,
+            scrollX: true
           });
         }
 
