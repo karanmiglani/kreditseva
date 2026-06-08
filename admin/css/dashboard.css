@@ -331,20 +331,6 @@ body {
   font-weight: 600;
 }
 
-/* Status badges */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 0.74rem;
-  font-weight: 700;
-}
-
-.badge--pending  { background: #fefce8; color: #ca8a04; }
-.badge--approved { background: #f0fdf4; color: #16a34a; }
-.badge--rejected { background: #fef2f2; color: #dc2626; }
 
 /* ─── SIDEBAR OVERLAY (mobile) ────────────────────── */
 .sb-overlay {
@@ -384,4 +370,110 @@ body {
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .topbar { padding: 0 16px; }
   .topbar-info { display: none; }
+}
+
+/* ================================================================
+   DATATABLES OVERRIDE — match dashboard design
+================================================================ */
+
+div.dt-container {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.84rem;
+  color: #0d1547;
+}
+
+/* Top controls — length + search */
+div.dt-container .dt-layout-row:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 16px 0;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+div.dt-container .dt-length label,
+div.dt-container .dt-search label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+div.dt-container .dt-length select,
+div.dt-container .dt-search input {
+  border: 1.5px solid #e2eaf8;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #0d1547;
+  outline: none;
+  background: #fff;
+}
+
+div.dt-container .dt-search input:focus,
+div.dt-container .dt-length select:focus {
+  border-color: #1a52cc;
+  box-shadow: 0 0 0 3px rgba(26,82,204,0.07);
+}
+
+/* Sort arrows */
+table.dataTable thead th.dt-orderable-asc,
+table.dataTable thead th.dt-orderable-desc {
+  cursor: pointer;
+}
+
+table.dataTable thead th.dt-ordering-asc span.dt-column-order::before,
+table.dataTable thead th.dt-ordering-desc span.dt-column-order::after {
+  color: #1a52cc;
+}
+
+/* Bottom controls — info + pagination */
+div.dt-container .dt-layout-row:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0 0 0;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top: 1px solid #f1f5ff;
+}
+
+div.dt-container .dt-info {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+div.dt-container .dt-paging .dt-paging-button {
+  border: 1.5px solid #e2eaf8;
+  border-radius: 8px;
+  padding: 5px 11px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #0d1547;
+  background: #fff;
+  cursor: pointer;
+  margin: 0 2px;
+  transition: all 0.18s;
+}
+
+div.dt-container .dt-paging .dt-paging-button:hover {
+  background: #f0f5ff;
+  border-color: #1a52cc;
+  color: #1a52cc;
+}
+
+div.dt-container .dt-paging .dt-paging-button.current {
+  background: #1a52cc;
+  border-color: #1a52cc;
+  color: #fff;
+}
+
+div.dt-container .dt-paging .dt-paging-button.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
