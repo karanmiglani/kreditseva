@@ -398,7 +398,7 @@ div.dt-container .dt-layout-row:first-child {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0 16px 0;
+  padding: 16px 0 20px 0;
   flex-wrap: wrap;
   gap: 10px;
 }
@@ -447,7 +447,7 @@ div.dt-container .dt-layout-row:last-child {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 0 0 0;
+  padding: 20px 0 8px 0;
   flex-wrap: wrap;
   gap: 10px;
   border-top: 1px solid #f1f5ff;
