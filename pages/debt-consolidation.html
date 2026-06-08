@@ -217,10 +217,17 @@
           <input type="checkbox" checked />
           <span>By submitting, you agree to our <a href="#">Privacy Policy</a> &amp; <a href="#">Terms &amp; Conditions</a></span>
         </label>
-        <button type="submit" class="dc-form-btn">
-          Apply Now — Free
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <button type="submit" class="dc-form-btn" id="dc-submit-btn">
+          <span class="dc-btn-text">Apply Now — Free
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+          <span class="dc-btn-spinner" style="display:none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:ap-spin 0.8s linear infinite;"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            Submitting...
+          </span>
         </button>
+
+        <span class="dc-success-msg" id="dc-success-msg" style="display:none;"></span>
       </form>
     </div>
 

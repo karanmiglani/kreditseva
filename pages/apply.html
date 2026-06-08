@@ -710,7 +710,15 @@
           <label for="ap-consent-chk">By continuing, you agree to KreditSeva's <a href="/terms-conditon">Terms & Conditions</a>, <a href="/privacy-policy">Privacy Policy</a>, and authorise contact via Call, SMS, Email, or WhatsApp.</label>
         </div>
 
-        <button type="submit" class="ap-submit" id="apply-btn">Apply Now</button>
+        <button type="submit" class="ap-submit" id="apply-btn">
+          <span class="ap-btn-text">Apply Now</span>
+          <span class="ap-btn-spinner" style="display:none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:ap-spin 0.8s linear infinite;"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            Submitting...
+          </span>
+        </button>
+
+        <span class="ap-success-msg" id="apply-success-msg" style="display:none;"></span>
 
         <div class="ap-success" id="apply-success">
           <i class="fa-solid fa-circle-check"></i>

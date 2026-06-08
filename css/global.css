@@ -2310,6 +2310,15 @@ body.popup-open {
 }
 
 /* ================================================================
+   FORM SPINNER ANIMATION
+================================================================ */
+
+@keyframes ap-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ================================================================
    HERO FORM — Error messages (used in loan-amount & loan-city pages)
 ================================================================ */
 
