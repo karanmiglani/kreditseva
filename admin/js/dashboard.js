@@ -20,7 +20,7 @@
     name.charAt(0).toUpperCase();
 
   document.getElementById('welcomeName').textContent = name;
-
+let table;
 
   /* ── Dummy Stats ── */
   // Get Stats
@@ -59,12 +59,28 @@
       </td>
     </tr>
   `).join('');
-    new DataTable('#leadTable', {
+  if(!table){
+    table = new  DataTable('#leadTable', {
     pageLength : 25,
     ordering : true,
     searching : true,
-    info : true
+    info : true,
   })
+const cities = [...new Set(data.leads.map(x => x.city).filter(Boolean))];
+const products = [...new Set(data.leads.map(x => x.product).filter(Boolean))];
+
+document.getElementById('filterCity').innerHTML = '<option value="">All cities</option>' + cities.map(city => `<option value="${city}">${city.charAt(0).toUpperCase() + city.slice(1)}</option>`).join('');
+document.getElementById('filterProduct').innerHTML =
+  '<option value="">All Products</option>' +
+  products.map(p => {
+    const label = p
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, c => c.toUpperCase());
+
+    return `<option value="${label}">${label}</option>`;
+  }).join('');
+
+}
         } else {
           tbody.innerHTML = `
     <tr>
@@ -82,6 +98,15 @@
   }
 
   getStats();
+
+// City Filter 
+document.getElementById('filterCity').addEventListener('change', function(){
+  table.column(3).search(this.value).draw();
+})
+
+document.getElementById('filterProduct').addEventListener('change', function(){
+  table.column(5).search(this.value).draw();
+})
 
   // Helpers
   function formatText(value) {
