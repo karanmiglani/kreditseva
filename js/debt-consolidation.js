@@ -127,3 +127,77 @@ function bindHint(inputId, hintId) {
 
 bindHint('formOutstanding', 'formOutstandingHint');
 bindHint('formSalary',      'formSalaryHint');
+
+
+
+async function submitDebtConsolidationForm(product){
+  const name = document.getElementById('dcName').value.trim().toLowerCase();
+  if(!name) { showMsg('err-dcName','Please enter your name'); return;}
+  const total_outstanding_amount = document.getElementById('formOutstanding').value;
+  if(!total_outstanding_amount){showMsg('err-dcOutstanding', 'Please enter outstanding amount'); return;}
+  const city = document.getElementById('dcCity').value.trim().toLowerCase();
+  if(!city){ showMsg('err-dcCity', 'Please enter city'); return;}
+  const net_monthly_salary = document.getElementById('formSalary').value;
+  if(!net_monthly_salary) { showMsg('err-dcSalary','Please enter montly salary.'); return;}
+  const phone_number = document.getElementById('dcPhone').value;
+  if(!phone_number) { showMsg('err-dcPhone','Please enter mobile number.');return;}
+  const phoneRegex = /^[6-9]{1}[0-9]{9}$/;
+  if(phone_number && !phoneRegex.test(phone_number) )  { showMsg('err-dcPhone','Please enter valid mobile number.');return;}
+  const source = window.location.pathname;
+  const occupation = null;
+  const pancard = null;
+  const spinner = document.querySelector('.dc-btn-spinner');
+  const btn = document.getElementById('dc-submit-btn');
+  const successMsg = document.getElementById('dc-success-msg');
+
+
+  try {
+      spinner.style.display = 'inline-flex';
+      btn.disabled = true;
+    const resp = await fetch(`${window.location.origin}/apply-now/save-lead`, {
+      method : 'POST',
+      headers : {
+        'Content-Type' : 'application/json'
+      },
+      body : JSON.stringify({
+        name, phone_number, city, net_monthly_salary, product, occupation, pancard, total_outstanding_amount, source
+      })
+    });
+    const data = await resp.json();
+    if(data.success){
+      btn.style.display = 'none';
+      successMsg.style.display = 'block';
+      successMsg.style.color = '#0ec68f';
+      successMsg.innerText = data.message;
+      document.getElementById('dc-form-id').reset();
+      setTimeout(() => {
+        btn.style.display = 'block';
+        successMsg.style.display = 'none';
+      successMsg.innerText = '';
+      },8000)
+    }else{
+      successMsg.style.display = 'block';
+      successMsg.style.color = '#dc2626';
+      successMsg.innerText = data.message || 'Something went wrong';
+    }
+  } catch (error) {
+    console.error(error);
+    successMsg.style.display = 'block';
+      successMsg.style.color = '#dc2626';
+      successMsg.innerText = data.message || 'Network error, please try again.';
+  }finally{
+    spinner.style.display = 'none';
+    btn.disabled = false;
+  }
+  
+}
+
+function showMsg(id, msg){
+  document.getElementById(id).innerText = msg;
+  document.getElementById(id).style.display ='block';
+  setTimeout(() => {
+    document.getElementById(id).innerText = '';
+    document.getElementById(id).style.display = 'none'
+  },3000)
+}
+

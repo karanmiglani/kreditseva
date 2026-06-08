@@ -73,6 +73,7 @@ async function  submitForm(){
     const panCard = document.getElementById('af-pan').value.trim().toUpperCase() || null;
     const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
     if(panCard && !panRegex.test(panCard)){ showMessage('err-pan','Please enter valid pancard number.');return;}
+    const total_outstanding_amount = null;
 
 
 
@@ -95,9 +96,10 @@ async function  submitForm(){
                 'Content-Type' : 'application/json'
             },
             body : JSON.stringify({
-                name , phone_number, city, net_monthly_salary, product, occupation, panCard, source : window.location.pathname
+                name , phone_number, city, net_monthly_salary, product, occupation, panCard,total_outstanding_amount:null, source : window.location.pathname
             })
     })
+    
     const data = await resp.json();
     if(data.success){
         btn.style.display = 'none';

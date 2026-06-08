@@ -175,7 +175,7 @@
       <div class="dc-form-head">
         <h3>Check Your Monthly Savings</h3>
       </div>
-      <form class="dc-form" onsubmit="return false;">
+      <form id="dc-form-id" class="dc-form" onsubmit="return false;">
         <div class="dc-form-field">
           <label>Full Name <span class="dc-req">*</span></label>
           <div class="dc-input-wrap">
@@ -219,10 +219,9 @@
           <span class="pl-field-err" id="err-dcPhone"></span>
         </div>
         <label class="dc-consent">
-          <input type="checkbox" checked />
           <span>By submitting, you agree to our <a href="#">Privacy Policy</a> &amp; <a href="#">Terms &amp; Conditions</a></span>
         </label>
-        <button type="submit" class="dc-form-btn" id="dc-submit-btn">
+        <button type="button" class="dc-form-btn" id="dc-submit-btn" onclick="submitDebtConsolidationForm('debt-consolidation')">
           <span class="dc-btn-text">Apply Now — Free
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </span>

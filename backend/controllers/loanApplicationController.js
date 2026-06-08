@@ -5,7 +5,7 @@ const saveLead = async  (req, resp) => {
     console.log(req.body);
 
     try {
-        const {name, phone_number, city, net_monthly_salary, product, occupation, panCard, source} =  req.body;
+        const {name, phone_number, city, net_monthly_salary, product, occupation, panCard, total_outstanding_amount,source} =  req.body;
         if(!name || !phone_number || !city || !net_monthly_salary || !product){
             return resp.status(400).json({
                 success : false,
