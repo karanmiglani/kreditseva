@@ -518,7 +518,7 @@
             <div class="dropdown-menu">
               <a href="/personal-overdraft">Personal Overdraft</a>
               <a href="/balance-transfer">Balance Transfer</a>
-              <a href="/debt-consildation">Debt Consolidation</a>
+              <a href="/debt-consolidation">Debt Consolidation</a>
               <a href="/insta-loan">Insta Loan</a>
             </div>
           </div>
@@ -612,7 +612,7 @@
 
       <div class="ap-form-title">Enter Your Basic Details</div>
 
-      <form id="applyForm" novalidate>
+      <form id="applyForm" onsubmit="return false;">
 
         <!-- Work Profile -->
         <div class="ap-flabel">Current Work Profile <span>*</span></div>
@@ -699,18 +699,19 @@
 
           <div class="ap-field">
             <div class="ap-flabel">PAN Card <span style="font-weight:400;color:#94a3b8;">(Optional)</span></div>
-            <input type="text" id="af-pan" maxlength="10" placeholder="ABCDE1234F" style="text-transform:uppercase;" />
+            <input type="text" id="af-pan" maxlength="10" placeholder="ABCDE1234F" style="text-transform:uppercase;"  />
             <span class="ap-err" id="err-pan"></span>
           </div>
 
         </div>
 
         <div class="ap-consent">
-          <input type="checkbox" id="ap-consent-chk" checked />
           <label for="ap-consent-chk">By continuing, you agree to KreditSeva's <a href="/terms-conditon">Terms & Conditions</a>, <a href="/privacy-policy">Privacy Policy</a>, and authorise contact via Call, SMS, Email, or WhatsApp.</label>
         </div>
 
-        <button type="submit" class="ap-submit" id="apply-btn">
+        <span class="ap-success-msg" id="apply-success-msg" style="display:none;"></span>
+
+        <button type="submit" class="ap-submit" id="apply-btn" onclick="submitForm();">
           <span class="ap-btn-text">Apply Now</span>
           <span class="ap-btn-spinner" style="display:none;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:ap-spin 0.8s linear infinite;"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
@@ -718,7 +719,7 @@
           </span>
         </button>
 
-        <span class="ap-success-msg" id="apply-success-msg" style="display:none;"></span>
+        
 
         <div class="ap-success" id="apply-success">
           <i class="fa-solid fa-circle-check"></i>
@@ -761,6 +762,7 @@
   })();
   </script>
 
+<script src="/js/api.js" defer></script>
 
 </body>
 </html>

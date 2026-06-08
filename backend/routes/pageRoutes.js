@@ -4,7 +4,7 @@ const authMiddleware = require('../midllewares/authMiddleware');
 const { getLatestBlogs, featuredBlog, getBlog, getRecentArticles, relatedArticle } = require('../services/blogService');
 const loanAmountPages = require('../data/loanAmountPages');
 const { getPage: getCityPage } = require('../data/loanCityPages');
-const { route } = require('./pageRoutes');
+const { saveLead } = require('../controllers/loanApplicationController');
 const router = express.Router();
 
 
@@ -207,5 +207,7 @@ router.get('/admin/blogs' , authMiddleware, (req, resp) => {
 router.get('/admin/blog-editor' , authMiddleware, (req, resp) => {
     resp.sendFile(path.join(__dirname, '../../protected/blog-editor.html'))
 })
+
+router.post('/apply-now/save-lead', saveLead)
 
 module.exports = router;
