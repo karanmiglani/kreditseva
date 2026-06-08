@@ -1,4 +1,5 @@
 
+const BASE_URL = window.location.origin;
 (function () {
 
   // =========================
@@ -112,7 +113,7 @@
     try {
 
       const resp = await fetch(
-        `https://kreditseva.onrender.com/api/blog/get-blog/${blogId}`,
+        `${BASE_URL}/api/blog/get-blog/${blogId}`,
         {
           method: 'GET',
           credentials: 'include'
@@ -481,8 +482,8 @@
     try {
 
       const url = blogId
-        ? `https://kreditseva.onrender.com/api/blog/update-blog/${blogId}`
-        : `https://kreditseva.onrender.com/api/blog/add-blog`;
+        ? `${BASE_URL}/api/blog/update-blog/${blogId}`
+        : `${BASE_URL}/api/blog/add-blog`;
 
       const method = blogId
         ? 'PUT'

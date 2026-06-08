@@ -193,6 +193,10 @@ router.get('/loan/:slug', (req, resp) => {
 });
 
 router.get('/admin', (req,resp) => {
+    const token = req.cookies.token;
+    if(token){
+        resp.redirect('/admin/dashboard');
+    }
     resp.sendFile(path.join(__dirname,"../../admin/index.html"));
 })
 

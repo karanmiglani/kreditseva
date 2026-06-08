@@ -4,13 +4,15 @@
 
     async function checkAuth(){
         try{
-            const resp = await fetch('https://kreditseva.onrender.com/api/auth/check-auth', {
+            const resp = await fetch(`${window.location.origin}/api/auth/check-auth`, {
                 credentials : 'include'
             });
             const data = await resp.json();
             if(!data.success){
               console.log(data);
             }
+            localStorage.setItem('admin-name', data.admin.name);
+            localStorage.setItem('admin-role', data.admin.role);
             document.getElementById('adminName').textContent = data.admin.name;
             document.getElementById('adminRole').textContent = data.admin.role;
         }catch(err){

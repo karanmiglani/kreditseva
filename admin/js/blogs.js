@@ -2,6 +2,7 @@
 
   const blogTableBody = document.getElementById('blogTableBody');
   const pagination = document.getElementById('pagination');
+  const BASE_URL = window.location.origin;
 
   let currentPage = 1;
   const limit = 10;
@@ -20,7 +21,7 @@
 
   async function getBlogs(page = 1){
     try{
-      const resp = await fetch(`https://kreditseva.onrender.com/api/blog/get-blogs?page=${page}&limit=${limit}`,{
+      const resp = await fetch(`${BASE_URL}/api/blog/get-blogs?page=${page}&limit=${limit}`,{
         method : "GET",
         credentials : 'include'
       });
@@ -160,7 +161,7 @@ function renderPagination(totalPages, currentPage){
 
   async function deleteBlogs(blogId){
     try {
-      const resp = await fetch(`https://kreditseva.onrender.com/api/blog/delete-blog/${blogId}`, {
+      const resp = await fetch(`${BASE_URL}/api/blog/delete-blog/${blogId}`, {
       method : 'DELETE',
       credentials : 'include'
     });

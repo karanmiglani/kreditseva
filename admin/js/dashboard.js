@@ -20,14 +20,8 @@
 
   /* ── Decode JWT and show admin info ── */
   try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-
-    const name  = payload.name  || payload.email?.split('@')[0] || 'Admin';
-    const role  = payload.role  || 'Admin';
+    const name  = localStorage.getItem('admin-name');
     const initial = name.charAt(0).toUpperCase();
-
-    document.getElementById('adminName').textContent    = name;
-    document.getElementById('adminRole').textContent    = role;
     document.getElementById('adminAvatar').textContent  = initial;
     document.getElementById('welcomeName').textContent  = name;
   } catch (e) {

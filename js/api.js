@@ -106,6 +106,7 @@ async function  submitForm(){
        succsessMsg.style.display = 'block' ;
        successBox.style.display = 'block';
        document.getElementById('applyForm') .reset();
+       localStorage.clear();
        setTimeout(() => {
         window.location.reload();
        },5000)

@@ -7,7 +7,7 @@ const authMiddleware = require('../midllewares/authMiddleware');
 router.post('/login', login);
 router.get('/check-auth', authMiddleware, (req,resp) => {
     return resp.json({
-        sucsess : true,
+        success : true,
         admin : req.admin
     })
 })
