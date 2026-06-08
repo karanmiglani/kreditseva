@@ -1,3 +1,5 @@
+const BASE_URL = window.location.origin; // e.g. https://kreditseva.onrender.com
+
 function redirect(product=''){
     try {
             const name = document.getElementById('heroName').value.trim();
