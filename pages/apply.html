@@ -210,91 +210,6 @@
 
     .ap-flabel span { color: #ef4444; }
 
-    /* selection cards */
-    .ap-sel-cards {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
-
-    .ap-sel-card {
-      flex: 1;
-      min-width: 100px;
-      border: 1.5px solid #e2eaf8;
-      border-radius: 12px;
-      padding: 10px 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      transition: all 0.18s;
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: #5a6a8a;
-      background: #f8faff;
-      user-select: none;
-    }
-
-    .ap-sel-card i { font-size: 1rem; color: #94a3b8; }
-
-    .ap-sel-card:hover { border-color: #1a52cc; color: #1a52cc; }
-
-    .ap-sel-card.active {
-      border-color: #1a52cc;
-      background: #fff;
-      color: #1a52cc;
-      font-weight: 600;
-      box-shadow: 0 0 0 3px rgba(26,82,204,0.08);
-    }
-
-    .ap-sel-card.active i { color: #1a52cc; }
-
-    /* pill options (loan category) */
-    .ap-loan-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 16px;
-      align-items: start;
-    }
-
-    .ap-loan-left .select2-container { width: 100% !important; }
-
-    .ap-loan-right {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .ap-loan-right .ap-pill {
-      text-align: center;
-      padding: 7px 10px;
-      font-size: 0.76rem;
-    }
-
-    .ap-pills {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .ap-pill {
-      border: 1.5px solid #e2eaf8;
-      border-radius: 8px;
-      padding: 9px 16px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: #5a6a8a;
-      background: #f8faff;
-      cursor: pointer;
-      transition: all 0.18s;
-      user-select: none;
-    }
-
-    .ap-pill:hover { border-color: #1a52cc; color: #1a52cc; }
-
     .ap-pill.active {
       border-color: #1a52cc;
       background: #fff;
@@ -614,20 +529,6 @@
 
       <form id="applyForm" onsubmit="return false;">
 
-        <!-- Work Profile -->
-        <div class="ap-flabel">Current Work Profile <span>*</span></div>
-        <div class="ap-sel-cards">
-          <div class="ap-sel-card active" data-group="work" data-val="Salaried">
-            <i class="fa-solid fa-user-tie"></i> Salaried
-          </div>
-          <div class="ap-sel-card" data-group="work" data-val="Self Employed">
-            <i class="fa-solid fa-store"></i> Self-Employed
-          </div>
-          <div class="ap-sel-card" data-group="work" data-val="Business Owner">
-            <i class="fa-solid fa-briefcase"></i> Business Owner
-          </div>
-        </div>
-        <input type="hidden" id="af-occupation" value="Salaried" />
 
         <div class="ap-fields-grid">
 
@@ -698,9 +599,10 @@
           </div>
 
           <div class="ap-field">
-            <div class="ap-flabel">PAN Card <span style="font-weight:400;color:#94a3b8;">(Optional)</span></div>
-            <input type="text" id="af-pan" maxlength="10" placeholder="ABCDE1234F" style="text-transform:uppercase;"  />
-            <span class="ap-err" id="err-pan"></span>
+            <div class="ap-flabel">Loan Amount Required <span>*</span></div>
+            <input type="number" id="af-loan-amount" placeholder="Enter amount e.g. 500000" min="1000" />
+            <span style="font-size:0.75rem;color:#ef4444;font-weight:600;margin-top:4px;display:block;min-height:16px;" id="af-loan-amount-words"></span>
+            <span class="ap-err" id="err-loan-amount"></span>
           </div>
 
         </div>
@@ -740,6 +642,31 @@
   <script src="/js/loader.js"></script>
 
   <script>
+  // Label change on product select
+  document.getElementById('af-product').addEventListener('change', function () {
+    const label = document.querySelector('label[for="af-loan-amount"], #af-loan-amount').closest('.ap-field').querySelector('.ap-flabel');
+    const input = document.getElementById('af-loan-amount');
+    if (this.value === 'debt-consolidation') {
+      label.innerHTML = 'Total Outstanding Amount <span>*</span>';
+      input.placeholder = 'Enter total outstanding amount';
+    } else {
+      label.innerHTML = 'Loan Amount Required <span>*</span>';
+      input.placeholder = 'Enter amount e.g. 500000';
+    }
+  });
+
+  document.getElementById('af-loan-amount').addEventListener('input', function () {
+    const n = parseInt(this.value.replace(/[^0-9]/g, '')) || 0;
+    const el = document.getElementById('af-loan-amount-words');
+    if (!n) { el.textContent = ''; return; }
+    if (n >= 10000000) el.textContent = '₹ ' + (n / 10000000).toFixed(2).replace(/\.?0+$/, '') + ' Crore';
+    else if (n >= 100000) el.textContent = '₹ ' + (n / 100000).toFixed(2).replace(/\.?0+$/, '') + ' Lakh';
+    else if (n >= 1000)   el.textContent = '₹ ' + (n / 1000).toFixed(2).replace(/\.?0+$/, '') + ' Thousand';
+    else el.textContent = '₹ ' + n;
+  });
+  </script>
+
+  <script>
   $(document).ready(function() {
     $('#af-product').select2({
       placeholder: 'Select Loan Type',
@@ -749,18 +676,6 @@
   });
   </script>
 
-  <script>
-  (function () {
-    document.querySelectorAll('.ap-sel-card').forEach(function(card) {
-      card.addEventListener('click', function() {
-        var group = card.getAttribute('data-group');
-        document.querySelectorAll('.ap-sel-card[data-group="' + group + '"]').forEach(function(c) { c.classList.remove('active'); });
-        card.classList.add('active');
-        document.getElementById('af-occupation').value = card.getAttribute('data-val');
-      });
-    });
-  })();
-  </script>
 
 <script src="/js/api.js" defer></script>
 
