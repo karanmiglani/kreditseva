@@ -169,6 +169,7 @@ async function submitDebtConsolidationForm(product){
       successMsg.style.display = 'block';
       successMsg.style.color = '#0ec68f';
       successMsg.innerText = data.message;
+      if (typeof showToast === 'function') showToast('Application submitted successfully!');
       document.getElementById('dc-form-id').reset();
       setTimeout(() => {
         btn.style.display = 'block';

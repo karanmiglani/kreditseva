@@ -20,7 +20,10 @@ function redirect(product = '') {
       return;
     }
     window.localStorage.setItem('number', number);
-    window.location.href = '/apply-now?product=' + encodeURIComponent(product);
+    if (typeof showToast === 'function') showToast('Mobile number saved successfully!');
+    setTimeout(() => {
+      window.location.href = '/apply-now?product=' + encodeURIComponent(product);
+    }, 1500);
   } catch (err) {
     console.error(err);
   }
@@ -81,11 +84,12 @@ async function submitForm() {
 
     const data = await resp.json();
     if (data.success) {
-      btn.style.display    = 'none';
+      btn.style.display        = 'none';
       successBox.style.display = 'block';
       successMsg.style.display = 'block';
       document.getElementById('applyForm').reset();
       localStorage.clear();
+      if (typeof showToast === 'function') showToast('Application submitted successfully!');
       setTimeout(() => window.location.reload(), 5000);
     } else {
       successMsg.innerText     = data.message || 'Something went wrong';
