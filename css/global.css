@@ -2310,6 +2310,168 @@ body.popup-open {
 }
 
 /* ================================================================
+   NAVBAR QUICK APPLY POPUP
+================================================================ */
+
+.nav-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13,21,71,0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease;
+}
+
+.nav-popup-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav-popup-box {
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px 32px 28px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.25s ease;
+  box-shadow: 0 24px 64px rgba(4,15,45,0.2);
+}
+
+.nav-popup-overlay.active .nav-popup-box {
+  transform: translateY(0);
+}
+
+.nav-popup-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #94a3b8;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+  transition: color 0.18s;
+}
+
+.nav-popup-close:hover { color: #0d1b3e; }
+
+.nav-popup-logo {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #0d1b3e;
+  margin-bottom: 6px;
+}
+
+.nav-popup-logo span { color: #1a52cc; }
+
+.nav-popup-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0d1b3e;
+  margin-bottom: 4px;
+}
+
+.nav-popup-sub {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+.nav-popup-field {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #e2eaf8;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  transition: border-color 0.18s;
+}
+
+.nav-popup-field:focus-within {
+  border-color: #1a52cc;
+  box-shadow: 0 0 0 3px rgba(26,82,204,0.07);
+}
+
+.nav-popup-prefix {
+  padding: 0 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0d1b3e;
+  background: #f8faff;
+  border-right: 1.5px solid #e2eaf8;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.nav-popup-field input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0 14px;
+  height: 48px;
+  font-size: 0.92rem;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  color: #0d1b3e;
+}
+
+.nav-popup-field input::placeholder { color: #b0bec5; font-weight: 400; }
+
+.nav-popup-err {
+  font-size: 0.72rem;
+  color: #ef4444;
+  font-weight: 600;
+  min-height: 14px;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.nav-popup-btn {
+  width: 100%;
+  padding: 14px;
+  background: #1a52cc;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: 'Open Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.22s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.nav-popup-btn:hover {
+  background: #1039a0;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(26,82,204,0.3);
+}
+
+.nav-popup-note {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  text-align: center;
+  margin-top: 12px;
+}
+
+@media (max-width: 480px) {
+  .nav-popup-box { margin: 16px; border-radius: 16px; padding: 28px 20px 22px; }
+}
+
+/* ================================================================
    FORM SPINNER ANIMATION
 ================================================================ */
 

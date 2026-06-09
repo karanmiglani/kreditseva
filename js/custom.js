@@ -433,6 +433,79 @@ if (promoSliderEl) {
 }
 
 // ================================================================
+//  NAVBAR QUICK APPLY POPUP
+// ================================================================
+
+(function () {
+  // Inject popup HTML
+  document.body.insertAdjacentHTML('beforeend', `
+    <div class="nav-popup-overlay" id="navPopupOverlay">
+      <div class="nav-popup-box">
+        <button class="nav-popup-close" id="navPopupClose">&times;</button>
+        <div class="nav-popup-logo">Kredit<span>Seva</span></div>
+        <div class="nav-popup-title">Get a Free Loan Consultation</div>
+        <p class="nav-popup-sub">Enter your number — our expert will call you back.</p>
+        <div class="nav-popup-field">
+          <span class="nav-popup-prefix"><i class="fa-solid fa-phone"></i> +91</span>
+          <input type="tel" id="navPopupPhone" placeholder="Enter mobile number" maxlength="10" />
+        </div>
+        <span class="nav-popup-err" id="navPopupErr"></span>
+        <button class="nav-popup-btn" id="navPopupSubmit">
+          Get Free Callback
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+        <p class="nav-popup-note"><i class="fa-solid fa-lock"></i> 100% free · No spam · Safe & secure</p>
+      </div>
+    </div>
+  `);
+
+  const overlay = document.getElementById('navPopupOverlay');
+  const closeBtn = document.getElementById('navPopupClose');
+  const submitBtn = document.getElementById('navPopupSubmit');
+  const phoneInput = document.getElementById('navPopupPhone');
+  const errEl = document.getElementById('navPopupErr');
+
+  // Open on Apply Now click
+  document.querySelectorAll('.desktop-apply-btn, .mobile-apply-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      overlay.classList.add('active');
+      phoneInput.focus();
+    });
+  });
+
+  // Close
+  closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('active');
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') overlay.classList.remove('active');
+  });
+
+  // Only digits in phone
+  phoneInput.addEventListener('input', function () {
+    this.value = this.value.replace(/\D/g, '');
+    errEl.textContent = '';
+  });
+
+  // Submit → validate → redirect
+  submitBtn.addEventListener('click', () => {
+    const phone = phoneInput.value.trim();
+    const mobileRegex = /^[6-9]\d{9}$/;
+    if (!phone) { errEl.textContent = 'Please enter your mobile number.'; return; }
+    if (!mobileRegex.test(phone)) { errEl.textContent = 'Please enter a valid 10-digit number.'; return; }
+    window.localStorage.setItem('number', phone);
+    window.location.href = '/apply-now';
+  });
+
+  // Enter key support
+  phoneInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitBtn.click();
+  });
+})();
+
+// ================================================================
 //  HERO SWIPER — Auto-plays, pauses on user interaction
 // ================================================================
 
