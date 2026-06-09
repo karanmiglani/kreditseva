@@ -515,14 +515,44 @@ if (promoSliderEl) {
     if (!phone) { errEl.textContent = 'Please enter your mobile number.'; return; }
     if (!mobileRegex.test(phone)) { errEl.textContent = 'Please enter a valid 10-digit number.'; return; }
     window.localStorage.setItem('number', phone);
+    showToast('Mobile number saved successfully!');
     const product = overlay.dataset.product || '';
-    window.location.href = '/apply-now' + (product ? '?product=' + encodeURIComponent(product) : '');
+    setTimeout(() => {
+      window.location.href = '/apply-now' + (product ? '?product=' + encodeURIComponent(product) : '');
+    }, 1500);
   });
 
   // Enter key support
   phoneInput.addEventListener('keydown', e => {
     if (e.key === 'Enter') submitBtn.click();
   });
+
+  // Toast helper
+  function showToast(msg) {
+    let toast = document.getElementById('ks-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'ks-toast';
+      toast.style.cssText = `
+        position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
+        background: #0d1b3e; color: #fff; padding: 12px 24px; border-radius: 50px;
+        font-size: 0.85rem; font-weight: 600; font-family: 'Open Sans', sans-serif;
+        box-shadow: 0 8px 24px rgba(13,21,71,0.25); z-index: 99999;
+        display: flex; align-items: center; gap: 10px;
+        opacity: 0; transition: all 0.3s ease; white-space: nowrap;
+      `;
+      document.body.appendChild(toast);
+    }
+    toast.innerHTML = `<i class="fa-solid fa-circle-check" style="color:#4ade80;"></i> ${msg}`;
+    requestAnimationFrame(() => {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(-50%) translateY(0)';
+    });
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) translateY(20px)';
+    }, 2500);
+  }
 })();
 
 // ================================================================
