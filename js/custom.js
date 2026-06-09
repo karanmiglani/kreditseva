@@ -465,12 +465,31 @@ if (promoSliderEl) {
   const phoneInput = document.getElementById('navPopupPhone');
   const errEl = document.getElementById('navPopupErr');
 
-  // Open on Apply Now click
+  // Open popup — store product from href if present
+  function openNavPopup(product = '') {
+    overlay.dataset.product = product;
+    overlay.classList.add('active');
+    phoneInput.value = '';
+    errEl.textContent = '';
+    phoneInput.focus();
+  }
+
+  // Navbar Apply Now
   document.querySelectorAll('.desktop-apply-btn, .mobile-apply-btn').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
-      overlay.classList.add('active');
-      phoneInput.focus();
+      openNavPopup('');
+    });
+  });
+
+  // Hero slider buttons (.ks-hero-btn) — except credit score link
+  document.querySelectorAll('.ks-hero-btn').forEach(btn => {
+    const href = btn.getAttribute('href') || '';
+    if (href.includes('check') || href.includes('credit') || href.includes('debt')) return;
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const params = new URLSearchParams(href.split('?')[1] || '');
+      openNavPopup(params.get('product') || '');
     });
   });
 
@@ -496,7 +515,8 @@ if (promoSliderEl) {
     if (!phone) { errEl.textContent = 'Please enter your mobile number.'; return; }
     if (!mobileRegex.test(phone)) { errEl.textContent = 'Please enter a valid 10-digit number.'; return; }
     window.localStorage.setItem('number', phone);
-    window.location.href = '/apply-now';
+    const product = overlay.dataset.product || '';
+    window.location.href = '/apply-now' + (product ? '?product=' + encodeURIComponent(product) : '');
   });
 
   // Enter key support
