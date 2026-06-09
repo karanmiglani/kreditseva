@@ -183,19 +183,19 @@
       <a href="/admin/loan-applications" class="sb-link active">
         <i class="fa-solid fa-file-invoice"></i> Loan Applications
       </a>
-      <a href="#" class="sb-link">
+      <!-- <a href="#" class="sb-link">
         <i class="fa-solid fa-users"></i> Users
-      </a>
+      </a> -->
       <a href="#" class="sb-link">
         <i class="fa-solid fa-chart-bar"></i> Reports
       </a>
-      <a href="#" class="sb-link">
+      <!-- <a href="#" class="sb-link">
         <i class="fa-solid fa-gear"></i> Settings
-      </a>
+      </a> -->
     </nav>
-    <button class="sb-logout" id="logoutBtn">
+    <a href="/admin/logout" class="sb-logout" id="logoutBtn" style="text-decoration: none;">
       <i class="fa-solid fa-right-from-bracket"></i> Logout
-    </button>
+    </a>
   </aside>
 
   <!-- Main -->
@@ -235,11 +235,7 @@
         </div>
 
         <!-- Filter Bar -->
-        <div class="filter-bar">
-          <div class="filter-search-wrap">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" placeholder="Search by name or phone..." />
-          </div>
+        <div class="filter-bar">  
           <select id="filterCity">
             <option value="">All Cities</option>
           </select>

@@ -19,29 +19,29 @@
     <div class="sb-logo">Kredit<span>Seva</span> <small>Admin</small></div>
 
     <nav class="sb-nav">
-      <a href="/admin/dashboard" class="sb-link active">
+      <a href="/admin/dashboard" class="sb-link">
         <i class="fa-solid fa-gauge-high"></i> Dashboard
       </a>
-      <a href="/admin/blogs" class="sb-link">
+      <a href="/admin/blogs" class="sb-link active">
         <i class="fa-solid fa-pen-nib"></i> Blogs
       </a>
       <a href="/admin/loan-applications" class="sb-link">
         <i class="fa-solid fa-file-invoice"></i> Loan Applications
       </a>
-      <a href="#" class="sb-link">
+      <!-- <a href="#" class="sb-link">
         <i class="fa-solid fa-users"></i> Users
-      </a>
+      </a> -->
       <a href="#" class="sb-link">
         <i class="fa-solid fa-chart-bar"></i> Reports
       </a>
-      <a href="#" class="sb-link">
+      <!-- <a href="#" class="sb-link">
         <i class="fa-solid fa-gear"></i> Settings
-      </a>
+      </a> -->
     </nav>
 
-    <button class="sb-logout" id="logoutBtn">
+    <a href="/admin/logout" class="sb-logout" id="logoutBtn" style="text-decoration: none;">
       <i class="fa-solid fa-right-from-bracket"></i> Logout
-    </button>
+    </a>
 
   </aside>
 
@@ -70,7 +70,7 @@
           <h2 class="welcome-title">All Blogs</h2>
           <p class="welcome-sub">Create, edit and manage all blog posts.</p>
         </div>
-        <a href="blog-editor.html" class="btn-primary">
+        <a href="/admin/blog-editor" class="btn-primary">
           <i class="fa-solid fa-plus"></i> New Blog
         </a>
       </div>

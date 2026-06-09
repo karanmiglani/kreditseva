@@ -177,3 +177,18 @@ function renderPagination(totalPages, currentPage){
       console.error(error);
     }
   }
+
+  // ── Sidebar toggle ──
+  const sidebar   = document.getElementById('sidebar');
+  const overlay   = document.getElementById('sbOverlay');
+  const toggleBtn = document.getElementById('sidebarToggle');
+
+  toggleBtn?.addEventListener('click', () => {
+    sidebar?.classList.toggle('open');
+    overlay?.classList.toggle('open');
+  });
+
+  overlay?.addEventListener('click', () => {
+    sidebar?.classList.remove('open');
+    overlay?.classList.remove('open');
+  });

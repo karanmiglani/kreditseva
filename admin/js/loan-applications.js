@@ -29,10 +29,82 @@
       type : 'GET',
       xhrFields : {
         withCredentials : true
+      },
+      data : function(d){
+        d.city = document.getElementById('filterCity').value;
+        d.product = document.getElementById('filterProduct').value;
+        d.fromDate = document.getElementById('dateFrom').value
+        d.toDate = document.getElementById('dateTo').value
       }
     }
   });
 
+  async function loadCities(){
+    const resp = await fetch(`${window.location.origin}/api/dashboard/all-cities`, {
+      method : 'GET',
+      credentials : 'include'
+    });
+    const data = await resp.json();
+    if(data.success){
+      document.getElementById('filterCity').innerHTML = 
+      '<option value =""> All Cities </option>' + 
+      data.cities.map(d => {
+        const c = d.city.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        return `<option value="${d.city}">${c}</option>`
+    }).join('');
+    }
+  }
+
+  loadCities();
+
+document.getElementById('filterCity').addEventListener('change', function(){
+  table.draw();
+})
+
+async function getProducts(){
+  try {
+    const resp = await fetch(`${window.location.origin}/api/dashboard/all-products`, {
+      method : 'GET',
+      credentials : 'include'
+    });
+    const data = await resp.json();
+    if(data.success){
+      document.getElementById('filterProduct').innerHTML = 
+      '<option value="">All Products</option>' +  
+      data.products.map(p => {
+        const pd = p.product.replace(/-/g,' ').replace(/\b\w/g, w => w.toUpperCase());
+        return `<option value="${p.product}">${pd}</option>`
+      }).join('');
+      
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+getProducts();
+
+document.getElementById('filterProduct').addEventListener('change', function(){
+  table.draw();
+})
+document.getElementById('dateFrom').addEventListener('change', function(){
+  table.draw();
+})
+
+document.getElementById('dateTo').addEventListener('change', function(){
+  table.draw();
+})
+
+document.getElementById('resetFilters')
+  .addEventListener('click', function () {
+
+    document.getElementById('filterCity').value = '';
+    document.getElementById('filterProduct').value = '';
+    document.getElementById('fromDate').value = '';
+    document.getElementById('toDate').value = '';
+
+    table.search('').draw();
+  });
   
 
   // ── Reset filters ──
@@ -62,10 +134,5 @@
     overlay?.classList.remove('open');
   });
 
-  // ── Logout ──
-  document.getElementById('logoutBtn')?.addEventListener('click', () => {
-    localStorage.removeItem('ks_admin_token');
-    window.location.href = 'index.html';
-  });
 
 })();

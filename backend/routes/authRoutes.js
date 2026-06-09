@@ -12,4 +12,6 @@ router.get('/check-auth', authMiddleware, (req,resp) => {
     })
 })
 
+
+
 module.exports = router;

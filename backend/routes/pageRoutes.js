@@ -217,5 +217,9 @@ router.get('/admin/loan-applications', authMiddleware, (req, resp) => {
 })
 
 router.post('/apply-now/save-lead', saveLead)
+router.get('/admin/logout', (req,resp)=> {
+    resp.clearCookie('token');
+    resp.redirect('/admin')
+})
 
 module.exports = router;

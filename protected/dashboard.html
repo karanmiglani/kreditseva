@@ -28,20 +28,20 @@
       <a href="/admin/loan-applications" class="sb-link">
         <i class="fa-solid fa-file-invoice"></i> Loan Applications
       </a>
-      <a href="#" class="sb-link">
+      <!-- <a href="#" class="sb-link">
         <i class="fa-solid fa-users"></i> Users
-      </a>
+      </a> -->
       <a href="#" class="sb-link">
         <i class="fa-solid fa-chart-bar"></i> Reports
       </a>
-      <a href="#" class="sb-link">
+      <!-- <a href="#" class="sb-link">
         <i class="fa-solid fa-gear"></i> Settings
-      </a>
+      </a> -->
     </nav>
 
-    <button class="sb-logout" id="logoutBtn">
+    <a href="/admin/logout" class="sb-logout" id="logoutBtn" style="text-decoration: none;">
       <i class="fa-solid fa-right-from-bracket"></i> Logout
-    </button>
+    </a>
 
   </aside>
 
@@ -128,7 +128,7 @@
           <h3 class="card-title">Quick Actions</h3>
         </div>
         <div style="display:flex; gap:12px; padding:20px; flex-wrap:wrap;">
-          <a href="blogs.html" style="display:inline-flex; align-items:center; gap:8px; padding:12px 20px; background:#eff4ff; color:#1a52cc; border-radius:10px; font-weight:700; font-size:0.88rem; text-decoration:none; transition:background 0.18s;">
+          <a href="/admin/blogs" style="display:inline-flex; align-items:center; gap:8px; padding:12px 20px; background:#eff4ff; color:#1a52cc; border-radius:10px; font-weight:700; font-size:0.88rem; text-decoration:none; transition:background 0.18s;">
             <i class="fa-solid fa-pen-nib"></i> Manage Blogs
           </a>
           <a href="/admin/blog-editor" style="display:inline-flex; align-items:center; gap:8px; padding:12px 20px; background:linear-gradient(135deg,#0d1547,#1a52cc); color:#fff; border-radius:10px; font-weight:700; font-size:0.88rem; text-decoration:none; box-shadow:0 4px 14px rgba(26,82,204,0.25); transition:opacity 0.18s;">
@@ -149,7 +149,7 @@
               <option value="">All Products</option>
             </select>
           </div>
-          <a href="#" class="card-link">View All <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="/admin/loan-applications" class="card-link">View All <i class="fa-solid fa-arrow-right"></i></a>
         </div>
         <div class="table-wrap">
           <table class="tbl" id="leadTable">

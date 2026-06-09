@@ -79,7 +79,7 @@
       } else {
         tbody.innerHTML = `
           <tr>
-            <td colspan="10" class="tbl-empty">No applications found</td>
+            <td colspan="10" class="tbl-empty">No applications found for today's date.</td>
           </tr>`;
       }
 
