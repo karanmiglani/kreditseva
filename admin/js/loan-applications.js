@@ -4,20 +4,36 @@
   const adminName = localStorage.getItem('admin-name') || 'Admin';
   document.getElementById('adminAvatar').textContent = adminName.charAt(0).toUpperCase();
   document.getElementById('adminName').textContent   = adminName;
+  const BASE_URL = window.location.origin;
 
   // ── DataTable instance ──
   let table = null;
+  let currentPage = 1;
+
+
+
 
   table = new DataTable('#applicationsTable', {
+    processing : true,
+    serverSide : true,
     pageLength: 25,
     ordering:   true,
-    searching:  false, // custom search below
+    searching:  true, // custom search below
     info:       true,
     language: {
       emptyTable: 'No applications found.',
       zeroRecords: 'No matching applications found.',
+    },
+    ajax : {
+      url : `${BASE_URL}/api/dashboard/all-leads`,
+      type : 'GET',
+      xhrFields : {
+        withCredentials : true
+      }
     }
   });
+
+  
 
   // ── Reset filters ──
   document.getElementById('resetFilters').addEventListener('click', () => {
@@ -30,19 +46,6 @@
     if (table) table.search('').columns().search('').draw();
   });
 
-  // ── Export CSV ──
-  document.getElementById('exportBtn').addEventListener('click', () => {
-    const rows  = table.rows({ search: 'applied' }).data().toArray();
-    const heads = ['ID','Name','Mobile','City','Product','Occupation','Monthly Salary','PAN Card','Outstanding','Status','Date'];
-    const csv   = [heads.join(','), ...rows.map(r => Object.values(r).join(','))].join('\n');
-    const blob  = new Blob([csv], { type: 'text/csv' });
-    const url   = URL.createObjectURL(blob);
-    const a     = document.createElement('a');
-    a.href      = url;
-    a.download  = `leads_${new Date().toISOString().slice(0,10)}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-  });
 
   // ── Sidebar toggle ──
   const sidebar   = document.getElementById('sidebar');
