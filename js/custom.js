@@ -493,14 +493,7 @@ if (promoSliderEl) {
     });
   });
 
-  // Close
-  closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
-  overlay.addEventListener('click', e => {
-    if (e.target === overlay) overlay.classList.remove('active');
-  });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') overlay.classList.remove('active');
-  });
+  // Close disabled — only closes on server success
 
   // Only digits in phone
   phoneInput.addEventListener('input', function () {
@@ -508,18 +501,43 @@ if (promoSliderEl) {
     errEl.textContent = '';
   });
 
-  // Submit → validate → redirect
-  submitBtn.addEventListener('click', () => {
+  // Submit → validate → API call → on success close + toast + redirect
+  submitBtn.addEventListener('click', async () => {
     const phone = phoneInput.value.trim();
     const mobileRegex = /^[6-9]\d{9}$/;
     if (!phone) { errEl.textContent = 'Please enter your mobile number.'; return; }
     if (!mobileRegex.test(phone)) { errEl.textContent = 'Please enter a valid 10-digit number.'; return; }
-    window.localStorage.setItem('number', phone);
-    showToast('Mobile number saved successfully!');
-    const product = overlay.dataset.product || '';
-    setTimeout(() => {
-      window.location.href = '/apply-now' + (product ? '?product=' + encodeURIComponent(product) : '');
-    }, 1500);
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving...';
+
+    try {
+      const product = overlay.dataset.product || '';
+      const resp = await fetch(`${window.location.origin}/api/leads/save-phone-number`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone_number: phone, product })
+      });
+      const data = await resp.json();
+
+      if (data.success) {
+        sessionStorage.setItem('id', data.rawLeadID || '');
+        window.localStorage.setItem('number', phone);
+        overlay.classList.remove('active');
+        showToast(data.message || 'Mobile number saved successfully!');
+        setTimeout(() => {
+          window.location.href = '/apply-now' + (product ? '?product=' + encodeURIComponent(product) : '');
+        }, 1500);
+      } else {
+        errEl.textContent = data.message || 'Something went wrong. Please try again.';
+      }
+    } catch (err) {
+      errEl.textContent = 'Network error. Please try again.';
+      console.error(err);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `Get Free Callback <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
+    }
   });
 
   // Enter key support
