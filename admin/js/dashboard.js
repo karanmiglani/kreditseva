@@ -101,6 +101,17 @@
     if (table) table.column(5).search(this.value).draw();
   });
 
+  // ── Active sidebar link highlight ──
+  const path = window.location.pathname;
+  document.querySelectorAll('.sb-link, .sb-sublink').forEach(link => {
+    if (link.getAttribute('href') === path) {
+      link.classList.add('active');
+      // Agar submenu mein hai toh parent sb-group open karo
+      const group = link.closest('.sb-group');
+      if (group) group.classList.add('open');
+    }
+  });
+
   // ── Reports toggle ──
   document.getElementById('reportsToggle')?.addEventListener('click', () => {
     document.getElementById('reportsToggle').closest('.sb-group').classList.toggle('open');

@@ -119,6 +119,21 @@ document.getElementById('resetFilters')
   });
 
 
+  // ── Active sidebar link ──
+  const path = window.location.pathname;
+  document.querySelectorAll('.sb-link, .sb-sublink').forEach(link => {
+    if (link.getAttribute('href') === path) {
+      link.classList.add('active');
+      const group = link.closest('.sb-group');
+      if (group) group.classList.add('open');
+    }
+  });
+
+  // ── Reports toggle ──
+  document.getElementById('reportsToggle')?.addEventListener('click', () => {
+    document.getElementById('reportsToggle').closest('.sb-group').classList.toggle('open');
+  });
+
   // ── Sidebar toggle ──
   const sidebar   = document.getElementById('sidebar');
   const overlay   = document.getElementById('sbOverlay');

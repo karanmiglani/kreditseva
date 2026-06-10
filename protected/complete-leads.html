@@ -12,7 +12,7 @@
 </head>
 <body>
 
-  <aside class="sidebar" id="sidebar">
+    <aside class="sidebar" id="sidebar">
     <div class="sb-logo">Kredit<span>Seva</span> <small>Admin</small></div>
     <nav class="sb-nav">
       <a href="/admin/dashboard" class="sb-link">
@@ -24,13 +24,13 @@
       <a href="/admin/loan-applications" class="sb-link">
         <i class="fa-solid fa-file-invoice"></i> Loan Applications
       </a>
-      <div class="sb-group open">
+      <div class="sb-group">
         <button class="sb-link sb-toggle" id="reportsToggle">
           <span><i class="fa-solid fa-chart-bar"></i> Reports</span>
           <svg class="sb-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="sb-submenu">
-          <a href="/admin/complete-leads" class="sb-sublink active">
+          <a href="/admin/complete-leads" class="sb-sublink">
             <i class="fa-solid fa-circle-check"></i> Complete Leads
           </a>
           <a href="/admin/raw-leads" class="sb-sublink">
@@ -69,16 +69,16 @@
         <div class="card-header">
           <h3 class="card-title">Select Date Range</h3>
         </div>
-        <div style="padding:24px;display:flex;flex-direction:column;gap:16px;">
+        <div style="padding:24px;display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px;">
           <div style="display:flex;flex-direction:column;gap:6px;">
             <label style="font-size:0.82rem;font-weight:700;color:#0d1547;">From</label>
-            <input type="date" id="dateFrom" style="border:1.5px solid #e2eaf8;border-radius:8px;padding:10px 14px;font-size:0.88rem;font-family:'Open Sans',sans-serif;font-weight:600;color:#0d1547;outline:none;width:100%;" />
+            <input type="date" id="dateFrom" style="border:1.5px solid #e2eaf8;border-radius:8px;padding:10px 14px;font-size:0.88rem;font-family:'Open Sans',sans-serif;font-weight:600;color:#0d1547;outline:none;" />
           </div>
           <div style="display:flex;flex-direction:column;gap:6px;">
             <label style="font-size:0.82rem;font-weight:700;color:#0d1547;">To</label>
-            <input type="date" id="dateTo" style="border:1.5px solid #e2eaf8;border-radius:8px;padding:10px 14px;font-size:0.88rem;font-family:'Open Sans',sans-serif;font-weight:600;color:#0d1547;outline:none;width:100%;" />
+            <input type="date" id="dateTo" style="border:1.5px solid #e2eaf8;border-radius:8px;padding:10px 14px;font-size:0.88rem;font-family:'Open Sans',sans-serif;font-weight:600;color:#0d1547;outline:none;" />
           </div>
-          <button id="downloadBtn" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;background:#1a52cc;color:#fff;border:none;border-radius:10px;font-size:0.95rem;font-weight:700;font-family:'Open Sans',sans-serif;cursor:pointer;transition:all 0.2s;">
+          <button id="downloadBtn" style="display:flex;align-items:center;gap:10px;padding:10px 20px;background:#1a52cc;color:#fff;border:none;border-radius:8px;font-size:0.88rem;font-weight:700;font-family:'Open Sans',sans-serif;cursor:pointer;transition:all 0.2s;">
             <i class="fa-solid fa-download"></i> Download Excel
           </button>
           <span id="downloadMsg" style="font-size:0.8rem;color:#ef4444;font-weight:600;display:none;text-align:center;"></span>
@@ -108,6 +108,16 @@
       if (from > to)    { msg.textContent = 'From date cannot be after To date.'; msg.style.display = 'block'; return; }
       msg.style.display = 'none';
       window.location.href = `${window.location.origin}/api/dashboard/complete-leads/download?from=${from}&to=${to}`;
+    });
+
+    // Active sidebar link
+    const path = window.location.pathname;
+    document.querySelectorAll('.sb-link, .sb-sublink').forEach(link => {
+      if (link.getAttribute('href') === path) {
+        link.classList.add('active');
+        const group = link.closest('.sb-group');
+        if (group) group.classList.add('open');
+      }
     });
 
     document.getElementById('reportsToggle')?.addEventListener('click', () => {
