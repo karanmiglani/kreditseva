@@ -216,11 +216,11 @@ router.get('/admin/loan-applications', authMiddleware, (req, resp) => {
     resp.sendFile(path.join(__dirname, '../../protected/loan-applications.html'))
 })
 
-router.get('/admin/reports/complete-leads', authMiddleware, (req, resp) => {
+router.get('/admin/complete-leads', authMiddleware, (req, resp) => {
     resp.sendFile(path.join(__dirname, '../../protected/complete-leads.html'))
 })
 
-router.get('/admin/reports/raw-leads', authMiddleware, (req, resp) => {
+router.get('/admin/raw-leads', authMiddleware, (req, resp) => {
     resp.sendFile(path.join(__dirname, '../../protected/raw-leads.html'))
 })
 
