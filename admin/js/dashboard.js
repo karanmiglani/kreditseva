@@ -101,6 +101,11 @@
     if (table) table.column(5).search(this.value).draw();
   });
 
+  // ── Reports toggle ──
+  document.getElementById('reportsToggle')?.addEventListener('click', () => {
+    document.getElementById('reportsToggle').closest('.sb-group').classList.toggle('open');
+  });
+
   // ── Logout ──
   document.getElementById('logoutBtn')?.addEventListener('click', function () {
     localStorage.removeItem('ks_admin_token');

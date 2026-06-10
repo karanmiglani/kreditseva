@@ -65,6 +65,64 @@ body {
 
 .sb-link.active { background: #1a52cc; color: #fff; }
 
+/* ─── SIDEBAR SUBMENU ─────────────────────────────── */
+.sb-group { display: flex; flex-direction: column; }
+
+.sb-toggle {
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sb-toggle span {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.sb-toggle-arrow {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.sb-group.open .sb-toggle-arrow {
+  transform: rotate(180deg);
+}
+
+.sb-submenu {
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 12px;
+  margin-top: 2px;
+}
+
+.sb-group.open .sb-submenu { display: flex; }
+
+.sb-sublink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #6b7db3;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s;
+}
+
+.sb-sublink i { width: 16px; text-align: center; font-size: 0.82rem; }
+
+.sb-sublink:hover { background: rgba(255,255,255,0.06); color: #fff; }
+
+.sb-sublink.active { color: #4d8aff; }
+
 .sb-logout {
   display: flex;
   align-items: center;
