@@ -454,7 +454,6 @@ if (promoSliderEl) {
           Proceed
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
-        <p class="nav-popup-note"><i class="fa-solid fa-lock"></i> 100% free · No spam · Safe & secure</p>
         <p class="nav-popup-note" style="margin-top:6px;font-size:0.68rem;color:#b0bec5;">By entering your phone number, you agree to our <a href="/terms-conditon" style="color:#1a52cc;text-decoration:none;">Terms & Conditions</a> and <a href="/privacy-policy" style="color:#1a52cc;text-decoration:none;">Privacy Policy</a>, and authorise KreditSeva to contact you via Call, SMS, or WhatsApp.</p>
       </div>
     </div>

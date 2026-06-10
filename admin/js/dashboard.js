@@ -31,6 +31,9 @@
       document.getElementById('statTotalBlogs').textContent        = data.totalBlogs;
       document.getElementById('statPending').textContent           = data.draft;
       document.getElementById('statApproved').textContent          = data.published;
+      document.getElementById('todayLead').textContent          = data.todaysLeads;
+      document.getElementById('yesterdayLead').textContent          = data.yesterdaysLeads;
+      document.getElementById('thisMonthLead').textContent          = data.thisMonthLead;
 
       const tbody = document.getElementById('recentTableBody');
 
@@ -42,11 +45,9 @@
             <td>${formatText(lead.name)}</td>
             <td>${lead.phone_number || '-'}</td>
             <td>${formatText(lead.city)}</td>
-            <td>${formatCurrency(lead.net_monthly_salary)}</td>
             <td>${formatText(lead.product)}</td>
-            <td>${formatText(lead.occupation)}</td>
-            <td>${lead.pancard?.toUpperCase() || '-'}</td>
-            <td>${formatCurrency(lead.total_outstanding_amount)}</td>
+            <td>${lead.net_monthly_salary || '-'}</td>            
+            <td>${formatCurrency(lead.loan_amount)}</td>
             <td>${new Date(lead.created_at).toLocaleDateString('en-IN', {
               day: '2-digit', month: 'short', year: 'numeric'
             })}</td>
@@ -56,11 +57,12 @@
         // Init DataTable once
         if (!table) {
           table = new DataTable('#leadTable', {
-            pageLength: 25,
+            pageLength: 15,
             ordering:   true,
             searching:  true,
             info:       true,
-            scrollX: true
+            scrollX: true,
+            scrollY : '400px'
           });
         }
 
