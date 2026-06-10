@@ -22,15 +22,17 @@ heroPhone?.addEventListener('input', function(){
   },500);  
 });
 
-if(window.location.pathname == '/apply-now' && rawLeadId){
-  document.getElementById('ap-phone-field').style.display = 'none';
-} else if (window.location.pathname !== '/apply-now') {
-  // Not on apply-now page — open navbar popup if available
-  const overlay = document.getElementById('navPopupOverlay');
-  if (overlay) overlay.classList.add('active');
-}
+if(window.location.pathname == '/apply-now'){
+  if(rawLeadId){
+    document.getElementById('ap-phone-field').style.display = 'none';
+  }else{
+    const overlay = document.getElementById('navPopupOverlay');
+    if (overlay) overlay.classList.add('active');
+  }
+ }
 async function savePhoneNumber(){
   const product =  window.location.pathname.replace('/','');
+  localStorage.setItem('product',product);
   try {
         const resp = await fetch(`${BASE_URL}/api/leads/save-phone-number`,{
       method : 'POST',
@@ -47,7 +49,7 @@ async function savePhoneNumber(){
     if(data.success){
       showToast(data.message);
       document.getElementById('btn-submit').disabled = false;
-      sessionStorage.setItem('id', data.rawLeadID)
+      sessionStorage.setItem('id', data.rawLeadId)
     }
   } catch (error) {
     console.log(error);
@@ -62,16 +64,9 @@ function redirect(product = '') {
 
 // ── Apply-now form submit ──
 async function submitForm() {
-
-
   const name         = document.getElementById('af-name').value.trim().toLowerCase();
   if (!name) { showMessage('err-name', 'Please enter your name'); return; }
-
-  const phone_number = document.getElementById('af-phone').value.trim();
-  if (!phone_number) { showMessage('err-phone', 'Please enter mobile number'); return; }
-  const mobileRegex = /^[6-9]\d{9}$/;
-  if (!mobileRegex.test(phone_number)) { showMessage('err-phone', 'Please enter a valid 10-digit mobile number'); return; }
-
+  
   const city = document.getElementById('af-city').value.trim().toLowerCase();
   if (!city) { showMessage('err-city', 'Please enter city'); return; }
 
@@ -95,30 +90,51 @@ async function submitForm() {
   btnSpinner.style.display = 'inline-flex';
   successBox.style.display = 'none';
   successMsg.style.display = 'none';
+  if(!sessionStorage.getItem('id')){    
+      successMsg.innerText     = 'Session expired, Please enter your phone number to continue...';
+      successMsg.style.display = 'block';
+      successMsg.style.color   = '#dc2626';
+      showToast('Session expired, Please enter your phone number to continue...');
+      setTimeout(() => {
+        window.location.reload();
+      },2000)
+      return;
+  }
 
   try {
+    
     const resp = await fetch(`${BASE_URL}/apply-now/save-lead`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name, phone_number, city, net_monthly_salary, product, loan_amount,
+        rawLeadId,name, city, net_monthly_salary, product, loan_amount,
           source: window.location.pathname
       })
     });
 
     const data = await resp.json();
+    if(!data.success && rawLeadId == null){
+      showToast(data.message);
+    }
     if (data.success) {
       btn.style.display        = 'none';
       successBox.style.display = 'block';
       successMsg.style.display = 'block';
       document.getElementById('applyForm').reset();
       localStorage.clear();
+      sessionStorage.clear();
       if (typeof showToast === 'function') showToast('Application submitted successfully!');
       setTimeout(() => window.location.reload(), 5000);
     } else {
       successMsg.innerText     = data.message || 'Something went wrong';
       successMsg.style.display = 'block';
       successMsg.style.color   = '#dc2626';
+      if(data.rawLeadId === null){
+         showToast(data.message);
+         setTimeout(() => {
+          window.location.reload();
+         }, 3000);
+      }
     }
   } catch (err) {
     successMsg.innerText     = 'Network error. Please try again.';

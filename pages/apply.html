@@ -674,6 +674,14 @@
       width: '100%'
     });
   });
+   const urlProduct = new URLSearchParams(window.location.search).get('product');
+    const lsProduct = localStorage.getItem('product');
+     const selectedProduct = urlProduct || lsProduct;
+         if (selectedProduct) {
+        $('#af-product')
+            .val(selectedProduct)
+            .trigger('change');
+    }
   </script>
 
 

@@ -451,7 +451,7 @@ if (promoSliderEl) {
         </div>
         <span class="nav-popup-err" id="navPopupErr"></span>
         <button class="nav-popup-btn" id="navPopupSubmit">
-          Get Free Callback
+          Proceed
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
         <p class="nav-popup-note"><i class="fa-solid fa-lock"></i> 100% free · No spam · Safe & secure</p>
@@ -512,7 +512,7 @@ if (promoSliderEl) {
     submitBtn.textContent = 'Saving...';
 
     try {
-      const product = overlay.dataset.product || '';
+      const product = overlay.dataset.product || localStorage.getItem('product') || 'personal-loan';
       const resp = await fetch(`${window.location.origin}/api/leads/save-phone-number`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -521,8 +521,7 @@ if (promoSliderEl) {
       const data = await resp.json();
 
       if (data.success) {
-        sessionStorage.setItem('id', data.rawLeadID || '');
-        window.localStorage.setItem('number', phone);
+        sessionStorage.setItem('id', data.rawLeadId || '');
         overlay.classList.remove('active');
         showToast(data.message || 'Mobile number saved successfully!');
         setTimeout(() => {
