@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complete Leads | KreditSeva Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">Kredit<span>Seva</span> <small>Admin</small></div>
+    <nav class="sb-nav">
+      <a href="/admin/dashboard" class="sb-link">
+        <i class="fa-solid fa-gauge-high"></i> Dashboard
+      </a>
+      <a href="/admin/blogs" class="sb-link">
+        <i class="fa-solid fa-pen-nib"></i> Blogs
+      </a>
+      <a href="/admin/loan-applications" class="sb-link">
+        <i class="fa-solid fa-file-invoice"></i> Loan Applications
+      </a>
+      <div class="sb-group open">
+        <button class="sb-link sb-toggle" id="reportsToggle">
+          <span><i class="fa-solid fa-chart-bar"></i> Reports</span>
+          <svg class="sb-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="sb-submenu" id="reportsSubmenu">
+          <a href="/admin/reports/complete-leads" class="sb-sublink active">
+            <i class="fa-solid fa-circle-check"></i> Complete Leads
+          </a>
+          <a href="/admin/reports/raw-leads" class="sb-sublink">
+            <i class="fa-solid fa-circle-half-stroke"></i> Raw Leads
+          </a>
+        </div>
+      </div>
+    </nav>
+    <a href="/admin/logout" class="sb-logout" style="text-decoration:none;">
+      <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </a>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <header class="topbar">
+      <button class="topbar-toggle" id="sidebarToggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="topbar-title">Complete Leads</div>
+      <div class="topbar-admin">
+        <div class="topbar-avatar" id="adminAvatar">A</div>
+        <div class="topbar-info">
+          <span class="topbar-name" id="adminName">Admin</span>
+          <span class="topbar-role">Super Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+        <div>
+          <h2 style="font-size:1.3rem;font-weight:800;color:#0d1547;">Complete Leads</h2>
+          <p style="font-size:0.82rem;color:#64748b;margin-top:2px;">Fully submitted loan applications.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Filter by Date</h3>
+          <button class="btn-export" id="exportBtn" style="display:inline-flex;align-items:center;gap:7px;padding:8px 16px;font-size:0.8rem;font-weight:700;font-family:'Open Sans',sans-serif;color:#1a52cc;background:#eff4ff;border:1.5px solid #c7d9ff;border-radius:8px;cursor:pointer;text-decoration:none;transition:all 0.18s;">
+            <i class="fa-solid fa-download"></i> Export CSV
+          </button>
+        </div>
+
+        <!-- Date Filter -->
+        <div style="display:flex;align-items:center;gap:12px;padding:16px 24px;border-bottom:1px solid #f1f5ff;background:#fafbff;flex-wrap:wrap;">
+          <label style="font-size:0.82rem;font-weight:700;color:#0d1547;">From</label>
+          <input type="date" id="dateFrom" style="border:1.5px solid #e2eaf8;border-radius:8px;padding:8px 12px;font-size:0.82rem;font-family:'Open Sans',sans-serif;font-weight:600;color:#0d1547;outline:none;" />
+          <label style="font-size:0.82rem;font-weight:700;color:#0d1547;">To</label>
+          <input type="date" id="dateTo" style="border:1.5px solid #e2eaf8;border-radius:8px;padding:8px 12px;font-size:0.82rem;font-family:'Open Sans',sans-serif;font-weight:600;color:#0d1547;outline:none;" />
+          <button id="applyFilter" style="padding:8px 18px;background:#1a52cc;color:#fff;border:none;border-radius:8px;font-size:0.82rem;font-weight:700;font-family:'Open Sans',sans-serif;cursor:pointer;">
+            <i class="fa-solid fa-filter"></i> Apply
+          </button>
+          <button id="resetFilter" style="padding:8px 14px;background:#f1f5ff;color:#64748b;border:1.5px solid #e2eaf8;border-radius:8px;font-size:0.82rem;font-weight:700;font-family:'Open Sans',sans-serif;cursor:pointer;">
+            <i class="fa-solid fa-rotate-left"></i> Reset
+          </button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="tbl" id="completeLeadsTable">
+            <thead>
+              <tr>
+                <th>#ID</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>City</th>
+                <th>Product</th>
+                <th>Income</th>
+                <th>Loan Amount</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="completeLeadsTbody">
+              <tr><td colspan="8" class="tbl-empty">Select a date range and click Apply.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sb-overlay" id="sbOverlay"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
+  <script src="js/check-auth.js"></script>
+  <script src="js/complete-leads.js"></script>
+</body>
+</html>
