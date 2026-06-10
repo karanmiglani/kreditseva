@@ -31,9 +31,20 @@
       <a href="#" class="sb-link">
         <i class="fa-solid fa-users"></i> Users
       </a>
-      <a href="#" class="sb-link">
-        <i class="fa-solid fa-chart-bar"></i> Reports
-      </a>
+      <div class="sb-group">
+        <button class="sb-link sb-toggle" id="reportsToggle">
+          <span><i class="fa-solid fa-chart-bar"></i> Reports</span>
+          <svg class="sb-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="sb-submenu" id="reportsSubmenu">
+          <a href="/admin/reports/complete-leads" class="sb-sublink">
+            <i class="fa-solid fa-circle-check"></i> Complete Leads
+          </a>
+          <a href="/admin/reports/raw-leads" class="sb-sublink">
+            <i class="fa-solid fa-circle-half-stroke"></i> Raw Leads
+          </a>
+        </div>
+      </div>
       <a href="#" class="sb-link">
         <i class="fa-solid fa-gear"></i> Settings
       </a>
