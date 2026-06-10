@@ -24,7 +24,10 @@ heroPhone?.addEventListener('input', function(){
 
 if(window.location.pathname == '/apply-now' && rawLeadId){
   document.getElementById('ap-phone-field').style.display = 'none';
-}else{
+} else if (window.location.pathname !== '/apply-now') {
+  // Not on apply-now page — open navbar popup if available
+  const overlay = document.getElementById('navPopupOverlay');
+  if (overlay) overlay.classList.add('active');
 }
 async function savePhoneNumber(){
   const product =  window.location.pathname.replace('/','');
