@@ -495,21 +495,34 @@ if (promoSliderEl) {
 
   // Close disabled — only closes on server success
 
-  // Only digits in phone
+  const mobileRegex = /^[6-9]\d{9}$/;
+  let popupTimer = null;
+
+  // Button by default disabled
+  submitBtn.disabled      = true;
+  submitBtn.style.opacity = '0.5';
+  submitBtn.style.cursor  = 'not-allowed';
+
+  // Only digits + debounce — valid hone pe auto API call
   phoneInput.addEventListener('input', function () {
     this.value = this.value.replace(/\D/g, '');
     errEl.textContent = '';
+    clearTimeout(popupTimer);
+
+    const valid = mobileRegex.test(this.value.trim());
+    submitBtn.disabled      = !valid;
+    submitBtn.style.opacity = valid ? '1' : '0.5';
+    submitBtn.style.cursor  = valid ? 'pointer' : 'not-allowed';
+
+    if (valid) {
+      popupTimer = setTimeout(() => triggerSave(this.value.trim()), 600);
+    }
   });
 
-  // Submit → validate → API call → on success close + toast + redirect
-  submitBtn.addEventListener('click', async () => {
-    const phone = phoneInput.value.trim();
-    const mobileRegex = /^[6-9]\d{9}$/;
-    if (!phone) { errEl.textContent = 'Please enter your mobile number.'; return; }
-    if (!mobileRegex.test(phone)) { errEl.textContent = 'Please enter a valid 10-digit number.'; return; }
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Saving...';
+  async function triggerSave(phone) {
+    submitBtn.disabled      = true;
+    submitBtn.style.opacity = '0.7';
+    submitBtn.innerHTML     = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
 
     try {
       const product = overlay.dataset.product || localStorage.getItem('product') || 'personal-loan';
@@ -534,14 +547,24 @@ if (promoSliderEl) {
       errEl.textContent = 'Network error. Please try again.';
       console.error(err);
     } finally {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = `Get Free Callback <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
+      submitBtn.disabled      = false;
+      submitBtn.style.opacity = '1';
+      submitBtn.innerHTML     = `Get Free Callback <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
     }
+  }
+
+  // Button click bhi triggerSave call kare (manual submit)
+  submitBtn.addEventListener('click', () => {
+    const phone = phoneInput.value.trim();
+    if (mobileRegex.test(phone)) triggerSave(phone);
   });
 
   // Enter key support
   phoneInput.addEventListener('keydown', e => {
-    if (e.key === 'Enter') submitBtn.click();
+    if (e.key === 'Enter') {
+      const phone = phoneInput.value.trim();
+      if (mobileRegex.test(phone)) triggerSave(phone);
+    }
   });
 
 })();
