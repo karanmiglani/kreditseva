@@ -538,7 +538,7 @@
             <span class="ap-err" id="err-name"></span>
           </div>
 
-          <div class="ap-field">
+          <div class="ap-field" id="ap-phone-field">
             <div class="ap-flabel">Mobile Number <span>*</span></div>
             <input type="tel" id="af-phone" maxlength="10" placeholder="10-digit mobile number" />
             <span class="ap-err" id="err-phone"></span>
@@ -643,7 +643,7 @@
 
   <script>
   // Label change on product select
-  document.getElementById('af-product').addEventListener('change', function () {
+  $('#af-product').on('change', function () {
     const label = document.querySelector('label[for="af-loan-amount"], #af-loan-amount').closest('.ap-field').querySelector('.ap-flabel');
     const input = document.getElementById('af-loan-amount');
     if (this.value === 'debt-consolidation') {

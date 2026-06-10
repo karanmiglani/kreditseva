@@ -1,46 +1,66 @@
 const BASE_URL = window.location.origin;
+const rawLeadId = sessionStorage?.getItem('id');
+let phoneTimer;
+let phoneNumberSave = false;
+let phoneNumber = null;
+let phoneRegex = /^[6-9][0-9]{9}$/;
+let lastSavedphoneNumber = '';
+document.getElementById('btn-submit')?.setAttribute('disabled', 'disabled');
+const heroPhone = document.getElementById('heroPhone');
 
-// ── Hero form redirect — sirf phone validate karo ──
-function redirect(product = '') {
+// User ka phone number lo
+heroPhone?.addEventListener('input', function(){
+  clearTimeout(phoneTimer);
+  phoneTimer = setTimeout(()=> {
+    phoneNumber = this.value;
+    if(phoneNumber.length < 10) return;
+    if(!phoneRegex.test(phoneNumber)){ showMessage('err-heroPhone','Please enter valid mobile number'); return; }
+    if(phoneNumber === lastSavedphoneNumber) return;
+    lastSavedphoneNumber = phoneNumber;
+    savePhoneNumber();
+
+  },500);  
+});
+
+if(window.location.pathname == '/apply-now' && rawLeadId){
+  document.getElementById('ap-phone-field').style.display = 'none';
+}else{
+}
+async function savePhoneNumber(){
+  const product =  window.location.pathname.replace('/','');
   try {
-    const number = document.getElementById('heroPhone').value.trim();
-    if (!number) {
-      const error = document.getElementById('err-heroPhone');
-      error.textContent = 'Please enter your mobile number.';
-      error.style.display = 'block';
-      setTimeout(() => { error.textContent = ''; error.style.display = 'none'; }, 4000);
-      return;
+        const resp = await fetch(`${BASE_URL}/api/leads/save-phone-number`,{
+      method : 'POST',
+      headers : { 
+        'Content-Type' : 'application/json'
+      },
+      credentials : 'include',
+      body : JSON.stringify({
+        phone_number : phoneNumber,
+        product : product
+      })
+    })
+    const data = await resp.json();
+    if(data.success){
+      showToast(data.message);
+      document.getElementById('btn-submit').disabled = false;
+      sessionStorage.setItem('id', data.rawLeadID)
     }
-    const mobileRegex = /^[6-9]\d{9}$/;
-    if (!mobileRegex.test(number)) {
-      const error = document.getElementById('err-heroPhone');
-      error.textContent = 'Please enter a valid 10-digit mobile number.';
-      error.style.display = 'block';
-      setTimeout(() => { error.textContent = ''; error.style.display = 'none'; }, 4000);
-      return;
-    }
-    window.localStorage.setItem('number', number);
-    if (typeof showToast === 'function') showToast('Mobile number saved successfully!');
-    setTimeout(() => {
-      window.location.href = '/apply-now?product=' + encodeURIComponent(product);
-    }, 1500);
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.log(error);
   }
 }
 
-// ── Pre-fill apply-now form from localStorage + URL param ──
-if (window.location.pathname === '/apply-now') {
-  const params    = new URLSearchParams(window.location.search);
-  const product   = params.get('product') || '';
-  const phone     = window.localStorage.getItem('number') || '';
-
-  if (document.getElementById('af-phone'))   document.getElementById('af-phone').value   = phone;
-  if (document.getElementById('af-product')) document.getElementById('af-product').value = product;
+// ── Hero form redirect — sirf phone validate karo ──
+function redirect(product = '') {
+  window.location.href = '/apply-now?product=' + encodeURIComponent(product);
 }
+
 
 // ── Apply-now form submit ──
 async function submitForm() {
+
+
   const name         = document.getElementById('af-name').value.trim().toLowerCase();
   if (!name) { showMessage('err-name', 'Please enter your name'); return; }
 
@@ -58,7 +78,8 @@ async function submitForm() {
   const product = document.getElementById('af-product').value;
   if (!product) { showMessage('err-product', 'Please select product'); return; }
 
-  const loan_amount = document.getElementById('af-loan-amount')?.value || null;
+  const loan_amount = document.getElementById('af-loan-amount').value;
+  if(!loan_amount) { showMessage('err-loan-amount','Please enter loan amount'); return;};
 
   const btn        = document.getElementById('apply-btn');
   const btnText    = btn.querySelector('.ap-btn-text');
@@ -78,7 +99,7 @@ async function submitForm() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name, phone_number, city, net_monthly_salary, product, loan_amount,
-        total_outstanding_amount: null, occupation: null, source: window.location.pathname
+          source: window.location.pathname
       })
     });
 
@@ -109,8 +130,10 @@ async function submitForm() {
 }
 
 function showMessage(id, msg) {
+
   const el = document.getElementById(id);
   if (!el) return;
   el.textContent = msg;
-  setTimeout(() => { el.textContent = ''; }, 3000);
+  el.style.display = 'block'
+  setTimeout(() => { el.textContent = '';el.style.display = 'none' }, 3000);
 }
