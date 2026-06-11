@@ -3,7 +3,7 @@
 ============================================================ */
 
 /* Remove gap between CTA and footer */
-body { background: #040f2d; }
+body { background: #f0f5ff; }
 .site-footer { margin-top: 0; }
 
 .au-container {
@@ -67,9 +67,10 @@ body { background: #040f2d; }
 .au-hero {
   position: relative;
   padding: 90px 32px 80px;
-  background: linear-gradient(135deg, #030c22 0%, #071540 50%, #0a1f5c 100%);
+  background: linear-gradient(160deg, #EEF3FF 0%, #F7F9FF 50%, #FFFFFF 100%);
   overflow: hidden;
   text-align: center;
+  border-bottom: 1px solid #e2eaf8;
 }
 
 .au-hero-orb {
@@ -106,26 +107,25 @@ body { background: #040f2d; }
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #00d4ff;
+  color: #1a52cc;
   padding: 7px 18px;
-  background: rgba(0,212,255,0.12);
-  border: 1px solid rgba(0,212,255,0.25);
+  background: rgba(26,82,204,0.08);
+  border: 1px solid rgba(26,82,204,0.2);
   border-radius: 50px;
   margin-bottom: 24px;
 }
 
 .au-hero h1 {
-  
   font-size: clamp(2.4rem, 5vw, 4rem);
   font-weight: 800;
-  color: #fff;
+  color: #0d1b3e;
   line-height: 1.1;
   margin-bottom: 20px;
   letter-spacing: -1px;
 }
 
 .au-hero h1 span {
-  background: linear-gradient(135deg, #5ee0ff, #4d7fff);
+  background: linear-gradient(135deg, #1a52cc, #00cfff);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -137,7 +137,7 @@ body { background: #040f2d; }
 
 .au-hero p {
   font-size: 1.05rem;
-  color: rgba(255,255,255,0.72);
+  color: #5a6a8a;
   line-height: 1.75;
   max-width: 620px;
   margin: 0 auto 48px;
@@ -149,12 +149,13 @@ body { background: #040f2d; }
   align-items: center;
   justify-content: center;
   gap: 0;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: #ffffff;
+  border: 1px solid #e2eaf8;
   border-radius: 20px;
   padding: 28px 40px;
   max-width: 720px;
   margin: 0 auto;
+  box-shadow: 0 4px 24px rgba(13,27,62,.06);
 }
 
 .au-hstat {
@@ -164,10 +165,9 @@ body { background: #040f2d; }
 
 .au-hstat strong {
   display: block;
-  
   font-size: 1.8rem;
   font-weight: 800;
-  color: #fff;
+  color: #1a52cc;
   letter-spacing: -0.5px;
   line-height: 1;
   margin-bottom: 6px;
@@ -175,7 +175,7 @@ body { background: #040f2d; }
 
 .au-hstat span {
   font-size: 0.72rem;
-  color: rgba(255,255,255,0.5);
+  color: #5a6a8a;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -183,7 +183,7 @@ body { background: #040f2d; }
 .au-hstat-div {
   width: 1px;
   height: 40px;
-  background: rgba(255,255,255,0.12);
+  background: #e2eaf8;
   flex-shrink: 0;
 }
 
@@ -192,7 +192,7 @@ body { background: #040f2d; }
 ============================================================ */
 .au-story {
   padding: 100px 32px;
-  background: #f5f8ff;
+  background: #ffffff;
 }
 
 .au-story-grid {
@@ -388,67 +388,69 @@ body { background: #040f2d; }
 ============================================================ */
 .au-why {
   padding: 100px 32px;
-  background: linear-gradient(135deg, #030c22 0%, #071540 60%, #0a1f5c 100%);
+  background: #f0f5ff;
 }
 
 .au-why .au-section-head h2 {
-  color: #fff;
+  color: #0d1b3e;
 }
 
 .au-why .au-section-head h2 span {
-  background: linear-gradient(135deg, #5ee0ff, #4d7fff);
+  background: linear-gradient(135deg, #1a52cc, #00cfff);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .au-why .au-section-head p {
-  color: rgba(255,255,255,0.55);
+  color: #5a6a8a;
 }
 
 .au-why-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 20px;
   max-width: 1160px;
   margin: 0 auto;
 }
 
 .au-why-item {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 20px;
-  padding: 32px 26px;
+  background: #ffffff;
+  border: 1.5px solid #e2eaf8;
+  border-radius: 18px;
+  padding: 28px 24px;
   transition: all 0.25s ease;
 }
 
 .au-why-item:hover {
-  background: rgba(255,255,255,0.09);
-  border-color: rgba(0,212,255,0.25);
+  border-color: #1a52cc;
   transform: translateY(-4px);
-  box-shadow: 0 20px 44px rgba(0,0,0,0.25);
+  box-shadow: 0 16px 40px rgba(26,82,204,0.1);
 }
 
 .au-why-num {
-  
-  font-size: 2.4rem;
+  font-size: 2rem;
   font-weight: 800;
-  color: rgba(255,255,255,0.08);
+  color: #e2eaf8;
   line-height: 1;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   letter-spacing: -2px;
 }
 
+.au-why-item:hover .au-why-num {
+  color: rgba(26,82,204,0.15);
+}
+
 .au-why-item h4 {
-  font-size: 1rem;
+  font-size: 0.97rem;
   font-weight: 700;
-  color: #fff;
-  margin-bottom: 10px;
+  color: #0d1b3e;
+  margin-bottom: 8px;
 }
 
 .au-why-item p {
-  font-size: 0.87rem;
-  color: rgba(255,255,255,0.55);
+  font-size: 0.85rem;
+  color: #5a6a8a;
   line-height: 1.7;
 }
 
