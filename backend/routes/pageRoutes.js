@@ -4,7 +4,7 @@ const authMiddleware = require('../midllewares/authMiddleware');
 const { getLatestBlogs, featuredBlog, getBlog, getRecentArticles, relatedArticle } = require('../services/blogService');
 const loanAmountPages = require('../data/loanAmountPages');
 const { getPage: getCityPage } = require('../data/loanCityPages');
-const { saveLead } = require('../controllers/loanApplicationController');
+const { saveLead, downloadExcelReport } = require('../controllers/loanApplicationController');
 const router = express.Router();
 
 
@@ -229,5 +229,7 @@ router.get('/admin/logout', (req,resp)=> {
     resp.clearCookie('token');
     resp.redirect('/admin')
 })
+
+router.get('/download-exel-report',downloadExcelReport)
 
 module.exports = router;

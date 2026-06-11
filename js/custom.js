@@ -474,6 +474,8 @@ if (promoSliderEl) {
     phoneInput.focus();
   }
 
+
+
   // Navbar Apply Now
   document.querySelectorAll('.desktop-apply-btn, .mobile-apply-btn').forEach(btn => {
     btn.addEventListener('click', e => {
@@ -494,6 +496,15 @@ if (promoSliderEl) {
   });
 
   // Close disabled — only closes on server success
+  closeBtn.addEventListener('click',function(){
+    overlay.classList.remove('active');
+  })
+
+  document.addEventListener('keydown',(event) => {
+    if(event.key === 'Escape'){
+      overlay.classList.remove('active');
+    }
+  })
 
   const mobileRegex = /^[6-9]\d{9}$/;
   let popupTimer = null;
