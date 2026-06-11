@@ -336,7 +336,6 @@ const downloadExcelReport = async (req, res) => {
             status: row.status,
             city: row.city,
         }));
-        const statusCell = worksheet.getCell('status')
         worksheet.addRows(excelData);
 
         res.setHeader(

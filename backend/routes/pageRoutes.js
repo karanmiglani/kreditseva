@@ -110,6 +110,10 @@ router.get('/become-our-partner', (req,resp) => {
     resp.sendFile(path.join(__dirname, "../../pages/become-our-partner.html"))
 })
 
+router.get('/contact-us',(req,resp) => {
+    resp.sendFile(path.join(__dirname,'../../pages/contact-us.html'));
+})
+
 router.get('/blogs', async (req, resp) => {
     try {
         const fb = await featuredBlog();
