@@ -24,15 +24,15 @@ body { background: #f0f5ff; }
   background-position: center 40%;
 }
 
-/* Softer overlay — lighter so the image breathes */
+/* Overlay — dark enough for text, light enough to see the image */
 .ct-hero::before {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg,
-    rgba(10,31,68,0.62) 0%,
-    rgba(10,31,68,0.52) 50%,
-    rgba(26,82,204,0.42) 100%);
+    rgba(10,31,68,0.78) 0%,
+    rgba(10,31,68,0.70) 50%,
+    rgba(26,82,204,0.60) 100%);
   z-index: 1;
 }
 
@@ -115,7 +115,8 @@ body { background: #f0f5ff; }
   box-shadow: 0 8px 40px rgba(10,31,68,0.1);
   overflow: hidden;
   display: grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: 320px 1fr;
+  align-items: start;
   border: 1px solid rgba(26,82,204,0.08);
 }
 
@@ -125,7 +126,7 @@ body { background: #f0f5ff; }
 .ct-info {
   background: #f0f5ff;
   border-right: 1px solid rgba(26,82,204,0.08);
-  padding: 44px 32px;
+  padding: 40px 28px;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -277,10 +278,10 @@ body { background: #f0f5ff; }
 ============================================================ */
 .ct-form-wrap {
   background: #fff;
-  padding: 44px 40px;
+  padding: 40px 36px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .ct-form-head { margin-bottom: 24px; }
