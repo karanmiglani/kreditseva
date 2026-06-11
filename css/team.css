@@ -1,0 +1,411 @@
+/* ============================================================
+   OUR TEAM PAGE — team.css
+   01. Variables
+   02. Page Opener
+   03. Leadership
+   04. Values Strip
+   05. Departments
+   06. CTA
+   07. Scroll Reveal
+   08. Responsive
+============================================================ */
+
+:root {
+  --tm-max:     1200px;
+  --tm-px:      clamp(24px, 6vw, 96px);
+  --tm-navy:    #0A1F44;
+  --tm-blue:    #1a52cc;
+  --tm-sky:     #38BDF8;
+  --tm-ink:     #0A1F44;
+  --tm-ink2:    #2a3a5e;
+  --tm-muted:   #5a6a8a;
+  --tm-surface: #f0f5ff;
+  --tm-white:   #ffffff;
+}
+
+body { background: var(--tm-surface); }
+.site-footer { margin-top: 0; }
+
+
+/* ============================================================
+   02. PAGE OPENER
+============================================================ */
+.team-opener {
+  background: var(--tm-white);
+  padding: clamp(48px, 7vw, 80px) var(--tm-px) clamp(40px, 6vw, 64px);
+  text-align: center;
+  border-bottom: 1px solid rgba(26,82,204,0.06);
+}
+
+.team-opener-inner {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.team-opener h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--tm-ink);
+  margin: 0 0 12px;
+}
+
+.team-opener-rule {
+  display: block;
+  width: 52px;
+  height: 3px;
+  background: var(--tm-blue);
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+
+.team-opener p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.97rem;
+  line-height: 1.75;
+  color: var(--tm-ink2);
+  text-wrap: pretty;
+}
+
+
+/* ============================================================
+   03. LEADERSHIP
+============================================================ */
+.team-leadership {
+  background: var(--tm-white);
+  padding: clamp(48px, 6vw, 72px) var(--tm-px);
+}
+
+.team-section-head {
+  margin-bottom: clamp(32px, 4vw, 44px);
+}
+
+.team-section-head h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+  font-weight: 700;
+  color: var(--tm-ink);
+  letter-spacing: -0.015em;
+  margin: 0 0 6px;
+}
+
+.team-section-head p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--tm-muted);
+  margin: 0;
+}
+
+.team-leadership-inner {
+  max-width: var(--tm-max);
+  margin: 0 auto;
+}
+
+.team-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.team-card {
+  background: var(--tm-surface);
+  border: 1px solid rgba(26,82,204,0.08);
+  border-radius: 18px;
+  padding: 28px 20px 24px;
+  text-align: center;
+  transition: box-shadow 0.22s, transform 0.22s;
+}
+
+.team-card:hover {
+  box-shadow: 0 8px 28px rgba(26,82,204,0.1);
+  transform: translateY(-3px);
+}
+
+.team-card-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.avatar-navy  { background: #0A1F44; }
+.avatar-blue  { background: #1a52cc; }
+.avatar-teal  { background: #0e7490; }
+.avatar-indigo { background: #4338ca; }
+
+.team-card h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: var(--tm-ink);
+  margin: 0 0 5px;
+  letter-spacing: -0.01em;
+}
+
+.team-card-role {
+  display: inline-block;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.73rem;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 50px;
+  margin-bottom: 10px;
+}
+
+.role-founder  { background: rgba(10,31,68,0.08);  color: #0A1F44; }
+.role-ops      { background: rgba(26,82,204,0.1);   color: #1a52cc; }
+.role-tech     { background: rgba(67,56,202,0.1);   color: #4338ca; }
+.role-sales    { background: rgba(14,116,144,0.1);  color: #0e7490; }
+
+.team-card p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--tm-muted);
+  margin: 0;
+}
+
+
+/* ============================================================
+   04. VALUES STRIP
+============================================================ */
+.team-values {
+  background: var(--tm-navy);
+  padding: clamp(40px, 5vw, 60px) var(--tm-px);
+}
+
+.team-values-inner {
+  max-width: var(--tm-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.team-value-item {
+  background: rgba(255,255,255,0.03);
+  padding: 28px 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: background 0.22s;
+}
+
+.team-value-item:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.team-value-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: rgba(56,189,248,0.12);
+  color: var(--tm-sky);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.team-value-item h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 5px;
+}
+
+.team-value-item p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.55);
+  margin: 0;
+}
+
+
+/* ============================================================
+   05. DEPARTMENTS
+============================================================ */
+.team-departments {
+  background: var(--tm-surface);
+  padding: clamp(48px, 6vw, 72px) var(--tm-px);
+}
+
+.team-departments-inner {
+  max-width: var(--tm-max);
+  margin: 0 auto;
+}
+
+.team-dept-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: clamp(28px, 4vw, 40px);
+}
+
+.team-dept-card {
+  background: var(--tm-white);
+  border: 1px solid rgba(26,82,204,0.08);
+  border-radius: 16px;
+  padding: 24px 20px;
+  transition: box-shadow 0.22s, transform 0.22s;
+}
+
+.team-dept-card:hover {
+  box-shadow: 0 6px 24px rgba(26,82,204,0.09);
+  transform: translateY(-2px);
+}
+
+.team-dept-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: rgba(26,82,204,0.08);
+  color: var(--tm-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  margin-bottom: 14px;
+}
+
+.team-dept-card h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--tm-ink);
+  margin: 0 0 4px;
+}
+
+.team-dept-count {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--tm-blue);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.team-dept-card p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--tm-muted);
+  margin: 0;
+}
+
+
+/* ============================================================
+   06. CTA
+============================================================ */
+.team-cta {
+  background: var(--tm-white);
+  padding: clamp(32px, 4vw, 48px) var(--tm-px);
+  border-top: 1px solid rgba(26,82,204,0.06);
+}
+
+.team-cta-inner {
+  max-width: var(--tm-max);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.team-cta-inner h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  font-weight: 700;
+  color: var(--tm-ink);
+  letter-spacing: -0.015em;
+  margin: 0 0 5px;
+}
+
+.team-cta-inner p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.87rem;
+  color: var(--tm-muted);
+  margin: 0;
+}
+
+.team-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--tm-blue);
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 12px 26px;
+  border-radius: 10px;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(26,82,204,0.22);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.team-cta-btn:hover {
+  background: #1039a0;
+  transform: translateY(-1px);
+}
+
+.team-cta-btn svg { width: 15px; height: 15px; }
+
+@media (max-width: 640px) {
+  .team-cta-inner { flex-direction: column; align-items: flex-start; }
+  .team-cta-btn   { width: 100%; justify-content: center; }
+}
+
+
+/* ============================================================
+   07. SCROLL REVEAL
+============================================================ */
+.reveal { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  body.js-reveal .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1),
+                transform 0.55s cubic-bezier(0.16,1,0.3,1);
+  }
+  body.js-reveal .reveal.is-visible { opacity: 1; transform: none; }
+  body.js-reveal .reveal-d1 { transition-delay: 0.08s; }
+  body.js-reveal .reveal-d2 { transition-delay: 0.16s; }
+  body.js-reveal .reveal-d3 { transition-delay: 0.24s; }
+  body.js-reveal .reveal-d4 { transition-delay: 0.32s; }
+}
+
+
+/* ============================================================
+   08. RESPONSIVE
+============================================================ */
+@media (max-width: 960px) {
+  .team-cards      { grid-template-columns: 1fr 1fr; }
+  .team-dept-grid  { grid-template-columns: 1fr 1fr; }
+  .team-values-inner { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 540px) {
+  .team-cards     { grid-template-columns: 1fr; }
+  .team-dept-grid { grid-template-columns: 1fr; }
+}
