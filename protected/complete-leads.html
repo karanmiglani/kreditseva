@@ -78,7 +78,7 @@
             <label style="font-size:0.82rem;font-weight:700;color:#0d1547;">To</label>
             <input type="date" id="dateTo" style="border:1.5px solid #e2eaf8;border-radius:8px;padding:10px 14px;font-size:0.88rem;font-family:'Open Sans',sans-serif;font-weight:600;color:#0d1547;outline:none;" />
           </div>
-          <button id="downloadBtn" style="display:flex;align-items:center;gap:10px;padding:10px 20px;background:#1a52cc;color:#fff;border:none;border-radius:8px;font-size:0.88rem;font-weight:700;font-family:'Open Sans',sans-serif;cursor:pointer;transition:all 0.2s;">
+          <button  id="downloadBtn" style="text-decoration: none; display:flex;align-items:center;gap:10px;padding:10px 20px;background:#1a52cc;color:#fff;border:none;border-radius:8px;font-size:0.88rem;font-weight:700;font-family:'Open Sans',sans-serif;cursor:pointer;transition:all 0.2s;">
             <i class="fa-solid fa-download"></i> Download Excel
           </button>
           <span id="downloadMsg" style="font-size:0.8rem;color:#ef4444;font-weight:600;display:none;text-align:center;"></span>
@@ -107,7 +107,7 @@
       if (!from || !to) { msg.textContent = 'Please select both dates.'; msg.style.display = 'block'; return; }
       if (from > to)    { msg.textContent = 'From date cannot be after To date.'; msg.style.display = 'block'; return; }
       msg.style.display = 'none';
-      window.location.href = `${window.location.origin}/api/dashboard/complete-leads/download?from=${from}&to=${to}`;
+      window.location.href = `${window.location.origin}/download-exel-report?fromDate=${from}&toDate=${to}`;
     });
 
     // Active sidebar link
