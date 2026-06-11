@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <link rel="stylesheet" href="/css/global.css" />
@@ -16,8 +16,8 @@
   <link rel="stylesheet" href="/css/about.css" />
   <link rel="stylesheet" href="/css/loader.css" />
 </head>
-
 <body>
+
   <!-- PAGE LOADER -->
   <div id="ks-loader">
     <div class="ks-loader-bar-wrap"><div class="ks-loader-bar"></div></div>
@@ -26,35 +26,33 @@
     <div class="ks-loader-dots"><span></span><span></span><span></span></div>
   </div>
 
-
   <!-- STICKY HEADER -->
   <div class="site-header-wrap">
     <div class="top-strip">
       <div class="top-strip-inner">
         <a href="/become-our-partner" class="top-strip-link" style="font-size:14px;">
-          <i class="fa-solid fa-handshake" style="color:#D2956A; font-size:18px;"></i> Become Our Partner
+          <i class="fa-solid fa-handshake" style="color:#D2956A;font-size:18px;"></i> Become Our Partner
         </a>
         <a href="/check-my-credit-score" class="top-strip-link" style="font-size:14px;">
-          <i class="fa-solid fa-chart-simple" style="color:#4ade80; font-size:18px;"></i> Check Your Credit Score
+          <i class="fa-solid fa-chart-simple" style="color:#4ade80;font-size:18px;"></i> Check Your Credit Score
         </a>
         <a href="tel:+919990033593" class="top-strip-link" style="font-size:14px;">
-          <i class="fa-solid fa-phone" style="color:#ef4444; font-size:18px;"></i> +91-99900-33593
+          <i class="fa-solid fa-phone" style="color:#ef4444;font-size:18px;"></i> +91-99900-33593
         </a>
         <a href="https://wa.me/919990033593" class="top-strip-link" target="_blank" rel="noopener" style="font-size:14px;">
-          <i class="fa-brands fa-whatsapp" style="color:#fff; background:#25D366; border-radius:50%; padding:3px; font-size:18px; width:26px; height:26px; display:inline-flex; align-items:center; justify-content:center;"></i> +91-99900-33593
+          <i class="fa-brands fa-whatsapp" style="color:#fff;background:#25D366;border-radius:50%;padding:3px;font-size:18px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;"></i> +91-99900-33593
         </a>
       </div>
     </div>
-
     <header class="main-header">
       <div class="navbar">
         <a href="/" class="brand-logo">Kredit<span>Seva</span><small class="brand-dotcom">.com</small></a>
-        <button class="menu-btn" id="menuBtn">☰</button>
-        <nav class="nav-links" id="navLinks">
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+        <nav class="nav-links" id="navLinks" aria-label="Main navigation">
           <a href="/" class="simple-link">Home</a>
           <div class="nav-dropdown">
-            <a href="javascript:void(0)">Personal Loan
-              <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <a href="javascript:void(0)" aria-haspopup="true">Personal Loan
+              <svg class="nav-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
             <div class="dropdown-menu">
               <a href="/personal-overdraft">Personal Overdraft</a>
@@ -64,8 +62,8 @@
             </div>
           </div>
           <div class="nav-dropdown">
-            <a href="#">Business Loan
-              <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <a href="#" aria-haspopup="true">Business Loan
+              <svg class="nav-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
             <div class="dropdown-menu">
               <a href="/working-capital">Working Capital</a>
@@ -74,8 +72,8 @@
             </div>
           </div>
           <div class="nav-dropdown">
-            <a href="#">Professional Loan
-              <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <a href="#" aria-haspopup="true">Professional Loan
+              <svg class="nav-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
             <div class="dropdown-menu">
               <a href="/loan-for-ca">Loan For CA</a>
@@ -84,8 +82,8 @@
             </div>
           </div>
           <div class="nav-dropdown">
-            <a href="#">Secured Loan
-              <svg class="nav-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <a href="#" aria-haspopup="true">Secured Loan
+              <svg class="nav-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
             <div class="dropdown-menu">
               <a href="/loan-against-property">Loan Against Property</a>
@@ -101,130 +99,220 @@
     </header>
   </div>
 
-  <!-- ── HERO ── -->
-  <section class="au-hero">
-    <div class="au-hero-inner">
-      <div class="au-hero-kicker">About KreditSeva</div>
-      <h1>We made getting a loan<br><span class="au-h1-accent">simple.</span></h1>
-      <p class="au-hero-tagline">India's trusted loan comparison platform — connecting 1 Lakh+ borrowers with 90+ banks &amp; NBFCs. Zero fees, expert guidance, fastest approvals.</p>
-    </div>
-  </section>
+  <main id="main-content">
 
-  <!-- ── STATS ── -->
-  <div class="au-stats">
-    <div class="au-stats-row">
-      <div class="au-stat">
-        <span class="au-stat-number">1 Lakh+</span>
-        <span class="au-stat-label">Happy Customers</span>
+    <!-- ============================================================
+         ABOUT KREDITSEVA — centered editorial style
+    ============================================================ -->
+    <section class="about-section" aria-labelledby="about-ks-h">
+      <div class="about-section-inner reveal">
+        <h1 id="about-ks-h" class="about-section-title">About KreditSeva</h1>
+        <span class="about-section-rule" aria-hidden="true"></span>
+        <p class="about-section-body">
+          KreditSeva is a direct selling associate (DSA) operating as a unit of Voice Technologies and Business Solutions. We laid our foundation with the dream of making credit access in India simple, transparent, and fair — for every borrower, regardless of background. We are the bridge between you and India's leading banks and NBFCs, helping you find the right loan at the right terms, without the maze. Our team of advisers works with over 45 banking and NBFC partners — including HDFC Bank, ICICI Bank, Axis Bank, SBI, Bajaj Finserv, and Tata Capital — covering personal loans, business loans, professional loans, secured loans, and credit cards, all from a single platform with a single point of contact. We are not just a marketplace. We are your loan partner — from first enquiry to final disbursement.
+        </p>
       </div>
-      <div class="au-stat">
-        <span class="au-stat-number">₹500 Cr+</span>
-        <span class="au-stat-label">Loans Disbursed</span>
-      </div>
-      <div class="au-stat">
-        <span class="au-stat-number">90+</span>
-        <span class="au-stat-label">Banking Partners</span>
-      </div>
-      <div class="au-stat">
-        <span class="au-stat-number">19,000+</span>
-        <span class="au-stat-label">Pincodes Served</span>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- ── STORY TIMELINE ── -->
-  <section class="au-story">
-    <div class="au-story-head">
-      <span class="au-section-label">Our Journey</span>
-      <h2>How we got here</h2>
-    </div>
-    <div class="au-timeline">
 
-      <div class="au-tl-item">
-        <div class="au-tl-year">
-          <span class="au-tl-year-text">The Problem</span>
+    <!-- ============================================================
+         OUR VISION — left text + right decorative visual
+    ============================================================ -->
+    <section class="about-vision" aria-labelledby="about-vision-h">
+      <div class="about-vision-inner">
+
+        <div class="about-vision-copy reveal">
+          <h2 id="about-vision-h" class="about-vision-title">Our Vision</h2>
+          <span class="about-vision-rule" aria-hidden="true"></span>
+          <p>
+            KreditSeva was built with the vision to create a financially stable and financially aware India. We believe a loan should be a planned decision — not a burden, not a gamble, not a last resort forced on you by confusing paperwork and opaque lender policies.
+          </p>
+          <p>
+            We are reshaping how people access credit: by matching every borrower to the right lender before they apply, by staying with them through every step, and by measuring our success not in applications submitted but in lives genuinely improved.
+          </p>
+          <p>
+            The right loan at the right time can fund a business, secure a home, clear a burden, unlock a goal. Our job is to narrow the distance between that outcome and the person who deserves it.
+          </p>
         </div>
-        <div class="au-tl-content">
-          <h3>A broken system needed fixing</h3>
-          <p>Millions of Indians were navigating multiple bank visits, opaque interest rates, and mountains of paperwork — only to be rejected or overcharged. We saw a gap nobody was truly solving, and decided to step in.</p>
+
+        <div class="about-vision-values reveal reveal-d1">
+          <div class="about-vision-val">
+            <div class="about-vision-val-icon" aria-hidden="true"><i class="fa-solid fa-handshake"></i></div>
+            <h3>Transparency</h3>
+            <p>No hidden fees, no surprise terms. You know exactly what you're getting before you sign anything.</p>
+          </div>
+          <div class="about-vision-val">
+            <div class="about-vision-val-icon" aria-hidden="true"><i class="fa-solid fa-bolt"></i></div>
+            <h3>Speed</h3>
+            <p>Most approvals in 24–72 hours. We move fast because we prepare your file right the first time.</p>
+          </div>
+          <div class="about-vision-val">
+            <div class="about-vision-val-icon" aria-hidden="true"><i class="fa-solid fa-users"></i></div>
+            <h3>Human Support</h3>
+            <p>A real adviser stays with your application from first call to final disbursement — no black box.</p>
+          </div>
+          <div class="about-vision-val">
+            <div class="about-vision-val-icon" aria-hidden="true"><i class="fa-solid fa-scale-balanced"></i></div>
+            <h3>Fair Access</h3>
+            <p>Credit for every borrower, regardless of background — salaried, self-employed, or business owner.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+
+
+    <!-- ============================================================
+         WHY KREDITSEVA
+    ============================================================ -->
+    <section class="about-why" aria-labelledby="about-why-h">
+      <div class="about-why-inner">
+        <div class="about-why-head reveal">
+          <h2 id="about-why-h">Why people choose <em>KreditSeva</em></h2>
+          <p>Four things we do differently — and consistently.</p>
+        </div>
+        <ul class="about-why-steps" role="list">
+          <li class="about-why-step reveal reveal-d1">
+            <span class="about-why-num" aria-hidden="true">1</span>
+            <div class="about-why-step-icon" aria-hidden="true"><i class="fa-solid fa-sliders"></i></div>
+            <h3>Matched, not listed</h3>
+            <p>We check eligibility across lenders before you submit. One relevant offer — not twenty confusing ones.</p>
+          </li>
+          <li class="about-why-step reveal reveal-d2">
+            <span class="about-why-num" aria-hidden="true">2</span>
+            <div class="about-why-step-icon" aria-hidden="true"><i class="fa-solid fa-route"></i></div>
+            <h3>End-to-end support</h3>
+            <p>Our advisers stay from first call to disbursement. No black box — you always know where things stand.</p>
+          </li>
+          <li class="about-why-step reveal reveal-d3">
+            <span class="about-why-num" aria-hidden="true">3</span>
+            <div class="about-why-step-icon" aria-hidden="true"><i class="fa-solid fa-bolt"></i></div>
+            <h3>Speed without shortcuts</h3>
+            <p>Approvals in 24–72 hours. Fast because we prepare your file correctly the first time.</p>
+          </li>
+          <li class="about-why-step reveal reveal-d4">
+            <span class="about-why-num" aria-hidden="true">4</span>
+            <div class="about-why-step-icon" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></div>
+            <h3>Breadth in one place</h3>
+            <p>Personal, business, professional, secured — one platform, one adviser, your full picture considered.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         SCALE
+    ============================================================ -->
+    <section class="about-scale" aria-labelledby="about-scale-h">
+      <div class="about-scale-inner">
+        <div class="about-scale-left reveal">
+          <h2 id="about-scale-h"><strong>Thousands of borrowers</strong> have found their loan through KreditSeva.</h2>
+          <p>We operate across India's top cities — serving salaried professionals, CAs, doctors, business owners, and first-time borrowers.</p>
+          <p>Our team understands that every application carries a real need behind it: a medical bill, a business expansion, a home, a goal. That's why we invest in relationships, not just conversions.</p>
+        </div>
+        <div class="about-scale-grid reveal reveal-d1" aria-label="Key statistics">
+          <div class="about-scale-cell">
+            <span class="cell-num">45+</span>
+            <span class="cell-text">Banking &amp; NBFC partners across India's leading institutions</span>
+          </div>
+          <div class="about-scale-cell">
+            <span class="cell-num">₹50L+</span>
+            <span class="cell-text">Maximum loan amount accessible through a single application</span>
+          </div>
+          <div class="about-scale-cell">
+            <span class="cell-num">24–72h</span>
+            <span class="cell-text">Typical time from application to approval across most loan types</span>
+          </div>
+          <div class="about-scale-cell">
+            <span class="cell-num">7+</span>
+            <span class="cell-text">Loan categories covered with one point of contact</span>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="au-tl-item">
-        <div class="au-tl-year">
-          <span class="au-tl-year-text">The Idea</span>
+
+    <!-- ============================================================
+         PARTNERS MARQUEE
+    ============================================================ -->
+    <section class="about-partners" aria-label="Our banking and NBFC partners">
+      <div class="about-partners-head reveal">
+        <h2>Our lending partners</h2>
+        <p>India's most trusted banks and NBFCs — so you get real offers, fast.</p>
+      </div>
+      <div aria-hidden="true" style="overflow:hidden;">
+        <div class="about-marquee-track">
+          <div class="about-marquee-inner">
+            <img class="about-marquee-logo" src="/images/partners/hdfcBank.webp"         alt="HDFC Bank" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/iciciBank.webp"        alt="ICICI Bank" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/axisBank.webp"         alt="Axis Bank" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/sbi.webp"              alt="SBI" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/bajaj.webp"            alt="Bajaj Finserv" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/tata-capital.webp"     alt="Tata Capital" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/kotak.webp"            alt="Kotak" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/aditya-birla.webp"     alt="Aditya Birla Finance" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/idfc-bank.webp"        alt="IDFC First Bank" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/poonawala.webp"        alt="Poonawala Fincorp" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/lendingkart.webp"      alt="LendingKart" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/indifi.webp"           alt="Indifi" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/l-t-finance-logo.webp" alt="L&T Finance" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/smfg.webp"             alt="SMFG India Credit" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/axis-finance.webp"     alt="Axis Finance" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/neogrowth.webp"        alt="NeoGrowth" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/protium.webp"          alt="Protium" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/cholamandalam.webp"    alt="Cholamandalam" loading="lazy" />
+          </div>
+          <div class="about-marquee-inner" aria-hidden="true">
+            <img class="about-marquee-logo" src="/images/partners/hdfcBank.webp"         alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/iciciBank.webp"        alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/axisBank.webp"         alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/sbi.webp"              alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/bajaj.webp"            alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/tata-capital.webp"     alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/kotak.webp"            alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/aditya-birla.webp"     alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/idfc-bank.webp"        alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/poonawala.webp"        alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/lendingkart.webp"      alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/indifi.webp"           alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/l-t-finance-logo.webp" alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/smfg.webp"             alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/axis-finance.webp"     alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/neogrowth.webp"        alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/protium.webp"          alt="" loading="lazy" />
+            <img class="about-marquee-logo" src="/images/partners/cholamandalam.webp"    alt="" loading="lazy" />
+          </div>
         </div>
-        <div class="au-tl-content">
-          <h3>One platform, every lender</h3>
-          <p>KreditSeva was built on a simple belief — borrowers deserve to compare all their options before committing. We built the infrastructure to connect borrowers with 90+ banks and NBFCs in one place, with real experts guiding every step.</p>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         CTA STRIP — navy bookend
+    ============================================================ -->
+    <section class="about-cta" aria-labelledby="about-cta-h">
+      <div class="about-cta-inner">
+        <div class="about-cta-copy">
+          <h2 id="about-cta-h">Ready to find the right loan?</h2>
+          <p>Tell us what you need — we'll match you with the right lender and stay with you all the way through.</p>
         </div>
+        <a href="/apply-now" class="about-cta-btn">
+          Apply Now
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 10h12M10 4l6 6-6 6"/>
+          </svg>
+        </a>
       </div>
+    </section>
 
-      <div class="au-tl-item">
-        <div class="au-tl-year">
-          <span class="au-tl-year-text">The Growth</span>
-        </div>
-        <div class="au-tl-content">
-          <h3>India trusted us</h3>
-          <p>Over 1 Lakh Indians chose KreditSeva to find their best loan. ₹500 Crore+ disbursed. Doctors, CAs, business owners, salaried professionals, and first-time borrowers — all found what they needed, faster and cheaper than they thought possible.</p>
-        </div>
-      </div>
+  </main>
 
-      <div class="au-tl-item">
-        <div class="au-tl-year">
-          <span class="au-tl-year-text">Today</span>
-        </div>
-        <div class="au-tl-content">
-          <h3>Free. Expert. Pan-India.</h3>
-          <p>We serve 19,000+ pincodes, work with 90+ regulated lenders, and our service remains 100% free for borrowers — always. We are compensated by lenders so our only agenda is getting you the best deal.</p>
-        </div>
-      </div>
 
-    </div>
-  </section>
-
-  <!-- ── VISION ── -->
-  <section class="au-vision">
-    <div class="au-manifesto-wrap">
-      <div class="au-manifesto-tag">
-        <span class="au-manifesto-tag-text">Our Vision</span>
-      </div>
-      <div class="au-manifesto-body">
-        <h2>A financially empowered India, where fair credit is a right — not a privilege.</h2>
-        <p>We envision a future where every Indian — regardless of background, city, or income bracket — has equal, transparent access to credit. No confusion, no exploitation, no hidden costs. A world where borrowing a loan is as natural and safe as any everyday financial transaction.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── MISSION ── -->
-  <section class="au-mission">
-    <div class="au-manifesto-wrap">
-      <div class="au-manifesto-tag">
-        <span class="au-manifesto-tag-text">Our Mission</span>
-      </div>
-      <div class="au-manifesto-body">
-        <h2>Remove every barrier between <span>borrowers and their best loan</span> — for free.</h2>
-        <p>To give every Indian access to a free, fast, and fully digital loan comparison platform. We commit to unbiased guidance, the lowest available rates from 90+ lenders, and expert support from application to disbursal — ensuring no borrower ever pays us a single rupee for our service.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── CTA ── -->
-  <section class="au-cta">
-    <div class="au-cta-inner">
-      <h2>Ready to find your best loan?</h2>
-      <p>Apply in 2 minutes — completely free, no credit impact, expert guidance included.</p>
-      <a href="/apply-now" class="au-cta-btn">
-        Apply Now — It's Free
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       FOOTER
-  ============================================================ -->
-<footer class="site-footer">
+  <!-- FOOTER -->
+  <footer class="site-footer">
     <div class="footer-container" data-animate>
       <div class="footer-brand">
         <a href="/" class="footer-logo">Kredit<span>Seva</span></a>
@@ -252,33 +340,43 @@
       <div class="footer-links">
         <h4>Legal</h4>
         <a href="/privacy-policy">Privacy Policy</a>
-        <a href="/terms-conditon">Terms & Conditions</a>
+        <a href="/terms-conditon">Terms &amp; Conditions</a>
         <a href="/disclaimer">Disclaimer</a>
         <a href="/grievance-redressal">Grievance Redressal</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 KreditSeva. All rights reserved.</p>
+      <p>&copy; 2026 KreditSeva. All rights reserved.</p>
     </div>
   </footer>
 
   <!-- FLOATING BUTTONS -->
   <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Go to top">
-    <svg viewBox="0 0 24 24" class="scroll-icon">
-      <path d="M12 19V6" />
-      <path d="M6 12L12 6L18 12" />
+    <svg viewBox="0 0 24 24" class="scroll-icon" aria-hidden="true">
+      <path d="M12 19V6"/><path d="M6 12L12 6L18 12"/>
     </svg>
   </button>
   <a href="https://wa.me/919138130188?text=Hi%20I%20want%20to%20know%20about%20loan%20options" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
-    <i class="fa-brands fa-whatsapp"></i>
+    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
   </a>
   <a href="tel:+919990033593" class="call-float" aria-label="Call Now">
-    <i class="fa-solid fa-phone"></i>
+    <i class="fa-solid fa-phone" aria-hidden="true"></i>
   </a>
 
   <script src="/js/custom.js"></script>
-  
   <script src="/js/loader.js"></script>
   <script src="/js/smooth-scroll.js"></script>
+  <script>
+    (function () {
+      if (!('IntersectionObserver' in window)) return;
+      document.body.classList.add('js-reveal');
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -24px 0px' });
+      document.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
+    })();
+  </script>
 </body>
 </html>

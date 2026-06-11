@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(grep -v -E \"\\\\.\\(png|jpg|jpeg|svg|webp|DS_Store|lock\\)$\")",
-      "Bash(mysql *)"
+      "Bash(mysql *)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --screenshot=/tmp/about_desktop.png --window-size=1440,900 --hide-scrollbars http://localhost:3000/about-us)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --screenshot=/tmp/about_full3.png --window-size=1440,8000 --hide-scrollbars http://localhost:3000/about-us)",
+      "Bash(sips -c 900 390 --cropOffset 0 0    /tmp/mobile_full.png --out /tmp/m_hero.png)",
+      "Bash(sips -c 900 390 --cropOffset 900 0  /tmp/mobile_full.png --out /tmp/m_mid.png)",
+      "Bash(sips -c 900 390 --cropOffset 1800 0 /tmp/mobile_full.png --out /tmp/m_bot.png)",
+      "Bash(node *)"
     ]
   },
   "enabledPlugins": {
