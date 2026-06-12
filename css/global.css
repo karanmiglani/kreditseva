@@ -392,6 +392,11 @@ body {
     align-items: flex-start;
     gap: 0;
     display: none; /* toggled via JS .active class */
+    max-height: calc(100dvh - 110px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    z-index: 998;
   }
 
   .nav-links.active {
@@ -410,7 +415,7 @@ body {
     justify-content: space-between;
   }
 
-  /* Static dropdown on mobile (no absolute positioning) */
+  /* Static dropdown on mobile — JS .open class controls, NOT :hover */
   .dropdown-menu {
     position: static;
     opacity: 1;
@@ -420,10 +425,11 @@ body {
     box-shadow: none;
     border-radius: 14px;
     margin-bottom: 12px;
-    display: none; /* shown on :hover */
+    display: none;
   }
 
-  .nav-dropdown:hover .dropdown-menu {
+  /* Only open via JS .open class — removes sticky touch-hover bug */
+  .nav-dropdown.open .dropdown-menu {
     display: flex;
   }
 

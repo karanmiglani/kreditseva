@@ -302,10 +302,12 @@ if (menuBtn && navLinks) {
     trigger.addEventListener('click', e => {
       if (window.innerWidth > 900) return; // desktop pe CSS hover handle karta hai
       e.preventDefault();
+      e.stopPropagation(); // document click handler ko fire hone se roko
       const dropdown = trigger.parentElement;
       const isOpen   = dropdown.classList.contains('open');
       // Pehle sab band karo
       document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
+      // Same menu dobara click kiya ho toh band raho (toggle collapse)
       if (!isOpen) dropdown.classList.add('open');
     });
   });
