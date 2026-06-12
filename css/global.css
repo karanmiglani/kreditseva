@@ -2551,12 +2551,13 @@ body.popup-open {
 
 .od-calc-inputs {
   grid-area: inputs;
-  padding: 32px 28px;
+  padding: 28px 20px;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 20px;
   border-right: 1px solid rgba(26,82,204,0.07);
   border-bottom: 1px solid rgba(26,82,204,0.07);
+  min-width: 0;
 }
 
 /* Chart panel */
@@ -2593,6 +2594,7 @@ body.popup-open {
   overflow: hidden;
   background: #f8faff;
   transition: border-color 0.2s;
+  min-width: 0;
 }
 
 .od-input-wrap:focus-within {
@@ -2697,15 +2699,24 @@ body.popup-open {
 
 .od-result-item strong {
   font-family: 'Open Sans', sans-serif;
-  font-size: 0.92rem;
+  font-size: clamp(0.75rem, 1.8vw, 0.92rem);
   font-weight: 700;
   color: #0A1F44;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .od-result-item.highlight strong {
   color: #1a52cc;
-  font-size: 1.05rem;
+  font-size: clamp(0.82rem, 2vw, 1.05rem);
+}
+
+@media (max-width: 480px) {
+  .od-result-strip { flex-wrap: wrap; }
+  .od-result-item { flex: 1 1 45%; border-right: none; border-bottom: 1px solid rgba(26,82,204,0.06); }
+  .od-result-item:nth-child(odd) { border-right: 1px solid rgba(26,82,204,0.06); }
+  .od-result-item:last-child, .od-result-item:nth-last-child(2):nth-child(odd) { border-bottom: none; }
 }
 
 .od-disclaimer {
