@@ -538,6 +538,16 @@
           <p class="od-disclaimer">* Indicative only. Actual interest may vary by lender. Only drawn amount attracts interest.</p>
         </div>
       </div>
+      <!-- Line chart -->
+      <div class="od-chart-wrap">
+        <div class="od-chart-head">
+          <h4>Interest cost as days increase</h4>
+          <span>Based on current draw amount &amp; rate</span>
+        </div>
+        <div class="od-chart-canvas-wrap">
+          <canvas id="od-line-chart-bo"></canvas>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1040,7 +1050,70 @@
   <script src="/js/smooth-scroll.js"></script>
   <script>
     (function() {
+      var boChart = null;
       function fmt(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+
+      function buildChartData(draw, rate) {
+        var labels = [], data = [];
+        var milestones = [7,15,30,45,60,90,120,180,270,365];
+        milestones.forEach(function(d) {
+          labels.push(d + 'd');
+          data.push(Math.round(draw * (rate/100/365) * d));
+        });
+        return { labels: labels, data: data };
+      }
+
+      function renderChart(suffix, draw, rate, currentDays) {
+        var ctx = document.getElementById('od-line-chart-' + suffix);
+        if (!ctx || typeof Chart === 'undefined') return;
+        var cd = buildChartData(draw, rate);
+        if (boChart) { boChart.destroy(); }
+        boChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: cd.labels,
+            datasets: [{
+              label: 'Interest Cost (₹)',
+              data: cd.data,
+              borderColor: '#1a52cc',
+              backgroundColor: 'rgba(26,82,204,0.07)',
+              borderWidth: 2.5,
+              pointBackgroundColor: '#1a52cc',
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              fill: true,
+              tension: 0.4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) { return ' ₹' + ctx.raw.toLocaleString('en-IN'); }
+                }
+              }
+            },
+            scales: {
+              x: {
+                grid: { color: 'rgba(26,82,204,0.05)' },
+                ticks: { font: { size: 11, family: 'Open Sans' }, color: '#5a6a8a' }
+              },
+              y: {
+                grid: { color: 'rgba(26,82,204,0.05)' },
+                ticks: {
+                  font: { size: 11, family: 'Open Sans' },
+                  color: '#5a6a8a',
+                  callback: function(v) { return '₹' + (v >= 1000 ? (v/1000).toFixed(0)+'K' : v); }
+                }
+              }
+            }
+          }
+        });
+      }
+
       function calcOD(suffix) {
         var draw  = parseFloat(document.getElementById('od-draw-'   + suffix).value) || 0;
         var rate  = parseFloat(document.getElementById('od-rate-'   + suffix).value) || 0;
@@ -1051,12 +1124,12 @@
         document.getElementById('od-r-draw-'    + suffix).textContent = fmt(draw);
         document.getElementById('od-r-daily-'   + suffix).textContent = (daily * 100).toFixed(4) + '%';
         document.getElementById('od-r-days-'    + suffix).textContent = days + ' days';
-        // sync range fill
         ['draw','rate','days'].forEach(function(k) {
           var inp = document.getElementById('od-' + k + '-range-' + suffix);
           var pct = ((inp.value - inp.min) / (inp.max - inp.min)) * 100;
           inp.style.background = 'linear-gradient(to right,#1a52cc ' + pct + '%,#e2eaf5 ' + pct + '%)';
         });
+        renderChart(suffix, draw, rate, days);
       }
       ['draw','rate','days'].forEach(function(k) {
         var num   = document.getElementById('od-' + k + '-bo');
@@ -1065,7 +1138,8 @@
         num.addEventListener('input',   function(){ range.value = this.value; calcOD('bo'); });
         range.addEventListener('input', function(){ num.value   = this.value; calcOD('bo'); });
       });
-      calcOD('bo');
+      // Wait for Chart.js to load
+      window.addEventListener('load', function() { calcOD('bo'); });
     })();
   </script>
 </body>
