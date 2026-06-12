@@ -549,10 +549,10 @@ if (promoSliderEl) {
       if (data.success) {
         sessionStorage.setItem('id', data.rawLeadId || '');
         overlay.classList.remove('active');
-        showToast(data.message || 'Mobile number saved successfully!');
+        showCelebration();
         setTimeout(() => {
           window.location.href = '/apply-now' + (product ? '?product=' + encodeURIComponent(product) : '');
-        }, 1500);
+        }, 3000);
       } else {
         errEl.textContent = data.message || 'Something went wrong. Please try again.';
       }
@@ -649,4 +649,71 @@ if (document.querySelector('.ksHeroSwiper')) {
     heroSection.addEventListener('mouseleave', () => heroSwiper.autoplay.start());
   }
 
+}
+
+// ================================================================
+//  CELEBRATION — Thumbs up + confetti on form success
+// ================================================================
+
+function showCelebration() {
+  // Create overlay
+  var cel = document.createElement('div');
+  cel.id = 'ks-celebration';
+  cel.innerHTML = '<div class="ks-cel-inner"><div class="ks-cel-thumb">👍</div><div class="ks-cel-msg">Application submitted!</div><div class="ks-cel-sub">We\'ll call you shortly.</div></div>';
+  document.body.appendChild(cel);
+
+  // Trigger entrance
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      cel.classList.add('ks-cel-show');
+    });
+  });
+
+  // Launch confetti bloopers
+  launchConfetti();
+
+  // Auto remove after 2.8s
+  setTimeout(function() {
+    cel.classList.remove('ks-cel-show');
+    setTimeout(function() { if (cel.parentNode) cel.parentNode.removeChild(cel); }, 400);
+  }, 2800);
+}
+
+function launchConfetti() {
+  var colors = ['#1a52cc','#38BDF8','#ffffff','#4ade80','#fbbf24','#f472b6','#a78bfa'];
+  var container = document.getElementById('ks-celebration');
+  if (!container) return;
+
+  for (var i = 0; i < 80; i++) {
+    (function(i) {
+      setTimeout(function() {
+        var p = document.createElement('div');
+        p.className = 'ks-confetti';
+        var size = Math.random() * 10 + 6;
+        var color = colors[Math.floor(Math.random() * colors.length)];
+        var startX = Math.random() * 100; // vw
+        var duration = Math.random() * 1.5 + 1.2;
+        var rotation = Math.random() * 720 - 360;
+        var isCircle = Math.random() > 0.5;
+
+        p.style.cssText = [
+          'position:fixed',
+          'top:-20px',
+          'left:' + startX + 'vw',
+          'width:' + size + 'px',
+          'height:' + (isCircle ? size : size * 0.5) + 'px',
+          'background:' + color,
+          'border-radius:' + (isCircle ? '50%' : '2px'),
+          'opacity:1',
+          'pointer-events:none',
+          'z-index:999999',
+          'animation:ksConfettiFall ' + duration + 's ease-in forwards',
+          'transform:rotate(' + rotation + 'deg)',
+        ].join(';');
+
+        document.body.appendChild(p);
+        setTimeout(function() { if (p.parentNode) p.parentNode.removeChild(p); }, (duration + 0.5) * 1000);
+      }, i * 25);
+    })(i);
+  }
 }

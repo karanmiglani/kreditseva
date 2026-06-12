@@ -2921,3 +2921,81 @@ body.popup-open {
   .btn-wave-wrap { animation: none; background: #1a52cc; }
   .btn-wave      { animation: none; }
 }
+
+
+/* ============================================================
+   CELEBRATION — Thumbs up + confetti
+============================================================ */
+
+#ks-celebration {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999998;
+  background: rgba(10,31,68,0.55);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+#ks-celebration.ks-cel-show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ks-cel-inner {
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 48px 56px;
+  text-align: center;
+  box-shadow: 0 32px 80px rgba(10,31,68,0.25);
+  transform: scale(0.7);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+
+#ks-celebration.ks-cel-show .ks-cel-inner {
+  transform: scale(1);
+}
+
+.ks-cel-thumb {
+  font-size: 5rem;
+  line-height: 1;
+  margin-bottom: 16px;
+  animation: celThumbBounce 0.6s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+}
+
+.ks-cel-msg {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0A1F44;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.ks-cel-sub {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+  color: #5a6a8a;
+}
+
+@keyframes celThumbBounce {
+  0%   { transform: scale(0) rotate(-20deg); opacity: 0; }
+  60%  { transform: scale(1.3) rotate(10deg); opacity: 1; }
+  80%  { transform: scale(0.9) rotate(-5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes ksConfettiFall {
+  0%   { transform: translateY(0) rotate(0deg);   opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-cel-thumb { animation: none; }
+  .ks-confetti  { display: none; }
+}
