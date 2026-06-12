@@ -2787,34 +2787,70 @@ body.popup-open {
    Usage: add class="btn-wave" to any hero CTA button/link
 ============================================================ */
 
+/* ============================================================
+   BTN-WAVE — Shimmer sweep + cycling color border
+   A: bright light sweeps across the button
+   D: border cycles white → cyan → white with glow
+============================================================ */
+
 .btn-wave {
-  animation: bwPulse 1.6s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.5);
+  animation: bwBorder 3s linear infinite;
 }
 
-@keyframes bwPulse {
+/* Shimmer sweep */
+.btn-wave::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,255,255,0.08) 30%,
+    rgba(255,255,255,0.55) 50%,
+    rgba(255,255,255,0.08) 70%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  animation: bwShimmer 2.4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Border color cycles: white → cyan → white */
+@keyframes bwBorder {
   0%   {
-    box-shadow:
-      0 0 0 0   rgba(255,255,255,0.9),
-      0 0 0 0   rgba(56,189,248,0.7),
-      0 6px 20px rgba(26,82,204,0.4);
-    transform: translateY(0);
+    border-color: rgba(255,255,255,0.9);
+    box-shadow: 0 6px 20px rgba(26,82,204,0.45), 0 0 0 0 rgba(255,255,255,0.3);
   }
-  50%  {
-    box-shadow:
-      0 0 0 5px  rgba(255,255,255,0),
-      0 0 0 10px rgba(56,189,248,0),
-      0 10px 30px rgba(56,189,248,0.6);
-    transform: translateY(-2px);
+  33%  {
+    border-color: rgba(56,189,248,1);
+    box-shadow: 0 8px 28px rgba(56,189,248,0.6), 0 0 16px rgba(56,189,248,0.35);
+  }
+  66%  {
+    border-color: rgba(255,255,255,0.9);
+    box-shadow: 0 6px 20px rgba(26,82,204,0.45), 0 0 0 0 rgba(255,255,255,0.3);
   }
   100% {
-    box-shadow:
-      0 0 0 0   rgba(255,255,255,0.9),
-      0 0 0 0   rgba(56,189,248,0.7),
-      0 6px 20px rgba(26,82,204,0.4);
-    transform: translateY(0);
+    border-color: rgba(56,189,248,1);
+    box-shadow: 0 8px 28px rgba(56,189,248,0.6), 0 0 16px rgba(56,189,248,0.35);
   }
+}
+
+/* Shimmer slides left → right → pause → repeat */
+@keyframes bwShimmer {
+  0%   { left: -75%; opacity: 1; }
+  60%  { left: 125%;  opacity: 1; }
+  61%  { left: 125%;  opacity: 0; }
+  100% { left: -75%;  opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-wave { animation: none; }
+  .btn-wave            { animation: none; border: 2px solid rgba(255,255,255,0.6); }
+  .btn-wave::before    { display: none; }
 }
