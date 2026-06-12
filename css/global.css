@@ -2788,69 +2788,55 @@ body.popup-open {
 ============================================================ */
 
 /* ============================================================
-   BTN-WAVE — Shimmer sweep + cycling color border
-   A: bright light sweeps across the button
-   D: border cycles white → cyan → white with glow
+   BTN-WAVE-WRAP — spinning conic border wrapper (same as loan-for-ca)
+   Usage: wrap your button in <div class="btn-wave-wrap">...</div>
+   BTN-WAVE — bounce on the button itself
 ============================================================ */
 
-.btn-wave {
-  position: relative;
-  overflow: hidden;
-  border: 2px solid rgba(255,255,255,0.5);
-  animation: bwBorder 3s linear infinite;
+@property --bw-spin {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
 }
 
-/* Shimmer sweep */
-.btn-wave::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -75%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(255,255,255,0.08) 30%,
-    rgba(255,255,255,0.55) 50%,
-    rgba(255,255,255,0.08) 70%,
-    transparent 100%
+.btn-wave-wrap {
+  display: inline-block;
+  border-radius: 12px;
+  padding: 3px;
+  background: conic-gradient(
+    from var(--bw-spin),
+    #0A1F44 0deg,
+    #1a52cc 60deg,
+    #00cfff 120deg,
+    #ffffff 180deg,
+    #00cfff 240deg,
+    #1a52cc 300deg,
+    #0A1F44 360deg
   );
-  transform: skewX(-20deg);
-  animation: bwShimmer 2.4s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 2;
+  animation: bwSpin 3s linear infinite;
+  box-shadow: 0 8px 30px rgba(26,82,204,0.3);
 }
 
-/* Border color cycles: white → cyan → white */
-@keyframes bwBorder {
-  0%   {
-    border-color: rgba(255,255,255,0.9);
-    box-shadow: 0 6px 20px rgba(26,82,204,0.45), 0 0 0 0 rgba(255,255,255,0.3);
-  }
-  33%  {
-    border-color: rgba(56,189,248,1);
-    box-shadow: 0 8px 28px rgba(56,189,248,0.6), 0 0 16px rgba(56,189,248,0.35);
-  }
-  66%  {
-    border-color: rgba(255,255,255,0.9);
-    box-shadow: 0 6px 20px rgba(26,82,204,0.45), 0 0 0 0 rgba(255,255,255,0.3);
-  }
-  100% {
-    border-color: rgba(56,189,248,1);
-    box-shadow: 0 8px 28px rgba(56,189,248,0.6), 0 0 16px rgba(56,189,248,0.35);
-  }
+@keyframes bwSpin {
+  to { --bw-spin: 360deg; }
 }
 
-/* Shimmer slides left → right → pause → repeat */
-@keyframes bwShimmer {
-  0%   { left: -75%; opacity: 1; }
-  60%  { left: 125%;  opacity: 1; }
-  61%  { left: 125%;  opacity: 0; }
-  100% { left: -75%;  opacity: 0; }
+.btn-wave {
+  animation: bwBounce 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+.btn-wave:hover {
+  animation-play-state: paused;
+}
+
+@keyframes bwBounce {
+  0%,  100% { transform: translateY(0); }
+  40%        { transform: translateY(-6px); }
+  60%        { transform: translateY(-3px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-wave            { animation: none; border: 2px solid rgba(255,255,255,0.6); }
-  .btn-wave::before    { display: none; }
+  .btn-wave-wrap { animation: none; background: #1a52cc; }
+  .btn-wave      { animation: none; }
 }
