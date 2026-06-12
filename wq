@@ -1,0 +1,106 @@
+[33m286754e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: reset: moving to origin/main
+[33m6eb9e56[m HEAD@{1}: reset: moving to origin/main
+[33m6eb9e56[m HEAD@{2}: pull: Fast-forward
+[33md58f968[m HEAD@{3}: commit: Removed Home Loan and Instant loan from trending searches
+[33m77fa1b8[m HEAD@{4}: pull: Fast-forward
+[33m286754e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{5}: pull: Fast-forward
+[33m5e57f27[m HEAD@{6}: commit: Removed comments fro server.js
+[33m43636c7[m HEAD@{7}: pull: Fast-forward
+[33m83090dc[m HEAD@{8}: pull: Fast-forward
+[33m438d515[m HEAD@{9}: pull: Fast-forward
+[33mdabe7ef[m HEAD@{10}: pull: Fast-forward
+[33m0f234fe[m HEAD@{11}: pull: Fast-forward
+[33mcd6ff5d[m HEAD@{12}: pull: Fast-forward
+[33m03acbf5[m HEAD@{13}: pull: Fast-forward
+[33m969ba20[m HEAD@{14}: pull: Fast-forward
+[33m1322fc1[m HEAD@{15}: pull: Fast-forward
+[33ma9979da[m HEAD@{16}: commit: added contact us route
+[33mc0bdf74[m HEAD@{17}: pull: Fast-forward
+[33m03fddad[m HEAD@{18}: pull: Fast-forward
+[33mda413ce[m HEAD@{19}: pull: Fast-forward
+[33m7455d32[m HEAD@{20}: pull: Fast-forward
+[33m6b36529[m HEAD@{21}: pull: Fast-forward
+[33m0dc06bd[m HEAD@{22}: pull: Fast-forward
+[33m221c05f[m HEAD@{23}: commit: Changes on business loan page
+[33mf8c2212[m HEAD@{24}: pull: Fast-forward
+[33m927c054[m HEAD@{25}: pull: Fast-forward
+[33mc351b3b[m HEAD@{26}: pull origin main: Fast-forward
+[33m9c5ad3b[m HEAD@{27}: reset: moving to HEAD
+[33m9c5ad3b[m HEAD@{28}: pull: Fast-forward
+[33m81a5156[m HEAD@{29}: pull: Merge made by the 'ort' strategy.
+[33mca47cf9[m HEAD@{30}: commit: Update Admin dashboard
+[33mc7beec5[m HEAD@{31}: pull: Fast-forward
+[33m2cfaac8[m HEAD@{32}: pull: Fast-forward
+[33m2b49411[m HEAD@{33}: commit: Leads from and working updated
+[33m020f630[m HEAD@{34}: pull: Fast-forward
+[33m7eb6666[m HEAD@{35}: pull: Fast-forward
+[33mdd8f0c3[m HEAD@{36}: pull: Fast-forward
+[33m5419f3d[m HEAD@{37}: commit: Working on lead login not completed yet
+[33m73ced62[m HEAD@{38}: pull: Fast-forward
+[33mf4ffdf7[m HEAD@{39}: pull: Fast-forward
+[33mdb28cf9[m HEAD@{40}: pull: Fast-forward
+[33m9064f0a[m HEAD@{41}: pull: Fast-forward
+[33m5a2a1b6[m HEAD@{42}: pull: Fast-forward
+[33m6df8007[m HEAD@{43}: pull: Fast-forward
+[33md7152c0[m HEAD@{44}: commit: Loan Application Filter working and sidebar broken links fixed
+[33mcc9cb2a[m HEAD@{45}: commit: Added loan application server side table
+[33me5f6a79[m HEAD@{46}: pull: Fast-forward
+[33m87ad24d[m HEAD@{47}: pull: Fast-forward
+[33ma2af11b[m HEAD@{48}: commit: tbl css working
+[33m7ec53d7[m HEAD@{49}: pull: Fast-forward
+[33mcd86a94[m HEAD@{50}: commit: Filters working added
+[33me6fa53d[m HEAD@{51}: pull: Fast-forward
+[33m8d26927[m HEAD@{52}: pull: Fast-forward
+[33m759318b[m HEAD@{53}: pull: Fast-forward
+[33m1327e58[m HEAD@{54}: pull: Fast-forward
+[33m5194bb1[m HEAD@{55}: pull: Fast-forward
+[33m7b8b4b8[m HEAD@{56}: pull: Fast-forward
+[33m9495f8f[m HEAD@{57}: pull: Fast-forward
+[33mf47523e[m HEAD@{58}: commit: Added datatable on dashbaord page
+[33m067790f[m HEAD@{59}: commit: Admin dashboard
+[33m6a020b9[m HEAD@{60}: commit: Updated borken links
+[33md33b847[m HEAD@{61}: pull: Fast-forward
+[33m0d59ce4[m HEAD@{62}: pull: Fast-forward
+[33m3caa43e[m HEAD@{63}: pull: Fast-forward
+[33m41a46d3[m HEAD@{64}: pull: Fast-forward
+[33mc5c1648[m HEAD@{65}: commit: Debt Consolidation working fixed errors
+[33md3a2165[m HEAD@{66}: commit: Debt Consolidation working
+[33m0ce0ab0[m HEAD@{67}: commit: Apply Now form worked and tested
+[33m548cbbb[m HEAD@{68}: pull: Fast-forward
+[33me9214c8[m HEAD@{69}: pull: Fast-forward
+[33m3ff8da6[m HEAD@{70}: pull: Fast-forward
+[33m6f93bc0[m HEAD@{71}: pull: Fast-forward
+[33m73be5cf[m HEAD@{72}: pull: Fast-forward
+[33m45713d1[m HEAD@{73}: pull: Fast-forward
+[33mecfe77c[m HEAD@{74}: commit: Added form working to her section of personal loan
+[33m11c41d1[m HEAD@{75}: commit: Reduced font weight of cta heading with class pl-cta-card-inner h2
+[33m19bcfb3[m HEAD@{76}: commit: Removed Pop.html and linked file and deleted pop-up js
+[33m3485a93[m HEAD@{77}: commit (merge): added broken links and routes to homepage and updated pageroutes
+[33m43e9aec[m HEAD@{78}: commit: added broken links and routes to homepage and updated pageroutes
+[33m25c486a[m HEAD@{79}: commit: added broken links and routes to homepage and updated pageroutes
+[33m89f619d[m HEAD@{80}: commit: Removed stats from why choose us in dynamic pages
+[33me07eb2a[m HEAD@{81}: commit: Added why choose kreditseva in dynamic pages
+[33m9bd2fe8[m HEAD@{82}: pull: Merge made by the 'ort' strategy.
+[33m8009e44[m HEAD@{83}: commit: Resfuffled emi section on homepage
+[33ma230db6[m HEAD@{84}: pull: Fast-forward
+[33m33ed6f5[m HEAD@{85}: pull: Fast-forward
+[33m2813943[m HEAD@{86}: pull: Fast-forward
+[33mb9ae061[m HEAD@{87}: pull: Fast-forward
+[33mae368a7[m HEAD@{88}: pull: Fast-forward
+[33m1767284[m HEAD@{89}: pull: Fast-forward
+[33mc7dfc30[m HEAD@{90}: pull: Fast-forward
+[33m8d6a147[m HEAD@{91}: pull: Fast-forward
+[33m99597f4[m HEAD@{92}: pull: Fast-forward
+[33mb9eafe4[m HEAD@{93}: pull: Fast-forward
+[33m05c4160[m HEAD@{94}: pull: Fast-forward
+[33mf06c0f1[m HEAD@{95}: pull: Fast-forward
+[33m69e7602[m HEAD@{96}: pull: Fast-forward
+[33m882bef9[m HEAD@{97}: pull: Fast-forward
+[33m61a07b8[m HEAD@{98}: pull: Fast-forward
+[33mb328108[m HEAD@{99}: pull: Fast-forward
+[33m74c0b07[m HEAD@{100}: pull: Fast-forward
+[33m5a2257f[m HEAD@{101}: pull: Fast-forward
+[33m82a695f[m HEAD@{102}: pull: Fast-forward
+[33madf4bc1[m HEAD@{103}: pull: Fast-forward
+[33m62df600[m HEAD@{104}: pull: Fast-forward
+[33mc8a28a0[m HEAD@{105}: clone: from https://github.com/karanmiglani/kreditseva.git
