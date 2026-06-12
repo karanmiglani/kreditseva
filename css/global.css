@@ -2703,28 +2703,25 @@ body.popup-open {
   margin: 0;
 }
 
-/* Chart below the calculator card */
+/* Chart inside left inputs panel */
 .od-chart-wrap {
-  margin-top: 24px;
-  background: #fff;
-  border-radius: 16px;
-  border: 1px solid rgba(26,82,204,0.08);
-  padding: 24px 24px 16px;
-  box-shadow: 0 2px 12px rgba(10,31,68,0.05);
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(26,82,204,0.07);
 }
 
 .od-chart-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .od-chart-head h4 {
   font-family: 'Open Sans', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.83rem;
   font-weight: 700;
   color: #0A1F44;
   margin: 0;
@@ -2732,13 +2729,13 @@ body.popup-open {
 
 .od-chart-head span {
   font-family: 'Open Sans', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: #5a6a8a;
 }
 
 .od-chart-canvas-wrap {
   position: relative;
-  height: 200px;
+  height: 160px;
 }
 
 @media (max-width: 700px) {
