@@ -2828,7 +2828,13 @@ body.popup-open {
 
 .btn-wave:hover {
   animation-play-state: paused;
+  background: #ffffff !important;
+  color: #1a52cc !important;
+  box-shadow: 0 12px 32px rgba(26,82,204,0.25) !important;
 }
+
+/* Ensure SVG icons inside btn-wave also flip color on hover */
+.btn-wave:hover svg { stroke: #1a52cc !important; }
 
 @keyframes bwBounce {
   0%,  100% { transform: translateY(0); }
