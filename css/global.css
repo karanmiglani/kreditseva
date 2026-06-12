@@ -2542,15 +2542,38 @@ body.popup-open {
   box-shadow: 0 4px 24px rgba(10,31,68,0.07);
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "inputs chart"
+    "results results";
   overflow: hidden;
 }
 
 .od-calc-inputs {
+  grid-area: inputs;
   padding: 32px 28px;
   display: flex;
   flex-direction: column;
   gap: 22px;
   border-right: 1px solid rgba(26,82,204,0.07);
+  border-bottom: 1px solid rgba(26,82,204,0.07);
+}
+
+/* Chart panel */
+.od-calc-chart {
+  grid-area: chart;
+  padding: 24px 24px 20px;
+  background: linear-gradient(160deg, #f0f7ff, #f8fbff);
+  border-bottom: 1px solid rgba(26,82,204,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.od-calc-results {
+  grid-area: results;
+  padding: 16px 24px;
+  background: #fff;
 }
 
 .od-field { display: flex; flex-direction: column; gap: 8px; }
@@ -2693,11 +2716,12 @@ body.popup-open {
   margin: 0;
 }
 
-/* Chart inside left inputs panel */
+/* Chart wrap — no extra margin needed, lives in its own panel */
 .od-chart-wrap {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(26,82,204,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
 }
 
 .od-chart-head {
@@ -2725,11 +2749,16 @@ body.popup-open {
 
 .od-chart-canvas-wrap {
   position: relative;
-  height: 160px;
+  flex: 1;
+  min-height: 180px;
 }
 
 @media (max-width: 700px) {
-  .od-calc-card { grid-template-columns: 1fr; }
-  .od-calc-inputs { border-right: none; border-bottom: 1px solid rgba(26,82,204,0.07); }
+  .od-calc-card {
+    grid-template-columns: 1fr;
+    grid-template-areas: "inputs" "chart" "results";
+  }
+  .od-calc-inputs { border-right: none; }
+  .od-calc-chart { min-height: 220px; }
 }
 
