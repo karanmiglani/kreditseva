@@ -2782,75 +2782,39 @@ body.popup-open {
 
 
 /* ============================================================
-   BTN-WAVE — Infinite animated border + wavy pulse
+   BTN-WAVE — Animated box-shadow pulse + wavy glow
+   Reliable cross-browser: uses box-shadow animation only
    Usage: add class="btn-wave" to any hero CTA button/link
-   Works on any background color — uses conic-gradient border
 ============================================================ */
 
-@property --bw-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
 .btn-wave {
-  position: relative;
-  z-index: 0;
-  isolation: isolate;
-}
-
-/* Rotating conic border */
-.btn-wave::before {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from var(--bw-angle),
-    #38BDF8 0%,
-    #ffffff 20%,
-    #1a52cc 40%,
-    #38BDF8 60%,
-    #ffffff 80%,
-    #1a52cc 100%
-  );
-  z-index: -1;
-  animation: bwSpin 2.4s linear infinite;
-  border-radius: inherit;
-}
-
-/* Inner fill to hide the gradient inside the button */
-.btn-wave::after {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  border-radius: inherit;
-  background: inherit;
-  z-index: -1;
-}
-
-/* Wavy pulse glow ring */
-.btn-wave .bw-pulse {
-  position: absolute;
-  inset: -6px;
-  border-radius: inherit;
-  border: 2px solid rgba(56,189,248,0.5);
-  animation: bwPulse 2s ease-out infinite;
-  pointer-events: none;
-  z-index: -1;
-}
-
-@keyframes bwSpin {
-  to { --bw-angle: 360deg; }
+  animation: bwPulse 1.6s ease-in-out infinite;
 }
 
 @keyframes bwPulse {
-  0%   { transform: scale(1);    opacity: 0.7; }
-  70%  { transform: scale(1.12); opacity: 0;   }
-  100% { transform: scale(1.12); opacity: 0;   }
+  0%   {
+    box-shadow:
+      0 0 0 0   rgba(255,255,255,0.9),
+      0 0 0 0   rgba(56,189,248,0.7),
+      0 6px 20px rgba(26,82,204,0.4);
+    transform: translateY(0);
+  }
+  50%  {
+    box-shadow:
+      0 0 0 5px  rgba(255,255,255,0),
+      0 0 0 10px rgba(56,189,248,0),
+      0 10px 30px rgba(56,189,248,0.6);
+    transform: translateY(-2px);
+  }
+  100% {
+    box-shadow:
+      0 0 0 0   rgba(255,255,255,0.9),
+      0 0 0 0   rgba(56,189,248,0.7),
+      0 6px 20px rgba(26,82,204,0.4);
+    transform: translateY(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-wave::before { animation: none; background: rgba(56,189,248,0.4); }
-  .btn-wave .bw-pulse { animation: none; display: none; }
+  .btn-wave { animation: none; }
 }
