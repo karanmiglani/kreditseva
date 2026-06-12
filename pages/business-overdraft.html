@@ -201,99 +201,6 @@
   </div>
 </div>
 
-<section class="emi-section" data-animate>
-  <div class="emi-wrap">
-    <div class="emi-head">
-      <span class="emi-eyebrow">EMI CALCULATOR</span>
-      <h2>Business Overdraft <span>EMI Calculator</span></h2>
-      <p>Adjust the sliders to calculate your monthly EMI, total interest, and repayment amount instantly.</p>
-    </div>
-    <div class="emi-card">
-      <div class="emi-left">
-        <h3>Loan Break-up</h3>
-        <div class="emi-donut-wrap">
-          <canvas id="emiPieChart"></canvas>
-          <div class="emi-donut-center">
-            <span class="emi-donut-label">Total</span>
-            <strong id="emiDonutTotal">₹ 0</strong>
-          </div>
-        </div>
-        <div class="emi-legend">
-          <div class="emi-leg-item">
-            <span class="emi-leg-dot" style="background:#1a52cc;"></span>
-            <span>Principal Amount</span>
-          </div>
-          <div class="emi-leg-item">
-            <span class="emi-leg-dot" style="background:#00cfff;"></span>
-            <span>Total Interest</span>
-          </div>
-        </div>
-      </div>
-      <div class="emi-right">
-        <div class="emi-field">
-          <div class="emi-field-head">
-            <label>Loan Amount</label>
-            <div class="emi-val-box">
-              <span class="emi-prefix">₹</span>
-              <input type="number" id="loanAmount" value="1000000">
-            </div>
-          </div>
-          <input type="range" id="loanRange" min="100000" max="10000000" step="100000" value="1000000">
-          <div class="emi-range-labels"><span>₹1L</span><span>₹1Cr</span></div>
-        </div>
-        <div class="emi-field">
-          <div class="emi-field-head">
-            <label>Rate of Interest</label>
-            <div class="emi-val-box">
-              <input type="number" id="interestRate" value="12">
-              <span class="emi-suffix">%</span>
-            </div>
-          </div>
-          <input type="range" id="rateRange" min="1" max="30" step="0.5" value="12">
-          <div class="emi-range-labels"><span>1%</span><span>30%</span></div>
-        </div>
-        <div class="emi-field">
-          <div class="emi-field-head">
-            <label>Loan Tenure</label>
-            <div class="emi-val-box emi-tenure-box">
-              <input type="number" id="loanTenure" value="2">
-              <div class="emi-tenure-toggle">
-                <button type="button" class="active" data-unit="years">Yr</button>
-                <button type="button" data-unit="months">Mo</button>
-              </div>
-            </div>
-          </div>
-          <input type="range" id="tenureRange" min="1" max="3" step="1" value="2">
-          <div class="emi-range-labels"><span>1 Yr</span><span>3 Yr</span></div>
-        </div>
-        <div class="emi-results-row">
-          <div class="emi-res-item emi-res-highlight">
-            <span>Monthly EMI</span>
-            <strong id="monthlyEmi">₹ 0</strong>
-          </div>
-          <div class="emi-res-item">
-            <span>Principal</span>
-            <strong id="principalAmount">₹ 0</strong>
-          </div>
-          <div class="emi-res-item">
-            <span>Total Interest</span>
-            <strong id="totalInterest">₹ 0</strong>
-          </div>
-          <div class="emi-res-item">
-            <span>Total Payable</span>
-            <strong id="totalPayable">₹ 0</strong>
-          </div>
-        </div>
-        <a href="/apply-now?product=business-overdraft" class="emi-apply-btn">
-          Apply Now
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-        <p class="emi-disclaimer"><i class="fas fa-shield-alt"></i> Indicative values only. Actual EMI may vary based on lender terms.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 
 
   <section class="biz-loan-workflow" data-animate>
@@ -571,6 +478,68 @@
 
 
 
+
+  <!-- OVERDRAFT INTEREST CALCULATOR -->
+  <section class="od-calc-section">
+    <div class="od-calc-wrap">
+      <div class="od-calc-head">
+        <h2>Business Overdraft Interest Calculator</h2>
+        <p>Interest is charged only on the amount you draw, not the full limit. Estimate your monthly cost here.</p>
+      </div>
+      <div class="od-calc-card">
+        <div class="od-calc-inputs">
+          <div class="od-field">
+            <label>Amount Drawn (₹)</label>
+            <div class="od-input-wrap">
+              <span class="od-input-prefix">₹</span>
+              <input type="number" id="od-draw-bo" value="500000" min="10000" max="10000000">
+            </div>
+            <input type="range" id="od-draw-range-bo" min="10000" max="10000000" step="10000" value="500000">
+            <div class="od-range-labels"><span>₹10K</span><span>₹1Cr</span></div>
+          </div>
+          <div class="od-field">
+            <label>Annual Interest Rate (%)</label>
+            <div class="od-input-wrap">
+              <input type="number" id="od-rate-bo" value="15" min="1" max="36" step="0.1">
+              <span class="od-input-suffix">% p.a.</span>
+            </div>
+            <input type="range" id="od-rate-range-bo" min="1" max="36" step="0.5" value="15">
+            <div class="od-range-labels"><span>1%</span><span>36%</span></div>
+          </div>
+          <div class="od-field">
+            <label>Number of Days Used</label>
+            <div class="od-input-wrap">
+              <input type="number" id="od-days-bo" value="30" min="1" max="365">
+              <span class="od-input-suffix">days</span>
+            </div>
+            <input type="range" id="od-days-range-bo" min="1" max="365" step="1" value="30">
+            <div class="od-range-labels"><span>1 day</span><span>365 days</span></div>
+          </div>
+        </div>
+        <div class="od-calc-results">
+          <div class="od-result-main">
+            <span>Estimated Interest Cost</span>
+            <strong id="od-interest-bo">₹0</strong>
+          </div>
+          <div class="od-result-rows">
+            <div class="od-result-row">
+              <span>Amount Drawn</span>
+              <strong id="od-r-draw-bo">₹0</strong>
+            </div>
+            <div class="od-result-row">
+              <span>Daily Interest Rate</span>
+              <strong id="od-r-daily-bo">0%</strong>
+            </div>
+            <div class="od-result-row">
+              <span>Days Used</span>
+              <strong id="od-r-days-bo">0</strong>
+            </div>
+          </div>
+          <p class="od-disclaimer">* Indicative only. Actual interest may vary by lender. Only drawn amount attracts interest.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="pl-cta-banner" data-animate>
     <div class="pl-cta-card">
@@ -1069,6 +1038,36 @@
   </script>
   <script src="/js/loader.js"></script>
   <script src="/js/smooth-scroll.js"></script>
+  <script>
+    (function() {
+      function fmt(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+      function calcOD(suffix) {
+        var draw  = parseFloat(document.getElementById('od-draw-'   + suffix).value) || 0;
+        var rate  = parseFloat(document.getElementById('od-rate-'   + suffix).value) || 0;
+        var days  = parseFloat(document.getElementById('od-days-'   + suffix).value) || 0;
+        var daily = rate / 100 / 365;
+        var interest = draw * daily * days;
+        document.getElementById('od-interest-'  + suffix).textContent = fmt(interest);
+        document.getElementById('od-r-draw-'    + suffix).textContent = fmt(draw);
+        document.getElementById('od-r-daily-'   + suffix).textContent = (daily * 100).toFixed(4) + '%';
+        document.getElementById('od-r-days-'    + suffix).textContent = days + ' days';
+        // sync range fill
+        ['draw','rate','days'].forEach(function(k) {
+          var inp = document.getElementById('od-' + k + '-range-' + suffix);
+          var pct = ((inp.value - inp.min) / (inp.max - inp.min)) * 100;
+          inp.style.background = 'linear-gradient(to right,#1a52cc ' + pct + '%,#e2eaf5 ' + pct + '%)';
+        });
+      }
+      ['draw','rate','days'].forEach(function(k) {
+        var num   = document.getElementById('od-' + k + '-bo');
+        var range = document.getElementById('od-' + k + '-range-bo');
+        if (!num) return;
+        num.addEventListener('input',   function(){ range.value = this.value; calcOD('bo'); });
+        range.addEventListener('input', function(){ num.value   = this.value; calcOD('bo'); });
+      });
+      calcOD('bo');
+    })();
+  </script>
 </body>
 
 </html>

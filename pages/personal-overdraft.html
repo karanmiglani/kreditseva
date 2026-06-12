@@ -344,6 +344,68 @@
     </div>
   </section>
 
+  <!-- OVERDRAFT INTEREST CALCULATOR -->
+  <section class="od-calc-section">
+    <div class="od-calc-wrap">
+      <div class="od-calc-head">
+        <h2>Personal Overdraft Interest Calculator</h2>
+        <p>Interest is charged only on the amount you draw, not the full limit. Estimate your monthly cost here.</p>
+      </div>
+      <div class="od-calc-card">
+        <div class="od-calc-inputs">
+          <div class="od-field">
+            <label>Amount Drawn (₹)</label>
+            <div class="od-input-wrap">
+              <span class="od-input-prefix">₹</span>
+              <input type="number" id="od-draw-po" value="200000" min="10000" max="2500000">
+            </div>
+            <input type="range" id="od-draw-range-po" min="10000" max="2500000" step="10000" value="200000">
+            <div class="od-range-labels"><span>₹10K</span><span>₹25L</span></div>
+          </div>
+          <div class="od-field">
+            <label>Annual Interest Rate (%)</label>
+            <div class="od-input-wrap">
+              <input type="number" id="od-rate-po" value="14" min="1" max="36" step="0.1">
+              <span class="od-input-suffix">% p.a.</span>
+            </div>
+            <input type="range" id="od-rate-range-po" min="1" max="36" step="0.5" value="14">
+            <div class="od-range-labels"><span>1%</span><span>36%</span></div>
+          </div>
+          <div class="od-field">
+            <label>Number of Days Used</label>
+            <div class="od-input-wrap">
+              <input type="number" id="od-days-po" value="30" min="1" max="365">
+              <span class="od-input-suffix">days</span>
+            </div>
+            <input type="range" id="od-days-range-po" min="1" max="365" step="1" value="30">
+            <div class="od-range-labels"><span>1 day</span><span>365 days</span></div>
+          </div>
+        </div>
+        <div class="od-calc-results">
+          <div class="od-result-main">
+            <span>Estimated Interest Cost</span>
+            <strong id="od-interest-po">₹0</strong>
+          </div>
+          <div class="od-result-rows">
+            <div class="od-result-row">
+              <span>Amount Drawn</span>
+              <strong id="od-r-draw-po">₹0</strong>
+            </div>
+            <div class="od-result-row">
+              <span>Daily Interest Rate</span>
+              <strong id="od-r-daily-po">0%</strong>
+            </div>
+            <div class="od-result-row">
+              <span>Days Used</span>
+              <strong id="od-r-days-po">0</strong>
+            </div>
+          </div>
+          <p class="od-disclaimer">* Indicative only. Actual interest may vary by lender. Only drawn amount attracts interest.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA BANNER -->
   <section class="pl-cta-banner" data-animate>
     <div class="pl-cta-card">
@@ -657,5 +719,34 @@
 
   <script src="/js/loader.js"></script>
   <script src="/js/smooth-scroll.js"></script>
+  <script>
+    (function() {
+      function fmt(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+      function calcOD(suffix) {
+        var draw  = parseFloat(document.getElementById('od-draw-'   + suffix).value) || 0;
+        var rate  = parseFloat(document.getElementById('od-rate-'   + suffix).value) || 0;
+        var days  = parseFloat(document.getElementById('od-days-'   + suffix).value) || 0;
+        var daily = rate / 100 / 365;
+        var interest = draw * daily * days;
+        document.getElementById('od-interest-'  + suffix).textContent = fmt(interest);
+        document.getElementById('od-r-draw-'    + suffix).textContent = fmt(draw);
+        document.getElementById('od-r-daily-'   + suffix).textContent = (daily * 100).toFixed(4) + '%';
+        document.getElementById('od-r-days-'    + suffix).textContent = days + ' days';
+        ['draw','rate','days'].forEach(function(k) {
+          var inp = document.getElementById('od-' + k + '-range-' + suffix);
+          var pct = ((inp.value - inp.min) / (inp.max - inp.min)) * 100;
+          inp.style.background = 'linear-gradient(to right,#1a52cc ' + pct + '%,#e2eaf5 ' + pct + '%)';
+        });
+      }
+      ['draw','rate','days'].forEach(function(k) {
+        var num   = document.getElementById('od-' + k + '-po');
+        var range = document.getElementById('od-' + k + '-range-po');
+        if (!num) return;
+        num.addEventListener('input',   function(){ range.value = this.value; calcOD('po'); });
+        range.addEventListener('input', function(){ num.value   = this.value; calcOD('po'); });
+      });
+      calcOD('po');
+    })();
+  </script>
 </body>
 </html>
