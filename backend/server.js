@@ -13,10 +13,10 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-const autRoutes = require('./routes/authRoutes');
-const blogRoutes = require('./routes/blogRoutes');
-const dashBoardRoutes = require('./routes/dashboardRoutes');
-const leadRoutes = require('./routes/loanApplicationRoutes');
+// const autRoutes = require('./routes/authRoutes');
+// const blogRoutes = require('./routes/blogRoutes');
+// const dashBoardRoutes = require('./routes/dashboardRoutes');
+// const leadRoutes = require('./routes/loanApplicationRoutes');
 
 
 // Static files
@@ -32,10 +32,10 @@ app.use('/admin', express.static(path.join(__dirname,'../admin'), {
 app.set('view engine' , 'ejs');
 app.set('views', path.join(__dirname,'../views'));
 app.use(pageRoutes);
-app.use('/api/auth',autRoutes);
-app.use('/api/blog/', blogRoutes);
-app.use('/api/dashboard',dashBoardRoutes);
-app.use('/api/leads', leadRoutes);
+// app.use('/api/auth',autRoutes);
+// app.use('/api/blog/', blogRoutes);
+// app.use('/api/dashboard',dashBoardRoutes);
+// app.use('/api/leads', leadRoutes);
 
 
 const port = process.env.PORT;

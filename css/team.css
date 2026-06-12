@@ -1,12 +1,6 @@
 /* ============================================================
    OUR TEAM PAGE — team.css
-   Design-taste dials: Variance 6 / Motion 3 / Density 4
-   Layout families used (one each, no repeats):
-     1. Hero — light gradient + stat chips
-     2. Featured founder — asymmetric split
-     3. Co-founders — 2-col grid
-     4. Mission — navy horizontal strip
-     5. CTA — compact bar
+   Theme: light blue gradient hero, animated shapes, moving border cards
 ============================================================ */
 
 :root {
@@ -25,546 +19,235 @@
 body { background: var(--tm-white); }
 .site-footer { margin-top: 0; }
 
-
 /* ============================================================
-   01. HERO — light gradient, centered, stat chips
+   HERO
 ============================================================ */
-
 .team-hero {
   background: linear-gradient(135deg, #cce4ff 0%, #daeeff 50%, #e8f4ff 100%);
   position: relative;
   overflow: hidden;
-  padding: clamp(56px, 8vw, 96px) var(--tm-px) 0;
-}
-
-.team-hero::before {
-  content: '';
-  position: absolute;
-  top: 18px; right: 7%;
-  width: 130px; height: 90px;
-  background-image: radial-gradient(circle, rgba(10,31,68,0.18) 1.5px, transparent 1.5px);
-  background-size: 14px 14px;
-  pointer-events: none;
-}
-
-.team-hero::after {
-  content: '';
-  position: absolute;
-  bottom: 80px; left: 4%;
-  width: 100px; height: 64px;
-  background-image: radial-gradient(circle, rgba(26,82,204,0.15) 1.5px, transparent 1.5px);
-  background-size: 14px 14px;
-  pointer-events: none;
-}
-
-.team-hero-inner {
-  position: relative;
-  z-index: 2;
-  max-width: var(--tm-max);
-  margin: 0 auto;
+  padding: clamp(80px, 11vw, 130px) var(--tm-px) clamp(72px, 10vw, 120px);
   text-align: center;
-  padding-bottom: clamp(40px, 5vw, 64px);
 }
+
+/* Animated floating shapes */
+.team-hero-shapes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+
+.ths {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  animation: thsFloat linear infinite;
+}
+.ths-1 { width:320px;height:320px;background:rgba(26,82,204,0.07);top:-80px;left:-60px;animation-duration:18s;animation-delay:0s; }
+.ths-2 { width:200px;height:200px;background:rgba(56,189,248,0.1);top:20%;right:5%;animation-duration:14s;animation-delay:-4s; }
+.ths-3 { width:140px;height:140px;background:rgba(26,82,204,0.06);bottom:-30px;left:30%;animation-duration:20s;animation-delay:-8s; }
+.ths-4 { width:80px;height:80px;background:rgba(56,189,248,0.12);top:60%;left:8%;animation-duration:12s;animation-delay:-2s; }
+.ths-5 { width:240px;height:240px;background:rgba(26,82,204,0.05);bottom:-60px;right:-40px;border-radius:30% 70% 70% 30%/30% 30% 70% 70%;animation-duration:22s;animation-delay:-10s; }
+.ths-dots { position:absolute;top:16px;right:6%;width:140px;height:100px;background-image:radial-gradient(circle,rgba(10,31,68,0.18) 1.5px,transparent 1.5px);background-size:14px 14px;border-radius:0;animation:none;opacity:1; }
+.ths-dots2{ position:absolute;bottom:16px;left:4%;width:110px;height:72px;background-image:radial-gradient(circle,rgba(26,82,204,0.14) 1.5px,transparent 1.5px);background-size:14px 14px;border-radius:0;animation:none;opacity:1; }
+
+@keyframes thsFloat {
+  0%   { opacity:0; transform:translateY(0) scale(1); }
+  10%  { opacity:1; }
+  50%  { transform:translateY(-40px) scale(1.06); }
+  90%  { opacity:1; }
+  100% { opacity:0; transform:translateY(-80px) scale(0.94); }
+}
+@media (prefers-reduced-motion:reduce){ .ths{animation:none;opacity:0.4;} }
+
+.team-hero-inner { position:relative;z-index:2;max-width:620px;margin:0 auto; }
 
 .team-hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: rgba(26,82,204,0.08);
-  border: 1px solid rgba(26,82,204,0.16);
-  color: var(--tm-blue);
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 5px 14px;
-  border-radius: 50px;
-  margin-bottom: 20px;
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(26,82,204,0.08);border:1px solid rgba(26,82,204,0.16);
+  color:var(--tm-blue);font-family:'Open Sans',sans-serif;font-size:0.78rem;
+  font-weight:700;padding:5px 14px;border-radius:50px;margin-bottom:22px;
 }
 
 .team-hero h1 {
-  font-family: 'Open Sans', sans-serif;
-  font-size: clamp(1.9rem, 3.5vw, 3rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--tm-navy);
-  margin: 0 0 14px;
-  text-wrap: balance;
-  line-height: 1.1;
+  font-family:'Open Sans',sans-serif;font-size:clamp(2rem,4vw,3.4rem);
+  font-weight:800;letter-spacing:-0.03em;color:var(--tm-navy);
+  margin:0 0 16px;text-wrap:balance;line-height:1.1;
 }
+.team-hero h1 em { font-style:normal;color:var(--tm-blue); }
 
 .team-hero-sub {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.7;
-  color: #0a2463;
-  max-width: 48ch;
-  margin: 0 auto 32px;
-  text-wrap: pretty;
+  font-family:'Open Sans',sans-serif;font-size:1rem;font-weight:500;
+  line-height:1.75;color:#0a2463;max-width:48ch;margin:0 auto 32px;text-wrap:pretty;
 }
 
-/* Stat chips row */
-.team-hero-chips {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+.team-hero-chips { display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap; }
 
 .team-hero-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--tm-white);
-  border: 1px solid rgba(26,82,204,0.1);
-  border-radius: 50px;
-  padding: 8px 18px;
-  box-shadow: 0 2px 10px rgba(10,31,68,0.06);
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--tm-white);border:1px solid rgba(26,82,204,0.1);
+  border-radius:50px;padding:8px 18px;box-shadow:0 2px 10px rgba(10,31,68,0.06);
+}
+.team-hero-chip strong { font-family:'Open Sans',sans-serif;font-size:0.92rem;font-weight:800;color:var(--tm-blue); }
+.team-hero-chip span  { font-family:'Open Sans',sans-serif;font-size:0.82rem;color:var(--tm-muted); }
+
+
+/* ============================================================
+   FOUNDERS
+============================================================ */
+.team-founders { background:var(--tm-white);padding:clamp(56px,7vw,88px) var(--tm-px); }
+.team-founders-inner { max-width:var(--tm-max);margin:0 auto; }
+
+.team-section-head { margin-bottom:clamp(36px,5vw,52px); }
+.team-section-head h2 {
+  font-family:'Open Sans',sans-serif;font-size:clamp(1.3rem,2vw,1.7rem);
+  font-weight:800;color:var(--tm-ink);letter-spacing:-0.02em;margin:0 0 8px;text-wrap:balance;
+}
+.team-section-rule { display:block;width:40px;height:3px;background:var(--tm-blue);border-radius:2px;margin-bottom:10px; }
+.team-section-head p { font-family:'Open Sans',sans-serif;font-size:0.9rem;color:var(--tm-muted);margin:0; }
+
+.team-cards { display:grid;grid-template-columns:repeat(3,1fr);gap:24px; }
+
+/* Moving border card */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
 }
 
-.team-hero-chip strong {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.92rem;
-  font-weight: 800;
-  color: var(--tm-blue);
+.team-card {
+  position:relative;border-radius:20px;padding:32px 24px 28px;
+  text-align:center;overflow:hidden;isolation:isolate;
+  box-shadow:0 2px 16px rgba(10,31,68,0.06);
+  transition:transform 0.22s,box-shadow 0.22s;
+}
+.team-card:hover { transform:translateY(-4px);box-shadow:0 12px 32px rgba(26,82,204,0.12); }
+
+/* Rotating border */
+.team-card::before {
+  content:'';position:absolute;inset:-2px;border-radius:22px;
+  background:conic-gradient(
+    from var(--angle),
+    #1a52cc 0%, #38BDF8 25%, #e8f0ff 40%,
+    #e8f0ff 60%, #38BDF8 75%, #1a52cc 100%
+  );
+  z-index:-1;opacity:0;
+  animation:rotateBorder 3.5s linear infinite paused;
+  transition:opacity 0.3s;
+}
+.team-card::after {
+  content:'';position:absolute;inset:2px;border-radius:18px;z-index:-1;
+}
+.team-card:hover::before { opacity:1;animation-play-state:running; }
+
+@keyframes rotateBorder { to { --angle:360deg; } }
+@media (prefers-reduced-motion:reduce){
+  .team-card::before{animation:none;}
+  .team-card:hover::before{opacity:1;}
 }
 
-.team-hero-chip span {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.82rem;
-  color: var(--tm-muted);
-}
+/* Tinted backgrounds */
+.team-card:nth-child(1)            { background:#eef4ff; }
+.team-card:nth-child(1)::after     { background:#eef4ff; }
+.team-card:nth-child(2)            { background:#e8f5ff; }
+.team-card:nth-child(2)::after     { background:#e8f5ff; }
+.team-card:nth-child(3)            { background:#eeebff; }
+.team-card:nth-child(3)::after     { background:#eeebff; }
 
-/* Bottom border fade into white */
-.team-hero-fade {
-  height: 40px;
-  background: linear-gradient(to bottom, transparent, var(--tm-white));
-  position: relative;
-  z-index: 2;
+/* Avatar */
+.team-card-avatar {
+  width:100px;height:100px;border-radius:50%;
+  margin:0 auto 18px;position:relative;overflow:hidden;
+}
+.team-card-av-fb {
+  width:100%;height:100%;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-family:'Open Sans',sans-serif;
+  font-size:2rem;font-weight:800;color:#fff;letter-spacing:-0.02em;
+}
+.av-1{background:linear-gradient(135deg,#0A1F44,#1a52cc);}
+.av-2{background:linear-gradient(135deg,#1a52cc,#0e7490);}
+.av-3{background:linear-gradient(135deg,#4338ca,#1a52cc);}
+
+.team-card-avatar img {
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center top;border-radius:50%;
+}
+.team-card-avatar img.img-error{display:none;}
+
+/* Card text */
+.team-card h3 {
+  font-family:'Open Sans',sans-serif;font-size:1.1rem;font-weight:800;
+  color:var(--tm-ink);margin:0 0 6px;letter-spacing:-0.015em;position:relative;z-index:2;
+}
+.team-card-role {
+  display:inline-block;font-family:'Open Sans',sans-serif;
+  font-size:0.72rem;font-weight:700;padding:4px 14px;border-radius:50px;
+  background:rgba(26,82,204,0.1);color:var(--tm-blue);margin-bottom:14px;
+  position:relative;z-index:2;
+}
+.team-card p {
+  font-family:'Open Sans',sans-serif;font-size:0.86rem;line-height:1.72;
+  color:var(--tm-ink2);margin:0;text-wrap:pretty;position:relative;z-index:2;
 }
 
 
 /* ============================================================
-   02. FEATURED FOUNDER — asymmetric split (left photo, right content)
+   MISSION STRIP
 ============================================================ */
-
-.team-featured {
-  padding: clamp(48px, 6vw, 72px) var(--tm-px);
-  background: var(--tm-white);
-}
-
-.team-featured-inner {
-  max-width: var(--tm-max);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: clamp(40px, 6vw, 80px);
-  align-items: center;
-}
-
-/* Photo panel */
-.team-featured-photo {
-  position: relative;
-}
-
-.team-featured-photo-wrap {
-  width: 100%;
-  aspect-ratio: 3/4;
-  border-radius: 24px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #0A1F44, #1a52cc);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.team-featured-photo-fallback {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 5rem;
-  font-weight: 800;
-  color: rgba(255,255,255,0.25);
-  user-select: none;
-  letter-spacing: -0.04em;
-}
-
-.team-featured-photo-wrap img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-}
-
-.team-featured-photo-wrap img.img-error { display: none; }
-
-/* Tag floating on photo */
-.team-featured-tag {
-  position: absolute;
-  bottom: -14px;
-  left: 20px;
-  background: var(--tm-white);
-  border: 1px solid rgba(26,82,204,0.1);
-  border-radius: 50px;
-  padding: 8px 18px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--tm-blue);
-  box-shadow: 0 4px 16px rgba(10,31,68,0.1);
-}
-
-/* Content */
-.team-featured-content { padding-top: 8px; }
-
-.team-featured-label {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--tm-muted);
-  margin-bottom: 10px;
-  display: block;
-}
-
-.team-featured-content h2 {
-  font-family: 'Open Sans', sans-serif;
-  font-size: clamp(2rem, 3.5vw, 3.2rem);
-  font-weight: 800;
-  color: var(--tm-navy);
-  letter-spacing: -0.03em;
-  line-height: 1.08;
-  margin: 0 0 10px;
-}
-
-.team-featured-role {
-  display: inline-block;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 5px 16px;
-  border-radius: 50px;
-  background: rgba(26,82,204,0.08);
-  color: var(--tm-blue);
-  margin-bottom: 22px;
-}
-
-.team-featured-divider {
-  width: 40px;
-  height: 3px;
-  background: var(--tm-blue);
-  border-radius: 2px;
-  margin-bottom: 20px;
-}
-
-.team-featured-content p {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.82;
-  color: var(--tm-ink2);
-  max-width: 54ch;
-  text-wrap: pretty;
-  margin: 0 0 14px;
-}
-
-.team-featured-content p:last-of-type { margin-bottom: 0; }
-
-
-/* ============================================================
-   03. CO-FOUNDERS — 2-col grid (different from featured)
-============================================================ */
-
-.team-cofounders {
-  background: var(--tm-surface);
-  padding: clamp(48px, 6vw, 72px) var(--tm-px);
-}
-
-.team-cofounders-inner {
-  max-width: var(--tm-max);
-  margin: 0 auto;
-}
-
-.team-cofounders-head {
-  margin-bottom: clamp(28px, 4vw, 40px);
-}
-
-.team-cofounders-head h2 {
-  font-family: 'Open Sans', sans-serif;
-  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
-  font-weight: 700;
-  color: var(--tm-ink);
-  letter-spacing: -0.015em;
-  margin: 0 0 4px;
-}
-
-.team-cofounders-head p {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.87rem;
-  color: var(--tm-muted);
-  margin: 0;
-}
-
-.team-cofounder-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.team-cofounder-card {
-  background: var(--tm-white);
-  border-radius: 20px;
-  padding: 32px 28px;
-  border: 1px solid rgba(26,82,204,0.08);
-  display: flex;
-  gap: 22px;
-  align-items: flex-start;
-  transition: box-shadow 0.22s, transform 0.22s;
-}
-
-.team-cofounder-card:hover {
-  box-shadow: 0 8px 28px rgba(26,82,204,0.09);
-  transform: translateY(-2px);
-}
-
-.team-cofounder-card:first-child {
-  background: #e8f5ff;
-  border-color: rgba(14,116,144,0.12);
-}
-
-.team-cofounder-card:last-child {
-  background: #eeebff;
-  border-color: rgba(67,56,202,0.12);
-}
-
-.team-cofounder-avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.team-cofounder-fallback {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #fff;
-}
-
-.cf-bg-teal   { background: linear-gradient(135deg, #1a52cc, #0e7490); }
-.cf-bg-indigo { background: linear-gradient(135deg, #4338ca, #1a52cc); }
-
-.team-cofounder-avatar img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  border-radius: 50%;
-}
-
-.team-cofounder-avatar img.img-error { display: none; }
-
-.team-cofounder-info h3 {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--tm-ink);
-  margin: 0 0 5px;
-  letter-spacing: -0.01em;
-}
-
-.team-cofounder-role {
-  display: inline-block;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 3px 12px;
-  border-radius: 50px;
-  background: rgba(26,82,204,0.08);
-  color: var(--tm-blue);
-  margin-bottom: 12px;
-}
-
-.team-cofounder-info p {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.86rem;
-  line-height: 1.72;
-  color: var(--tm-ink2);
-  margin: 0;
-  text-wrap: pretty;
-}
-
-
-/* ============================================================
-   04. MISSION STRIP — navy, 3 values
-============================================================ */
-
-.team-mission {
-  background: var(--tm-navy);
-  padding: clamp(40px, 5vw, 60px) var(--tm-px);
-}
-
-.team-mission-inner {
-  max-width: var(--tm-max);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-}
-
+.team-mission { background:var(--tm-navy);padding:clamp(40px,5vw,60px) var(--tm-px); }
+.team-mission-inner { max-width:var(--tm-max);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:0; }
 .team-mission-item {
-  padding: 0 clamp(20px, 3vw, 36px);
-  border-right: 1px solid rgba(255,255,255,0.07);
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
+  padding:0 clamp(20px,3vw,36px);border-right:1px solid rgba(255,255,255,0.07);
+  display:flex;align-items:flex-start;gap:14px;
 }
-
-.team-mission-item:first-child { padding-left: 0; }
-.team-mission-item:last-child  { padding-right: 0; border-right: none; }
-
+.team-mission-item:first-child{padding-left:0;}
+.team-mission-item:last-child{padding-right:0;border-right:none;}
 .team-mission-icon {
-  width: 36px; height: 36px;
-  border-radius: 9px;
-  background: rgba(56,189,248,0.12);
-  color: var(--tm-sky);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  flex-shrink: 0;
-  margin-top: 2px;
+  width:36px;height:36px;border-radius:9px;background:rgba(56,189,248,0.12);
+  color:var(--tm-sky);display:flex;align-items:center;justify-content:center;
+  font-size:0.9rem;flex-shrink:0;margin-top:2px;
 }
+.team-mission-item h3{font-family:'Open Sans',sans-serif;font-size:0.92rem;font-weight:700;color:#fff;margin:0 0 5px;}
+.team-mission-item p{font-family:'Open Sans',sans-serif;font-size:0.82rem;line-height:1.65;color:rgba(255,255,255,0.55);margin:0;}
 
-.team-mission-item h3 {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: #fff;
-  margin: 0 0 5px;
+
+/* ============================================================
+   HIRE STRIP
+============================================================ */
+.team-hire {
+  background:var(--tm-surface);
+  padding:clamp(24px,3vw,36px) var(--tm-px);
+  border-top:1px solid rgba(26,82,204,0.07);
 }
+.team-hire-inner {
+  max-width:var(--tm-max);margin:0 auto;
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;flex-wrap:wrap;text-align:center;
+}
+.team-hire-inner p{font-family:'Open Sans',sans-serif;font-size:0.92rem;color:var(--tm-ink2);margin:0;line-height:1.7;}
+.team-hire-inner a{font-family:'Open Sans',sans-serif;font-size:0.92rem;font-weight:700;color:var(--tm-blue);text-decoration:none;white-space:nowrap;transition:color 0.2s;}
+.team-hire-inner a:hover{color:#1039a0;text-decoration:underline;}
 
-.team-mission-item p {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.82rem;
-  line-height: 1.65;
-  color: rgba(255,255,255,0.55);
-  margin: 0;
+
+/* ============================================================
+   SCROLL REVEAL
+============================================================ */
+.reveal{opacity:1;transform:none;}
+@media(prefers-reduced-motion:no-preference){
+  body.js-reveal .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.55s cubic-bezier(0.16,1,0.3,1),transform 0.55s cubic-bezier(0.16,1,0.3,1);}
+  body.js-reveal .reveal.is-visible{opacity:1;transform:none;}
+  body.js-reveal .reveal-d1{transition-delay:0.1s;}
+  body.js-reveal .reveal-d2{transition-delay:0.2s;}
+  body.js-reveal .reveal-d3{transition-delay:0.3s;}
 }
 
 
 /* ============================================================
-   05. CTA BAR
+   RESPONSIVE
 ============================================================ */
-
-.team-cta {
-  background: var(--tm-white);
-  padding: clamp(32px, 4vw, 48px) var(--tm-px);
-  border-top: 1px solid rgba(26,82,204,0.06);
+@media(max-width:900px){
+  .team-cards{grid-template-columns:1fr 1fr;}
+  .team-mission-inner{grid-template-columns:1fr;gap:28px;}
+  .team-mission-item{padding:0;border-right:none;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:24px;}
+  .team-mission-item:last-child{border-bottom:none;padding-bottom:0;}
 }
-
-.team-cta-inner {
-  max-width: var(--tm-max);
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 28px;
-  flex-wrap: wrap;
-}
-
-.team-cta-inner h2 {
-  font-family: 'Open Sans', sans-serif;
-  font-size: clamp(1rem, 1.5vw, 1.3rem);
-  font-weight: 700;
-  color: var(--tm-ink);
-  letter-spacing: -0.015em;
-  margin: 0 0 4px;
-}
-
-.team-cta-inner p {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.87rem;
-  color: var(--tm-muted);
-  margin: 0;
-}
-
-.team-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  background: var(--tm-blue);
-  color: #fff;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-  padding: 12px 26px;
-  border-radius: 10px;
-  text-decoration: none;
-  white-space: nowrap;
-  flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(26,82,204,0.22);
-  transition: background 0.2s, transform 0.2s;
-}
-
-.team-cta-btn:hover { background: #1039a0; transform: translateY(-1px); }
-.team-cta-btn svg { width: 15px; height: 15px; }
-
-
-/* ============================================================
-   06. SCROLL REVEAL — content visible by default, JS opts in
-============================================================ */
-
-.reveal { opacity: 1; transform: none; }
-
-@media (prefers-reduced-motion: no-preference) {
-  body.js-reveal .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1),
-                transform 0.55s cubic-bezier(0.16,1,0.3,1);
-  }
-  body.js-reveal .reveal.is-visible { opacity: 1; transform: none; }
-  body.js-reveal .reveal-d1 { transition-delay: 0.08s; }
-  body.js-reveal .reveal-d2 { transition-delay: 0.16s; }
-  body.js-reveal .reveal-d3 { transition-delay: 0.24s; }
-}
-
-
-/* ============================================================
-   07. RESPONSIVE
-============================================================ */
-
-@media (max-width: 900px) {
-  .team-featured-inner { grid-template-columns: 1fr; }
-  .team-featured-photo-wrap { aspect-ratio: 4/3; max-width: 320px; margin: 0 auto; }
-  .team-featured-content { text-align: center; }
-  .team-featured-divider { margin: 0 auto 20px; }
-  .team-featured-content p { max-width: 100%; }
-  .team-mission-inner { grid-template-columns: 1fr; gap: 28px; }
-  .team-mission-item {
-    padding: 0;
-    border-right: none;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    padding-bottom: 24px;
-  }
-  .team-mission-item:last-child { border-bottom: none; padding-bottom: 0; }
-}
-
-@media (max-width: 640px) {
-  .team-cofounder-grid { grid-template-columns: 1fr; }
-  .team-cta-inner { flex-direction: column; align-items: flex-start; }
-  .team-cta-btn { width: 100%; justify-content: center; }
-  .team-hero-chips { gap: 8px; }
+@media(max-width:560px){
+  .team-cards{grid-template-columns:1fr;}
+  .team-hero-chips{gap:8px;}
 }
