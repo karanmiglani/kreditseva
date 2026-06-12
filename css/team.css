@@ -26,7 +26,7 @@ body { background: var(--tm-white); }
   background: linear-gradient(135deg, #cce4ff 0%, #daeeff 50%, #e8f4ff 100%);
   position: relative;
   overflow: hidden;
-  padding: clamp(80px, 11vw, 130px) var(--tm-px) clamp(72px, 10vw, 120px);
+  padding: clamp(44px, 6vw, 72px) var(--tm-px) clamp(40px, 5vw, 64px);
   text-align: center;
 }
 
@@ -66,9 +66,9 @@ body { background: var(--tm-white); }
 }
 
 .team-hero h1 {
-  font-family:'Open Sans',sans-serif;font-size:clamp(2rem,4vw,3.4rem);
+  font-family:'Open Sans',sans-serif;font-size:clamp(1.7rem,3vw,2.6rem);
   font-weight:800;letter-spacing:-0.03em;color:var(--tm-navy);
-  margin:0 0 16px;text-wrap:balance;line-height:1.1;
+  margin:0 0 12px;text-wrap:balance;line-height:1.1;
 }
 .team-hero h1 em { font-style:normal;color:var(--tm-blue); }
 
@@ -191,7 +191,7 @@ body { background: var(--tm-white); }
    MISSION STRIP
 ============================================================ */
 .team-mission { background:var(--tm-navy);padding:clamp(40px,5vw,60px) var(--tm-px); }
-.team-mission-inner { max-width:var(--tm-max);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:0; }
+.team-mission-inner { max-width:var(--tm-max);margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:0; }
 .team-mission-item {
   padding:0 clamp(20px,3vw,36px);border-right:1px solid rgba(255,255,255,0.07);
   display:flex;align-items:flex-start;gap:14px;
@@ -243,7 +243,7 @@ body { background: var(--tm-white); }
 ============================================================ */
 @media(max-width:900px){
   .team-cards{grid-template-columns:1fr 1fr;}
-  .team-mission-inner{grid-template-columns:1fr;gap:28px;}
+  .team-mission-inner{grid-template-columns:1fr;gap:24px;}
   .team-mission-item{padding:0;border-right:none;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:24px;}
   .team-mission-item:last-child{border-bottom:none;padding-bottom:0;}
 }
