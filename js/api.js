@@ -123,7 +123,7 @@ async function submitForm() {
       document.getElementById('applyForm').reset();
       localStorage.clear();
       sessionStorage.clear();
-      if (typeof showToast === 'function') showToast('Application submitted successfully!');
+      if (typeof showCelebration === 'function') showCelebration();
       setTimeout(() => window.location.reload(), 5000);
     } else {
       successMsg.innerText     = data.message || 'Something went wrong';

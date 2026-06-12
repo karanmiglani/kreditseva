@@ -549,10 +549,10 @@ if (promoSliderEl) {
       if (data.success) {
         sessionStorage.setItem('id', data.rawLeadId || '');
         overlay.classList.remove('active');
-        showCelebration();
+        showToast(data.message || 'Mobile number saved successfully!');
         setTimeout(() => {
           window.location.href = '/apply-now' + (product ? '?product=' + encodeURIComponent(product) : '');
-        }, 3000);
+        }, 1500);
       } else {
         errEl.textContent = data.message || 'Something went wrong. Please try again.';
       }
