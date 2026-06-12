@@ -2805,13 +2805,15 @@ body.popup-open {
   padding: 3px;
   background: conic-gradient(
     from var(--bw-spin),
-    #0A1F44 0deg,
-    #1a52cc 60deg,
-    #00cfff 120deg,
-    #ffffff 180deg,
-    #00cfff 240deg,
-    #1a52cc 300deg,
-    #0A1F44 360deg
+    #ff0000 0deg,
+    #ff8800 45deg,
+    #ffff00 90deg,
+    #00ff00 135deg,
+    #00ffff 180deg,
+    #0088ff 225deg,
+    #8800ff 270deg,
+    #ff00ff 315deg,
+    #ff0000 360deg
   );
   animation: bwSpin 3s linear infinite;
   box-shadow: 0 8px 30px rgba(26,82,204,0.3);
