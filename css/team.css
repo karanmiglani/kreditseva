@@ -1,17 +1,16 @@
 /* ============================================================
    OUR TEAM PAGE — team.css
-   Dials: Variance 5 / Motion 3 / Density 4
-   01. Variables
-   02. Page Opener
-   03. Founders
-   04. Mission Strip
-   05. CTA
-   06. Scroll Reveal
-   07. Responsive
+   Design-taste dials: Variance 6 / Motion 3 / Density 4
+   Layout families used (one each, no repeats):
+     1. Hero — light gradient + stat chips
+     2. Featured founder — asymmetric split
+     3. Co-founders — 2-col grid
+     4. Mission — navy horizontal strip
+     5. CTA — compact bar
 ============================================================ */
 
 :root {
-  --tm-max:     1100px;
+  --tm-max:     1160px;
   --tm-px:      clamp(24px, 6vw, 96px);
   --tm-navy:    #0A1F44;
   --tm-blue:    #1a52cc;
@@ -28,19 +27,17 @@ body { background: var(--tm-white); }
 
 
 /* ============================================================
-   02. PAGE OPENER
+   01. HERO — light gradient, centered, stat chips
 ============================================================ */
 
-.team-opener {
+.team-hero {
   background: linear-gradient(135deg, #cce4ff 0%, #daeeff 50%, #e8f4ff 100%);
   position: relative;
   overflow: hidden;
-  padding: clamp(56px, 8vw, 88px) var(--tm-px);
-  text-align: center;
+  padding: clamp(56px, 8vw, 96px) var(--tm-px) 0;
 }
 
-/* Dot pattern matching homepage */
-.team-opener::before {
+.team-hero::before {
   content: '';
   position: absolute;
   top: 18px; right: 7%;
@@ -50,189 +47,372 @@ body { background: var(--tm-white); }
   pointer-events: none;
 }
 
-.team-opener::after {
+.team-hero::after {
   content: '';
   position: absolute;
-  bottom: 18px; left: 5%;
+  bottom: 80px; left: 4%;
   width: 100px; height: 64px;
   background-image: radial-gradient(circle, rgba(26,82,204,0.15) 1.5px, transparent 1.5px);
   background-size: 14px 14px;
   pointer-events: none;
 }
 
-.team-opener-inner {
+.team-hero-inner {
   position: relative;
   z-index: 2;
-  max-width: 560px;
+  max-width: var(--tm-max);
   margin: 0 auto;
+  text-align: center;
+  padding-bottom: clamp(40px, 5vw, 64px);
 }
 
-.team-opener h1 {
+.team-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(26,82,204,0.08);
+  border: 1px solid rgba(26,82,204,0.16);
+  color: var(--tm-blue);
   font-family: 'Open Sans', sans-serif;
-  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+}
+
+.team-hero h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: clamp(1.9rem, 3.5vw, 3rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: var(--tm-navy);
   margin: 0 0 14px;
+  text-wrap: balance;
+  line-height: 1.1;
 }
 
-.team-opener-rule {
-  display: block;
-  width: 48px;
-  height: 3px;
-  background: var(--tm-blue);
-  border-radius: 2px;
-  margin: 0 auto 18px;
-}
-
-.team-opener p {
+.team-hero-sub {
   font-family: 'Open Sans', sans-serif;
-  font-size: 0.97rem;
-  line-height: 1.75;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.7;
   color: #0a2463;
+  max-width: 48ch;
+  margin: 0 auto 32px;
   text-wrap: pretty;
+}
+
+/* Stat chips row */
+.team-hero-chips {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.team-hero-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--tm-white);
+  border: 1px solid rgba(26,82,204,0.1);
+  border-radius: 50px;
+  padding: 8px 18px;
+  box-shadow: 0 2px 10px rgba(10,31,68,0.06);
+}
+
+.team-hero-chip strong {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--tm-blue);
+}
+
+.team-hero-chip span {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.82rem;
+  color: var(--tm-muted);
+}
+
+/* Bottom border fade into white */
+.team-hero-fade {
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--tm-white));
+  position: relative;
+  z-index: 2;
 }
 
 
 /* ============================================================
-   03. FOUNDERS — horizontal rows, not a card grid
+   02. FEATURED FOUNDER — asymmetric split (left photo, right content)
 ============================================================ */
 
-.team-founders {
-  padding: clamp(56px, 7vw, 88px) var(--tm-px) 0;
+.team-featured {
+  padding: clamp(48px, 6vw, 72px) var(--tm-px);
+  background: var(--tm-white);
 }
 
-.team-founders-inner {
+.team-featured-inner {
+  max-width: var(--tm-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+}
+
+/* Photo panel */
+.team-featured-photo {
+  position: relative;
+}
+
+.team-featured-photo-wrap {
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0A1F44, #1a52cc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-featured-photo-fallback {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 5rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.25);
+  user-select: none;
+  letter-spacing: -0.04em;
+}
+
+.team-featured-photo-wrap img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.team-featured-photo-wrap img.img-error { display: none; }
+
+/* Tag floating on photo */
+.team-featured-tag {
+  position: absolute;
+  bottom: -14px;
+  left: 20px;
+  background: var(--tm-white);
+  border: 1px solid rgba(26,82,204,0.1);
+  border-radius: 50px;
+  padding: 8px 18px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--tm-blue);
+  box-shadow: 0 4px 16px rgba(10,31,68,0.1);
+}
+
+/* Content */
+.team-featured-content { padding-top: 8px; }
+
+.team-featured-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tm-muted);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.team-featured-content h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 800;
+  color: var(--tm-navy);
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin: 0 0 10px;
+}
+
+.team-featured-role {
+  display: inline-block;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 5px 16px;
+  border-radius: 50px;
+  background: rgba(26,82,204,0.08);
+  color: var(--tm-blue);
+  margin-bottom: 22px;
+}
+
+.team-featured-divider {
+  width: 40px;
+  height: 3px;
+  background: var(--tm-blue);
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+.team-featured-content p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.82;
+  color: var(--tm-ink2);
+  max-width: 54ch;
+  text-wrap: pretty;
+  margin: 0 0 14px;
+}
+
+.team-featured-content p:last-of-type { margin-bottom: 0; }
+
+
+/* ============================================================
+   03. CO-FOUNDERS — 2-col grid (different from featured)
+============================================================ */
+
+.team-cofounders {
+  background: var(--tm-surface);
+  padding: clamp(48px, 6vw, 72px) var(--tm-px);
+}
+
+.team-cofounders-inner {
   max-width: var(--tm-max);
   margin: 0 auto;
 }
 
-.team-founders-head {
-  margin-bottom: clamp(36px, 5vw, 52px);
+.team-cofounders-head {
+  margin-bottom: clamp(28px, 4vw, 40px);
 }
 
-.team-founders-head h2 {
+.team-cofounders-head h2 {
   font-family: 'Open Sans', sans-serif;
-  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
   font-weight: 700;
   color: var(--tm-ink);
   letter-spacing: -0.015em;
-  margin: 0 0 5px;
+  margin: 0 0 4px;
 }
 
-.team-founders-head p {
+.team-cofounders-head p {
   font-family: 'Open Sans', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.87rem;
   color: var(--tm-muted);
   margin: 0;
 }
 
-/* Each founder — horizontal row */
-.team-founder-row {
+.team-cofounder-grid {
   display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: clamp(32px, 5vw, 64px);
-  align-items: center;
-  padding: clamp(32px, 4vw, 48px) clamp(28px, 4vw, 44px);
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.team-cofounder-card {
+  background: var(--tm-white);
   border-radius: 20px;
-  margin-bottom: 16px;
-  transition: box-shadow 0.22s;
-  border: 1px solid transparent;
+  padding: 32px 28px;
+  border: 1px solid rgba(26,82,204,0.08);
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+  transition: box-shadow 0.22s, transform 0.22s;
 }
 
-.team-founder-row:nth-child(1) { background: #eef4ff; border-color: rgba(26,82,204,0.1); }
-.team-founder-row:nth-child(2) { background: #e8f5ff; border-color: rgba(14,116,144,0.1); }
-.team-founder-row:nth-child(3) { background: #eeebff; border-color: rgba(67,56,202,0.1); }
-
-.team-founder-row:hover {
-  box-shadow: 0 8px 32px rgba(26,82,204,0.08);
+.team-cofounder-card:hover {
+  box-shadow: 0 8px 28px rgba(26,82,204,0.09);
+  transform: translateY(-2px);
 }
 
-/* Avatar — CSS fallback + real photo overlay */
-.team-founder-avatar {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto;
+.team-cofounder-card:first-child {
+  background: #e8f5ff;
+  border-color: rgba(14,116,144,0.12);
+}
+
+.team-cofounder-card:last-child {
+  background: #eeebff;
+  border-color: rgba(67,56,202,0.12);
+}
+
+.team-cofounder-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
   flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
 }
 
-.team-founder-avatar-fallback {
-  width: 120px;
-  height: 120px;
+.team-cofounder-fallback {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Open Sans', sans-serif;
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: #fff;
-  letter-spacing: -0.02em;
-  user-select: none;
 }
 
-.avatar-bg-1 { background: linear-gradient(135deg, #0A1F44, #1a52cc); }
-.avatar-bg-2 { background: linear-gradient(135deg, #1a52cc, #0e7490); }
-.avatar-bg-3 { background: linear-gradient(135deg, #4338ca, #1a52cc); }
+.cf-bg-teal   { background: linear-gradient(135deg, #1a52cc, #0e7490); }
+.cf-bg-indigo { background: linear-gradient(135deg, #4338ca, #1a52cc); }
 
-.team-founder-avatar img {
+.team-cofounder-avatar img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   object-fit: cover;
   object-position: center top;
-  border: 3px solid rgba(26,82,204,0.12);
+  border-radius: 50%;
 }
 
-/* Hide img on error — shows fallback beneath */
-.team-founder-avatar img.img-error { display: none; }
+.team-cofounder-avatar img.img-error { display: none; }
 
-/* Content */
-.team-founder-content {}
-
-.team-founder-content h3 {
+.team-cofounder-info h3 {
   font-family: 'Open Sans', sans-serif;
-  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
-  font-weight: 800;
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--tm-ink);
-  margin: 0 0 6px;
-  letter-spacing: -0.02em;
+  margin: 0 0 5px;
+  letter-spacing: -0.01em;
 }
 
-.team-founder-role {
+.team-cofounder-role {
   display: inline-block;
   font-family: 'Open Sans', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 4px 14px;
+  padding: 3px 12px;
   border-radius: 50px;
   background: rgba(26,82,204,0.08);
   color: var(--tm-blue);
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
-.team-founder-content p {
+.team-cofounder-info p {
   font-family: 'Open Sans', sans-serif;
-  font-size: 0.92rem;
-  line-height: 1.78;
+  font-size: 0.86rem;
+  line-height: 1.72;
   color: var(--tm-ink2);
-  max-width: 54ch;
-  text-wrap: pretty;
   margin: 0;
+  text-wrap: pretty;
 }
 
 
 /* ============================================================
-   04. MISSION STRIP — navy, 3 statements
+   04. MISSION STRIP — navy, 3 values
 ============================================================ */
 
 .team-mission {
   background: var(--tm-navy);
-  padding: clamp(44px, 6vw, 68px) var(--tm-px);
-  margin-top: clamp(48px, 7vw, 80px);
+  padding: clamp(40px, 5vw, 60px) var(--tm-px);
 }
 
 .team-mission-inner {
@@ -245,7 +425,7 @@ body { background: var(--tm-white); }
 
 .team-mission-item {
   padding: 0 clamp(20px, 3vw, 36px);
-  border-right: 1px solid rgba(255,255,255,0.08);
+  border-right: 1px solid rgba(255,255,255,0.07);
   display: flex;
   align-items: flex-start;
   gap: 14px;
@@ -285,7 +465,7 @@ body { background: var(--tm-white); }
 
 
 /* ============================================================
-   05. CTA
+   05. CTA BAR
 ============================================================ */
 
 .team-cta {
@@ -338,21 +518,12 @@ body { background: var(--tm-white); }
   transition: background 0.2s, transform 0.2s;
 }
 
-.team-cta-btn:hover {
-  background: #1039a0;
-  transform: translateY(-1px);
-}
-
+.team-cta-btn:hover { background: #1039a0; transform: translateY(-1px); }
 .team-cta-btn svg { width: 15px; height: 15px; }
-
-@media (max-width: 640px) {
-  .team-cta-inner { flex-direction: column; align-items: flex-start; }
-  .team-cta-btn   { width: 100%; justify-content: center; }
-}
 
 
 /* ============================================================
-   06. SCROLL REVEAL
+   06. SCROLL REVEAL — content visible by default, JS opts in
 ============================================================ */
 
 .reveal { opacity: 1; transform: none; }
@@ -375,13 +546,12 @@ body { background: var(--tm-white); }
    07. RESPONSIVE
 ============================================================ */
 
-@media (max-width: 768px) {
-  .team-founder-row {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  .team-founder-avatar { margin: 0 auto; }
-  .team-founder-content p { max-width: 100%; margin: 0 auto; }
+@media (max-width: 900px) {
+  .team-featured-inner { grid-template-columns: 1fr; }
+  .team-featured-photo-wrap { aspect-ratio: 4/3; max-width: 320px; margin: 0 auto; }
+  .team-featured-content { text-align: center; }
+  .team-featured-divider { margin: 0 auto 20px; }
+  .team-featured-content p { max-width: 100%; }
   .team-mission-inner { grid-template-columns: 1fr; gap: 28px; }
   .team-mission-item {
     padding: 0;
@@ -390,4 +560,11 @@ body { background: var(--tm-white); }
     padding-bottom: 24px;
   }
   .team-mission-item:last-child { border-bottom: none; padding-bottom: 0; }
+}
+
+@media (max-width: 640px) {
+  .team-cofounder-grid { grid-template-columns: 1fr; }
+  .team-cta-inner { flex-direction: column; align-items: flex-start; }
+  .team-cta-btn { width: 100%; justify-content: center; }
+  .team-hero-chips { gap: 8px; }
 }
