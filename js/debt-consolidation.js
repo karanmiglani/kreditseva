@@ -128,6 +128,52 @@ function bindHint(inputId, hintId) {
 bindHint('formOutstanding', 'formOutstandingHint');
 bindHint('formSalary',      'formSalaryHint');
 
+let phone_number = null;
+let timer;
+document.getElementById('dcPhone').addEventListener('input', function(){
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    phone_number = this.value;  
+    if(validatePhone()){
+      savePhoneNumber();
+    }else{
+      showMsg('err-dcPhone','Please enter a valid 10 digit mobile number') ;
+    }
+  }, 500);
+})
+
+function validatePhone(){
+  if(phone_number.length === 10){
+    const phoneRegex = /^[6-9]{1}[0-9]{9}$/;
+    if(phoneRegex.test(phone_number)){
+      return true;
+    }
+  }
+}
+
+
+async function savePhoneNumber(){
+try {
+    if(phone_number === null || phone_number === undefined || phone_number.length < 10) return;
+
+  phone_number = phone_number.trim();
+  localStorage.setItem('product', 'debt-consolidation');
+  const resp = await fetch(`${window.location.origin}/api/leads/save-phone-number`, {
+    method : 'POST',
+    headers : {'Content-Type' : 'application/json'},
+    body : JSON.stringify({
+       phone_number : phone_number,
+        product : 'debt-consolidation'
+    })
+  });
+  const data = await resp.json();
+  if(data.success)  sessionStorage.setItem('id', data.rawLeadId);
+} catch (error) {
+  console.log(error);
+}
+
+}
+
 
 
 async function submitDebtConsolidationForm(product){
