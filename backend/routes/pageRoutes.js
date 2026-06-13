@@ -118,6 +118,11 @@ router.get('/our-team',(req,resp) => {
     resp.sendFile(path.join(__dirname,'../../pages/our-team.html'));
 })
 
+// Credit Cards
+router.get('/credit-card', (req, resp) => {
+    resp.sendFile(path.join(__dirname,'../../pages/credit-card.html'));
+})
+
 router.get('/blogs', async (req, resp) => {
     try {
         const fb = await featuredBlog();

@@ -130,6 +130,7 @@ bindHint('formSalary',      'formSalaryHint');
 
 let phone_number = null;
 let timer;
+let rawLeadId = null;
 document.getElementById('dcPhone').addEventListener('input', function(){
   clearTimeout(timer);
   timer = setTimeout(() => {
@@ -177,6 +178,8 @@ try {
 
 
 async function submitDebtConsolidationForm(product){
+  console.log('Function called');
+  if(!phone_number || phone_number === undefined || !validatePhone() ) { showMsg('err-dcPhone','Please enter valid mobile number'); return; }
   const name = document.getElementById('dcName').value.trim().toLowerCase();
   if(!name) { showMsg('err-dcName','Please enter your name'); return;}
   const total_outstanding_amount = document.getElementById('formOutstanding').value;
@@ -185,17 +188,17 @@ async function submitDebtConsolidationForm(product){
   if(!city){ showMsg('err-dcCity', 'Please enter city'); return;}
   const net_monthly_salary = document.getElementById('formSalary').value;
   if(!net_monthly_salary) { showMsg('err-dcSalary','Please enter montly salary.'); return;}
-  const phone_number = document.getElementById('dcPhone').value;
-  if(!phone_number) { showMsg('err-dcPhone','Please enter mobile number.');return;}
-  const phoneRegex = /^[6-9]{1}[0-9]{9}$/;
-  if(phone_number && !phoneRegex.test(phone_number) )  { showMsg('err-dcPhone','Please enter valid mobile number.');return;}
   const source = window.location.pathname;
-  const occupation = null;
-  const pancard = null;
   const spinner = document.querySelector('.dc-btn-spinner');
   const btn = document.getElementById('dc-submit-btn');
   const successMsg = document.getElementById('dc-success-msg');
-
+  if(!sessionStorage.getItem('id')){
+    successMsg.style.color = '#dc2626';
+    successMsg.innerText =  'Session expired, Please try again';
+    return;
+  } else{
+    rawLeadId = sessionStorage.getItem('id');
+  }
 
   try {
       spinner.style.display = 'inline-flex';
@@ -206,7 +209,7 @@ async function submitDebtConsolidationForm(product){
         'Content-Type' : 'application/json'
       },
       body : JSON.stringify({
-        name, phone_number, city, net_monthly_salary, product, occupation, pancard, total_outstanding_amount, source
+        rawLeadId, name, city, net_monthly_salary, product,  loan_amount :  total_outstanding_amount, source
       })
     });
     const data = await resp.json();
@@ -217,11 +220,15 @@ async function submitDebtConsolidationForm(product){
       successMsg.innerText = data.message;
       if (typeof showToast === 'function') showToast('Application submitted successfully!');
       document.getElementById('dc-form-id').reset();
+      document.getElementById('formSalary').value = "";
+      sessionStorage.clear();
+       if (typeof showCelebration === 'function') showCelebration();
       setTimeout(() => {
         btn.style.display = 'block';
         successMsg.style.display = 'none';
       successMsg.innerText = '';
-      },8000)
+      window.location.reload();
+      },5000)
     }else{
       successMsg.style.display = 'block';
       successMsg.style.color = '#dc2626';
