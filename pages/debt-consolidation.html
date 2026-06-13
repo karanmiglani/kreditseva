@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/css/theme.css"/>
   <link rel="stylesheet" href="/css/personal-loan.css">
   <link rel="stylesheet" href="/css/debt-consolidation.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0600;0,700;1,700&display=swap" rel="stylesheet">
   <!-- STYLES -->
@@ -226,6 +227,19 @@
           <span class="pl-field-err" id="err-dcCity"></span>
         </div>
         
+
+        <div class="dc-form-field">
+          <label>Net Monthly Salary <span class="dc-req">*</span></label>
+          <select id="formSalary">
+            <option value="">Select Income</option>
+            <option>Below ₹25,000</option>
+            <option>₹25,000 – ₹50,000</option>
+            <option>₹50,000 – ₹1 Lakh</option>
+            <option>₹1 Lakh – ₹3 Lakh</option>
+            <option>Above ₹3 Lakh</option>
+          </select>
+          <span class="pl-field-err" id="err-dcSalary"></span>
+        </div>
 
         <label class="dc-consent">
           <span>By submitting, you agree to our <a href="#">Privacy Policy</a> &amp; <a href="#">Terms &amp; Conditions</a></span>
@@ -1132,9 +1146,21 @@
      SCRIPTS
 ========================= -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="/js/swiper.js"></script>
 <script src="/js/custom.js"></script>
 
+
+<script>
+$(document).ready(function() {
+  $('#formSalary').select2({
+    placeholder: 'Select Income',
+    allowClear: true,
+    width: '100%'
+  });
+});
+</script>
 
 <a href="tel:+919990033593" class="call-float" aria-label="Call Now">
   <i class="fa-solid fa-phone"></i>
