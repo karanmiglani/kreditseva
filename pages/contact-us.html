@@ -206,6 +206,7 @@
               <i class="fa-solid fa-user"></i>
               <input type="text" id="ct-name" placeholder="e.g. Rahul Sharma" />
             </div>
+            <span class="pl-field-err" id="err-ctName"></span>
           </div>
 
           <div class="ct-row">
@@ -215,6 +216,7 @@
                 <i class="fa-solid fa-mobile-screen"></i>
                 <input type="tel" id="ct-phone" placeholder="10-digit number" maxlength="10" />
               </div>
+              <span class="pl-field-err" id="err-ctPhone"></span>
             </div>
             <div class="ct-field">
               <label for="ct-email">Email Address</label>
@@ -222,6 +224,7 @@
                 <i class="fa-solid fa-envelope"></i>
                 <input type="email" id="ct-email" placeholder="you@email.com" />
               </div>
+              <span class="pl-field-err" id="err-ctEmail"></span>
             </div>
           </div>
 
@@ -239,11 +242,13 @@
                 <option>Other</option>
               </select>
             </div>
+            <span class="pl-field-err" id="err-ctSubject"></span>
           </div>
 
           <div class="ct-field">
             <label for="ct-message">Message</label>
             <textarea id="ct-message" rows="4" placeholder="Tell us how we can help you..."></textarea>
+            <span class="pl-field-err" id="err-ctMessage"></span>
           </div>
 
           <button type="submit" class="ct-submit">
@@ -350,7 +355,7 @@
   <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Go to top">
     <svg viewBox="0 0 24 24" class="scroll-icon"><path d="M12 19V6"/><path d="M6 12L12 6L18 12"/></svg>
   </button>
-  <a href="https://wa.me/919138130188?text=Hi%20I%20want%20to%20know%20about%20loan%20options" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
+  <a href="https://wa.me/919990033593?text=Hi%20I%20want%20to%20know%20about%20loan%20options" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
   <a href="tel:+919990033593" class="call-float" aria-label="Call Now">
@@ -360,8 +365,45 @@
   <script src="/js/custom.js"></script>
   
   <script>
+    function showCtErr(id, msg) {
+      var el = document.getElementById(id);
+      el.innerText = msg;
+      el.style.display = 'block';
+    }
+    function clearCtErr(id) {
+      var el = document.getElementById(id);
+      el.innerText = '';
+      el.style.display = 'none';
+    }
+
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      var valid = true;
+
+      var name = document.getElementById('ct-name').value.trim();
+      if (!name) { showCtErr('err-ctName', 'Please enter your full name'); valid = false; }
+      else clearCtErr('err-ctName');
+
+      var phone = document.getElementById('ct-phone').value.trim();
+      if (!phone) { showCtErr('err-ctPhone', 'Please enter your mobile number'); valid = false; }
+      else if (!/^[6-9]\d{9}$/.test(phone)) { showCtErr('err-ctPhone', 'Please enter a valid 10-digit mobile number'); valid = false; }
+      else clearCtErr('err-ctPhone');
+
+      var email = document.getElementById('ct-email').value.trim();
+      if (!email) { showCtErr('err-ctEmail', 'Please enter your email address'); valid = false; }
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showCtErr('err-ctEmail', 'Please enter a valid email address'); valid = false; }
+      else clearCtErr('err-ctEmail');
+
+      var subject = document.getElementById('ct-subject').value;
+      if (!subject) { showCtErr('err-ctSubject', 'Please select a subject'); valid = false; }
+      else clearCtErr('err-ctSubject');
+
+      var message = document.getElementById('ct-message').value.trim();
+      if (!message) { showCtErr('err-ctMessage', 'Please enter your message'); valid = false; }
+      else clearCtErr('err-ctMessage');
+
+      if (!valid) return;
+
       this.style.display = 'none';
       document.getElementById('ctSuccess').style.display = 'flex';
     });

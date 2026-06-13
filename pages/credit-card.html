@@ -264,26 +264,28 @@
         <!-- NAME -->
         <div class="cc-form-group">
           <label>Name <span>*</span></label>
-          <input type="text" placeholder="Enter your Name" required>
+          <input type="text" id="cc-name" placeholder="Enter your Name">
+          <span class="pl-field-err" id="err-ccName"></span>
         </div>
 
         <!-- PHONE -->
         <div class="cc-form-group">
           <label>Phone Number <span>*</span></label>
-          <input type="tel" placeholder="Enter your phone number" required>
+          <input type="tel" id="cc-phone" placeholder="Enter your phone number" maxlength="10">
+          <span class="pl-field-err" id="err-ccPhone"></span>
         </div>
-
 
         <!-- EMPLOYMENT -->
         <div class="cc-form-group">
           <label>Employment Type <span>*</span></label>
-          <select required>
+          <select id="cc-employment">
             <option value="">Select Employment Type</option>
             <option>Salaried</option>
             <option>Self Employed</option>
             <option>Business Owner</option>
             <option>Professional</option>
           </select>
+          <span class="pl-field-err" id="err-ccEmployment"></span>
         </div>
 
         <!-- SUBMIT BUTTON -->
@@ -807,7 +809,7 @@
     </svg>
   </button>
 
-  <a href="https://wa.me/919138130188?text=Hi%20I%20want%20to%20know%20about%20loan%20options" target="_blank"
+  <a href="https://wa.me/919990033593?text=Hi%20I%20want%20to%20know%20about%20loan%20options" target="_blank"
     rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
