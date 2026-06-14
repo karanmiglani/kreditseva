@@ -38,22 +38,19 @@
   </div>
 
 
-  <div class="top-strip">
-    <div class="top-strip-inner">
-      <a href="/become-our-partner" class="top-strip-link" style="font-size:14px;">
-        <i class="fa-solid fa-handshake" style="color:#D2956A; font-size:18px;"></i> Become Our Partner
-      </a>
-      <a href="/check-my-credit-score" class="top-strip-link" style="font-size:14px;">
-        <i class="fa-solid fa-chart-simple" style="color:#4ade80; font-size:18px;"></i> Check Your Credit Score
-      </a>
-      <a href="tel:+919990033593" class="top-strip-link" style="font-size:14px;">
-        <i class="fa-solid fa-phone" style="color:#ef4444; font-size:18px;"></i> +91-99900-33593
-      </a>
-      <a href="https://wa.me/919990033593" class="top-strip-link" target="_blank" rel="noopener" style="font-size:14px;">
-        <i class="fa-brands fa-whatsapp" style="color:#fff; background:#25D366; border-radius:50%; padding:3px; font-size:18px; width:26px; height:26px; display:inline-flex; align-items:center; justify-content:center;"></i> +91-99900-33593
-      </a>
+    <div class="top-strip">
+      <div class="top-strip-inner">
+        <a href="/become-our-partner" class="top-strip-link" style="font-size:14px;">
+          <i class="fa-solid fa-handshake" style="color:#D2956A; font-size:18px;"></i> Become Our Partner
+        </a>
+        <a href="/check-my-credit-score" class="top-strip-link" style="font-size:14px;">
+          <img src="/images/credit-gauge.svg" alt="Credit Score" style="width:44px; height:44px; vertical-align:middle;"> Check Your Credit Score
+        </a>
+        <a href="https://wa.me/919990033593" class="top-strip-link" target="_blank" rel="noopener" style="font-size:14px;">
+          <i class="fa-brands fa-whatsapp" style="color:#fff; background:#25D366; border-radius:50%; padding:3px; font-size:18px; width:26px; height:26px; display:inline-flex; align-items:center; justify-content:center;"></i> +91-999-0033-953
+        </a>
+      </div>
     </div>
-  </div>
 
    <header class="main-header">
     <div class="navbar">
@@ -152,6 +149,154 @@
 
     </div>
   </header>
+
+<!-- ============================================================
+   BECOME A PARTNER — FORM SECTION
+============================================================ -->
+
+<section id="pf-section" class="pf-section" data-animate>
+  <div class="pf-container">
+
+    <!-- Left Panel -->
+    <div class="pf-left">
+      <div class="pf-tag">
+        <i class="fa-solid fa-handshake"></i>
+        Partner Program
+      </div>
+      <h2 class="pf-left-title">Start Earning with <span>KreditSeva</span> Today</h2>
+      <p class="pf-left-desc">Join thousands of DSA partners across India who are building a rewarding career by connecting borrowers with the right lenders.</p>
+
+      <div class="pf-benefits">
+        <div class="pf-benefit">
+          <div class="pf-benefit-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+          <span class="pf-benefit-text">Zero investment to get started</span>
+        </div>
+        <div class="pf-benefit">
+          <div class="pf-benefit-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+          <span class="pf-benefit-text">Earn industry-best commissions</span>
+        </div>
+        <div class="pf-benefit">
+          <div class="pf-benefit-icon"><i class="fa-solid fa-clock"></i></div>
+          <span class="pf-benefit-text">Flexible hours — work on your terms</span>
+        </div>
+        <div class="pf-benefit">
+          <div class="pf-benefit-icon"><i class="fa-solid fa-building-columns"></i></div>
+          <span class="pf-benefit-text">Access to 30+ top lending banks</span>
+        </div>
+      </div>
+
+      <div class="pf-stats">
+        <div class="pf-stat">
+          <strong>10K+</strong>
+          <span>Active Partners</span>
+        </div>
+        <div class="pf-stat">
+          <strong>₹50Cr+</strong>
+          <span>Commissions Paid</span>
+        </div>
+        <div class="pf-stat">
+          <strong>30+</strong>
+          <span>Lending Banks</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel (Form) -->
+    <div class="pf-right">
+      <div class="pf-form-header">
+        <h3>Become a Partner</h3>
+        <p>Fill in your details and our team will reach out within 24 hours.</p>
+      </div>
+
+      <div class="pf-progress">
+        <div class="pf-progress-bar">
+          <div class="pf-progress-fill" id="progressFill"></div>
+        </div>
+        <span class="pf-progress-label" id="progressLabel">0 of 5 filled</span>
+      </div>
+
+      <form class="pf-form" id="partnerForm" novalidate>
+
+        <div class="pf-field" id="field-name">
+          <label for="pf-name">Full Name</label>
+          <div class="pf-input-wrap">
+            <input type="text" id="pf-name" placeholder="e.g. Rahul Sharma" autocomplete="name">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <span class="pf-error-msg" id="err-name"></span>
+        </div>
+
+        <div class="pf-row">
+          <div class="pf-field" id="field-mobile">
+            <label for="pf-mobile">Mobile Number</label>
+            <div class="pf-input-wrap">
+              <input type="tel" id="pf-mobile" placeholder="10-digit mobile no." maxlength="10">
+              <i class="fa-solid fa-mobile-screen"></i>
+            </div>
+            <span class="pf-error-msg" id="err-mobile"></span>
+          </div>
+
+          <div class="pf-field" id="field-location">
+            <label for="pf-location">Location</label>
+            <div class="pf-input-wrap">
+              <input type="text" id="pf-location" placeholder="City, State">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <span class="pf-error-msg" id="err-location"></span>
+          </div>
+        </div>
+
+        <div class="pf-field" id="field-firm">
+          <label for="pf-firm">Firm / Partner Name</label>
+          <div class="pf-input-wrap">
+            <input type="text" id="pf-firm" placeholder="e.g. Sharma Finance Associates">
+            <i class="fa-solid fa-building"></i>
+          </div>
+          <span class="pf-error-msg" id="err-firm"></span>
+        </div>
+
+        <div class="pf-field" id="field-type">
+          <label>DSA Type</label>
+          <div class="pf-type-group">
+            <div class="pf-type-card active" id="type-company" onclick="selectDSAType('Company')">
+              <div class="pf-type-radio"></div>
+              <div class="pf-type-label">
+                <strong>Company</strong>
+                <span>Proprietorship / Pvt Ltd</span>
+              </div>
+            </div>
+            <div class="pf-type-card" id="type-individual" onclick="selectDSAType('Individual')">
+              <div class="pf-type-radio"></div>
+              <div class="pf-type-label">
+                <strong>Individual</strong>
+                <span>Personal account for self</span>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="pf-dsa-type" value="Company">
+          <span class="pf-error-msg" id="err-type"></span>
+        </div>
+
+        <button type="submit" class="pf-submit">
+          Submit Application <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <div class="pf-privacy">
+          <i class="fa-solid fa-shield-halved"></i>
+          Your information is 100% secure and never shared with third parties.
+        </div>
+
+      </form>
+
+      <div class="pf-success" id="successMsg">
+        <div class="pf-success-icon"><i class="fa-solid fa-check"></i></div>
+        <h3>Application Submitted!</h3>
+        <p>Thank you for applying. Our team will contact you within 24 hours.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
 
   <!-- Hero -->
 <div class="dsa-section">
@@ -525,155 +670,6 @@
     </div>
   </div>
 </section>
-<!-- ============================================================
-   BECOME A PARTNER — FORM SECTION
-   Drop after Benefits section, before Footer
-============================================================ -->
-
-<section id="pf-section" class="pf-section" data-animate>
-  <div class="pf-container">
-
-    <!-- Left Panel -->
-    <div class="pf-left">
-      <div class="pf-tag">
-        <i class="fa-solid fa-handshake"></i>
-        Partner Program
-      </div>
-      <h2 class="pf-left-title">Start Earning with <span>KreditSeva</span> Today</h2>
-      <p class="pf-left-desc">Join thousands of DSA partners across India who are building a rewarding career by connecting borrowers with the right lenders.</p>
-
-      <div class="pf-benefits">
-        <div class="pf-benefit">
-          <div class="pf-benefit-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
-          <span class="pf-benefit-text">Zero investment to get started</span>
-        </div>
-        <div class="pf-benefit">
-          <div class="pf-benefit-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
-          <span class="pf-benefit-text">Earn industry-best commissions</span>
-        </div>
-        <div class="pf-benefit">
-          <div class="pf-benefit-icon"><i class="fa-solid fa-clock"></i></div>
-          <span class="pf-benefit-text">Flexible hours — work on your terms</span>
-        </div>
-        <div class="pf-benefit">
-          <div class="pf-benefit-icon"><i class="fa-solid fa-building-columns"></i></div>
-          <span class="pf-benefit-text">Access to 30+ top lending banks</span>
-        </div>
-      </div>
-
-      <div class="pf-stats">
-        <div class="pf-stat">
-          <strong>10K+</strong>
-          <span>Active Partners</span>
-        </div>
-        <div class="pf-stat">
-          <strong>₹50Cr+</strong>
-          <span>Commissions Paid</span>
-        </div>
-        <div class="pf-stat">
-          <strong>30+</strong>
-          <span>Lending Banks</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right Panel (Form) -->
-    <div class="pf-right">
-      <div class="pf-form-header">
-        <h3>Become a Partner</h3>
-        <p>Fill in your details and our team will reach out within 24 hours.</p>
-      </div>
-
-      <div class="pf-progress">
-        <div class="pf-progress-bar">
-          <div class="pf-progress-fill" id="progressFill"></div>
-        </div>
-        <span class="pf-progress-label" id="progressLabel">0 of 5 filled</span>
-      </div>
-
-      <form class="pf-form" id="partnerForm" novalidate>
-
-        <div class="pf-field" id="field-name">
-          <label for="pf-name">Full Name</label>
-          <div class="pf-input-wrap">
-            <input type="text" id="pf-name" placeholder="e.g. Rahul Sharma" autocomplete="name">
-            <i class="fa-solid fa-user"></i>
-          </div>
-          <span class="pf-error-msg" id="err-name"></span>
-        </div>
-
-        <div class="pf-row">
-          <div class="pf-field" id="field-mobile">
-            <label for="pf-mobile">Mobile Number</label>
-            <div class="pf-input-wrap">
-              <input type="tel" id="pf-mobile" placeholder="10-digit mobile no." maxlength="10">
-              <i class="fa-solid fa-mobile-screen"></i>
-            </div>
-            <span class="pf-error-msg" id="err-mobile"></span>
-          </div>
-
-          <div class="pf-field" id="field-location">
-            <label for="pf-location">Location</label>
-            <div class="pf-input-wrap">
-              <input type="text" id="pf-location" placeholder="City, State">
-              <i class="fa-solid fa-location-dot"></i>
-            </div>
-            <span class="pf-error-msg" id="err-location"></span>
-          </div>
-        </div>
-
-        <div class="pf-field" id="field-firm">
-          <label for="pf-firm">Firm / Partner Name</label>
-          <div class="pf-input-wrap">
-            <input type="text" id="pf-firm" placeholder="e.g. Sharma Finance Associates">
-            <i class="fa-solid fa-building"></i>
-          </div>
-          <span class="pf-error-msg" id="err-firm"></span>
-        </div>
-
-        <div class="pf-field" id="field-type">
-          <label>DSA Type</label>
-          <div class="pf-type-group">
-            <div class="pf-type-card active" id="type-company" onclick="selectDSAType('Company')">
-              <div class="pf-type-radio"></div>
-              <div class="pf-type-label">
-                <strong>Company</strong>
-                <span>Proprietorship / Pvt Ltd</span>
-              </div>
-            </div>
-            <div class="pf-type-card" id="type-individual" onclick="selectDSAType('Individual')">
-              <div class="pf-type-radio"></div>
-              <div class="pf-type-label">
-                <strong>Individual</strong>
-                <span>Personal account for self</span>
-              </div>
-            </div>
-          </div>
-          <input type="hidden" id="pf-dsa-type" value="Company">
-          <span class="pf-error-msg" id="err-type"></span>
-        </div>
-
-        <button type="submit" class="pf-submit">
-          Submit Application <i class="fa-solid fa-arrow-right"></i>
-        </button>
-
-        <div class="pf-privacy">
-          <i class="fa-solid fa-shield-halved"></i>
-          Your information is 100% secure and never shared with third parties.
-        </div>
-
-      </form>
-
-      <div class="pf-success" id="successMsg">
-        <div class="pf-success-icon"><i class="fa-solid fa-check"></i></div>
-        <h3>Application Submitted!</h3>
-        <p>Thank you for applying. Our team will contact you within 24 hours.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
    <!-- =========================
      FOOTER
 ========================= -->
