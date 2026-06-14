@@ -2,9 +2,9 @@
 body { background: #040f2d; }
 .site-footer { margin-top: 0; }
 
-  .dsa-section { padding: 60px 20px 80px; background: var(--b900); font-family: 'Outfit', sans-serif; }
+  .dsa-section { padding: 60px 20px 80px; background: var(--b900); font-family: 'Open Sans', sans-serif; }
   .dsa-badge { display: inline-block; color: #00d4ff; font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
-  .dsa-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: #fff; line-height: 1.15; margin: 0 0 10px; }
+  .dsa-title { font-family: 'Open Sans', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: #fff; line-height: 1.15; margin: 0 0 10px; }
   .dsa-title span { background: linear-gradient(135deg, #1a52cc, #00cfff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .dsa-sub { color: #5a6a8a; font-size: 1rem; margin: 0 0 40px; }
   .dsa-panel { background: #fff; border-radius: 22px; border: 1px solid rgba(4,15,45,0.08); box-shadow: 0 24px 64px rgba(4,15,45,0.10); padding: 32px 28px; max-width: 900px; margin: 0 auto; }
@@ -21,7 +21,7 @@ body { background: #040f2d; }
   .card-divider { width: 32px; height: 2px; background: linear-gradient(135deg, #1a52cc, #00d4ff); border-radius: 2px; }
   .card-desc { font-size: 0.86rem; color: #5a6a8a; margin: 0; line-height: 1.5; }
   .card-btn { margin-top: auto; padding-top: 16px; }
-  .proceed-btn { width: 100%; height: 44px; border: none; border-radius: 12px; background: linear-gradient(135deg, #0a2463, #1a52cc); color: #fff; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.25s ease; font-family: 'Outfit', sans-serif;  display: flex; align-items: center; justify-content: center; text-decoration: none;}
+  .proceed-btn { width: 100%; height: 44px; border: none; border-radius: 12px; background: linear-gradient(135deg, #0a2463, #1a52cc); color: #fff; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.25s ease; font-family: 'Open Sans', sans-serif;  display: flex; align-items: center; justify-content: center; text-decoration: none;}
   .biz-card.selected .proceed-btn { background: linear-gradient(135deg, #00d4ff, #1a52cc); box-shadow: 0 8px 20px rgba(0,212,255,0.25); }
   .proceed-btn:hover { transform: translateY(-1px); opacity: 0.92; }
   @media (max-width: 640px) {
@@ -103,7 +103,7 @@ body { background: #040f2d; }
 }
 
 .elig-heading h2 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
   color: #fff;
@@ -164,7 +164,7 @@ body { background: #040f2d; }
 }
 
 .elig-num {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 2.2rem;
   font-weight: 800;
   color: rgba(255,255,255,0.08);
@@ -475,7 +475,7 @@ body { background: #040f2d; }
 }
 
 .benefits-heading h2 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
   color: #fff;
@@ -769,7 +769,7 @@ body { background: #040f2d; }
 }
 
 .pf-left-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: clamp(2rem, 3vw, 2.6rem);
   font-weight: 700;
   color: #fff;
@@ -855,7 +855,7 @@ body { background: #040f2d; }
 }
 
 .pf-form-header h3 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 1.9rem;
   font-weight: 700;
   color: var(--b900);
@@ -948,7 +948,7 @@ body { background: #040f2d; }
   border-radius: 13px;
   background: var(--b050);
   font-size: 0.92rem;
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   color: var(--text);
   outline: none;
   transition: all 0.25s ease;
@@ -1041,7 +1041,7 @@ body { background: #040f2d; }
   color: #fff;
   font-size: 0.98rem;
   font-weight: 700;
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -1177,7 +1177,7 @@ body { background: #040f2d; }
 }
 
 .ks-who-head h2 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: clamp(1.9rem, 3vw, 2.8rem);
   font-weight: 700;
   color: #fff;
@@ -1284,7 +1284,7 @@ body { background: #040f2d; }
 .ks-who-tag--red    { background: rgba(248,113,113,0.1);  color: #f87171;  border-color: rgba(248,113,113,0.25); }
 
 .ks-who-card h3 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 1rem;
   font-weight: 700;
   color: #fff;
@@ -1338,7 +1338,7 @@ body { background: #040f2d; }
 
 .ks-who-stat strong {
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 1.6rem;
   font-weight: 800;
   color: #00cfff;
