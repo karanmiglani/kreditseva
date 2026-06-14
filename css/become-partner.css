@@ -19,6 +19,20 @@
 [data-reveal-delay="4"] { transition-delay: 0.4s; }
 [data-reveal-delay="5"] { transition-delay: 0.5s; }
 
+/* ── Staggered card entrance ── */
+.bp-who-card:nth-child(1),
+.bp-benefit-card:nth-child(1) { animation-delay: 0.05s; }
+.bp-who-card:nth-child(2),
+.bp-benefit-card:nth-child(2) { animation-delay: 0.12s; }
+.bp-who-card:nth-child(3),
+.bp-benefit-card:nth-child(3) { animation-delay: 0.19s; }
+.bp-who-card:nth-child(4),
+.bp-benefit-card:nth-child(4) { animation-delay: 0.26s; }
+.bp-who-card:nth-child(5),
+.bp-benefit-card:nth-child(5) { animation-delay: 0.33s; }
+.bp-who-card:nth-child(6),
+.bp-benefit-card:nth-child(6) { animation-delay: 0.40s; }
+
 /* ============================================================
    HERO
 ============================================================ */
@@ -36,6 +50,77 @@
     radial-gradient(circle at 85% 20%, rgba(26,82,204,.06) 0%, transparent 45%),
     radial-gradient(circle at 10% 80%, rgba(0,180,255,.05) 0%, transparent 40%);
   pointer-events: none;
+}
+
+/* Animated background orbs */
+.bp-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(48px);
+  opacity: 0.35;
+}
+.bp-orb-1 {
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(26,82,204,.18), transparent 70%);
+  top: -100px; right: 5%;
+  animation: bpOrbFloat 8s ease-in-out infinite;
+}
+.bp-orb-2 {
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(14,165,233,.15), transparent 70%);
+  bottom: -60px; left: 8%;
+  animation: bpOrbFloat 11s ease-in-out infinite reverse;
+}
+.bp-orb-3 {
+  width: 180px; height: 180px;
+  background: radial-gradient(circle, rgba(26,82,204,.12), transparent 70%);
+  top: 40%; left: 42%;
+  animation: bpOrbFloat 14s ease-in-out infinite 2s;
+}
+@keyframes bpOrbFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-28px) scale(1.06); }
+}
+
+/* Hero floating badge (top-right decorative) */
+.bp-hero-badge {
+  position: absolute;
+  top: 32px;
+  right: 6%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(26,82,204,.15);
+  border-radius: 100px;
+  padding: 8px 16px 8px 10px;
+  backdrop-filter: blur(8px);
+  animation: bpBadgeIn 0.6s ease 0.8s both, bpBadgeFloat 4s ease-in-out 1.4s infinite;
+  box-shadow: 0 4px 16px rgba(26,82,204,.1);
+}
+.bp-hero-badge-dot {
+  width: 8px; height: 8px;
+  background: #16a34a;
+  border-radius: 50%;
+  animation: bpDotPulse 1.8s ease-in-out infinite;
+}
+@keyframes bpDotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(22,163,74,.4); }
+  50%       { opacity: 0.8; transform: scale(0.85); box-shadow: 0 0 0 5px rgba(22,163,74,0); }
+}
+.bp-hero-badge span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #012056;
+}
+@keyframes bpBadgeIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes bpBadgeFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
 }
 
 .bp-hero-inner {
@@ -138,6 +223,12 @@
   color: #7a90ab;
   text-transform: uppercase;
   letter-spacing: 0.4px;
+}
+
+/* Submit button shimmer */
+@keyframes bpShimmer {
+  0%   { left: -75%; }
+  100% { left: 125%; }
 }
 
 @keyframes bpFadeUp {
@@ -297,6 +388,18 @@
   gap: 8px;
   transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
   box-shadow: 0 6px 20px rgba(26,82,204,.3);
+  position: relative;
+  overflow: hidden;
+}
+.bp-submit::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 50%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+  left: -75%;
+  animation: bpShimmer 2.8s ease-in-out infinite 1.5s;
+  pointer-events: none;
 }
 .bp-submit:hover {
   transform: translateY(-2px);
@@ -391,11 +494,26 @@
   border: 1px solid #e4edf8;
   border-radius: 16px;
   transition: border-color 0.22s, box-shadow 0.22s, transform 0.22s;
+  position: relative;
+  overflow: hidden;
 }
+/* card top-border accent line on hover */
+.bp-who-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1a52cc, #38bdf8);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+  border-radius: 16px 16px 0 0;
+}
+.bp-who-card:hover::before { transform: scaleX(1); }
 .bp-who-card:hover {
-  border-color: rgba(26,82,204,.2);
-  box-shadow: 0 8px 28px rgba(26,82,204,.08);
-  transform: translateY(-3px);
+  border-color: rgba(26,82,204,.15);
+  box-shadow: 0 10px 32px rgba(26,82,204,.1);
+  transform: translateY(-4px);
 }
 .bp-who-icon {
   width: 44px;
@@ -408,6 +526,12 @@
   font-size: 1.05rem;
   margin-bottom: 14px;
   color: #1a52cc;
+  transition: background 0.22s, transform 0.22s;
+}
+.bp-who-card:hover .bp-who-icon {
+  background: #1a52cc;
+  color: #fff;
+  transform: scale(1.1) rotate(-4deg);
 }
 .bp-who-card h3 {
   font-size: 0.97rem;
@@ -468,6 +592,25 @@
   z-index: 1;
   transition: background 0.22s, border-color 0.22s, box-shadow 0.22s;
 }
+/* pulse ring on step icons */
+.bp-step-num::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(26,82,204,.18);
+  animation: bpStepPulse 2.5s ease-in-out infinite;
+  opacity: 0;
+}
+.bp-step:nth-child(1) .bp-step-num::after { animation-delay: 0s; }
+.bp-step:nth-child(2) .bp-step-num::after { animation-delay: 0.6s; }
+.bp-step:nth-child(3) .bp-step-num::after { animation-delay: 1.2s; }
+.bp-step:nth-child(4) .bp-step-num::after { animation-delay: 1.8s; }
+@keyframes bpStepPulse {
+  0%   { opacity: 0; transform: scale(0.85); }
+  40%  { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.4); }
+}
 .bp-step:hover .bp-step-num {
   background: #1a52cc;
   border-color: #1a52cc;
@@ -521,13 +664,33 @@
   background: #fff;
   border: 1px solid #e4edf8;
   border-radius: 16px;
-  transition: box-shadow 0.22s, transform 0.22s, border-color 0.22s;
+  transition: box-shadow 0.28s, transform 0.28s, border-color 0.28s;
+  position: relative;
+  overflow: hidden;
 }
+/* glow sweep on hover */
+.bp-benefit-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(26,82,204,.06), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.bp-benefit-card:hover::after { opacity: 1; }
 .bp-benefit-card:hover {
-  box-shadow: 0 8px 24px rgba(26,82,204,.08);
-  transform: translateY(-3px);
-  border-color: rgba(26,82,204,.15);
+  box-shadow: 0 10px 30px rgba(26,82,204,.1);
+  transform: translateY(-4px);
+  border-color: rgba(26,82,204,.18);
 }
+.bp-benefit-icon {
+  font-size: 1.55rem;
+  margin-bottom: 12px;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.bp-benefit-card:hover .bp-benefit-icon { transform: scale(1.18) rotate(-5deg); }
 .bp-benefit-icon {
   font-size: 1.35rem;
   margin-bottom: 12px;
@@ -741,12 +904,36 @@
 }
 
 /* ============================================================
+   WAVE DIVIDER
+============================================================ */
+.bp-wave {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  margin-bottom: -2px;
+}
+.bp-wave svg { display: block; width: 100%; }
+
+/* ============================================================
    BOTTOM CTA STRIP
 ============================================================ */
 .bp-cta-strip {
   padding: 64px 6%;
   background: linear-gradient(135deg, #1a52cc 0%, #0a2463 100%);
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.bp-cta-strip::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.05), transparent 70%);
+  top: -200px; right: -100px;
+  pointer-events: none;
+  animation: bpOrbFloat 10s ease-in-out infinite;
 }
 .bp-cta-strip h2 {
   font-size: clamp(1.5rem, 2.4vw, 1.95rem);
