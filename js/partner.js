@@ -16,6 +16,32 @@
   }, { threshold: 0.12 });
   revealEls.forEach(el => revealObs.observe(el));
 
+  /* ── Count-up stats ── */
+  function animateCount(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1600;
+    const start = performance.now();
+    function step(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const val = Math.floor(ease * target);
+      el.textContent = (target >= 1000 ? val.toLocaleString('en-IN') : val) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const countEls = document.querySelectorAll('.bp-count');
+  const countObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCount(e.target);
+        countObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  countEls.forEach(el => countObs.observe(el));
+
   /* ── DSA type selector ── */
   const typeBtns = document.querySelectorAll('.bp-type-btn');
   const dsaTypeInput = document.getElementById('bp-dsa-type');
