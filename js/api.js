@@ -7,6 +7,7 @@ let phoneRegex = /^[6-9][0-9]{9}$/;
 let lastSavedphoneNumber = '';
 document.getElementById('btn-submit')?.setAttribute('disabled', 'disabled');
 const heroPhone = document.getElementById('heroPhone');
+console.log(heroPhone);
 
 // User ka phone number lo
 heroPhone?.addEventListener('input', function(){
@@ -155,4 +156,9 @@ function showMessage(id, msg) {
   el.textContent = msg;
   el.style.display = 'block'
   setTimeout(() => { el.textContent = '';el.style.display = 'none' }, 3000);
+}
+
+
+function creditCard(){
+  if(!rawLeadId){ showMessage('', 'Session expired, Please fill the application form again.')}
 }
