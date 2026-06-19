@@ -304,7 +304,7 @@
 }
 
 .ks-hero-title-sm {
-  font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+  font-size: clamp(1.2rem, 1.7vw, 1.7rem);
 }
 
 .ks-hero-desc {
