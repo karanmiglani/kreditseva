@@ -9,7 +9,8 @@
       "Bash(sips -c 900 390 --cropOffset 900 0  /tmp/mobile_full.png --out /tmp/m_mid.png)",
       "Bash(sips -c 900 390 --cropOffset 1800 0 /tmp/mobile_full.png --out /tmp/m_bot.png)",
       "Bash(node *)",
-      "Bash(python3 *)"
+      "Bash(python3 *)",
+      "Bash(git -C /Users/raman/Downloads/kreditseva log --oneline)"
     ]
   },
   "enabledPlugins": {
