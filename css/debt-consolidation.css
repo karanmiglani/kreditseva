@@ -71,6 +71,14 @@
     margin-bottom: 18px;
   }
 
+  .dc-hero-h6 {
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
+    font-weight: 600;
+    color: #012056;
+    line-height: 1.4;
+    margin: -10px 0 18px;
+  }
+
   .dc-hero-accent {
     font-style: italic;
     color: #1a52cc;
@@ -332,7 +340,8 @@
     .dc-hero { padding: 36px 5%; }
     .dc-hero-checks { grid-template-columns: 1fr; }
     .dc-hero-form-wrap { max-width: 100%; }
-    .dc-hero-h1 { font-size: 2.1rem !important; }
+    .dc-hero-h1 { font-size: 1.8rem !important; }
+    .dc-hero-h6 { font-size: 0.95rem !important; margin: -4px 0 14px; }
     .plx-count { font-size: 0.82rem !important; }
     .dc-rupee { font-size: 1.2rem !important; }
     .dc-hs-item span { font-size: 1.2rem !important; }
