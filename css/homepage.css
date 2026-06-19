@@ -308,11 +308,11 @@
 }
 
 .ks-hero-subtitle {
-  font-size: clamp(1rem, 1.5vw, 1.3rem);
-  font-weight: 600;
-  color: #0A1F44;
-  line-height: 1.4;
-  margin: -10px 0 18px;
+  font-size: clamp(0.8rem, 1.1vw, 1rem);
+  font-weight: 500;
+  color: #475569;
+  line-height: 1.5;
+  margin: -6px 0 16px;
 }
 
 .ks-hero-subtitle span {
