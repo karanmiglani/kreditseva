@@ -190,10 +190,27 @@
 
     .cs-hint i { color: #22c55e; margin-right: 4px; }
 
-    @media (max-width: 540px) {
-      .cs-card { padding: 44px 24px; }
-      .cs-notify { flex-direction: column; }
-      .cs-notify button { width: 100%; }
+    @media (max-width: 768px) {
+      .cs-page { padding: 40px 16px; min-height: unset; }
+      .cs-card { padding: 48px 28px; border-radius: 20px; }
+      .cs-card h1 { font-size: clamp(1.6rem, 6vw, 2rem); }
+      .cs-card p { font-size: 0.92rem; margin-bottom: 28px; }
+      .cs-features { gap: 8px; }
+      .cs-feature { font-size: 0.78rem; padding: 6px 12px; }
+    }
+
+    @media (max-width: 480px) {
+      .cs-page { padding: 24px 12px; }
+      .cs-card { padding: 36px 20px; border-radius: 16px; }
+      .cs-icon-wrap { width: 64px; height: 64px; font-size: 1.6rem; margin-bottom: 20px; }
+      .cs-card h1 { font-size: clamp(1.4rem, 7vw, 1.8rem); margin-bottom: 12px; }
+      .cs-card p { font-size: 0.88rem; margin-bottom: 22px; }
+      .cs-features { gap: 6px; margin-bottom: 28px; }
+      .cs-feature { font-size: 0.74rem; padding: 5px 10px; }
+      .cs-notify { flex-direction: column; gap: 10px; max-width: 100%; }
+      .cs-notify input { width: 100%; box-sizing: border-box; }
+      .cs-notify button { width: 100%; height: 48px; }
+      .cs-tag { font-size: 0.65rem; padding: 4px 12px; }
     }
   </style>
   <link rel="stylesheet" href="/css/loader.css" />
@@ -312,19 +329,19 @@
 
       <p>We're building something powerful — an instant, free CIBIL score checker with personalised loan offers from 45+ lenders. Stay tuned!</p>
 
-      <div class="cs-features">
-        <div class="cs-feature"><i class="fa-solid fa-check"></i> 100% Free</div>
-        <div class="cs-feature"><i class="fa-solid fa-check"></i> Instant Result</div>
-        <div class="cs-feature"><i class="fa-solid fa-check"></i> No Score Impact</div>
-        <div class="cs-feature"><i class="fa-solid fa-check"></i> 25+ Lender Offers</div>
-      </div>
-
       <div class="cs-notify">
         <input type="tel" placeholder="Enter your mobile number" maxlength="10" id="cs-mobile" />
         <button id="notify-me-btn"  onclick="csNotify()">Proceed Now</button>
       </div>
 
       <p class="cs-hint" id="cs-hint" style="display: none;"><i class="fa-solid fa-shield-halved"></i> We'll notify you the moment it launches. No spam.</p>
+
+      <div class="cs-features">
+        <div class="cs-feature"><i class="fa-solid fa-check"></i> 100% Free</div>
+        <div class="cs-feature"><i class="fa-solid fa-check"></i> Instant Result</div>
+        <div class="cs-feature"><i class="fa-solid fa-check"></i> No Score Impact</div>
+        <div class="cs-feature"><i class="fa-solid fa-check"></i> 25+ Lender Offers</div>
+      </div>
 
     </div>
   </section>

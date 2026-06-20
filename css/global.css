@@ -195,15 +195,16 @@ body {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 34px;
+  gap: clamp(12px, 2vw, 34px);
 }
 
 .nav-links a {
   text-decoration: none;
   color: rgba(255, 255, 255, .82);
-  font-size: 1rem;
+  font-size: clamp(0.82rem, 1.1vw, 1rem);
   font-weight: 500;
   transition: .25s ease;
+  white-space: nowrap;
 }
 
 .nav-links a:hover {
@@ -364,7 +365,7 @@ body {
    10. NAVBAR — MOBILE RESPONSIVE
 ============================================================ */
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
 
   .navbar {
     padding: 0 20px;
@@ -453,6 +454,13 @@ body {
     width: 100%;
     margin-top: 16px;
   }
+}
+
+/* Shrink logo on small screens */
+@media (max-width: 480px) {
+  .brand-logo { font-size: 1.6rem; }
+  .navbar { height: 64px; }
+  .nav-links { top: 60px; }
 }
 
 /* Hide nav tag on tablets */
