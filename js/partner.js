@@ -121,13 +121,39 @@
       if (!validate()) return;
 
       const btn = form.querySelector('.bp-submit');
-      btn.classList.add('loading');
+      const originalHTML = btn.innerHTML;
+      btn.disabled = true;
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
 
-      await new Promise(r => setTimeout(r, 1200));
+      try {
+        const resp = await fetch(`${window.location.origin}/api/partner/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            full_name:     document.getElementById('bp-name').value.trim(),
+            mobile_number: document.getElementById('bp-mobile').value.trim(),
+            location:      document.getElementById('bp-location').value.trim(),
+            firm_name:     document.getElementById('bp-firm').value.trim(),
+            dsa_type:      document.getElementById('bp-dsa-type').value
+          })
+        });
 
-      form.style.display = 'none';
-      successBox.style.display = 'block';
+        const data = await resp.json();
+
+        if (data.success) {
+          form.style.display = 'none';
+          successBox.style.display = 'block';
+        } else {
+          btn.disabled = false;
+          btn.innerHTML = originalHTML;
+          alert(data.message || 'Something went wrong, please try again.');
+        }
+      } catch (err) {
+        console.error(err);
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+        alert('Network error, please try again.');
+      }
     });
   }
 

@@ -17,6 +17,7 @@ const autRoutes = require('./routes/authRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const dashBoardRoutes = require('./routes/dashboardRoutes');
 const leadRoutes = require('./routes/loanApplicationRoutes');
+const partnerRoutes = require('./routes/partnerRoutes');
 
 
 // Static files
@@ -36,6 +37,7 @@ app.use('/api/auth',autRoutes);
 app.use('/api/blog/', blogRoutes);
 app.use('/api/dashboard',dashBoardRoutes);
 app.use('/api/leads', leadRoutes);
+app.use('/api/partner', partnerRoutes);
 
 
 const port = process.env.PORT;
