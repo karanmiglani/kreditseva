@@ -230,10 +230,55 @@
       margin-bottom: 0;
     }
 
+    .ap-field-full {
+      grid-column: 1 / -1;
+    }
+
+    .ap-occ-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .ap-occ-btn {
+      padding: 10px 10px;
+      border: 1.5px solid #1a2470;
+      border-radius: 12px;
+      background: #f8faff;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .ap-occ-btn strong {
+      display: block;
+      font-size: 0.83rem;
+      color: #0d1547;
+      font-weight: 700;
+    }
+
+    .ap-occ-btn span {
+      font-size: 0.72rem;
+      color: #64748b;
+    }
+
+    .ap-occ-btn.active {
+      border-color: #1a52cc;
+      background: #eff6ff;
+    }
+
+    .ap-occ-btn.active strong { color: #1a52cc; }
+
+    @media (max-width: 540px) {
+      .ap-occ-group { grid-template-columns: 1fr 1fr; }
+    }
+
     .ap-field input,
     .ap-field select {
       width: 100%;
-      border: 1.5px solid #e2eaf8;
+      border: 1.5px solid #1a2470;
       border-radius: 10px;
       padding: 10px 14px;
       font-size: 0.88rem;
@@ -257,7 +302,7 @@
 
     /* Select2 theme override */
     .select2-container--default .select2-selection--single {
-      border: 1.5px solid #e2eaf8;
+      border: 1.5px solid #1a2470;
       border-radius: 10px;
       height: 40px;
       background: #fff;
@@ -284,7 +329,7 @@
     }
 
     .select2-dropdown {
-      border: 1.5px solid #e2eaf8;
+      border: 1.5px solid #1a2470;
       border-radius: 10px;
       box-shadow: 0 8px 24px rgba(4,15,45,0.1);
       font-family: 'Open Sans', sans-serif;
@@ -305,7 +350,7 @@
     }
 
     .select2-search--dropdown .select2-search__field {
-      border: 1.5px solid #e2eaf8;
+      border: 1.5px solid #1a2470;
       border-radius: 8px;
       padding: 7px 10px;
       font-family: 'Open Sans', sans-serif;
@@ -536,16 +581,27 @@
 
         <div class="ap-fields-grid">
 
-          <div class="ap-field">
+          <div class="ap-field ap-field-full">
             <div class="ap-flabel">Occupation <span>*</span></div>
-            <select id="af-occupation">
-              <option value="">Select Occupation</option>
-              <option value="salaried">Salaried</option>
-              <option value="self-employed">Self Employed</option>
-              <option value="business-owner">Business Owner</option>
-              <option value="professional">Professional (CA / Doctor / CS)</option>
-              <option value="freelancer">Freelancer</option>
-            </select>
+            <div class="ap-occ-group">
+              <button type="button" class="ap-occ-btn" data-occ="salaried">
+                <strong>Salaried</strong>
+                <span>Job / Employee</span>
+              </button>
+              <button type="button" class="ap-occ-btn" data-occ="self-employed">
+                <strong>Self Employed</strong>
+                <span>Freelancer / Consultant</span>
+              </button>
+              <button type="button" class="ap-occ-btn" data-occ="business-owner">
+                <strong>Business Owner</strong>
+                <span>Proprietorship / Pvt Ltd</span>
+              </button>
+              <button type="button" class="ap-occ-btn" data-occ="professional">
+                <strong>Professional</strong>
+                <span>CA / Doctor / CS</span>
+              </button>
+            </div>
+            <input type="hidden" id="af-occupation" value="">
             <span class="ap-err" id="err-occupation"></span>
           </div>
 
@@ -665,6 +721,15 @@
   <script src="/js/loader.js"></script>
 
   <script>
+  // Occupation toggle
+  document.querySelectorAll('.ap-occ-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.ap-occ-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('af-occupation').value = btn.getAttribute('data-occ');
+    });
+  });
+
   // Label change on product select
   $('#af-product').on('change', function () {
     const label = document.querySelector('label[for="af-loan-amount"], #af-loan-amount').closest('.ap-field').querySelector('.ap-flabel');

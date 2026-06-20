@@ -270,7 +270,7 @@
   height: 46px;
   padding: 0 14px;
   border-radius: 12px;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid #1a2470;
   background: #f8fafc;
   color: #0A1F44;
   font-size: 0.9rem;
@@ -291,7 +291,7 @@
   display: flex;
   align-items: center;
   border-radius: 12px;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid #1a2470;
   background: #f8fafc;
   overflow: hidden;
   transition: all 0.25s ease;
