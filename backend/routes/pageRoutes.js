@@ -243,6 +243,10 @@ router.get('/admin/logout', (req,resp)=> {
     resp.redirect('/admin')
 })
 
+router.get('/disclaimer', (req,resp) => {
+    resp.sendFile(path.join(__dirname,'../../pages/disclaimer.html'))
+})
+
 router.get('/download-exel-report',downloadExcelReport)
 
 module.exports = router;
