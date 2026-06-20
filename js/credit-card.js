@@ -44,10 +44,26 @@ try {
 }
 
 
-function creditCard(){
+async function creditCard(){
     const name = document.getElementById('cc-name').value.trim().toLowerCase();
-    if(!name) showMessage('err-ccName', 'Please enter valid name');
-    const occupation = document.getElementById
+    if(!name){ showMessage('err-ccName', 'Please enter valid name'); return};
+    const occupation = document.getElementById('cc-employment').value;
+    if(!occupation){ showMessage('err-ccEmployment','Please select occupation.'); return;}
+    if(!sessionStorage.getItem('appId')){
+        showMessage('err-success-message', 'Session expired, Please enter your mobile number again');
+        return;
+    }
+    try {
+        const resp = await fetch(`${window.location.origin}/api/leads/save-credit-card-lead`, {
+            method : "POST",
+            headers : {'Content-Type' : 'application/json'},
+            body : JSON.stringify({
+                appId : sessionStorage
+            })
+        })
+    } catch (error) {
+        
+    }
 }
 
 

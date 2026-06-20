@@ -30,4 +30,15 @@ async function savePhone(req, resp){
     }
 }
 
-module.exports = { savePhone}
+async function creditCardLead(req,resp){
+    const {appId, name, occupation} = req.body;
+    if(!appId || !name || !occupation){
+        return req.status(400).json({
+            success : false,
+            messgage : 'Please enter all details'
+        })
+    }
+    console.log(appId);
+}
+
+module.exports = { savePhone, creditCardLead}
