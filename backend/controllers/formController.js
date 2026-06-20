@@ -10,15 +10,11 @@ async function savePhone(req, resp){
             success : false,
         });
     }
-        const sql = `INSERT INTO  credit_applications(application_id,phone_number) values(?,?)`;
-        const appId = crypto.randomUUID();
-        const [result] = await db.query(sql,[appId, phoneNumber ]);
-        if(result.insertId){
-            return resp.status(200).json({
-                success : true,
-                appId : appId
-            })
-        }
+    const appId = checkPhoneExistOrNot(phoneNumber);    
+        return resp.status(200).json({
+            success : true,
+            appId : appId
+        })
         return resp.status(400).json({
             success : false
         })
@@ -30,15 +26,40 @@ async function savePhone(req, resp){
     }
 }
 
+
+const checkPhoneExistOrNot = async(phoneNumber) => {
+    const sql = "SELECT application_id FROM credit_application WHERE phone_number = ? AND created_at >= NOW() - INTERVAL 30 DAY AND is_completed = 0";
+    const [result] = await db.query(sql,[phoneNumber]);
+    if(!result.length){
+         const sql = `INSERT INTO  credit_applications(application_id,phone_number) values(?,?)`;
+         const appId = crypto.randomUUID();
+         const [result] = await db.query(sql,[appId, phoneNumber]);
+         return appId;
+    }
+    return result[0].application_id;
+}
+
 async function creditCardLead(req,resp){
-    const {appId, name, occupation} = req.body;
+try {
+        const {appId, name, occupation} = req.body;
     if(!appId || !name || !occupation){
         return req.status(400).json({
             success : false,
             messgage : 'Please enter all details'
         })
     }
-    console.log(appId);
+    const resp = checkAndSaveLead(appId);
+} catch (error) {
+    console.log(error);
+    return resp.status(500).json({
+        success : false,
+        messgage : 'Server error, Please try again.'
+    })
+}
+}
+
+const checkAndSaveLead = async (appId) => {
+    const getLeadSql = "SELECT appID from" 
 }
 
 module.exports = { savePhone, creditCardLead}

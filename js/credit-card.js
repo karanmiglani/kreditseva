@@ -45,7 +45,8 @@ try {
 
 
 async function creditCard(){
-    const name = document.getElementById('cc-name').value.trim().toLowerCase();
+    try {
+            const name = document.getElementById('cc-name').value.trim().toLowerCase();
     if(!name){ showMessage('err-ccName', 'Please enter valid name'); return; }
     const occupation = document.getElementById('cc-employment').value;
     if(!occupation){ showMessage('err-ccEmployment','Please select occupation.'); return; }
@@ -54,15 +55,36 @@ async function creditCard(){
         return;
     }
 
-    // Show success message + Coming Soon popup
-    const successMsg = document.getElementById('cc-success-msg');
-    if(successMsg) successMsg.style.display = 'block';
+    const resp = await fetch(`${window.location.origin}/api/leads/save-credit-card-lead`, {
+        method : 'POST',
+        headers  : {'Content-Type' : 'application/json'},
+        body : JSON.stringify({
+            appId : sessionStorage.getItem('appId'),
+            name : name,
+            occupation : occupation
+        })
+    });
+    const data = await resp.json();
+    if(data.success){
+        // Show success message + Coming Soon popup
+        const successMsg = document.getElementById('cc-success-msg');
+        if(successMsg) successMsg.style.display = 'block';
 
-    const overlay = document.getElementById('cc-coming-soon-overlay');
-    if(overlay) overlay.style.display = 'flex';
+        const overlay = document.getElementById('cc-coming-soon-overlay');
+        if(overlay) overlay.style.display = 'flex';
 
-    const submitBtn = document.getElementById('cc-submit-btn');
-    if(submitBtn){ submitBtn.disabled = true; submitBtn.textContent = 'Submitted'; }
+        const submitBtn = document.getElementById('cc-submit-btn');
+        if(submitBtn){ submitBtn.disabled = true; submitBtn.textContent = 'Submitted'; }
+    }else{
+        const successMsg = document.getElementById('cc-success-msg');
+        successMsg.textContent = data.message;
+        if(successMsg) successMsg.style.display = 'block';
+    }
+    } catch (error) {
+        console.log(error);
+    }
+
+    
 }
 
 
