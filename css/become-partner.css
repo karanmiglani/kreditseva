@@ -260,29 +260,27 @@
 
 /* ── FORM CARD ── */
 .bp-form-card {
-  background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,255,255,.22);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 22px;
   padding: 34px 30px;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 24px 64px rgba(4,15,45,.5), inset 0 1px 0 rgba(255,255,255,.15);
+  box-shadow: 0 24px 64px rgba(4,15,45,.4);
   animation: bpFadeUp .55s ease .2s both;
 }
 .bp-form-head { margin-bottom: 22px; }
 .bp-form-head h2 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #fff;
+  color: #0d1547;
   margin-bottom: 5px;
 }
-.bp-form-head p { font-size: 0.85rem; color: rgba(255,255,255,.4); }
+.bp-form-head p { font-size: 0.85rem; color: #64748b; }
 
 /* progress bar */
 .bp-progress { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
 .bp-progress-track {
   flex: 1; height: 4px;
-  background: rgba(255,255,255,.08);
+  background: #e2e8f0;
   border-radius: 100px; overflow: hidden;
 }
 .bp-progress-fill {
@@ -291,43 +289,43 @@
   border-radius: 100px;
   transition: width .35s ease;
 }
-.bp-progress-label { font-size: .74rem; color: rgba(255,255,255,.3); white-space: nowrap; }
+.bp-progress-label { font-size: .74rem; color: #94a3b8; white-space: nowrap; }
 
 /* fields */
 .bp-field { margin-bottom: 14px; }
 .bp-field label {
   display: block;
   font-size: .79rem; font-weight: 600;
-  color: rgba(255,255,255,.5);
+  color: #334155;
   margin-bottom: 6px;
 }
 .bp-input-wrap { position: relative; }
 .bp-input-wrap input {
   width: 100%;
-  background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,255,255,.25);
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
   border-radius: 10px;
   padding: 10px 38px 10px 13px;
-  color: #fff;
+  color: #0d1547;
   font-size: .9rem; font-family: 'Open Sans', sans-serif;
   outline: none;
   transition: border-color .22s, background .22s, box-shadow .22s;
 }
-.bp-input-wrap input::placeholder { color: rgba(255,255,255,.4); }
+.bp-input-wrap input::placeholder { color: #94a3b8; }
 .bp-input-wrap input:focus {
-  border-color: rgba(0,212,255,.4);
-  background: rgba(0,212,255,.04);
-  box-shadow: 0 0 0 3px rgba(0,212,255,.07);
+  border-color: #1a52cc;
+  background: #f0f6ff;
+  box-shadow: 0 0 0 3px rgba(26,82,204,.1);
 }
 .bp-input-wrap i {
   position: absolute; right: 12px; top: 50%;
   transform: translateY(-50%);
-  color: rgba(255,255,255,.2); font-size: .82rem;
+  color: #94a3b8; font-size: .82rem;
   pointer-events: none; transition: color .22s;
 }
-.bp-input-wrap input:focus + i { color: var(--cyan); }
-.bp-field.has-error .bp-input-wrap input { border-color: rgba(248,113,113,.5); }
-.bp-error { display: block; font-size: .74rem; color: #f87171; margin-top: 4px; min-height: 15px; }
+.bp-input-wrap input:focus + i { color: #1a52cc; }
+.bp-field.has-error .bp-input-wrap input { border-color: #f87171; }
+.bp-error { display: block; font-size: .74rem; color: #ef4444; margin-top: 4px; min-height: 15px; }
 
 .bp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
@@ -335,23 +333,23 @@
 .bp-type-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .bp-type-btn {
   padding: 11px 12px;
-  border: 1.5px solid rgba(255,255,255,.1);
+  border: 1.5px solid #cbd5e1;
   border-radius: 10px;
-  background: rgba(255,255,255,.04);
+  background: #f8fafc;
   cursor: pointer; text-align: left;
   transition: all .2s ease;
 }
 .bp-type-btn strong {
   display: block; font-size: .83rem;
-  color: rgba(255,255,255,.65); font-weight: 700;
+  color: #0d1547; font-weight: 700;
   font-family: 'Open Sans', sans-serif;
 }
 .bp-type-btn span {
-  font-size: .72rem; color: rgba(255,255,255,.3);
+  font-size: .72rem; color: #64748b;
   font-family: 'Open Sans', sans-serif;
 }
-.bp-type-btn.active { border-color: rgba(0,212,255,.35); background: rgba(0,212,255,.07); }
-.bp-type-btn.active strong { color: #fff; }
+.bp-type-btn.active { border-color: #1a52cc; background: #eff6ff; }
+.bp-type-btn.active strong { color: #1a52cc; }
 
 /* submit button */
 .bp-submit {
@@ -379,7 +377,7 @@
 .bp-submit.loading { opacity: .7; pointer-events: none; }
 
 .bp-privacy {
-  text-align: center; font-size: .74rem; color: rgba(255,255,255,.25);
+  text-align: center; font-size: .74rem; color: #94a3b8;
   margin-top: 10px;
   display: flex; align-items: center; justify-content: center; gap: 5px;
 }
