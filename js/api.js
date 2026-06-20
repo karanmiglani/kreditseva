@@ -65,9 +65,12 @@ function redirect(product = '') {
 
 // ── Apply-now form submit ──
 async function submitForm() {
+  const occupation = document.getElementById('af-occupation').value;
+  if (!occupation) { showMessage('err-occupation', 'Please select occupation'); return; }
+
   const name         = document.getElementById('af-name').value.trim().toLowerCase();
   if (!name) { showMessage('err-name', 'Please enter your name'); return; }
-  
+
   const city = document.getElementById('af-city').value.trim().toLowerCase();
   if (!city) { showMessage('err-city', 'Please enter city'); return; }
 
@@ -78,7 +81,9 @@ async function submitForm() {
   if (!product) { showMessage('err-product', 'Please select product'); return; }
 
   const loan_amount = document.getElementById('af-loan-amount').value;
-  if(!loan_amount) { showMessage('err-loan-amount','Please enter loan amount'); return;};
+  if(!loan_amount) { showMessage('err-loan-amount','Please enter loan amount'); return; }
+
+  const pancard = (document.getElementById('af-pan').value || '').trim().toUpperCase() || null;
 
   const btn        = document.getElementById('apply-btn');
   const btnText    = btn.querySelector('.ap-btn-text');
@@ -108,8 +113,9 @@ async function submitForm() {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        rawLeadId,name, city, net_monthly_salary, product, loan_amount,
-          source: window.location.pathname
+        rawLeadId, name, city, net_monthly_salary, product, loan_amount,
+        occupation, pancard,
+        source: window.location.pathname
       })
     });
 

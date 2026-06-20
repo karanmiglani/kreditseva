@@ -537,6 +537,19 @@
         <div class="ap-fields-grid">
 
           <div class="ap-field">
+            <div class="ap-flabel">Occupation <span>*</span></div>
+            <select id="af-occupation">
+              <option value="">Select Occupation</option>
+              <option value="salaried">Salaried</option>
+              <option value="self-employed">Self Employed</option>
+              <option value="business-owner">Business Owner</option>
+              <option value="professional">Professional (CA / Doctor / CS)</option>
+              <option value="freelancer">Freelancer</option>
+            </select>
+            <span class="ap-err" id="err-occupation"></span>
+          </div>
+
+          <div class="ap-field">
             <div class="ap-flabel">Full Name <span>*</span></div>
             <input type="text" id="af-name" placeholder="Enter your full name" />
             <span class="ap-err" id="err-name"></span>
@@ -607,6 +620,12 @@
             <input type="number" id="af-loan-amount" placeholder="Enter amount e.g. 500000" min="1000" />
             <span style="font-size:0.75rem;color:#ef4444;font-weight:600;margin-top:4px;display:block;min-height:16px;" id="af-loan-amount-words"></span>
             <span class="ap-err" id="err-loan-amount"></span>
+          </div>
+
+          <div class="ap-field">
+            <div class="ap-flabel">PAN Card <span style="font-weight:400; color:#94a3b8;">(Optional)</span></div>
+            <input type="text" id="af-pan" placeholder="e.g. ABCDE1234F" maxlength="10" style="text-transform:uppercase;" />
+            <span class="ap-err" id="err-pan"></span>
           </div>
 
         </div>
