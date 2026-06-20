@@ -255,6 +255,10 @@ router.get('/privacy-policy', (req,resp) => {
     resp.sendFile(path.join(__dirname,'../../pages/privacy-policy.html'))
 })
 
+router.get('/grievance-redressal', (req,resp) => {
+    resp.sendFile(path.join(__dirname,'../../pages/grievance-redressal.html'))
+})
+
 router.get('/download-exel-report',downloadExcelReport)
 
 module.exports = router;
