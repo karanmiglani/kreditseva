@@ -86,7 +86,7 @@
           <h2>Contact Messages</h2>
           <p>All enquiries submitted via the Contact Us page.</p>
         </div>
-        <button class="btn-export" id="exportBtn"><i class="fa-solid fa-download"></i> Export CSV</button>
+        <button class="btn-export" id="exportBtn"><i class="fa-solid fa-file-excel"></i> Export Excel</button>
       </div>
 
       <div class="card">
@@ -199,17 +199,6 @@
       if (params.length) url += '?' + params.join('&');
       window.location.href = url;
     });
-
-    // Sidebar toggle
-    document.getElementById('sidebarToggle')?.addEventListener('click', () => {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('sbOverlay').classList.toggle('active');
-    });
-    document.getElementById('sbOverlay')?.addEventListener('click', () => {
-      document.getElementById('sidebar').classList.remove('open');
-      document.getElementById('sbOverlay').classList.remove('active');
-    });
-
     loadMessages();
   </script>
 </body>

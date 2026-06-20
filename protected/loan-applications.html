@@ -241,7 +241,7 @@
         <div class="card-header">
           <h3 class="card-title">All Applications</h3>
           <button class="btn-export" id="exportBtn">
-            <i class="fa-solid fa-download"></i> Export CSV
+            <i class="fa-solid fa-file-excel"></i> Export Excel
           </button>
         </div>
 
@@ -302,5 +302,13 @@
   <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
   <script src="js/check-auth.js"></script>
   <script src="js/loan-applications.js"></script>
+  <script>
+    document.getElementById('exportBtn').addEventListener('click', function() {
+      const from = document.getElementById('dateFrom').value;
+      const to   = document.getElementById('dateTo').value;
+      if (!from || !to) { alert('Please select From and To dates to export.'); return; }
+      window.location.href = `${window.location.origin}/download-exel-report?fromDate=${from}&toDate=${to}`;
+    });
+  </script>
 </body>
 </html>
