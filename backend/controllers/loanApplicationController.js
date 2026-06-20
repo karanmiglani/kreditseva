@@ -127,15 +127,33 @@ const checkLeadId = async (rawLeadId) => {
 
 const insertFinalLead = async (connection, req, phoneNumber, rawLeadId) => {
     try {
-        const { name, city, net_monthly_salary, product, loan_amount, source } = req.body;
-        if (!name  || !net_monthly_salary || !product || loan_amount === undefined  || !source || !rawLeadId || !phoneNumber) {
+        const { name, city, net_monthly_salary, product, loan_amount, source, occupation, pancard } = req.body;
+        if (!name || !net_monthly_salary || !product || loan_amount === undefined || !source || !rawLeadId || !phoneNumber) {
             throw {
                 status: 400,
                 message: 'All fields are required'
             }
         }
-        const sql = "INSERT INTO loan_applications(raw_lead_id, name, phone_number, city, net_monthly_salary, product,loan_amount, source) value(?,?,?,?,?,?,?,?)";
-        const [result] = await connection.query(sql, [rawLeadId, name, phoneNumber, city, net_monthly_salary, product, loan_amount, source]);
+
+        // Validate PAN if provided
+        if (pancard) {
+            const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+            if (!panRegex.test(pancard.trim().toUpperCase())) {
+                throw {
+                    status: 400,
+                    message: 'Invalid PAN card format. Expected format: ABCDE1234F'
+                }
+            }
+        }
+
+        const sql = `INSERT INTO loan_applications
+            (raw_lead_id, name, phone_number, city, net_monthly_salary, product, loan_amount, source, occupation, pancard)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const [result] = await connection.query(sql, [
+            rawLeadId, name, phoneNumber, city, net_monthly_salary, product, loan_amount, source,
+            occupation || null,
+            pancard ? pancard.trim().toUpperCase() : null
+        ]);
     } catch (err) {
         console.log(err);
         throw err;

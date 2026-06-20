@@ -83,7 +83,12 @@ async function submitForm() {
   const loan_amount = document.getElementById('af-loan-amount').value;
   if(!loan_amount) { showMessage('err-loan-amount','Please enter loan amount'); return; }
 
-  const pancard = (document.getElementById('af-pan').value || '').trim().toUpperCase() || null;
+  const panRaw = (document.getElementById('af-pan').value || '').trim().toUpperCase();
+  const pancard = panRaw || null;
+  if (pancard && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pancard)) {
+    showMessage('err-pan', 'Please enter a valid PAN (e.g. ABCDE1234F)');
+    return;
+  }
 
   const btn        = document.getElementById('apply-btn');
   const btnText    = btn.querySelector('.ap-btn-text');
