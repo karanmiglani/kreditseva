@@ -678,11 +678,31 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 1.9rem;
   font-weight: 800;
-  display: inline-block;
-  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1px;
+  margin-bottom: 6px;
 }
 
 .footer-logo span { color: #38BDF8; }
+
+.footer-dotcom {
+  font-size: 0.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: right;
+  margin-left: 1px;
+}
+
+.footer-brand-tagline {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  margin: 0 0 20px;
+  letter-spacing: 0.3px;
+}
 
 /* Contact rows */
 .footer-contact-list {
