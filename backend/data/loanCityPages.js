@@ -100,10 +100,10 @@ function getPage(slug) {
     desc: loan.desc,
     minIncome: loan.minIncome,
     title: `${loan.name} in ${city.name} — Starting @ ${loan.rate}% p.a. | KreditSeva`,
-    metaDesc: `Apply for ${loan.name} in ${city.name}. Compare offers from 90+ banks & NBFCs. Interest rates starting ${loan.rate}% p.a. Quick approval, minimal documentation.`,
-    heroDesc: `Looking for a ${loan.desc} in ${city.name}? KreditSeva helps you compare offers from 90+ lenders and get the best rate — fast approval, no collateral, 100% online.`,
+    metaDesc: `Apply for ${loan.name} in ${city.name}. Compare offers from 25+ banks & NBFCs. Interest rates starting ${loan.rate}% p.a. Quick approval, minimal documentation.`,
+    heroDesc: `Looking for a ${loan.desc} in ${city.name}? KreditSeva helps you compare offers from 25+ lenders and get the best rate — fast approval, no collateral, 100% online.`,
     whatDesc1: `A ${loan.name} in ${city.name} is now easier than ever. Whether you need funds for personal needs, business expansion, or home purchase — KreditSeva connects you to the best lenders in ${city.name}, ${city.state}.`,
-    whatDesc2: `With 90+ bank and NBFC partners, KreditSeva finds you the lowest interest rate for your ${loan.name} in ${city.name} — completely free, with expert support at every step.`,
+    whatDesc2: `With 25+ bank and NBFC partners, KreditSeva finds you the lowest interest rate for your ${loan.name} in ${city.name} — completely free, with expert support at every step.`,
   };
 }
 
