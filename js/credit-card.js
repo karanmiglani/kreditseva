@@ -49,6 +49,8 @@ async function creditCard(){
     if(!name){ showMessage('err-ccName', 'Please enter valid name'); return; }
     const occupation = document.getElementById('cc-employment').value;
     if(!occupation){ showMessage('err-ccEmployment','Please select occupation.'); return; }
+    const income = document.getElementById('cc-income').value;
+    if(!income){ showMessage('err-ccIncome','Please select your net monthly income.'); return; }
     if(!sessionStorage.getItem('appId')){
         showMessage('err-success-message', 'Session expired, Please enter your mobile number again');
         return;
