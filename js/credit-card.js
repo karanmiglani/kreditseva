@@ -26,17 +26,19 @@ function validatePhoneNumber(){
 
 async function saveNewPhoneNumber(){
 try {
-        const resp = await fetch(`${window.location.origin}/api/leads/save-form-phone`,{
+        const resp = await fetch(`${window.location.origin}/api/leads/save-phone-number`,{
         method : 'POST',
         headers : {'Content-Type' : 'application/json'},
-        body : JSON.stringify({ phoneNumber : phoneNumber })
+        body : JSON.stringify({ phone_number : phoneNumber, product : 'credit-card' })
     });
 
     const data = await resp.json();
     if(data.success){
          btn.style.display = 'block' ;
          btn.disabled = false;
-         sessionStorage.setItem('appId', data.appId);
+         sessionStorage.setItem('id', data.rawLeadId);
+    }else{
+         showMessage('err-success-message', data.message);
     }
 } catch (error) {
     console.log(error);
@@ -52,28 +54,40 @@ async function creditCard(){
     if(!occupation){ showMessage('err-ccEmployment','Please select occupation.'); return; }
     const income = document.getElementById('cc-income').value;
     if(!income){ showMessage('err-ccIncome','Please select your net monthly income.'); return; }
-    if(!sessionStorage.getItem('appId')){
+    if(!sessionStorage.getItem('id')){
         showMessage('err-success-message', 'Session expired, Please enter your mobile number again');
         return;
     }
+    console.log(sessionStorage.getItem('id'));
 
-    const resp = await fetch(`${window.location.origin}/api/leads/save-credit-card-lead`, {
+    const resp = await fetch(`${window.location.origin}/apply-now/save-lead`, {
         method : 'POST',
         headers  : {'Content-Type' : 'application/json'},
         body : JSON.stringify({
-            appId : sessionStorage.getItem('appId'),
+            rawLeadId : sessionStorage.getItem('id'),
             name : name,
-            occupation : occupation
+            net_monthly_salary : income,
+            product : 'credit-card',
+            loan_amount : null,
+            occupation : occupation,
+            source : window.location.pathname 
         })
     });
     const data = await resp.json();
+    if(!data.success && rawLeadId == null){
+        showToast(data.message);
+    }
     if(data.success){
         // Show success message + Coming Soon popup
         const successMsg = document.getElementById('cc-success-msg');
         if(successMsg) successMsg.style.display = 'block';
+        localStorage.clear();
+        sessionStorage.clear();
+        showCelebration();
+        setTimeout(() => window.location.reload(), 5000);
 
-        const overlay = document.getElementById('cc-coming-soon-overlay');
-        if(overlay) overlay.style.display = 'flex';
+        // const overlay = document.getElementById('cc-coming-soon-overlay');
+        // if(overlay) overlay.style.display = 'flex';
 
         const submitBtn = document.getElementById('cc-submit-btn');
         if(submitBtn){ submitBtn.disabled = true; submitBtn.textContent = 'Submitted'; }

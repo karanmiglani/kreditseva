@@ -128,7 +128,7 @@ const checkLeadId = async (rawLeadId) => {
 const insertFinalLead = async (connection, req, phoneNumber, rawLeadId) => {
     try {
         const { name, city, net_monthly_salary, product, loan_amount, source } = req.body;
-        if (!name || !city || !net_monthly_salary || !product || loan_amount === undefined || loan_amount === null || !source || !rawLeadId || !phoneNumber) {
+        if (!name  || !net_monthly_salary || !product || loan_amount === undefined  || !source || !rawLeadId || !phoneNumber) {
             throw {
                 status: 400,
                 message: 'All fields are required'

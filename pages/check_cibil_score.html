@@ -307,7 +307,6 @@
         <i class="fa-solid fa-chart-simple"></i>
       </div>
 
-      <span class="cs-tag"><i class="fa-solid fa-clock"></i> Launching Soon</span>
 
       <h1>Check Your <span>Credit Score</span><br>for Free</h1>
 
@@ -322,10 +321,10 @@
 
       <div class="cs-notify">
         <input type="tel" placeholder="Enter your mobile number" maxlength="10" id="cs-mobile" />
-        <button onclick="csNotify()">Notify Me</button>
+        <button id="notify-me-btn"  onclick="csNotify()">Notify Me</button>
       </div>
 
-      <p class="cs-hint"><i class="fa-solid fa-shield-halved"></i> We'll notify you the moment it launches. No spam.</p>
+      <p class="cs-hint" id="cs-hint" style="display: none;"><i class="fa-solid fa-shield-halved"></i> We'll notify you the moment it launches. No spam.</p>
 
     </div>
   </section>
@@ -427,18 +426,57 @@
     <i class="fa-solid fa-phone"></i>
   </a>
 
+        <!-- COMING SOON POPUP -->
+  <div id="cc-coming-soon-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#fff; border-radius:20px; padding:40px 36px; max-width:420px; width:90%; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.2); position:relative;">
+      <button onclick="document.getElementById('cc-coming-soon-overlay').style.display='none';" style="position:absolute; top:14px; right:18px; background:none; border:none; font-size:1.4rem; cursor:pointer; color:#666;">&times;</button>
+      <div style="font-size:3rem; margin-bottom:12px;">🚀</div>
+      <h2 style="font-size:1.6rem; font-weight:800; color:#0d1547; margin:0 0 10px;">Coming Soon!</h2>
+      <p style="font-size:0.95rem; color:#5a6a8a; line-height:1.6; margin:0 0 24px;">Our Credit Score feature is launching soon. We've received your details — our expert will reach out to assist you shortly.</p>
+      <button onclick="document.getElementById('cc-coming-soon-overlay').style.display='none';" style="background:linear-gradient(135deg,#1a52cc,#4d7fff); color:#fff; border:none; border-radius:10px; padding:12px 32px; font-size:0.95rem; font-weight:700; cursor:pointer;">Got it!</button>
+    </div>
+  </div>
+
   <script src="/js/custom.js"></script>
   
   <script>
-    function csNotify() {
-      const val = document.getElementById('cs-mobile').value;
-      if (val.length === 10) {
-        alert('Thank you! We will notify you when Credit Score feature launches.');
-        document.getElementById('cs-mobile').value = '';
-      } else {
-        alert('Please enter a valid 10-digit mobile number.');
+    const phoneInput = document.getElementById('cs-mobile');
+    const btn = document.getElementById('notify-me-btn');
+    btn.disabled = true;
+    let phoneNumber = null;
+    let timer;
+    phoneInput.addEventListener('input', function(){
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        phoneNumber = phoneInput.value.trim();
+         if(phoneNumber && phoneNumber.length === 10  && /^[6-9]{1}[0-9]{9}$/.test(phoneNumber)){     
+          console.log('Hit')
+          btn.disabled = false;
+        saveCibilPhoneNumber();
+            }
+        
+        
+      },500)
+    })
+    
+    async function saveCibilPhoneNumber(){
+      if(phoneNumber || phoneNumber.lenghth === 10  || /^[6-9]{1}[0-9]{9}$/.test(phoneNumber)){        
+        await fetch(`${window.location.origin}/api/leads/save-phone-number`, {
+          method : 'POST',
+          headers : {'Content-Type' : 'application/json'},
+          body : JSON.stringify({ phone_number : phoneNumber, product : 'credit-score' })
+        })
       }
     }
+
+    function csNotify(){
+      document.getElementById('cs-hint').style.display = 'block';
+        const overlay = document.getElementById('cc-coming-soon-overlay');
+        if(overlay) overlay.style.display = 'flex';
+    }
+
+
+
   </script>
   <script src="/js/loader.js"></script>
   <script src="/js/smooth-scroll.js"></script>
