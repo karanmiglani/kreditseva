@@ -247,6 +247,10 @@ router.get('/disclaimer', (req,resp) => {
     resp.sendFile(path.join(__dirname,'../../pages/disclaimer.html'))
 })
 
+router.get('/terms-conditon', (req,resp) => {
+    resp.sendFile(path.join(__dirname,'../../pages/terms-conditon.html'))
+})
+
 router.get('/download-exel-report',downloadExcelReport)
 
 module.exports = router;
