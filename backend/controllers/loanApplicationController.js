@@ -363,8 +363,34 @@ const downloadExcelReport = async (req, res) => {
 };
 
 
+const contactUs = async(req, resp) => {
+    const {name , email, phone_number,user_message} = req.body;
+    if(!name || !email || !phone_number || !user_message) {
+        return res.status(400).json({
+            success : false,
+            message : 'Please enter all details'
+        });
+    }
+    try {
+        const sql = "INSERT INTO contact_messages (name, email, phone_number, message) values(?,?,?,?)";
+        const [result] = await db.query(sql,[name,email,phone_number,user_message]);
+        return resp.status(200).json({
+            success: true,
+            message : 'Thanks for contacting us...Our team will call you shortly.'
+        })
+    } catch (error) {
+        console.log(error);
+        return resp.status(500).status(500).json({
+            success : false,
+            message : 'Server error, Please try again'
+        })
+    }
+
+}
+
+
 
 
 module.exports = {
-    saveLead, getAllLeads, getAllCities, getAllProducts, savePhoneNumber, downloadExcelReport
+    saveLead, getAllLeads, getAllCities, getAllProducts, savePhoneNumber, downloadExcelReport, contactUs
 }

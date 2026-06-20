@@ -230,22 +230,6 @@
             </div>
           </div>
 
-          <div class="ct-field">
-            <label for="ct-subject">Subject</label>
-            <div class="ct-input-wrap">
-              <i class="fa-solid fa-tag"></i>
-              <select id="ct-subject">
-                <option value="" disabled selected>Select a topic</option>
-                <option>Personal Loan Query</option>
-                <option>Business Loan Query</option>
-                <option>Credit Score Help</option>
-                <option>DSA / Partner Enquiry</option>
-                <option>Complaint / Grievance</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <span class="pl-field-err" id="err-ctSubject"></span>
-          </div>
 
           <div class="ct-field">
             <label for="ct-message">Message</label>
@@ -262,7 +246,7 @@
         <div class="ct-success" id="ctSuccess">
           <div class="ct-success-icon"><i class="fa-solid fa-check"></i></div>
           <h3>Message Sent!</h3>
-          <p>Thank you for reaching out. Our team will contact you within 24 hours.</p>
+          <p id="success-message">Thank you for reaching out. Our team will contact you shortly.</p>
         </div>
 
       </div>
@@ -380,7 +364,7 @@
       el.style.display = 'none';
     }
 
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       var valid = true;
 
@@ -398,18 +382,37 @@
       else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showCtErr('err-ctEmail', 'Please enter a valid email address'); valid = false; }
       else clearCtErr('err-ctEmail');
 
-      var subject = document.getElementById('ct-subject').value;
-      if (!subject) { showCtErr('err-ctSubject', 'Please select a subject'); valid = false; }
-      else clearCtErr('err-ctSubject');
-
       var message = document.getElementById('ct-message').value.trim();
       if (!message) { showCtErr('err-ctMessage', 'Please enter your message'); valid = false; }
       else clearCtErr('err-ctMessage');
 
       if (!valid) return;
+    try {
+        const resp = await fetch(`${window.location.origin}/api/leads/contact-form`, {
+        method : 'POST',
+        headers : {'Content-Type' : 'application/json'},
+        body : JSON.stringify({
+          name : name,
+          phone_number : phone,
+          email : email,
+          user_message : message
+        })
+      });
+      const data = await resp.json();
+      console.log(data);
+      if(data.success){
+        document.getElementById('ctSuccess').style.display = 'block'
+        this.style.display = 'none';
+        document.getElementById('ctSuccess').style.display = 'flex';
+      }
+    } catch (error) {
+      document.getElementById('success-message').style.display = 'block';
+      document.getElementById('success-message').textContent = error.message;
+      console.log(error);
+    }
+      
 
-      this.style.display = 'none';
-      document.getElementById('ctSuccess').style.display = 'flex';
+      
     });
   </script>
   <script src="/js/loader.js"></script>
