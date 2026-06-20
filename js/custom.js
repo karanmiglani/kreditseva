@@ -280,6 +280,20 @@ if (emiAmtInput && emiRateInput && emiTenureInput) {
 }
 
 // ================================================================
+//  BEL TABS — Eligibility / Documents toggle
+//  Classes: .bel-tab (data-tab attr), .bel-panel (id="bel-{tab}")
+// ================================================================
+document.querySelectorAll('.bel-tab').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.bel-tab').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.bel-panel').forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    var panel = document.getElementById('bel-' + btn.getAttribute('data-tab'));
+    if (panel) panel.classList.add('active');
+  });
+});
+
+// ================================================================
 //  MOBILE MENU — Hamburger toggle + dropdown support
 //  IDs: #menuBtn, #navLinks
 //  Classes: .nav-dropdown, .dropdown-menu

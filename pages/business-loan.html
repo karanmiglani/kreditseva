@@ -1210,18 +1210,6 @@
     <script src="/js/swiper.js"></script>
     <script src="/js/custom.js"></script>
     <script src="/js/api.js"></script>
-    
-    
-<script>
-  document.querySelectorAll('.bel-tab').forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      document.querySelectorAll('.bel-tab').forEach(function(t) { t.classList.remove('active'); });
-      document.querySelectorAll('.bel-panel').forEach(function(p) { p.classList.remove('active'); });
-      tab.classList.add('active');
-      document.getElementById('bel-' + tab.dataset.tab).classList.add('active');
-    });
-  });
-</script>
 
 <a href="tel:+919990099593" class="call-float" aria-label="Call Now">
   <i class="fa-solid fa-phone"></i>
