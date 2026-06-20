@@ -1,4 +1,5 @@
 const db = require('../config/db');
+const ExcelJS = require('exceljs');
 
 const savePartner = async (req, resp) => {
     try {
@@ -22,7 +23,7 @@ const savePartner = async (req, resp) => {
         const sql = `INSERT INTO dsa_partners (full_name, mobile_number, location, firm_name, dsa_type)
                      VALUES (?, ?, ?, ?, ?)`;
 
-        const [result] = await db.query(sql, [
+        await db.query(sql, [
             full_name.trim(),
             mobile_number.trim(),
             location.trim(),
@@ -47,9 +48,24 @@ const savePartner = async (req, resp) => {
 
 const getAllPartners = async (req, resp) => {
     try {
-        const [rows] = await db.query(
-            'SELECT * FROM dsa_partners ORDER BY created_at DESC'
-        );
+        const { fromDate, toDate } = req.query;
+        let sql = 'SELECT * FROM dsa_partners';
+        const params = [];
+
+        if (fromDate && toDate) {
+            sql += ' WHERE created_at >= ? AND created_at < DATE_ADD(?, INTERVAL 1 DAY)';
+            params.push(fromDate, toDate);
+        } else if (fromDate) {
+            sql += ' WHERE created_at >= ?';
+            params.push(fromDate);
+        } else if (toDate) {
+            sql += ' WHERE created_at < DATE_ADD(?, INTERVAL 1 DAY)';
+            params.push(toDate);
+        }
+
+        sql += ' ORDER BY created_at DESC';
+
+        const [rows] = await db.query(sql, params);
         return resp.status(200).json({
             success: true,
             total: rows.length,
@@ -62,4 +78,57 @@ const getAllPartners = async (req, resp) => {
 };
 
 
-module.exports = { savePartner, getAllPartners };
+const downloadPartnerExcel = async (req, res) => {
+    const { fromDate, toDate } = req.query;
+    try {
+        let sql = 'SELECT * FROM dsa_partners';
+        const params = [];
+
+        if (fromDate && toDate) {
+            sql += ' WHERE created_at >= ? AND created_at < DATE_ADD(?, INTERVAL 1 DAY)';
+            params.push(fromDate, toDate);
+        } else if (fromDate) {
+            sql += ' WHERE created_at >= ?';
+            params.push(fromDate);
+        } else if (toDate) {
+            sql += ' WHERE created_at < DATE_ADD(?, INTERVAL 1 DAY)';
+            params.push(toDate);
+        }
+
+        sql += ' ORDER BY created_at DESC';
+
+        const [rows] = await db.query(sql, params);
+
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet('Partner Leads');
+
+        worksheet.columns = [
+            { header: 'Date',          key: 'created_at',    width: 22 },
+            { header: 'Full Name',     key: 'full_name',     width: 22 },
+            { header: 'Mobile',        key: 'mobile_number', width: 15 },
+            { header: 'Location',      key: 'location',      width: 22 },
+            { header: 'Firm Name',     key: 'firm_name',     width: 28 },
+            { header: 'DSA Type',      key: 'dsa_type',      width: 15 },
+        ];
+
+        worksheet.addRows(rows.map(r => ({
+            created_at:    r.created_at,
+            full_name:     r.full_name || '',
+            mobile_number: String(r.mobile_number || ''),
+            location:      r.location || '',
+            firm_name:     r.firm_name || '',
+            dsa_type:      r.dsa_type || '',
+        })));
+
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', 'attachment; filename=partner-leads.xlsx');
+        await workbook.xlsx.write(res);
+        res.end();
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: 'Server Error' });
+    }
+};
+
+
+module.exports = { savePartner, getAllPartners, downloadPartnerExcel };

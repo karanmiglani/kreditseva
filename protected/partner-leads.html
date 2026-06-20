@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partner Leads | KreditSeva Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <style>
+    .page-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
+    .page-header h2 { font-size:1.3rem; font-weight:800; color:#0d1547; }
+    .page-header p  { font-size:0.82rem; color:#64748b; margin-top:2px; }
+    .btn-export {
+      display:inline-flex; align-items:center; gap:7px; padding:8px 16px;
+      font-size:0.8rem; font-weight:700; font-family:'Open Sans',sans-serif;
+      color:#1a52cc; background:#eff4ff; border:1.5px solid #c7d9ff;
+      border-radius:8px; cursor:pointer; text-decoration:none; transition:all 0.18s;
+    }
+    .btn-export:hover { background:#1a52cc; color:#fff; border-color:#1a52cc; }
+    .filter-bar {
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+      padding:16px 24px; border-bottom:1px solid #f1f5ff; background:#fafbff;
+    }
+    .filter-bar input[type="text"],
+    .filter-bar input[type="date"],
+    .filter-bar select {
+      border:1.5px solid #e2eaf8; border-radius:8px; padding:8px 12px;
+      font-size:0.82rem; font-family:'Open Sans',sans-serif; color:#0d1547;
+      background:#fff; outline:none; transition:border-color 0.18s;
+    }
+    .filter-bar input:focus, .filter-bar select:focus { border-color:#1a52cc; }
+    .btn-reset {
+      display:inline-flex; align-items:center; gap:6px; padding:8px 14px;
+      font-size:0.8rem; font-weight:600; font-family:'Open Sans',sans-serif;
+      color:#64748b; background:#f1f5ff; border:1.5px solid #e2eaf8;
+      border-radius:8px; cursor:pointer; transition:all 0.18s;
+    }
+    .btn-reset:hover { background:#e2eaf8; }
+    .badge-company    { background:#eff4ff; color:#1a52cc; padding:3px 10px; border-radius:20px; font-size:0.72rem; font-weight:700; }
+    .badge-individual { background:#f0fdf4; color:#16a34a; padding:3px 10px; border-radius:20px; font-size:0.72rem; font-weight:700; }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">Kredit<span>Seva</span> <small>Admin</small></div>
+    <nav class="sb-nav">
+      <a href="/admin/dashboard" class="sb-link"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      <a href="/admin/blogs" class="sb-link"><i class="fa-solid fa-pen-nib"></i> Blogs</a>
+      <a href="/admin/loan-applications" class="sb-link"><i class="fa-solid fa-file-invoice"></i> Loan Applications</a>
+      <a href="/admin/contact-messages" class="sb-link"><i class="fa-solid fa-envelope"></i> Contact Messages</a>
+      <a href="/admin/partner-leads" class="sb-link sb-active"><i class="fa-solid fa-handshake"></i> Partner Leads</a>
+      <div class="sb-group">
+        <button class="sb-link sb-toggle" id="reportsToggle">
+          <span><i class="fa-solid fa-chart-bar"></i> Reports</span>
+          <svg class="sb-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="sb-submenu">
+          <a href="/admin/complete-leads" class="sb-sublink"><i class="fa-solid fa-circle-check"></i> Complete Leads</a>
+          <a href="/admin/raw-leads" class="sb-sublink"><i class="fa-solid fa-circle-half-stroke"></i> Raw Leads</a>
+        </div>
+      </div>
+    </nav>
+    <a href="/admin/logout" class="sb-logout" style="text-decoration:none;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <header class="topbar">
+      <button class="topbar-toggle" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+      <div class="topbar-title">Partner Leads</div>
+      <div class="topbar-admin">
+        <div class="topbar-avatar" id="adminAvatar">A</div>
+        <div class="topbar-info">
+          <span class="topbar-name" id="adminName">Admin</span>
+          <span class="topbar-role" id="adminRole">Super Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h2>Partner Leads</h2>
+          <p>All DSA partner registrations submitted via the Become Our Partner page.</p>
+        </div>
+        <button class="btn-export" id="exportBtn"><i class="fa-solid fa-download"></i> Export CSV</button>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">All Partners</h3>
+        </div>
+
+        <div class="filter-bar">
+          <input type="text" id="searchInput" placeholder="Search name, mobile, location..." style="min-width:220px;" />
+          <select id="filterType">
+            <option value="">All Types</option>
+            <option value="Company">Company</option>
+            <option value="Individual">Individual</option>
+          </select>
+          <div class="filter-date-wrap">
+            From <input type="date" id="dateFrom" />
+            To   <input type="date" id="dateTo" />
+          </div>
+          <button class="btn-reset" id="resetBtn"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="tbl" id="partnerTable" style="width:100%">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Full Name</th>
+                <th>Mobile</th>
+                <th>Location</th>
+                <th>Firm Name</th>
+                <th>DSA Type</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="partnerTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sb-overlay" id="sbOverlay"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/check-auth.js"></script>
+  <script>
+    let allData = [];
+
+    async function loadPartners() {
+      const from = document.getElementById('dateFrom').value;
+      const to   = document.getElementById('dateTo').value;
+      let url = '/api/dashboard/partner-leads';
+      const params = [];
+      if (from) params.push('fromDate=' + from);
+      if (to)   params.push('toDate=' + to);
+      if (params.length) url += '?' + params.join('&');
+      try {
+        const resp = await fetch(url, { credentials: 'include' });
+        const data = await resp.json();
+        if (!data.success) return;
+        allData = data.partners;
+        renderTable(allData);
+      } catch (e) { console.error(e); }
+    }
+
+    function renderTable(rows) {
+      const tbody = document.getElementById('partnerTableBody');
+      tbody.innerHTML = rows.length === 0
+        ? '<tr><td colspan="7" style="text-align:center;color:#94a3b8;padding:32px;">No partner leads found.</td></tr>'
+        : rows.map((r, i) => `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${r.full_name || '—'}</td>
+              <td>${r.mobile_number || '—'}</td>
+              <td>${r.location || '—'}</td>
+              <td>${r.firm_name || '—'}</td>
+              <td><span class="badge-${(r.dsa_type||'').toLowerCase()}">${r.dsa_type || '—'}</span></td>
+              <td>${new Date(r.created_at).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' })}</td>
+            </tr>`).join('');
+    }
+
+    function filterData() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const type   = document.getElementById('filterType').value;
+      const from   = document.getElementById('dateFrom').value;
+      const to     = document.getElementById('dateTo').value;
+      const filtered = allData.filter(r => {
+        const matchSearch = !search ||
+          (r.full_name || '').toLowerCase().includes(search) ||
+          (r.mobile_number || '').includes(search) ||
+          (r.location || '').toLowerCase().includes(search) ||
+          (r.firm_name || '').toLowerCase().includes(search);
+        const matchType = !type || r.dsa_type === type;
+        const date = new Date(r.created_at);
+        const matchFrom = !from || date >= new Date(from);
+        const matchTo   = !to   || date <= new Date(to + 'T23:59:59');
+        return matchSearch && matchType && matchFrom && matchTo;
+      });
+      renderTable(filtered);
+    }
+
+    document.getElementById('searchInput').addEventListener('input', filterData);
+    document.getElementById('filterType').addEventListener('change', filterData);
+    document.getElementById('dateFrom').addEventListener('change', loadPartners);
+    document.getElementById('dateTo').addEventListener('change', loadPartners);
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('filterType').value = '';
+      document.getElementById('dateFrom').value = '';
+      document.getElementById('dateTo').value = '';
+      loadPartners();
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      const from = document.getElementById('dateFrom').value;
+      const to   = document.getElementById('dateTo').value;
+      let url = '/api/dashboard/partner-leads/download';
+      const params = [];
+      if (from) params.push('fromDate=' + from);
+      if (to)   params.push('toDate=' + to);
+      if (params.length) url += '?' + params.join('&');
+      window.location.href = url;
+    });
+
+    document.getElementById('sidebarToggle')?.addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sbOverlay').classList.toggle('active');
+    });
+    document.getElementById('sbOverlay')?.addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sbOverlay').classList.remove('active');
+    });
+
+    loadPartners();
+  </script>
+</body>
+</html>
