@@ -1593,3 +1593,125 @@
   .pl-btn-primary { padding: 13px 24px; font-size: 0.9rem; }
 }
 
+/* ── NEW BANK TABLE ── */
+.pl-bank-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #1a52cc;
+  background: rgba(26,82,204,0.08);
+  border: 1px solid rgba(26,82,204,0.15);
+  padding: 4px 14px;
+  border-radius: 50px;
+  margin-bottom: 12px;
+}
+
+.pl-bank-table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 32px rgba(4,15,45,0.06);
+}
+
+.pl-bank-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+  background: #fff;
+}
+
+.pl-bank-table thead tr {
+  background: linear-gradient(135deg, #1a52cc, #4875d6);
+}
+
+.pl-bank-table thead th {
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-align: left;
+  padding: 14px 18px;
+  white-space: nowrap;
+}
+
+.pl-bank-table tbody tr {
+  border-bottom: 1px solid #eef2fb;
+  transition: background 0.15s;
+}
+
+.pl-bank-table tbody tr:last-child { border-bottom: none; }
+.pl-bank-table tbody tr:hover { background: #f5f8ff; }
+
+.pl-bank-table tbody td {
+  padding: 13px 18px;
+  font-size: 0.88rem;
+  color: #2d3a5c;
+  white-space: nowrap;
+}
+
+.pl-bt-lender {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: #0d1547 !important;
+}
+
+.pl-bt-lender img {
+  width: 52px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.pl-bt-roi {
+  font-weight: 700;
+  color: #1a52cc !important;
+}
+
+.pl-bt-rate {
+  font-weight: 700;
+  color: #1a52cc !important;
+}
+
+.pl-bt-tat {
+  display: inline-block;
+  background: #f0f9ff;
+  color: #0369a1;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid #bae6fd;
+}
+
+.pl-bt-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 18px;
+  background: #1a52cc;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.pl-bt-btn:hover { background: #0d1547; }
+
+.pl-bank-table-note {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  margin-top: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  line-height: 1.5;
+}
+
+.pl-bank-table-note i { color: #1a52cc; margin-top: 2px; flex-shrink: 0; }
+
