@@ -254,8 +254,8 @@ router.get('/disclaimer', (req,resp) => {
     resp.sendFile(path.join(__dirname,'../../pages/disclaimer.html'))
 })
 
-router.get('/terms-conditon', (req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/terms-conditon.html'))
+router.get('/terms-condition', (req,resp) => {
+    resp.sendFile(path.join(__dirname,'../../pages/terms-condition.html'))
 })
 
 router.get('/privacy-policy', (req,resp) => {
