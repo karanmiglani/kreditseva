@@ -256,7 +256,6 @@
   background: #fff;
   border-radius: 18px;
   overflow: hidden;
-  flex: 1;
   display: flex;
   flex-direction: column;
 }
@@ -291,7 +290,7 @@
 }
 
 .pl-form {
-  padding: 0 22px 14px;
+  padding: 0 22px 10px;
 }
 
 .pl-form {
