@@ -7,7 +7,6 @@ const { getPage: getCityPage } = require('../data/loanCityPages');
 const { saveLead, downloadExcelReport } = require('../controllers/loanApplicationController');
 const router = express.Router();
 
-
 router.get('/',async (req,resp) => {
         try{
             const latestBlogs = await getLatestBlogs();

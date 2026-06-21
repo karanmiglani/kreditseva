@@ -1,11 +1,16 @@
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
 require("dotenv").config();
 const path = require('path');
 const fs = require('fs');
 const pageRoutes = require('./routes/pageRoutes');
 const app = express();
 const cookieParser = require('cookie-parser');
+app.use(helmet({
+  contentSecurityPolicy: false,  // CSP off — static assets aur CDN links block ho sakti hain
+  crossOriginEmbedderPolicy: false
+}));
 app.use(cors({
   origin: ['https://kreditseva.onrender.com', 'https://www.kreditseva.com', 'http://localhost:3000'],
   credentials: true
@@ -42,6 +47,11 @@ app.use('/api/partner', partnerRoutes);
 
 const port = process.env.PORT;
 
+
+// 404 handler — must be after all routes
+app.use((req, resp) => {
+    resp.status(404).sendFile(path.join(__dirname, '../pages/404.html'));
+});
 
 const server = app.listen(port,() => {
     console.log("Server runing at port 3000...");

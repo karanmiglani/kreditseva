@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found | KreditSeva</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/loader.css" />
+  <style>
+    .page-404 {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f0f6ff 0%, #e8f2ff 100%);
+      padding: 40px 24px;
+    }
+    .page-404-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 56px 48px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(13,21,71,0.10);
+    }
+    .page-404-num {
+      font-size: clamp(5rem, 15vw, 8rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #1a52cc, #00cfff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .page-404-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+    .page-404-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #0d1547;
+      margin: 0 0 12px;
+    }
+    .page-404-desc {
+      font-size: 0.95rem;
+      color: #64748b;
+      line-height: 1.7;
+      margin: 0 0 32px;
+    }
+    .page-404-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #1a52cc, #4d7fff);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 13px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(26,82,204,0.3);
+      transition: transform 0.2s;
+    }
+    .btn-home:hover { transform: translateY(-2px); }
+    .page-404-quick {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .page-404-quick a {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #1a52cc;
+      text-decoration: none;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 5px 14px;
+      border-radius: 20px;
+      transition: background 0.2s;
+    }
+    .page-404-quick a:hover { background: #dbeafe; }
+    @media (max-width: 480px) {
+      .page-404-card { padding: 36px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE LOADER -->
+  <div id="ks-loader">
+    <div class="ks-loader-bar-wrap"><div class="ks-loader-bar"></div></div>
+    <div class="ks-loader-logo">Kredit<span>Seva</span><small>.com</small></div>
+    <p class="ks-loader-tag">A Brand of Voice Technologies and Business Solutions</p>
+    <div class="ks-loader-dots"><span></span><span></span><span></span></div>
+  </div>
+
+  <div class="page-404">
+    <div class="page-404-card">
+      <div class="page-404-icon">🔍</div>
+      <div class="page-404-num">404</div>
+      <h1 class="page-404-title">Page Not Found</h1>
+      <p class="page-404-desc">The page you're looking for doesn't exist or has been moved. Let us help you find what you need.</p>
+      <div class="page-404-links">
+        <a href="/" class="btn-home">
+          <i class="fa-solid fa-house"></i> Back to Home
+        </a>
+        <div class="page-404-quick">
+          <a href="/personal-loan">Personal Loan</a>
+          <a href="/business-loan">Business Loan</a>
+          <a href="/debt-consolidation">Debt Consolidation</a>
+          <a href="/apply-now">Apply Now</a>
+          <a href="/contact-us">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/loader.js"></script>
+</body>
+</html>

@@ -55,8 +55,14 @@ const ksResetBar = bar => {
 
 const ksBars = document.querySelectorAll('.ks-stats-bar');
 if (ksBars.length) {
+  // Set final value as default so 0 never shows if JS/scroll fails
+  ksBars.forEach(bar => {
+    bar.querySelectorAll('.ks-count').forEach(el => {
+      el.textContent = ksFormat(el, ksNum(el.getAttribute('data-target'), 0));
+    });
+  });
+
   if (!('IntersectionObserver' in window)) {
-    // Fallback — seedha animate karo
     ksBars.forEach(ksAnimateBar);
   } else {
     const ksObserver = new IntersectionObserver(entries => {
