@@ -384,7 +384,7 @@ const downloadExcelReport = async (req, res) => {
 const contactUs = async(req, resp) => {
     const {name , email, phone_number,user_message} = req.body;
     if(!name || !email || !phone_number || !user_message) {
-        return res.status(400).json({
+        return resp.status(400).json({
             success : false,
             message : 'Please enter all details'
         });
@@ -398,7 +398,7 @@ const contactUs = async(req, resp) => {
         })
     } catch (error) {
         console.log(error);
-        return resp.status(500).status(500).json({
+        return resp.status(500).json({
             success : false,
             message : 'Server error, Please try again'
         })

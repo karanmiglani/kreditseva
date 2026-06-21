@@ -7,7 +7,6 @@ let phoneRegex = /^[6-9][0-9]{9}$/;
 let lastSavedphoneNumber = '';
 document.getElementById('btn-submit')?.setAttribute('disabled', 'disabled');
 const heroPhone = document.getElementById('heroPhone');
-console.log(heroPhone);
 
 // User ka phone number lo
 heroPhone?.addEventListener('input', function(){
