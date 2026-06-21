@@ -53,15 +53,13 @@ const ksResetBar = bar => {
   });
 };
 
+// Set final value on ALL ks-count elements immediately — 0 never shows
+document.querySelectorAll('.ks-count').forEach(el => {
+  el.textContent = ksFormat(el, ksNum(el.getAttribute('data-target'), 0));
+});
+
 const ksBars = document.querySelectorAll('.ks-stats-bar');
 if (ksBars.length) {
-  // Set final value as default so 0 never shows if JS/scroll fails
-  ksBars.forEach(bar => {
-    bar.querySelectorAll('.ks-count').forEach(el => {
-      el.textContent = ksFormat(el, ksNum(el.getAttribute('data-target'), 0));
-    });
-  });
-
   if (!('IntersectionObserver' in window)) {
     ksBars.forEach(ksAnimateBar);
   } else {
@@ -76,6 +74,32 @@ if (ksBars.length) {
 
     ksBars.forEach(bar => ksObserver.observe(bar));
   }
+}
+
+// Animate standalone ks-count elements (outside .ks-stats-bar) on scroll
+const standaloneKsCounts = document.querySelectorAll('.ks-count:not(.ks-stats-bar .ks-count)');
+if (standaloneKsCounts.length && 'IntersectionObserver' in window) {
+  const soObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = ksNum(el.getAttribute('data-target'), 0);
+        const duration = 1600;
+        let startTime = null;
+        const step = ts => {
+          if (!startTime) startTime = ts;
+          const progress = Math.min((ts - startTime) / duration, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          el.textContent = ksFormat(el, target * ease);
+          if (progress < 1) requestAnimationFrame(step);
+          else el.textContent = ksFormat(el, target);
+        };
+        requestAnimationFrame(step);
+        soObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.1 });
+  standaloneKsCounts.forEach(el => soObserver.observe(el));
 }
 
 // ================================================================
