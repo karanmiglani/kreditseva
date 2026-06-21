@@ -1,7 +1,6 @@
 const db = require('../config/db');
 
 const getLatestBlogs = async(limit = 4, offset=0) => {
-    console.log(limit, offset);
 
     const [blogs] = await db.query(`
         SELECT
