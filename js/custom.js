@@ -61,9 +61,12 @@ if (ksBars.length) {
   } else {
     const ksObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        entry.isIntersecting ? ksAnimateBar(entry.target) : ksResetBar(entry.target);
+        if (entry.isIntersecting) {
+          ksAnimateBar(entry.target);
+          ksObserver.unobserve(entry.target);
+        }
       });
-    }, { threshold: 0.4 });
+    }, { threshold: 0.1 });
 
     ksBars.forEach(bar => ksObserver.observe(bar));
   }

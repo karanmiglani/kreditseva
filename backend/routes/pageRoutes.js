@@ -267,6 +267,6 @@ router.get('/grievance-redressal', (req,resp) => {
     resp.sendFile(path.join(__dirname,'../../pages/grievance-redressal.html'))
 })
 
-router.get('/download-exel-report',downloadExcelReport)
+router.get('/download-exel-report', authMiddleware, downloadExcelReport)
 
 module.exports = router;
