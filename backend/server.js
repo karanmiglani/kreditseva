@@ -48,6 +48,16 @@ app.use('/api/partner', partnerRoutes);
 const port = process.env.PORT;
 
 
+// Sitemap & robots
+app.get('/sitemap.xml', (req, resp) => {
+    resp.setHeader('Content-Type', 'application/xml');
+    resp.sendFile(path.join(__dirname, '../sitemap.xml'));
+});
+app.get('/robots.txt', (req, resp) => {
+    resp.setHeader('Content-Type', 'text/plain');
+    resp.send('User-agent: *\nAllow: /\nSitemap: https://www.kreditseva.com/sitemap.xml\n');
+});
+
 // 404 handler — must be after all routes
 app.use((req, resp) => {
     resp.status(404).sendFile(path.join(__dirname, '../pages/404.html'));
