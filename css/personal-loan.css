@@ -1182,7 +1182,8 @@
 
 /* STATS BAR */
 .pl-why-stats {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
   background: #2156c9;
   border-radius: 18px;
@@ -1191,7 +1192,6 @@
 }
 
 .pl-why-stat {
-  flex: 1;
   text-align: center;
 }
 
