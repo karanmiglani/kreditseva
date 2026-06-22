@@ -2110,45 +2110,30 @@ body.popup-open {
 
 .emi-legend {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  gap: 20px;
   width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .emi-leg-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: #fff;
-  border: 1px solid rgba(26,82,204,0.08);
-  border-radius: 10px;
-  padding: 10px 14px;
-  width: 100%;
+  gap: 8px;
 }
 
 .emi-leg-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
   flex-shrink: 0;
 }
 
 .emi-leg-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.emi-leg-text span {
-  font-size: 0.72rem;
-  color: #8a9ab8;
+  font-size: 0.82rem;
+  color: #334155;
   font-weight: 500;
-}
-
-.emi-leg-text strong {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #05132f;
 }
 
 /* TABLET */
