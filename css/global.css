@@ -2158,7 +2158,12 @@ body.popup-open {
   .emi-card {
     grid-template-columns: 1fr;
   }
-  .emi-left { border-right: none; border-bottom: 1px solid rgba(26,82,204,0.08); }
+  .emi-left {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,82,204,0.08);
+    min-height: unset;
+    padding: 24px 20px;
+  }
   .emi-right { padding: 28px 24px; }
   .emi-donut-wrap { width: 180px; height: 180px; }
 }
