@@ -1379,10 +1379,10 @@
   .plx-partners { padding: 50px 0 60px; }
   .plx-logo-chip { height: 54px; min-width: 124px; padding: 0 16px; }
   .plx-logo-chip img { width: 88px; height: 32px; }
-  .plx-partners-stats { flex-wrap: wrap; border-radius: 20px; }
-  .plx-pstat { flex: 1 1 40%; padding: 22px 12px; }
-  .plx-pstat strong { font-size: 1.35rem; }
-  .plx-pstat span { font-size: 0.6rem; }
+  .plx-partners-stats { display: grid; grid-template-columns: repeat(3, 1fr); border-radius: 20px; }
+  .plx-pstat { flex: unset; padding: 18px 8px; }
+  .plx-pstat strong { font-size: 1.2rem; }
+  .plx-pstat span { font-size: 0.58rem; }
   .plx-pstat-divider { display: none; }
 }
 
