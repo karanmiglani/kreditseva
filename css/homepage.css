@@ -1147,7 +1147,7 @@
 }
 
 .plx-credit-float-1 {
-  top: -10px;
+  top: 8%;
   left: 0;
   animation: plxCardFloat1 7s ease-in-out infinite;
 }
