@@ -954,3 +954,55 @@
 #dc-form-id .select2-container--default .select2-results__option--highlighted {
   background: #1a52cc;
 }
+
+/* ── DC Occupation Toggle ── */
+.dc-occ-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.dc-occ-btn {
+  padding: 14px 12px;
+  border: 1.5px solid #d1d9f0;
+  border-radius: 12px;
+  background: #f4f6fb;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+  font-family: 'Open Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+}
+
+.dc-occ-btn i {
+  font-size: 1.2rem;
+  color: #94a3b8;
+  transition: color 0.2s;
+}
+
+.dc-occ-btn strong {
+  display: block;
+  font-size: 0.88rem;
+  color: #94a3b8;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.dc-occ-btn.active {
+  border-color: #1a52cc;
+  background: #eff6ff;
+  box-shadow: 0 0 0 3px rgba(26,82,204,0.1);
+}
+
+.dc-occ-btn.active i { color: #1a52cc; }
+.dc-occ-btn.active strong { color: #1a52cc; font-weight: 700; }
+
+@media (max-width: 480px) {
+  .dc-occ-group { grid-template-columns: 1fr 1fr; }
+  .dc-occ-btn { padding: 12px 8px; }
+}

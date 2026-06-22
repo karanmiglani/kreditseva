@@ -1,3 +1,12 @@
+// Occupation toggle
+document.querySelectorAll('.dc-occ-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.dc-occ-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('dc-occupation').value = btn.getAttribute('data-occ');
+  });
+});
+
 const ccInput   = document.getElementById('dcCcBills');
 const loanInput = document.getElementById('dcLoanOut');
 const ccRange   = document.getElementById('dcCcRange');
@@ -188,6 +197,7 @@ async function submitDebtConsolidationForm(product){
   if(!city){ showMsg('err-dcCity', 'Please enter city'); return;}
   const net_monthly_salary = document.getElementById('formSalary').value;
   if(!net_monthly_salary) { showMsg('err-dcSalary','Please enter montly salary.'); return;}
+  const occupation = document.getElementById('dc-occupation')?.value || 'salaried';
   const source = window.location.pathname;
   const spinner = document.querySelector('.dc-btn-spinner');
   const btn = document.getElementById('dc-submit-btn');
@@ -209,7 +219,7 @@ async function submitDebtConsolidationForm(product){
         'Content-Type' : 'application/json'
       },
       body : JSON.stringify({
-        rawLeadId, name, city, net_monthly_salary, product,  loan_amount :  total_outstanding_amount, source
+        rawLeadId, name, city, net_monthly_salary, product, loan_amount: total_outstanding_amount, source, occupation
       })
     });
     const data = await resp.json();

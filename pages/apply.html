@@ -242,7 +242,7 @@
     }
 
     .ap-occ-btn {
-      padding: 13px 16px;
+      padding: 16px 16px;
       border: 1.5px solid #d1d9f0;
       border-radius: 12px;
       background: #f4f6fb;
@@ -250,7 +250,19 @@
       text-align: center;
       transition: all 0.2s ease;
       font-family: 'Open Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
     }
+
+    .ap-occ-btn i {
+      font-size: 1.3rem;
+      color: #94a3b8;
+      transition: color 0.2s;
+    }
+
+    .ap-occ-btn.active i { color: #1a52cc; }
 
     .ap-occ-btn strong {
       display: block;
@@ -582,9 +594,11 @@
             <div class="ap-flabel">Occupation <span>*</span></div>
             <div class="ap-occ-group" style="grid-template-columns: 1fr 1fr;">
               <button type="button" class="ap-occ-btn active" data-occ="salaried">
+                <i class="fa-solid fa-briefcase"></i>
                 <strong>Salaried</strong>
               </button>
               <button type="button" class="ap-occ-btn" data-occ="self-employed">
+                <i class="fa-solid fa-store"></i>
                 <strong>Self Employed</strong>
               </button>
             </div>

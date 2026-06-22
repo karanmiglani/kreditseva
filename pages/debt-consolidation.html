@@ -228,6 +228,22 @@
         
 
         <div class="dc-form-field">
+          <label>Occupation <span class="dc-req">*</span></label>
+          <div class="dc-occ-group">
+            <button type="button" class="dc-occ-btn active" data-occ="salaried">
+              <i class="fa-solid fa-briefcase"></i>
+              <strong>Salaried</strong>
+            </button>
+            <button type="button" class="dc-occ-btn" data-occ="self-employed">
+              <i class="fa-solid fa-store"></i>
+              <strong>Self Employed</strong>
+            </button>
+          </div>
+          <input type="hidden" id="dc-occupation" value="salaried">
+          <span class="pl-field-err" id="err-dcOccupation"></span>
+        </div>
+
+        <div class="dc-form-field">
           <label>Net Monthly Salary <span class="dc-req">*</span></label>
           <select id="formSalary">
             <option value="">Select Income</option>
