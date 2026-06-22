@@ -2380,8 +2380,8 @@
 @media (max-width: 560px) {
   .pl-why-section { padding: 50px 5%; }
   .pl-why-grid { grid-template-columns: 1fr; }
-  .pl-why-stats { flex-wrap: wrap; padding: 16px 0; }
-  .pl-why-stat { flex: 1 1 40%; padding: 10px 0; }
+  .pl-why-stats { display: grid; grid-template-columns: repeat(3, 1fr); padding: 16px 0; }
+  .pl-why-stat { flex: unset; padding: 10px 0; }
   .pl-why-stat-div { display: none; }
   .pl-why-cta-btn { width: 100%; justify-content: center; }
 }
