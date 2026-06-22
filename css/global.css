@@ -2163,9 +2163,18 @@ body.popup-open {
     border-bottom: 1px solid rgba(26,82,204,0.08);
     min-height: unset;
     padding: 24px 20px;
+    overflow: hidden;
   }
   .emi-right { padding: 28px 24px; }
-  .emi-donut-wrap { width: 180px; height: 180px; }
+  .emi-donut-wrap {
+    width: 160px !important;
+    height: 160px !important;
+    overflow: hidden;
+  }
+  .emi-donut-wrap canvas {
+    width: 160px !important;
+    height: 160px !important;
+  }
 }
 
 /* MOBILE */
