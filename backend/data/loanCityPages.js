@@ -2,7 +2,7 @@ const loanTypes = {
   'personal-loan': {
     name: 'Personal Loan',
     maxAmount: '₹50 Lakh',
-    rate: '9.99',
+    rate: '9.98',
     tenure: '60 months',
     popup: 'Personal Loan',
     desc: 'unsecured personal loan',

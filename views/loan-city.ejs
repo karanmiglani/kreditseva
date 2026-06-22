@@ -149,7 +149,7 @@
       <div class="pl-hero-form"><div class="pl-hero-form-inner">
         <div class="pl-form-header">
           <h3><%= page.loanName %> in <%= page.cityName %></h3>
-          <p>Free · No hidden charges · Instant callback</p>
+          
         </div>
         <form class="pl-form" onsubmit="return false;">
           <div class="pl-form-field">
@@ -474,7 +474,7 @@
           <div class="pl-cta-stat-div"></div>
           <div class="pl-cta-stat"><strong class="ks-count" data-target="25" data-suffix="+">25+</strong><span>Lenders</span></div>
           <div class="pl-cta-stat-div"></div>
-          <div class="pl-cta-stat"><strong class="ks-count" data-target="9.99" data-suffix="%" data-decimals="2">9.99%</strong><span>Starting Rate</span></div>
+          <div class="pl-cta-stat"><strong class="ks-count" data-target="<%= page.rate %>" data-suffix="%" data-decimals="2"><%= page.rate %>%</strong><span>Starting Rate</span></div>
         </div>
         <a href="/apply-now?product=<%= page.slug %>" class="pl-cta-banner-btn">Apply Now — It's Free <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
