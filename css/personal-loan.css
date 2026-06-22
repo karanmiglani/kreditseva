@@ -204,45 +204,14 @@
 .pl-hero-form {
   position: relative;
   z-index: 3;
-  background: #ffffff;
-  border-radius: 20px;
-  overflow: visible;
+  border-radius: 22px;
+  padding: 2px;
   box-shadow: 0 24px 60px rgba(10,31,68,0.18);
   animation: plHeroFadeUp 0.6s ease 0.3s both;
-  display: flex;
-  flex-direction: column;
-  padding: 2px;
-}
-
-/* RGB moving border via pseudo wrapper */
-.pl-hero-form::after {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 22px;
-  background: linear-gradient(var(--rgb-angle, 0deg),
-    #1a52cc, #38BDF8, #00cfff, #a855f7, #ec4899, #f97316, #1a52cc);
-  background-size: 300% 300%;
-  z-index: -1;
-  animation: rgbBorder 3s linear infinite;
-}
-
-@keyframes rgbBorder {
-  0%   { --rgb-angle: 0deg; }
-  100% { --rgb-angle: 360deg; }
-}
-
-/* CSS custom property animation fallback using background-position */
-.pl-hero-form::after {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 22px;
   background: linear-gradient(90deg,
     #1a52cc 0%, #38BDF8 20%, #00cfff 35%, #a855f7 50%, #ec4899 65%, #f97316 80%, #1a52cc 100%);
   background-size: 400% 400%;
-  z-index: -1;
-  animation: rgbBorder 3s linear infinite;
+  animation: plHeroFadeUp 0.6s ease 0.3s both, rgbBorder 3s linear infinite;
 }
 
 @keyframes rgbBorder {
@@ -254,15 +223,10 @@
 /* Inner white background */
 .pl-hero-form-inner {
   background: #fff;
-  border-radius: 18px;
+  border-radius: 20px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-}
-
-/* Blue top strip removed — RGB border replaces it */
-.pl-hero-form-inner::before {
-  display: none;
 }
 
 .pl-form-header {
