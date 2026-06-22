@@ -913,7 +913,8 @@
 .cc-docs-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: linear-gradient(135deg, #05132f, #0a2463);
+  background: #f0f6ff;
+  border: 1px solid #e2eaf8;
   border-radius: 16px;
   overflow: hidden;
 }
@@ -923,16 +924,16 @@
   align-items: center;
   gap: 14px;
   padding: 20px 22px;
-  border-right: 1px solid rgba(255,255,255,0.07);
+  border-right: 1px solid #e2eaf8;
   transition: background 0.2s;
 }
 
 .cc-docs-strip-item:last-child { border-right: none; }
-.cc-docs-strip-item:hover { background: rgba(255,255,255,0.04); }
+.cc-docs-strip-item:hover { background: #e8f0fd; }
 
 .cc-docs-strip-item > i {
   font-size: 1.2rem;
-  color: #00d4ff;
+  color: #1a52cc;
   flex-shrink: 0;
 }
 
@@ -940,13 +941,13 @@
   display: block;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #fff;
+  color: #0d1547;
   margin-bottom: 2px;
 }
 
 .cc-docs-strip-item span {
   font-size: 0.72rem;
-  color: rgba(255,255,255,0.45);
+  color: #64748b;
 }
 
 @media (max-width: 900px) {
@@ -1786,4 +1787,41 @@ html {
   .pl-why-stat { flex: 1 1 40%; padding: 10px 0; }
   .pl-why-stat-div { display: none; }
   .pl-why-cta-btn { width: 100%; justify-content: center; }
+}
+
+/* ── CC HOW IT WORKS ── */
+.cc-hiw-section { padding: 56px 6%; }
+.cc-hiw-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.cc-hiw-card {
+  background: #fff;
+  border: 1px solid rgba(26,82,204,0.08);
+  border-radius: 18px;
+  padding: 22px 20px;
+}
+.cc-hiw-num {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: rgba(26,82,204,0.35);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.cc-hiw-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.cc-hiw-card h3 { font-size: 1rem; font-weight: 700; color: #0d1547; margin: 0 0 8px; }
+.cc-hiw-card p  { font-size: 0.85rem; color: #64748b; line-height: 1.6; margin: 0; }
+
+@media (max-width: 600px) {
+  .cc-hiw-grid { grid-template-columns: 1fr; }
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+  .cc-hiw-grid { grid-template-columns: repeat(2, 1fr); }
 }
