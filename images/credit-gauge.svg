@@ -1,4 +1,4 @@
-<svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+<svg viewBox="0 0 480 310" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
   <defs>
     <linearGradient id="arcgrad" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#ef4444"/>
@@ -17,7 +17,7 @@
   <!-- Background arc -->
   <path d="M 80 230 A 160 160 0 0 1 400 230" fill="none" stroke="#1e293b" stroke-width="24" stroke-linecap="round"/>
 
-  <!-- Animated fill arc — pauses at each category boundary -->
+  <!-- Animated fill arc -->
   <path d="M 80 230 A 160 160 0 0 1 400 230" fill="none" stroke="url(#arcgrad)" stroke-width="24"
         stroke-linecap="round" stroke-dasharray="502.65" stroke-dashoffset="502.65" filter="url(#glow)">
     <animate attributeName="stroke-dashoffset" dur="5s" repeatCount="indefinite"
@@ -30,45 +30,9 @@
   <text x="78" y="256" text-anchor="middle" fill="#64748b" font-size="13" font-weight="700">300</text>
   <text x="402" y="256" text-anchor="middle" fill="#64748b" font-size="13" font-weight="700">900</text>
 
-  <!-- POOR numbers: 300-540 (0 to 0.20), hold at 0.20-0.28 -->
-  <text x="240" y="212" text-anchor="middle" fill="#ef4444" font-size="62" font-weight="800" opacity="1">300<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.00;0.00;0.05;0.05;1"/></text>
-  <text x="240" y="212" text-anchor="middle" fill="#ef4444" font-size="62" font-weight="800" opacity="0">400<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.05;0.05;0.10;0.10;1"/></text>
-  <text x="240" y="212" text-anchor="middle" fill="#ef4444" font-size="62" font-weight="800" opacity="0">500<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.10;0.10;0.15;0.15;1"/></text>
-  <text x="240" y="212" text-anchor="middle" fill="#ef4444" font-size="62" font-weight="800" opacity="0">540<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.15;0.15;0.28;0.28;1"/></text>
-
-  <!-- FAIR numbers: 570-649 (0.28 to 0.48), hold at 0.48-0.56 -->
-  <text x="240" y="212" text-anchor="middle" fill="#f59e0b" font-size="62" font-weight="800" opacity="0">570<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.28;0.28;0.36;0.36;1"/></text>
-  <text x="240" y="212" text-anchor="middle" fill="#f59e0b" font-size="62" font-weight="800" opacity="0">620<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.36;0.36;0.42;0.42;1"/></text>
-  <text x="240" y="212" text-anchor="middle" fill="#f59e0b" font-size="62" font-weight="800" opacity="0">650<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.42;0.42;0.56;0.56;1"/></text>
-
-  <!-- GOOD numbers: 680-749 (0.56 to 0.76), hold at 0.76-0.84 -->
-  <text x="240" y="212" text-anchor="middle" fill="#eab308" font-size="62" font-weight="800" opacity="0">680<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.56;0.56;0.64;0.64;1"/></text>
-  <text x="240" y="212" text-anchor="middle" fill="#eab308" font-size="62" font-weight="800" opacity="0">720<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.64;0.64;0.70;0.70;1"/></text>
-  <text x="240" y="212" text-anchor="middle" fill="#eab308" font-size="62" font-weight="800" opacity="0">749<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.70;0.70;0.84;0.84;1"/></text>
-
-  <!-- EXCELLENT numbers: 780-850 (0.84 to 1.0) -->
-  <text x="240" y="212" text-anchor="middle" fill="#22c55e" font-size="62" font-weight="800" opacity="0">780<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.84;0.84;0.90;0.90;1"/></text>
-  <text x="240" y="212" text-anchor="middle" fill="#22c55e" font-size="62" font-weight="800" opacity="0">850<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1" keyTimes="0;0.90;0.90;1"/></text>
-
-  <text x="240" y="258" text-anchor="middle" fill="#64748b" font-size="14" font-weight="600">out of 900</text>
-
-  <!-- Category labels -->
-  <text x="240" y="275" text-anchor="middle" fill="#ef4444" font-size="22" font-weight="800" letter-spacing="1" opacity="1">POOR
-    <animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.00;0.00;0.28;0.28;1"/>
-  </text>
-  <text x="240" y="275" text-anchor="middle" fill="#f59e0b" font-size="22" font-weight="800" letter-spacing="1" opacity="0">FAIR
-    <animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.28;0.28;0.56;0.56;1"/>
-  </text>
-  <text x="240" y="275" text-anchor="middle" fill="#eab308" font-size="22" font-weight="800" letter-spacing="1" opacity="0">GOOD
-    <animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.56;0.56;0.84;0.84;1"/>
-  </text>
-  <text x="240" y="275" text-anchor="middle" fill="#22c55e" font-size="22" font-weight="800" letter-spacing="1" opacity="0">EXCELLENT
-    <animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1" keyTimes="0;0.84;0.84;1"/>
-  </text>
-
-  <!-- Needle — pauses at each category boundary -->
+  <!-- Needle FIRST so numbers render on top -->
   <g>
-    <path d="M 233 230 L 240 96 L 247 230 L 245 252 L 235 252 Z" fill="#e2e8f0"/>
+    <path d="M 233 230 L 240 100 L 247 230 L 245 248 L 235 248 Z" fill="#e2e8f0"/>
     <circle cx="240" cy="230" r="13" fill="#0b1220" stroke="#e2e8f0" stroke-width="4"/>
     <animateTransform attributeName="transform" type="rotate" dur="5s" repeatCount="indefinite"
       values="-90 240 230;-10 240 230;-10 240 230;20 240 230;20 240 230;50 240 230;50 240 230;81 240 230;81 240 230"
@@ -76,4 +40,35 @@
       calcMode="spline"
       keySplines="0.25 0 0.15 1;0 0 1 1;0.25 0 0.15 1;0 0 1 1;0.25 0 0.15 1;0 0 1 1;0.25 0 0.15 1;0 0 1 1"/>
   </g>
+
+  <!-- Score numbers AFTER needle so they render on top -->
+  <!-- POOR: 300-540 -->
+  <text x="240" y="200" text-anchor="middle" fill="#ef4444" font-size="60" font-weight="800" opacity="1">300<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.00;0.00;0.05;0.05;1"/></text>
+  <text x="240" y="200" text-anchor="middle" fill="#ef4444" font-size="60" font-weight="800" opacity="0">400<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.05;0.05;0.10;0.10;1"/></text>
+  <text x="240" y="200" text-anchor="middle" fill="#ef4444" font-size="60" font-weight="800" opacity="0">500<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.10;0.10;0.15;0.15;1"/></text>
+  <text x="240" y="200" text-anchor="middle" fill="#ef4444" font-size="60" font-weight="800" opacity="0">540<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.15;0.15;0.28;0.28;1"/></text>
+
+  <!-- FAIR: 570-649 -->
+  <text x="240" y="200" text-anchor="middle" fill="#f59e0b" font-size="60" font-weight="800" opacity="0">570<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.28;0.28;0.36;0.36;1"/></text>
+  <text x="240" y="200" text-anchor="middle" fill="#f59e0b" font-size="60" font-weight="800" opacity="0">620<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.36;0.36;0.42;0.42;1"/></text>
+  <text x="240" y="200" text-anchor="middle" fill="#f59e0b" font-size="60" font-weight="800" opacity="0">650<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.42;0.42;0.56;0.56;1"/></text>
+
+  <!-- GOOD: 680-749 -->
+  <text x="240" y="200" text-anchor="middle" fill="#eab308" font-size="60" font-weight="800" opacity="0">680<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.56;0.56;0.64;0.64;1"/></text>
+  <text x="240" y="200" text-anchor="middle" fill="#eab308" font-size="60" font-weight="800" opacity="0">720<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.64;0.64;0.70;0.70;1"/></text>
+  <text x="240" y="200" text-anchor="middle" fill="#eab308" font-size="60" font-weight="800" opacity="0">749<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.70;0.70;0.84;0.84;1"/></text>
+
+  <!-- EXCELLENT: 780-850 -->
+  <text x="240" y="200" text-anchor="middle" fill="#22c55e" font-size="60" font-weight="800" opacity="0">780<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.84;0.84;0.90;0.90;1"/></text>
+  <text x="240" y="200" text-anchor="middle" fill="#22c55e" font-size="60" font-weight="800" opacity="0">850<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1" keyTimes="0;0.90;0.90;1"/></text>
+
+  <!-- out of 900 — clear of numbers -->
+  <text x="240" y="248" text-anchor="middle" fill="#94a3b8" font-size="13" font-weight="500">out of 900</text>
+
+  <!-- Category labels -->
+  <text x="240" y="278" text-anchor="middle" fill="#ef4444" font-size="20" font-weight="800" letter-spacing="1" opacity="1">POOR<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.00;0.00;0.28;0.28;1"/></text>
+  <text x="240" y="278" text-anchor="middle" fill="#f59e0b" font-size="20" font-weight="800" letter-spacing="1" opacity="0">FAIR<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.28;0.28;0.56;0.56;1"/></text>
+  <text x="240" y="278" text-anchor="middle" fill="#eab308" font-size="20" font-weight="800" letter-spacing="1" opacity="0">GOOD<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.56;0.56;0.84;0.84;1"/></text>
+  <text x="240" y="278" text-anchor="middle" fill="#22c55e" font-size="20" font-weight="800" letter-spacing="1" opacity="0">EXCELLENT<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1" keyTimes="0;0.84;0.84;1"/></text>
+
 </svg>
