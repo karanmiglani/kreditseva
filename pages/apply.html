@@ -236,40 +236,36 @@
 
     .ap-occ-group {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
       margin-top: 4px;
     }
 
     .ap-occ-btn {
-      padding: 10px 10px;
-      border: 1.5px solid #1a2470;
+      padding: 13px 16px;
+      border: 1.5px solid #d1d9f0;
       border-radius: 12px;
-      background: #f8faff;
+      background: #f4f6fb;
       cursor: pointer;
-      text-align: left;
+      text-align: center;
       transition: all 0.2s ease;
       font-family: 'Open Sans', sans-serif;
     }
 
     .ap-occ-btn strong {
       display: block;
-      font-size: 0.83rem;
-      color: #0d1547;
-      font-weight: 700;
-    }
-
-    .ap-occ-btn span {
-      font-size: 0.72rem;
-      color: #64748b;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      font-weight: 600;
     }
 
     .ap-occ-btn.active {
       border-color: #1a52cc;
       background: #eff6ff;
+      box-shadow: 0 0 0 3px rgba(26,82,204,0.1);
     }
 
-    .ap-occ-btn.active strong { color: #1a52cc; }
+    .ap-occ-btn.active strong { color: #1a52cc; font-weight: 700; }
 
     @media (max-width: 540px) {
       .ap-occ-group { grid-template-columns: 1fr 1fr; }
@@ -584,25 +580,15 @@
 
           <div class="ap-field ap-field-full">
             <div class="ap-flabel">Occupation <span>*</span></div>
-            <div class="ap-occ-group">
-              <button type="button" class="ap-occ-btn" data-occ="salaried">
+            <div class="ap-occ-group" style="grid-template-columns: 1fr 1fr;">
+              <button type="button" class="ap-occ-btn active" data-occ="salaried">
                 <strong>Salaried</strong>
-                <span>Job / Employee</span>
               </button>
               <button type="button" class="ap-occ-btn" data-occ="self-employed">
                 <strong>Self Employed</strong>
-                <span>Freelancer / Consultant</span>
-              </button>
-              <button type="button" class="ap-occ-btn" data-occ="business-owner">
-                <strong>Business Owner</strong>
-                <span>Proprietorship / Pvt Ltd</span>
-              </button>
-              <button type="button" class="ap-occ-btn" data-occ="professional">
-                <strong>Professional</strong>
-                <span>CA / Doctor / CS</span>
               </button>
             </div>
-            <input type="hidden" id="af-occupation" value="">
+            <input type="hidden" id="af-occupation" value="salaried">
             <span class="ap-err" id="err-occupation"></span>
           </div>
 
@@ -672,7 +658,7 @@
             <span class="ap-err" id="err-product"></span>
           </div>
 
-          <div class="ap-field">
+          <div class="ap-field" id="ap-loan-amount-field">
             <div class="ap-flabel">Loan Amount Required <span>*</span></div>
             <input type="number" id="af-loan-amount" placeholder="Enter amount e.g. 500000" min="1000" />
             <span style="font-size:0.75rem;color:#ef4444;font-weight:600;margin-top:4px;display:block;min-height:16px;" id="af-loan-amount-words"></span>
@@ -731,16 +717,24 @@
     });
   });
 
-  // Label change on product select
+  // Label change + hide/show on product select
   $('#af-product').on('change', function () {
-    const label = document.querySelector('label[for="af-loan-amount"], #af-loan-amount').closest('.ap-field').querySelector('.ap-flabel');
+    const field = document.getElementById('ap-loan-amount-field');
+    const label = field.querySelector('.ap-flabel');
     const input = document.getElementById('af-loan-amount');
-    if (this.value === 'debt-consolidation') {
-      label.innerHTML = 'Total Outstanding Amount <span>*</span>';
-      input.placeholder = 'Enter total outstanding amount';
+
+    if (this.value === 'credit-card') {
+      field.style.display = 'none';
+      input.value = '';
     } else {
-      label.innerHTML = 'Loan Amount Required <span>*</span>';
-      input.placeholder = 'Enter amount e.g. 500000';
+      field.style.display = '';
+      if (this.value === 'debt-consolidation') {
+        label.innerHTML = 'Total Outstanding Amount <span>*</span>';
+        input.placeholder = 'Enter total outstanding amount';
+      } else {
+        label.innerHTML = 'Loan Amount Required <span>*</span>';
+        input.placeholder = 'Enter amount e.g. 500000';
+      }
     }
   });
 

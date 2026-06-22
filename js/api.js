@@ -79,8 +79,9 @@ async function submitForm() {
   const product = document.getElementById('af-product').value;
   if (!product) { showMessage('err-product', 'Please select product'); return; }
 
-  const loan_amount = document.getElementById('af-loan-amount').value;
-  if(!loan_amount) { showMessage('err-loan-amount','Please enter loan amount'); return; }
+  const loanAmountRaw = document.getElementById('af-loan-amount').value;
+  const loan_amount = product === 'credit-card' ? null : loanAmountRaw;
+  if(product !== 'credit-card' && !loan_amount) { showMessage('err-loan-amount','Please enter loan amount'); return; }
 
   const panRaw = (document.getElementById('af-pan').value || '').trim().toUpperCase();
   const pancard = panRaw || null;
