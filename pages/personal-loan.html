@@ -877,7 +877,7 @@
             <label>Net Monthly Income</label>
             <div class="emi-val-box">
               <span class="emi-prefix">₹</span>
-              <input type="number" id="lec-income" value="50000" min="0" oninput="calcEligibility()">
+              <input type="number" id="lec-income" onfocus="this.select()" onclick="this.select()" value="50000" min="0" oninput="calcEligibility()">
             </div>
           </div>
           <input type="range" id="lec-income-range" min="10000" max="500000" step="5000" value="50000" oninput="document.getElementById('lec-income').value=this.value; calcEligibility()">
@@ -889,7 +889,7 @@
             <label>Existing Monthly EMIs</label>
             <div class="emi-val-box">
               <span class="emi-prefix">₹</span>
-              <input type="number" id="lec-emi" value="0" min="0" oninput="calcEligibility()">
+              <input type="number" id="lec-emi" onfocus="this.select()" onclick="this.select()" value="0" min="0" oninput="calcEligibility()">
             </div>
           </div>
           <input type="range" id="lec-emi-range" min="0" max="100000" step="1000" value="0" oninput="document.getElementById('lec-emi').value=this.value; calcEligibility()">
@@ -900,7 +900,7 @@
           <div class="emi-field-head">
             <label>Interest Rate (p.a.)</label>
             <div class="emi-val-box">
-              <input type="number" id="lec-rate" value="12" min="1" max="36" oninput="calcEligibility()">
+              <input type="number" id="lec-rate" onfocus="this.select()" onclick="this.select()" value="12" min="1" max="36" oninput="calcEligibility()">
               <span class="emi-suffix">%</span>
             </div>
           </div>
@@ -912,7 +912,7 @@
           <div class="emi-field-head">
             <label>Loan Tenure</label>
             <div class="emi-val-box">
-              <input type="number" id="lec-tenure-yr" value="3" min="1" max="5" oninput="calcEligibility()">
+              <input type="number" id="lec-tenure-yr" onfocus="this.select()" onclick="this.select()" value="3" min="1" max="5" oninput="calcEligibility()">
               <span class="emi-suffix">Yr</span>
             </div>
           </div>

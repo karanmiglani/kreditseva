@@ -197,6 +197,12 @@ const emiTenureInput = document.getElementById('loanTenure');
 
 if (emiAmtInput && emiRateInput && emiTenureInput) {
 
+  // Select all on focus — user directly type kar sake bina backspace ke
+  [emiAmtInput, emiRateInput, emiTenureInput].forEach(inp => {
+    inp.addEventListener('focus', function() { this.select(); });
+    inp.addEventListener('click', function() { this.select(); });
+  });
+
   const emiLoanRange   = document.getElementById('loanRange');
   const emiRateRange   = document.getElementById('rateRange');
   const emiTenureRange = document.getElementById('tenureRange');
