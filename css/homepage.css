@@ -66,6 +66,8 @@
   gap: 16px;
   flex: 1;
   padding: 0 20px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 
@@ -95,7 +97,7 @@
 
 .promo-copy-side h2 span { color: #1a52cc; }
 
-.promo-sub {  font-size: 0.9rem; font-weight: 600; color: #5a6a8a; line-height: 1.5; margin: 0; }
+.promo-sub {  font-size: 0.9rem; font-weight: 600; color: #5a6a8a; line-height: 1.5; margin: 0; white-space: normal; word-break: break-word; }
 .promo-sub span { color: #1a52cc; font-weight: 600; }
 .promo-text-block { flex: 1; }
 
