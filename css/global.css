@@ -3037,3 +3037,202 @@ body.popup-open {
   .ks-cel-thumb { animation: none; }
   .ks-confetti  { display: none; }
 }
+
+/* ================================================================
+   PLX CREDIT SCORE SECTION — moved from homepage.css
+   Used on: personal-loan, personal-overdraft, balance-transfer,
+            insta-loan, secured-loan, home-loan, car-loan etc.
+================================================================ */
+
+.plx-h-accent {
+  color: #1a52cc;
+  font-style: italic;
+  font-weight: 900;
+  padding-right: 4px;
+  display: inline;
+}
+
+.plx-h-accent-gold {
+  background: linear-gradient(135deg, #FBBF24 0%, #F97316 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+}
+
+.plx-tick { color: #4ade80; font-weight: 800; font-size: 1rem; }
+
+.plx-credit {
+  padding: 30px 90px 50px;
+  background: var(--b050);
+}
+.plx-credit-card {
+  position: relative;
+  max-width: 1300px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid #e2eaf8;
+  border-radius: 36px;
+  overflow: visible;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: 30px;
+  padding: 36px 56px;
+  min-height: 320px;
+  box-shadow: 0 8px 40px rgba(13,21,71,0.08);
+}
+.plx-orb-credit-1 {
+  position: absolute;
+  width: 420px; height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(94,224,255,0.5), transparent 70%);
+  filter: blur(90px);
+  top: -160px; left: -60px;
+  z-index: 0;
+  pointer-events: none;
+}
+.plx-orb-credit-2 { display: none; }
+.plx-credit-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+          mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+.plx-credit-grid-inner {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+.plx-credit-left { position: relative; z-index: 2; }
+.plx-credit-left h2 {
+  font-size: clamp(1.6rem, 2.4vw, 2.3rem);
+  line-height: 1.05;
+  font-weight: 700;
+  color: #0d1547;
+  margin: 0 0 18px;
+  letter-spacing: -1.4px;
+}
+.plx-credit-left h2 .plx-h-accent {
+  background: linear-gradient(135deg, #1a52cc 0%, #4d7fff 60%, #5ee0ff 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  font-style: italic;
+  padding-right: 4px;
+}
+.plx-credit-left > p {
+  color: #5a6a8a;
+  font-size: 1rem;
+  line-height: 1.65;
+  max-width: 470px;
+  margin: 0 0 30px;
+}
+.plx-credit-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 9px 9px 26px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #1a52cc, #4d7fff);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: 0 12px 30px rgba(77,127,255,0.35);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.plx-credit-cta:hover { transform: translateY(-2px); }
+.plx-credit-cta .plx-arrow {
+  display: inline-flex;
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, #0d1547, #1a2470);
+  color: #fff;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s ease;
+}
+.plx-credit-cta:hover .plx-arrow { transform: translateX(3px) rotate(-45deg); }
+.plx-credit-cta .plx-arrow svg { width: 14px; height: 14px; }
+.plx-credit-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.plx-credit-bullets li {
+  font-size: 0.92rem;
+  color: #5a6a8a;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.plx-credit-bullets .plx-tick { color: #4ade80; font-weight: 800; font-size: 1rem; }
+.plx-credit-right {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+}
+.plx-credit-gauge { width: 100%; max-width: 280px; height: auto; display: block; margin: 0 auto; }
+.plx-credit-floater {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #e2eaf8;
+  border-radius: 16px;
+  padding: 12px 16px 12px 12px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  z-index: 4;
+  box-shadow: 0 10px 30px rgba(13,21,71,0.1);
+  min-width: 160px;
+}
+.plx-credit-float-1 { top: 8%; left: 0; animation: plxCardFloat1 7s ease-in-out infinite; }
+.plx-credit-float-2 { bottom: 4%; right: 0; animation: plxCardFloat2 8s ease-in-out infinite; }
+.plx-credit-floater .ficon {
+  width: 38px; height: 38px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.plx-credit-floater .ficon svg { width: 18px; height: 18px; color: #fff; }
+.plx-credit-floater .ficon.cyan  { background: linear-gradient(135deg, #5ee0ff, #4d7fff); box-shadow: 0 8px 20px -4px rgba(94,224,255,0.5); }
+.plx-credit-floater .ficon.green { background: linear-gradient(135deg, #4ade80, #22c55e); box-shadow: 0 8px 20px -4px rgba(74,222,128,0.5); }
+.plx-credit-floater .label { font-size: 0.68rem; color: #8a9ab8; font-weight: 500; line-height: 1.1; }
+.plx-credit-floater .value { font-size: 0.9rem; font-weight: 700; color: #0d1547; line-height: 1.2; }
+
+@keyframes plxCardFloat1 {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes plxCardFloat2 {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(10px); }
+}
+
+@media (max-width: 991px) {
+  .plx-credit { padding: 70px 30px; }
+  .plx-credit-card { grid-template-columns: 1fr; padding: 50px 40px; text-align: center; gap: 40px; }
+  .plx-credit-left > p { margin-left: auto; margin-right: auto; }
+  .plx-credit-bullets { align-items: center; }
+  .plx-credit-right { min-height: 320px; }
+}
+@media (max-width: 576px) {
+  .plx-credit { padding: 50px 16px; }
+  .plx-credit-card { padding: 38px 22px; border-radius: 28px; }
+  .plx-credit-gauge { max-width: 280px; }
+  .plx-credit-floater { min-width: auto; padding: 9px 12px 9px 9px; }
+  .plx-credit-floater .ficon { width: 32px; height: 32px; }
+  .plx-credit-floater .value { font-size: 0.82rem; }
+}
