@@ -266,6 +266,10 @@ router.get('/grievance-redressal', (req,resp) => {
     resp.sendFile(path.join(__dirname,'../../pages/grievance-redressal.html'))
 })
 
+router.get('/sitemap', (req,resp) => {
+    resp.sendFile(path.join(__dirname,'../../pages/sitemap-page.html'))
+})
+
 router.get('/download-exel-report', authMiddleware, downloadExcelReport)
 
 module.exports = router;
