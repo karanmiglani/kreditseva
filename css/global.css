@@ -124,8 +124,11 @@ body{
   }
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
-  
   background: #f0f5ff;
   color: var(--text);
   overflow-x: hidden;
