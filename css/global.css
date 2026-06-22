@@ -1828,6 +1828,7 @@ body.popup-open {
   gap: 0;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(4,15,45,0.08);
+  align-items: stretch;
 }
 
 /* LEFT — chart side */
@@ -1840,6 +1841,7 @@ body.popup-open {
   gap: 16px;
   border-right: 1px solid rgba(26,82,204,0.08);
   background: linear-gradient(180deg, #f0f7ff 0%, #f8fbff 100%);
+  min-height: 100%;
 }
 
 .emi-left h3 {
