@@ -534,8 +534,11 @@ if (promoSliderEl) {
   // Navbar Apply Now
   document.querySelectorAll('.desktop-apply-btn, .mobile-apply-btn').forEach(btn => {
     btn.addEventListener('click', e => {
+      const href = btn.getAttribute('href') || '';
+      if (!href.includes('apply-now') && !href.includes('apply_now')) return;
       e.preventDefault();
-      openNavPopup('');
+      const params = new URLSearchParams(href.split('?')[1] || '');
+      openNavPopup(params.get('product') || '');
     });
   });
 
