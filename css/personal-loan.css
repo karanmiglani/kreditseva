@@ -1162,11 +1162,11 @@
 
 .pl-why-stat strong {
   display: block;
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
   font-weight: 800;
   color: #ffffff;
   margin-bottom: 4px;
-  
+  white-space: nowrap;
 }
 
 .pl-why-stat span {
