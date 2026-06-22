@@ -737,5 +737,12 @@
 @media (max-width: 540px) {
   .bp-steps-grid { grid-template-columns: 1fr; }
   .bp-benefits-grid { grid-template-columns: 1fr; }
-  .bp-hero-stats { flex-wrap: wrap; gap: 14px; }
+  .bp-hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .bp-stat { margin-right: 0; padding: 12px 8px; }
+  .bp-stat strong { font-size: 1.2rem; }
+  .bp-stat span { font-size: 0.62rem; letter-spacing: 0.3px; }
 }
