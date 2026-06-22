@@ -53,7 +53,7 @@ const ksResetBar = bar => {
   });
 };
 
-// Set final value on ALL ks-count elements immediately — 0 never shows
+// Set final value on ALL ks-count elements immediately — 0 never shows to crawler or on slow load
 document.querySelectorAll('.ks-count').forEach(el => {
   el.textContent = ksFormat(el, ksNum(el.getAttribute('data-target'), 0));
 });
@@ -66,7 +66,8 @@ if (ksBars.length) {
     const ksObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          ksAnimateBar(entry.target);
+          // Small delay so pre-set final value renders first, then animate
+          setTimeout(() => ksAnimateBar(entry.target), 100);
           ksObserver.unobserve(entry.target);
         }
       });
@@ -509,7 +510,7 @@ if (promoSliderEl) {
           Proceed
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
-        <p class="nav-popup-note" style="margin-top:6px;font-size:0.68rem;color:#b0bec5;">By entering your phone number, you agree to our <a href="/terms-condition" style="color:#1a52cc;text-decoration:none;">Terms & Conditions</a> and <a href="/privacy-policy" style="color:#1a52cc;text-decoration:none;">Privacy Policy</a>, and authorise KreditSeva to contact you via Call, SMS, or WhatsApp.</p>
+        <p class="nav-popup-note" style="margin-top:6px;font-size:0.68rem;color:#b0bec5;">By entering your phone number, you agree to our <a href="/terms-condition" target="_blank" rel="noopener" style="color:#1a52cc;text-decoration:none;">Terms & Conditions</a> and <a href="/privacy-policy" target="_blank" rel="noopener" style="color:#1a52cc;text-decoration:none;">Privacy Policy</a>, and authorise KreditSeva to contact you via Call, SMS, or WhatsApp.</p>
       </div>
     </div>
   `);
