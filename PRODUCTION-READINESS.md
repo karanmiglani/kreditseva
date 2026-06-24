@@ -12,7 +12,7 @@
 | UI / Design | Good | Consistent footer, GST, trust badges, address |
 | Static page SEO | Good | Meta, favicon, robots, sitemap, clean URLs |
 | Blog SEO | Not ready | `blog-detail.ejs` uses hardcoded title/description for every post |
-| Backend security | Good | Trust proxy, rate limits, secure cookies, CSP, sanitization |
+| Backend security | Good | Trust proxy, secure cookies, CSP, sanitization |
 | Forms & leads | Mostly OK | APIs wired; minor JS bugs and debug logs remain |
 | Deployment | Good | `npm start`, env validation, `.env.example`, `/health` endpoint |
 | Legal pages | Good | Privacy, terms, disclaimer, grievance present |
@@ -42,11 +42,10 @@
 | Footer consistency | Address, GST, trust badges, lending partners text standardized |
 | Font URL typo | `0600` → `0,600` on affected pages |
 | `npm start` script | `"start": "node server.js"` added; `main` corrected to `server.js` |
-| Production `server.js` | `trust proxy`, rate limiting, `/health`, graceful shutdown, CORS, JSON limit |
+| Production `server.js` | `trust proxy`, `/health`, graceful shutdown, CORS, JSON limit |
 | Env validation | `config/env.js` validates required vars on boot; trims `JWT_SECRET_KEY` |
 | `.env.example` | Template added in `backend/.env.example` |
 | Secure session cookie | `secure: true` in production (`loginController.js`) |
-| Rate limiting | Login (10/15min) and form POSTs (30/15min) via `express-rate-limit` |
 | `dummy-blogs` gated | Disabled when `NODE_ENV=production` |
 | DB pool tuning | `connectionLimit: 10`; optional SSL via `DB_SSL=true` |
 
@@ -141,7 +140,7 @@ Should use `blog[0].title`, excerpt/description, and `blog[0].image` with absolu
 - Lead save uses transactions
 - City/amount dynamic loan pages via EJS templates
 - Helmet + CORS configured
-- Production server: trust proxy, rate limits, `/health`, graceful shutdown
+- Production server: trust proxy, `/health`, graceful shutdown
 
 ---
 

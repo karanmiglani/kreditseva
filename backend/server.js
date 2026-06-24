@@ -9,7 +9,6 @@ const pageRoutes = require('./routes/pageRoutes');
 const { generateSitemapXml } = require('./utils/generateSitemap');
 const errorHandler = require('./midllewares/errorHandler');
 const helmetConfig = require('./config/helmetConfig');
-const { loginLimiter, formLimiter } = require('./midllewares/rateLimiters');
 
 const app = express();
 
@@ -48,12 +47,6 @@ const blogRoutes = require('./routes/blogRoutes');
 const dashBoardRoutes = require('./routes/dashboardRoutes');
 const leadRoutes = require('./routes/loanApplicationRoutes');
 const partnerRoutes = require('./routes/partnerRoutes');
-
-// Rate limiting — public POST endpoints
-app.use('/api/auth/login', loginLimiter);
-app.use('/api/leads', formLimiter);
-app.use('/api/partner/register', formLimiter);
-app.use('/apply-now/save-lead', formLimiter);
 
 // Static files
 app.use('/css', express.static(path.join(__dirname, '../css')));
@@ -115,8 +108,15 @@ app.use((req, resp) => {
 // Global error handler — must be last
 app.use(errorHandler);
 
-const server = app.listen(port, () => {
+const server = app.listen(port, async () => {
     console.log(`KreditSeva server running on port ${port} (${isProd ? 'production' : 'development'})`);
+    const db = require('./config/db');
+    const ok = await db.testConnection();
+    if (!ok && isProd) {
+        console.error('Server started but database is unreachable — fix DB env vars and redeploy.');
+    } else if (ok) {
+        console.log('Database connection OK');
+    }
 });
 
 server.on('error', (err) => {
