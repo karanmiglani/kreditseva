@@ -1,7 +1,7 @@
 # KreditSeva — Production Readiness Audit
 
 **Last reviewed:** June 2026  
-**Verdict:** Not fully production-ready. The public site (UI, content, static SEO) is in good shape. Five P0 backend/deployment items should be fixed before a confident launch.
+**Verdict:** Nearly production-ready. Backend server is hardened. One P0 item remains: dynamic blog SEO in `blog-detail.ejs`.
 
 ---
 
@@ -12,11 +12,11 @@
 | UI / Design | Good | Consistent footer, GST, trust badges, address |
 | Static page SEO | Good | Meta, favicon, robots, sitemap, clean URLs |
 | Blog SEO | Not ready | `blog-detail.ejs` uses hardcoded title/description for every post |
-| Backend security | Partial | Hash leak, CSP, sanitization fixed; cookies, rate limit open |
+| Backend security | Good | Trust proxy, rate limits, secure cookies, CSP, sanitization |
 | Forms & leads | Mostly OK | APIs wired; minor JS bugs and debug logs remain |
-| Deployment | Partial | `npm start` added; env validation and `.env.example` still missing |
+| Deployment | Good | `npm start`, env validation, `.env.example`, `/health` endpoint |
 | Legal pages | Good | Privacy, terms, disclaimer, grievance present |
-| Admin panel | Partial | Auth works; `dummy-blogs` endpoint, GET logout |
+| Admin panel | Partial | Auth works; GET logout remains |
 
 ---
 
@@ -42,6 +42,13 @@
 | Footer consistency | Address, GST, trust badges, lending partners text standardized |
 | Font URL typo | `0600` → `0,600` on affected pages |
 | `npm start` script | `"start": "node server.js"` added; `main` corrected to `server.js` |
+| Production `server.js` | `trust proxy`, rate limiting, `/health`, graceful shutdown, CORS, JSON limit |
+| Env validation | `config/env.js` validates required vars on boot; trims `JWT_SECRET_KEY` |
+| `.env.example` | Template added in `backend/.env.example` |
+| Secure session cookie | `secure: true` in production (`loginController.js`) |
+| Rate limiting | Login (10/15min) and form POSTs (30/15min) via `express-rate-limit` |
+| `dummy-blogs` gated | Disabled when `NODE_ENV=production` |
+| DB pool tuning | `connectionLimit: 10`; optional SSL via `DB_SSL=true` |
 
 **Intentionally unchanged (client-provided):** lender counts (15+/25+/30+), interest rate variations, Our Team footer link commented out.
 
@@ -58,35 +65,6 @@ Every blog post renders the same hardcoded meta:
 - OG image: `/images/blog/blog1.png` (relative, not per-post)
 
 Should use `blog[0].title`, excerpt/description, and `blog[0].image` with absolute URLs.
-
-### 2. Insecure session cookie — `backend/controllers/loginController.js`
-
-```js
-secure: false  // hardcoded
-```
-
-In production behind HTTPS (Render), this should be `secure: process.env.NODE_ENV === 'production'`.
-
-### 3. No `trust proxy` — `backend/server.js`
-
-Required when running behind Render/nginx so Express correctly detects HTTPS and client IP. Without it, `secure` cookies and any IP-based logic will not work correctly.
-
-```js
-app.set('trust proxy', 1);
-```
-
-### 4. No rate limiting
-
-No rate limiting on:
-
-- `POST /api/auth/login` — brute force risk
-- Public form endpoints (`/api/leads/*`, `/api/partner/*`, contact) — spam risk
-
-Recommend `express-rate-limit` with stricter limits on login.
-
-### 5. `dummy-blogs` endpoint in production — `backend/routes/blogRoutes.js`
-
-`POST /api/blog/dummy-blogs` is auth-protected but still live. Should be removed or gated behind `NODE_ENV !== 'production'`.
 
 ---
 
@@ -108,17 +86,11 @@ Recommend `express-rate-limit` with stricter limits on login.
 
 | Item | File(s) |
 |------|---------|
-| No `.env.example` | repo root / `backend/` |
-| No env validation on boot | `PORT`, `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `JWT_SECRET_KEY` |
 | No CSRF protection | Cookie-authenticated admin POSTs |
 | No role-based authorization | `authMiddleware.js` verifies JWT only; no role checks |
-| DB pool not tuned | `backend/config/db.js` — no `connectionLimit`, no SSL for managed MySQL |
 | No schema/migration files | Database structure not versioned in repo |
-| No `/health` or `/ready` endpoint | Monitoring / load balancer probes |
 | Logout via GET | `/admin/logout` — should be POST to prevent CSRF logout |
-| CORS origins hardcoded | `server.js` — may miss `kreditseva.com` (non-www) or staging |
 | `nodemon` in `dependencies` | Should be `devDependencies` |
-| JWT secret hygiene | Verify `.env` has no leading spaces or stray quotes on `JWT_SECRET_KEY` |
 
 ### Blog & accessibility (P1/P2 border)
 
@@ -152,7 +124,6 @@ Recommend `express-rate-limit` with stricter limits on login.
 ### Monitoring & ops
 
 - No structured logging (pino/winston); `console.log` / `console.error` only
-- No graceful shutdown for `SIGTERM` / `SIGINT`
 - No automated tests in `package.json`
 
 ---
@@ -170,31 +141,27 @@ Recommend `express-rate-limit` with stricter limits on login.
 - Lead save uses transactions
 - City/amount dynamic loan pages via EJS templates
 - Helmet + CORS configured
+- Production server: trust proxy, rate limits, `/health`, graceful shutdown
 
 ---
 
 ## Recommended fix order
 
-### Before launch (P0) — ~1 day
+### Before launch (P0)
 
-1. Add `.env.example` + boot-time env validation
-2. `trust proxy` + `secure: true` cookie in production
-3. Rate limiting on login and public form POSTs
-4. Remove or gate `dummy-blogs` in production
-5. Dynamic SEO in `blog-detail.ejs`
+1. Dynamic SEO in `blog-detail.ejs`
 
 ### Week after launch (P1)
 
 1. Fix `credit-card.js` / `api.js` session bugs
 2. Remove frontend `console.log` calls
-3. Add `/health` endpoint
-4. Form accessibility labels on `apply.html`
-5. DB pool tuning + SSL for production MySQL
+3. Form accessibility labels on `apply.html`
+4. CSRF protection on admin POSTs
 
 ### Later (P2)
 
 1. Extract footer/header into EJS partials
-2. Structured logging + graceful shutdown
+2. Structured logging
 3. Accessibility pass (skip link, `<main>`, blog alt text)
 
 ---
@@ -202,12 +169,7 @@ Recommend `express-rate-limit` with stricter limits on login.
 ## Quick reference — files to touch first
 
 ```
-backend/package.json
-backend/server.js
-backend/controllers/loginController.js
-backend/routes/blogRoutes.js
 views/blog-detail.ejs
-backend/.env.example          (create)
 js/credit-card.js
 js/api.js
 pages/contact-us.html

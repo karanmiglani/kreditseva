@@ -1,6 +1,7 @@
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { isProd } = require('../config/env');
 
 
 const login = async (req, resp) => {
@@ -36,11 +37,11 @@ const login = async (req, resp) => {
                 expiresIn : '7d'
             }
         )
-        resp.cookie('token',token, {
-            httpOnly : true,
-            secure : false,
-            sameSite : 'strict',
-            maxAge : 7 * 24 * 60 * 60 * 1000
+        resp.cookie('token', token, {
+            httpOnly: true,
+            secure: isProd,
+            sameSite: 'strict',
+            maxAge: 7 * 24 * 60 * 60 * 1000
         });
         return resp.status(200).json({
             success : true,

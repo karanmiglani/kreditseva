@@ -10,5 +10,9 @@ router.get('/get-blogs',authMiddleware, getAllBlogs);
 router.get('/get-blog/:id', authMiddleware,getBlog)
 router.put('/update-blog/:id', authMiddleware, upload.single('image'), updateBlog)
 router.delete('/delete-blog/:id', authMiddleware, deleteBlog)
-router.post('/dummy-blogs',authMiddleware,insertDummyBlogs)
+
+if (process.env.NODE_ENV !== 'production') {
+    router.post('/dummy-blogs', authMiddleware, insertDummyBlogs);
+}
+
 module.exports = router;
