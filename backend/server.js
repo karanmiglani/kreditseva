@@ -68,7 +68,7 @@ app.get('/health', (req, resp) => {
 });
 
 app.get('/favicon.ico', (req, resp) => {
-    resp.redirect(301, '/images/credit-gauge.svg');
+    resp.redirect(301, '/images/favicon.svg');
 });
 
 app.get('/sitemap.xml', async (req, resp, next) => {
