@@ -5,6 +5,7 @@ const { getLatestBlogs, featuredBlog, getBlog, getRecentArticles, relatedArticle
 const loanAmountPages = require('../data/loanAmountPages');
 const { getPage: getCityPage } = require('../data/loanCityPages');
 const { saveLead, downloadExcelReport } = require('../controllers/loanApplicationController');
+const sanitizeBlogContent = require('../utils/sanitizeBlogContent');
 const router = express.Router();
 
 // Legacy /pages/*.html URLs → clean routes (301 permanent redirect)
@@ -27,15 +28,14 @@ router.get('/pages', (req, resp) => {
     resp.redirect(301, '/sitemap');
 });
 
-router.get('/',async (req,resp) => {
-        try{
+router.get('/', async (req, resp, next) => {
+        try {
             const latestBlogs = await getLatestBlogs();
             resp.render('index', {
                 latestBlogs
             });
-        }catch(err){
-            console.log(err);
-            resp.send('Server error');
+        } catch (err) {
+            next(err);
         }
 });
 
@@ -142,67 +142,54 @@ router.get('/credit-card', (req, resp) => {
     resp.sendFile(path.join(__dirname,'../../pages/credit-card.html'));
 })
 
-router.get('/blogs', async (req, resp) => {
+router.get('/blogs', async (req, resp, next) => {
     try {
         const fb = await featuredBlog();
-        const blogs = await getLatestBlogs(20,0);
-        console.log(fb);
-        resp.render('blogs',{
+        const blogs = await getLatestBlogs(20, 0);
+        resp.render('blogs', {
             fb, blogs
-        })
+        });
     } catch (error) {
-        console.log(error);
-        resp.send('Server error.');
+        next(error);
     }
-})
+});
 
-router.get('/load-more', async(req, resp) => {
-    console.log('route hit');
-    try{
+router.get('/load-more', async (req, resp, next) => {
+    try {
         const offset = parseInt(req.query.offset) || 0;
         const blogs = await getLatestBlogs(20, offset);
         return resp.json({
             blogs
-        })
-    }catch(err){
-        console.log(err);
+        });
+    } catch (err) {
+        next(err);
     }
-})
+});
 
-router.get('/blog/:slug', async (req, resp) => {
-
-    console.time('TOTAL');
-
+router.get('/blog/:slug', async (req, resp, next) => {
     const slug = req.params.slug;
 
     try {
-
-        console.time('blog');
-
         const [blog, recentBlogs, relatedBlogs] = await Promise.all([
             getBlog(slug),
             getRecentArticles(),
             relatedArticle(slug)
         ]);
 
-        console.timeEnd('blog');
+        if (!blog || blog.length === 0) {
+            return resp.status(404).sendFile(path.join(__dirname, '../../pages/404.html'));
+        }
 
-        console.time('render');
+        blog[0].content = sanitizeBlogContent(blog[0].content);
 
         resp.render('blog-detail', {
             blog,
             recentBlogs,
             relatedBlogs
         });
-
-        console.timeEnd('render');
-
     } catch (error) {
-        console.log(error);
+        next(error);
     }
-
-    console.timeEnd('TOTAL');
-
 });
 
 router.get('/apply-now', (req, resp) => {
@@ -221,13 +208,13 @@ router.get('/loan/:slug', (req, resp) => {
     const cityPage = getCityPage(slug);
     if (cityPage) return resp.render('loan-city', { page: cityPage });
 
-    resp.status(404).send('Page not found');
+    resp.status(404).sendFile(path.join(__dirname, '../../pages/404.html'));
 });
 
 router.get('/admin', (req,resp) => {
     const token = req.cookies.token;
     if(token){
-        resp.redirect('/admin/dashboard');
+        return resp.redirect('/admin/dashboard');
     }
     resp.sendFile(path.join(__dirname,"../../admin/index.html"));
 })

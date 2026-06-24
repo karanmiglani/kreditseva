@@ -113,7 +113,7 @@
       if (!from || !to) { msg.textContent = 'Please select both dates.'; msg.style.display = 'block'; return; }
       if (from > to)    { msg.textContent = 'From date cannot be after To date.'; msg.style.display = 'block'; return; }
       msg.style.display = 'none';
-      window.location.href = `${window.location.origin}/api/dashboard/raw-leads/download?from=${from}&to=${to}`;
+      window.location.href = `${window.location.origin}/download-exel-report?fromDate=${from}&toDate=${to}`;
     });
 
     // Active sidebar link

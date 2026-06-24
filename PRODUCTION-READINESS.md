@@ -1,7 +1,7 @@
 # KreditSeva — Production Readiness Audit
 
 **Last reviewed:** June 2026  
-**Verdict:** Not fully production-ready. UI and content are largely in place, but critical SEO, security, and deployment gaps should be addressed before launch.
+**Verdict:** Not fully production-ready. The public site (UI, content, static SEO) is in good shape. Five P0 backend/deployment items should be fixed before a confident launch.
 
 ---
 
@@ -9,125 +9,124 @@
 
 | Area | Status | Notes |
 |------|--------|-------|
-| UI / Design | Good | Consistent footer, trust badges, responsive layout |
-| Content & SEO | Needs work | Competitor copy, wrong meta titles, blog SEO |
-| Backend security | Needs work | Auth, rate limiting, error handling gaps |
-| Forms & leads | Mostly OK | Wired to APIs; minor JS bugs |
-| Deployment | Not ready | No `start` script, weak prod config |
+| UI / Design | Good | Consistent footer, GST, trust badges, address |
+| Static page SEO | Good | Meta, favicon, robots, sitemap, clean URLs |
+| Blog SEO | Not ready | `blog-detail.ejs` uses hardcoded title/description for every post |
+| Backend security | Partial | Hash leak, CSP, sanitization fixed; cookies, rate limit open |
+| Forms & leads | Mostly OK | APIs wired; minor JS bugs and debug logs remain |
+| Deployment | Partial | `npm start` added; env validation and `.env.example` still missing |
 | Legal pages | Good | Privacy, terms, disclaimer, grievance present |
-| Admin panel | Partial | Works but has security gaps |
+| Admin panel | Partial | Auth works; `dummy-blogs` endpoint, GET logout |
+
+---
+
+## Completed (no further action)
+
+| Item | Details |
+|------|---------|
+| Competitor copy ("My Mudra") | Removed from all pages |
+| Wrong page titles / meta | Fixed on insta-loan, debt-consolidation, home-loan, secured-loan, and 8+ product pages |
+| Duplicate `/pages/` URLs | Static `/pages/` serving removed; 301 redirects to clean URLs; `robots.txt` disallows `/pages/` |
+| Login password hash leak | `loginController.js` returns only id, name, email, role |
+| Global error handler | `errorHandler` middleware; blog/loan routes use `next(err)` |
+| CSP + blog XSS | Helmet CSP enabled; `sanitize-html` on blog create/update/render |
+| Admin raw-leads download | `protected/raw-leads.html` uses `/download-exel-report` |
+| Error handling gaps | Invalid blog/loan slugs → `404.html`; admin redirect uses `return` |
+| Missing meta descriptions | Added to `personal-overdraft.html`, `balance-transfer.html` |
+| Missing `meta robots` | `index, follow` on all indexable pages; `404.html` keeps `noindex` |
+| Favicon | `rel="icon"` on all pages; `/favicon.ico` → `/images/credit-gauge.svg` |
+| OG/JSON-LD URL consistency | Business loan pages use `www.kreditseva.com` and `credit-gauge.svg` |
+| Duplicate robots meta | Removed from `views/loan-amount.ejs`, `views/loan-city.ejs` |
+| Sitemap | `/our-team`, `/sitemap` added; `/sitemap.xml` dynamically appends published blog slugs |
+| `robots.txt` | Disallows `/pages/`, `/admin`, `/api/` |
+| Footer consistency | Address, GST, trust badges, lending partners text standardized |
+| Font URL typo | `0600` → `0,600` on affected pages |
+| `npm start` script | `"start": "node server.js"` added; `main` corrected to `server.js` |
+
+**Intentionally unchanged (client-provided):** lender counts (15+/25+/30+), interest rate variations, Our Team footer link commented out.
 
 ---
 
 ## P0 — Fix before launch
 
-### 1. Competitor brand copy ("My Mudra") — 8 pages — **FIXED**
+### 1. Blog SEO broken — `views/blog-detail.ejs`
 
-Meta descriptions updated with KreditSeva-specific copy on all affected pages.
+Every blog post renders the same hardcoded meta:
 
-| File | Status |
-|------|--------|
-| `pages/home-loan.html` | Fixed |
-| `pages/secured-loan.html` | Fixed |
-| `pages/loan-against-property.html` | Fixed |
-| `pages/professional-loan.html` | Fixed |
-| `pages/business-loan.html` | Fixed |
-| `pages/loan-for-doctor.html` | Fixed |
-| `pages/loan-for-ca.html` | Fixed |
-| `pages/loan-for-cs.html` | Fixed |
+- Title: "Types of Debt Funds You Should Know"
+- Description: debt-funds copy
+- OG image: `/images/blog/blog1.png` (relative, not per-post)
 
-### 2. Wrong page titles / meta — **FIXED**
+Should use `blog[0].title`, excerpt/description, and `blog[0].image` with absolute URLs.
 
-| File | Was | Now |
-|------|-----|-----|
-| `pages/insta-loan.html` | Personal Loan title | Insta Loan — up to ₹5 Lakhs |
-| `pages/debt-consolidation.html` | Personal Loan title | Debt Consolidation Loan |
-| `pages/home-loan.html` | LAP title/meta | Home Loan — up to ₹5 Crore |
-| `pages/secured-loan.html` | LAP title/meta | Secured Loan |
+### 2. Insecure session cookie — `backend/controllers/loginController.js`
 
-### 3. Duplicate URLs (SEO risk) — **FIXED**
+```js
+secure: false  // hardcoded
+```
 
-- Removed public static serving of `/pages/` from `backend/server.js`
-- Added 301 redirects: `/pages/*.html` → clean URLs (e.g. `/pages/personal-loan.html` → `/personal-loan`)
-- Updated `robots.txt` with `Disallow: /pages/`, `/admin`, `/api/`
+In production behind HTTPS (Render), this should be `secure: process.env.NODE_ENV === 'production'`.
 
-### 4. Blog SEO broken
+### 3. No `trust proxy` — `backend/server.js`
 
-`views/blog-detail.ejs` uses hardcoded title/description ("Types of Debt Funds...") for every blog post. Meta tags should be generated from `blog[0].title`, description, and image.
+Required when running behind Render/nginx so Express correctly detects HTTPS and client IP. Without it, `secure` cookies and any IP-based logic will not work correctly.
 
-### 5. Backend security (critical)
+```js
+app.set('trust proxy', 1);
+```
 
-| Issue | File(s) | Risk |
-|-------|---------|------|
-| Login response returns full admin row (includes password hash) | `backend/controllers/loginController.js` | Data leak |
-| Cookie `secure: false` hardcoded | `backend/controllers/loginController.js` | Session hijack on HTTP |
-| No rate limiting on login/forms | `backend/server.js`, route files | Brute force / spam |
-| No global error handler | `backend/server.js` | Crashes, hung requests |
-| `POST /api/blog/dummy-blogs` in production | `backend/routes/blogRoutes.js` | Fake data insert |
-| CSP disabled in Helmet | `backend/server.js` | XSS risk (especially blog HTML) |
+### 4. No rate limiting
 
-### 6. Deployment blocker
+No rate limiting on:
 
-`backend/package.json` has no `"start": "node server.js"` script. Deploy platforms (Render, Heroku, etc.) may fail without a custom start command.
+- `POST /api/auth/login` — brute force risk
+- Public form endpoints (`/api/leads/*`, `/api/partner/*`, contact) — spam risk
 
-### 7. Broken admin download route
+Recommend `express-rate-limit` with stricter limits on login.
 
-`protected/raw-leads.html` calls `/api/dashboard/raw-leads/download` but that route does not exist. Working download may be at a different path (e.g. `/download-exel-report`).
+### 5. `dummy-blogs` endpoint in production — `backend/routes/blogRoutes.js`
 
-### 8. Error handling gaps
-
-| Route | Issue | File |
-|-------|-------|------|
-| `/blog/:slug` | Catch block logs error but sends no response | `backend/routes/pageRoutes.js` |
-| `/loan/:slug` (invalid) | Returns plain text, not styled 404 | `backend/routes/pageRoutes.js` |
-| `/admin` | Redirect when token exists but still calls `sendFile` (missing `return`) | `backend/routes/pageRoutes.js` |
+`POST /api/blog/dummy-blogs` is auth-protected but still live. Should be removed or gated behind `NODE_ENV !== 'production'`.
 
 ---
 
 ## P1 — High priority (soon after launch)
 
-### SEO & discoverability
-
-- **2 pages** missing `meta description`: `personal-overdraft.html`, `balance-transfer.html` (insta-loan and debt-consolidation fixed)
-- **~20 pages** missing explicit `meta name="robots"`
-- **No favicon** on any page (`rel="icon"` not set)
-- OG/JSON-LD URLs inconsistent: mix of `kreditseva.com`, `www.kreditseva.com`, and `/pages/*.html` paths
-  - Affected: `working-capital.html`, `unsecured-business-loan.html`, `business-overdraft.html`
-- **Duplicate robots meta** on `views/loan-amount.ejs` and `views/loan-city.ejs`
-- **Sitemap gaps** (`sitemap.xml`): missing `/our-team`, HTML sitemap `/sitemap`, individual `/blog/:slug` posts
-- **robots.txt gaps**: ~~no `Disallow: /pages/`~~ fixed; `/admin` and `/api/` now disallowed
-
 ### Forms & JavaScript
 
 | File | Issue |
 |------|--------|
-| `js/credit-card.js` | References undefined `rawLeadId` (should use `sessionStorage.getItem('id')`) |
-| `js/api.js` | `rawLeadId` read once at page load; can go stale |
+| `js/credit-card.js` | Line 77 references undefined `rawLeadId` (should use `sessionStorage.getItem('id')`) |
+| `js/api.js` | `rawLeadId` read once at page load; goes stale if session changes without reload |
 | `js/api.js` | `creditCard()` stub calls `showMessage('', ...)` with empty element ID |
-| `pages/apply.html` | Form fields use placeholders only; missing `<label for="...">` |
-| `pages/contact-us.html` | `console.log` in submit handler |
+| `pages/apply.html` | Form fields use placeholders only; missing `<label for="...">` on inputs |
+| `pages/contact-us.html` | `console.log` in submit handler (lines ~415, 424) |
 | `pages/check_cibil_score.html` | `console.log('Hit')` in production |
-| `backend/routes/pageRoutes.js` | Debug `console.log` / `console.time` on blog routes |
+| `js/credit-card.js`, `js/api.js`, `js/debt-consolidation.js` | `console.log` in catch blocks |
 
 ### Backend hardening
 
-- No `.env.example` for safe onboarding
-- No env validation on boot (`PORT`, `DB_*`, `JWT_SECRET_KEY`)
-- No `trust proxy` (needed behind Render/reverse proxy for secure cookies)
-- No CSRF protection on cookie-authenticated POSTs
-- No role-based authorization beyond JWT verify (`backend/midllewares/authMiddleware.js`)
-- DB pool: no `connectionLimit`, no SSL for managed MySQL (`backend/config/db.js`)
-- No database migration/schema files in repo
-- No `/health` or `/ready` endpoint for monitoring
-- Logout via GET (`/admin/logout`) — should be POST to avoid CSRF logout
-- CORS origins hardcoded in `server.js` (may miss staging/non-www)
-- `nodemon` in production `dependencies` (should be `devDependencies`)
-- Weak local `.env` values; `JWT_SECRET_KEY` may have leading space/quotes issue
+| Item | File(s) |
+|------|---------|
+| No `.env.example` | repo root / `backend/` |
+| No env validation on boot | `PORT`, `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `JWT_SECRET_KEY` |
+| No CSRF protection | Cookie-authenticated admin POSTs |
+| No role-based authorization | `authMiddleware.js` verifies JWT only; no role checks |
+| DB pool not tuned | `backend/config/db.js` — no `connectionLimit`, no SSL for managed MySQL |
+| No schema/migration files | Database structure not versioned in repo |
+| No `/health` or `/ready` endpoint | Monitoring / load balancer probes |
+| Logout via GET | `/admin/logout` — should be POST to prevent CSRF logout |
+| CORS origins hardcoded | `server.js` — may miss `kreditseva.com` (non-www) or staging |
+| `nodemon` in `dependencies` | Should be `devDependencies` |
+| JWT secret hygiene | Verify `.env` has no leading spaces or stray quotes on `JWT_SECRET_KEY` |
 
-### Stored XSS surface
+### Blog & accessibility (P1/P2 border)
 
-- `views/blog-detail.ejs` renders `<%- blog[0].content %>` unescaped
-- Sanitize on save or enforce CSP if untrusted input paths exist
+| Item | File |
+|------|------|
+| OG image relative, not absolute | `views/blog-detail.ejs` |
+| Social share buttons non-functional (`href="#"`) | `views/blog-detail.ejs` |
+| Hardcoded alt text on all blog cards | `views/blogs.ejs` |
 
 ---
 
@@ -135,109 +134,82 @@ Meta descriptions updated with KreditSeva-specific copy on all affected pages.
 
 ### Architecture
 
-- Footer/header copy-pasted across **34 templates** (~80 lines each) — extract EJS partials or shared component
-- Unused CSS likely present: `css/footer.css`, `css/common.css`, `css/style.css`, `css/1.css`
-- `css/footer.css` exists but is never linked (styles duplicated in `global.css`)
+- Footer/header copy-pasted across **34 templates** (~80 lines each) — extract EJS partials
+- Likely unused CSS: `css/footer.css`, `css/common.css`, `css/style.css`, `css/1.css`
+- `css/footer.css` never linked (styles live in `global.css`)
 
 ### Accessibility
 
 - No skip-to-content link sitewide
 - Only `about-us.html` and `our-team.html` use `<main id="main-content">`
-- `views/blogs.ejs` — hardcoded alt text for all blog cards
-- `views/blog-detail.ejs` — OG image is relative (`/images/blog/blog1.png`), not absolute URL
-- Social share buttons use `href="#"` (non-functional) on `blog-detail.ejs`
 
 ### Performance (optional)
 
-- Large page-specific CSS (e.g. `credit_card.css` ~1850 lines)
+- Large page CSS (e.g. `credit_card.css` ~1850 lines)
 - Google Fonts loaded separately on every page
-- Partner images use WebP with lazy loading (good)
+- Partner images use WebP + lazy loading (good)
 
 ### Monitoring & ops
 
-- No structured logging (pino/winston); only `console.log` / `console.error`
-- No graceful shutdown handler for `SIGTERM` / `SIGINT`
+- No structured logging (pino/winston); `console.log` / `console.error` only
+- No graceful shutdown for `SIGTERM` / `SIGINT`
 - No automated tests in `package.json`
-- `package.json` `main` points to `index.js` but entry is `server.js`
 
 ---
 
-## Fixed / intentional (no action needed)
-
-| Item | Status |
-|------|--------|
-| Font URL `0600` → `0,600` | **Fixed** on 8 pages |
-| My Mudra meta copy + wrong titles (10 pages) | **Fixed** |
-| Lender count (15+ / 25+ / 30+) | **Client-provided** — keep as-is per page |
-| Interest rate (9.98% vs 9.99% in tables) | **Client-provided** — keep as-is |
-| Our Team page / "Prataham" name | Page link commented out in footer; no change requested |
-| Footer address, GST, trust badges | Updated and consistent |
-| "Our Lending Partners" footer text | Standardized across all pages |
-
----
-
-## What is already working well
+## What is working well
 
 - Clean URL routing via `backend/routes/pageRoutes.js`
 - Global 404 handler serves `pages/404.html`
-- `robots.txt` and `sitemap.xml` served dynamically
-- Legal pages: privacy, terms, disclaimer, grievance redressal
+- Dynamic `robots.txt` and `sitemap.xml` (with blog slug injection)
 - Lead forms connected to backend APIs (apply, contact, partner, credit card)
 - Parameterized SQL queries (low SQL injection risk)
 - JWT in `httpOnly` cookie with `sameSite: 'strict'`
 - Admin HTML routes behind `authMiddleware`; `protected/` not statically exposed
 - Multer upload: 2MB limit, MIME filter
-- Lead save uses transactions in `saveLead`
+- Lead save uses transactions
 - City/amount dynamic loan pages via EJS templates
-- Helmet and CORS partially configured
+- Helmet + CORS configured
 
 ---
 
 ## Recommended fix order
 
-### Week 1 — Blockers
+### Before launch (P0) — ~1 day
 
-1. ~~Remove "My Mudra" copy and fix wrong titles/meta (8+ pages)~~ Done
-2. Add `npm start` script, env validation, `.env.example`
-3. Fix login: strip password from response, `secure: true` in prod, `trust proxy`
-4. Add rate limiting on login and public form endpoints
-5. Wire dynamic SEO in `blog-detail.ejs`
-6. Block or disallow `/pages/` duplicate URLs — done (redirects + robots)
+1. Add `.env.example` + boot-time env validation
+2. `trust proxy` + `secure: true` cookie in production
+3. Rate limiting on login and public form POSTs
+4. Remove or gate `dummy-blogs` in production
+5. Dynamic SEO in `blog-detail.ejs`
 
-### Week 2 — Security & SEO
+### Week after launch (P1)
 
-1. Global error handler; fix blog/loan error routes
-2. Update `robots.txt` and `sitemap.xml`
-3. Add favicon and missing meta descriptions (4 pages)
-4. Remove `console.log` and gate `dummy-blogs` in production
-5. Fix `credit-card.js` / `api.js` session bugs
+1. Fix `credit-card.js` / `api.js` session bugs
+2. Remove frontend `console.log` calls
+3. Add `/health` endpoint
+4. Form accessibility labels on `apply.html`
+5. DB pool tuning + SSL for production MySQL
 
-### Week 3 — Polish
+### Later (P2)
 
 1. Extract footer/header into EJS partials
-2. Form accessibility (labels on `apply.html`)
-3. `/health` endpoint and structured logging
-4. DB migrations and pool tuning
+2. Structured logging + graceful shutdown
+3. Accessibility pass (skip link, `<main>`, blog alt text)
 
 ---
 
 ## Quick reference — files to touch first
 
 ```
-pages/home-loan.html
-pages/secured-loan.html
-pages/loan-against-property.html
-pages/professional-loan.html
-pages/business-loan.html
-pages/loan-for-doctor.html
-pages/loan-for-ca.html
-pages/loan-for-cs.html
-pages/insta-loan.html
-pages/debt-consolidation.html
-views/blog-detail.ejs
-backend/server.js
 backend/package.json
+backend/server.js
 backend/controllers/loginController.js
-backend/routes/pageRoutes.js
-protected/raw-leads.html
+backend/routes/blogRoutes.js
+views/blog-detail.ejs
+backend/.env.example          (create)
+js/credit-card.js
+js/api.js
+pages/contact-us.html
+pages/check_cibil_score.html
 ```

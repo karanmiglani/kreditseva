@@ -6,7 +6,10 @@ const jwt = require('jsonwebtoken');
 const login = async (req, resp) => {
     try{
         const { email, password } = req.body;
-        const [admins] = await db.query('SELECT  * from admins where email = ?',[email]);
+        const [admins] = await db.query(
+            'SELECT id, name, email, role, password FROM admins WHERE email = ?',
+            [email]
+        );
         if(admins.length === 0){
             return resp.status(401).json({
                 success : false,
@@ -42,7 +45,12 @@ const login = async (req, resp) => {
         return resp.status(200).json({
             success : true,
             message : 'Login Successfull!',
-            admin : admin
+            admin : {
+                id: admin.id,
+                name: admin.name,
+                email: admin.email,
+                role: admin.role
+            }
         });
     }catch(err){
         console.error(err);

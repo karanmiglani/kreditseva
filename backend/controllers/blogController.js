@@ -2,12 +2,14 @@ const db = require('../config/db');
 const path = require('path');
 const fs = require('fs');
 const sharp = require('sharp');
+const sanitizeBlogContent = require('../utils/sanitizeBlogContent');
 
 
 const createBlog = async (req, resp) => {
     let imagePath = null;
     try{
     const { title , slug, content, metaTitle, metaDec, metaKeywords, status, category, readTime} = req.body;
+    const safeContent = sanitizeBlogContent(content);
 
     if(req.file){
 
@@ -38,7 +40,7 @@ const createBlog = async (req, resp) => {
         author_id
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         const author_id = req.admin.id;
-        const values = [title, slug,content,category,status,imagePath,metaTitle,metaDec,metaKeywords,readTime,author_id];
+        const values = [title, slug, safeContent, category, status, imagePath, metaTitle, metaDec, metaKeywords, readTime, author_id];
         const [result] = await db.query(query,values);
 
         
@@ -156,9 +158,9 @@ const updateBlog = async(req, resp) => {
             readTime
         } = req.body;
 
-        // =========================
-        // Check Blog Exists
-        // =========================
+        const safeContent = sanitizeBlogContent(content);
+
+        // Check blog exists
         const [blogRows] = await db.query(
             "SELECT * FROM blogs WHERE id = ?",
             [blogId]
@@ -276,7 +278,7 @@ const updateBlog = async(req, resp) => {
         const values = [
             title,
             slug,
-            content,
+            safeContent,
             category,
             status,
             imagePath,

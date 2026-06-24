@@ -880,17 +880,14 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
+  gap: 20px;
 }
 
 .footer-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 8px;
+  padding: 0;
   font-family: 'Open Sans', sans-serif;
   font-size: 0.72rem;
   font-weight: 600;
@@ -969,12 +966,11 @@ body {
 
   .footer-badges {
     padding-bottom: 22px;
-    gap: 8px;
+    gap: 16px;
   }
 
   .footer-badge {
     font-size: 0.68rem;
-    padding: 7px 11px;
   }
 
   .footer-bottom-links {

@@ -39,6 +39,9 @@ backend/uploads/
 .cache/
 .npm/
 
+# Internal docs
+PRODUCTION-READINESS.md
+
 # Sensitive files
 *.pem
 *.key

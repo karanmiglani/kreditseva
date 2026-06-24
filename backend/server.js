@@ -5,12 +5,12 @@ require("dotenv").config();
 const path = require('path');
 const fs = require('fs');
 const pageRoutes = require('./routes/pageRoutes');
+const { generateSitemapXml } = require('./utils/generateSitemap');
+const errorHandler = require('./midllewares/errorHandler');
+const helmetConfig = require('./config/helmetConfig');
 const app = express();
 const cookieParser = require('cookie-parser');
-app.use(helmet({
-  contentSecurityPolicy: false,  // CSP off — static assets aur CDN links block ho sakti hain
-  crossOriginEmbedderPolicy: false
-}));
+app.use(helmet(helmetConfig));
 app.use(cors({
   origin: ['https://kreditseva.onrender.com', 'https://www.kreditseva.com', 'http://localhost:3000'],
   credentials: true
@@ -48,9 +48,17 @@ const port = process.env.PORT;
 
 
 // Sitemap & robots
-app.get('/sitemap.xml', (req, resp) => {
-    resp.setHeader('Content-Type', 'application/xml');
-    resp.sendFile(path.join(__dirname, '../sitemap.xml'));
+app.get('/favicon.ico', (req, resp) => {
+    resp.redirect(301, '/images/credit-gauge.svg');
+});
+app.get('/sitemap.xml', async (req, resp, next) => {
+    try {
+        const xml = await generateSitemapXml();
+        resp.setHeader('Content-Type', 'application/xml');
+        resp.send(xml);
+    } catch (err) {
+        next(err);
+    }
 });
 app.get('/robots.txt', (req, resp) => {
     resp.setHeader('Content-Type', 'text/plain');
@@ -68,6 +76,9 @@ app.get('/robots.txt', (req, resp) => {
 app.use((req, resp) => {
     resp.status(404).sendFile(path.join(__dirname, '../pages/404.html'));
 });
+
+// Global error handler — must be last
+app.use(errorHandler);
 
 const server = app.listen(port,() => {
     console.log("Server runing at port 3000...");
