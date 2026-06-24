@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
+const path = require('path');
 const db = require('../config/db');
-const { sitemapPath } = require('../config/paths');
 
 async function getPublishedBlogSlugs() {
     const [rows] = await db.query(
@@ -10,7 +10,7 @@ async function getPublishedBlogSlugs() {
 }
 
 async function generateSitemapXml() {
-    const basePath = sitemapPath;
+    const basePath = path.join(__dirname, '../../sitemap.xml');
     let xml = await fs.readFile(basePath, 'utf8');
 
     try {

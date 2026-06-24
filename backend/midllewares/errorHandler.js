@@ -1,5 +1,4 @@
 const path = require('path');
-const { pagesDir } = require('../config/paths');
 
 function wantsJson(req) {
     return req.path.startsWith('/api/')
@@ -34,7 +33,7 @@ function errorHandler(err, req, res, next) {
     }
 
     if (status === 404) {
-        return res.status(404).sendFile(path.join(pagesDir, '404.html'));
+        return res.status(404).sendFile(path.join(__dirname, '../../pages/404.html'));
     }
 
     return res.status(status).send(message);

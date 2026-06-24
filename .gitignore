@@ -5,10 +5,9 @@ backend/node_modules/
 # Environment variables — never commit secrets
 .env
 backend/.env
-*.env
 .env.*
 !.env.example
-backend/server.js
+!backend/.env.example
 
 # Logs
 *.log
