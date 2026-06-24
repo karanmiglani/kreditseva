@@ -904,8 +904,17 @@ body {
   color: #38BDF8;
 }
 
-.footer-badge-india i {
-  color: #FF9933;
+.footer-india-flag {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.12);
+}
+
+.footer-india-flag svg {
+  display: block;
 }
 
 /* ── Bottom link bar ── */
