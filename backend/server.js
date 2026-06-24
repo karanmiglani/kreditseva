@@ -5,6 +5,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 
 const { isProd, port } = require('./config/env');
+const paths = require('./config/paths');
 const pageRoutes = require('./routes/pageRoutes');
 const { generateSitemapXml } = require('./utils/generateSitemap');
 const errorHandler = require('./midllewares/errorHandler');
@@ -49,15 +50,15 @@ const leadRoutes = require('./routes/loanApplicationRoutes');
 const partnerRoutes = require('./routes/partnerRoutes');
 
 // Static files
-app.use('/css', express.static(path.join(__dirname, '../css')));
-app.use('/js', express.static(path.join(__dirname, '../js')));
-app.use('/images', express.static(path.join(__dirname, '../images')));
-app.use('/admin', express.static(path.join(__dirname, '../admin'), {
+app.use('/css', express.static(paths.cssDir));
+app.use('/js', express.static(paths.jsDir));
+app.use('/images', express.static(paths.imagesDir));
+app.use('/admin', express.static(paths.adminDir, {
     index: false
 }));
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', paths.viewsDir);
 
 // Health check (for Render / load balancers)
 app.get('/health', (req, resp) => {
@@ -102,21 +103,16 @@ app.use('/api/partner', partnerRoutes);
 
 // 404 handler — must be after all routes
 app.use((req, resp) => {
-    resp.status(404).sendFile(path.join(__dirname, '../pages/404.html'));
+    resp.status(404).sendFile(path.join(paths.pagesDir, '404.html'));
 });
 
 // Global error handler — must be last
 app.use(errorHandler);
 
-const server = app.listen(port, async () => {
+const server = app.listen(port, () => {
     console.log(`KreditSeva server running on port ${port} (${isProd ? 'production' : 'development'})`);
-    const db = require('./config/db');
-    const ok = await db.testConnection();
-    if (!ok && isProd) {
-        console.error('Server started but database is unreachable — fix DB env vars and redeploy.');
-    } else if (ok) {
-        console.log('Database connection OK');
-    }
+    console.log(`App root: ${paths.appRoot}`);
+    console.log(`Views: ${paths.viewsDir}`);
 });
 
 server.on('error', (err) => {

@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const sharp = require('sharp');
 const sanitizeBlogContent = require('../utils/sanitizeBlogContent');
+const { imagesDir, appRoot } = require('../config/paths');
 
 
 const createBlog = async (req, resp) => {
@@ -13,7 +14,7 @@ const createBlog = async (req, resp) => {
 
     if(req.file){
 
-        const uploadPath = path.join(__dirname,'../../images/blog' );
+        const uploadPath = path.join(imagesDir, 'blog');
 
         // create folder if not exists
         if(!fs.existsSync(uploadPath)){
@@ -59,7 +60,7 @@ const createBlog = async (req, resp) => {
     }catch(err){
         console.log(err);
         if(imagePath){
-            const fullPath = path.join(__dirname, '../../',imagePath);
+            const fullPath = path.join(appRoot, imagePath.replace(/^\//, ''));
             if(fs.existsSync(fullPath)){
                 fs.unlinkSync(fullPath);
             }
@@ -202,10 +203,7 @@ const updateBlog = async(req, resp) => {
         // =========================
         if(req.file){
 
-            const uploadPath = path.join(
-                __dirname,
-                '../../images/blog'
-            );
+            const uploadPath = path.join(imagesDir, 'blog');
 
             // Create folder
             if(!fs.existsSync(uploadPath)){
@@ -244,9 +242,8 @@ const updateBlog = async(req, resp) => {
             if(existingBlog.featured_image){
 
                 const oldImageFullPath = path.join(
-                    __dirname,
-                    '../../',
-                    existingBlog.featured_image
+                    appRoot,
+                    existingBlog.featured_image.replace(/^\//, '')
                 );
 
                 if(fs.existsSync(oldImageFullPath)){
@@ -321,9 +318,8 @@ const updateBlog = async(req, resp) => {
         if(newImagePath){
 
             const fullPath = path.join(
-                __dirname,
-                '../../',
-                newImagePath
+                appRoot,
+                newImagePath.replace(/^\//, '')
             );
 
             if(fs.existsSync(fullPath)){
@@ -358,7 +354,7 @@ const deleteBlog = async(req , resp) => {
         });
     }
     const imagePath = row[0].featured_image;
-    const fullImagePath = path.join(__dirname,'../../',imagePath);
+    const fullImagePath = path.join(appRoot, imagePath.replace(/^\//, ''));
     const [rows] = await db.query('DELETE FROM blogs where id = ?',[blogId]);
     if(rows.affectedRows > 0){
         if(fullImagePath && fs.existsSync(fullImagePath)){
