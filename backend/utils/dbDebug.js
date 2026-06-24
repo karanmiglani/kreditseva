@@ -24,24 +24,17 @@ function secretDiagnostics(label, raw, trimmed) {
 }
 
 function logDbEnv(rawEnv) {
-    console.log('========== DB ENV DEBUG (set DEBUG_DB=false when done) ==========');
+    console.log('========== DB ENV DEBUG ==========');
     console.log('[DB DEBUG] NODE_ENV:', process.env.NODE_ENV || '(not set)');
     console.log('[DB DEBUG] DB_HOST:', process.env.DB_HOST || '(empty)');
+    console.log('[DB DEBUG] DB_SOCKET:', process.env.DB_SOCKET || '(not set)');
     console.log('[DB DEBUG] DB_PORT:', process.env.DB_PORT || '3306 (default)');
-    console.log('[DB DEBUG] DB_USER:', process.env.DB_USER || '(empty)');
-    console.log('[DB DEBUG] DB_NAME:', process.env.DB_NAME || '(empty)');
+    console.log('[DB DEBUG] DB_USER:', JSON.stringify(process.env.DB_USER || ''));
+    console.log('[DB DEBUG] DB_NAME:', JSON.stringify(process.env.DB_NAME || ''));
     console.log('[DB DEBUG] DB_SSL:', process.env.DB_SSL || '(not set / false)');
 
     secretDiagnostics('DB_PASSWORD', rawEnv.DB_PASSWORD, process.env.DB_PASSWORD);
-
-    console.log('[DB DEBUG] pool will connect to:', {
-        host: process.env.DB_HOST,
-        port: Number(process.env.DB_PORT) || 3306,
-        user: process.env.DB_USER,
-        database: process.env.DB_NAME,
-        ssl: process.env.DB_SSL === 'true'
-    });
-    console.log('=================================================================');
+    console.log('==================================');
 }
 
 module.exports = {

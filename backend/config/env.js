@@ -10,14 +10,12 @@ const REQUIRED_VARS = [
     'JWT_SECRET_KEY'
 ];
 
-function trimEnv(key) {
-    const value = String(process.env[key] || '').trim();
-    process.env[key] = value;
-    return value;
-}
+const { trimEnv, applyEnvAliases } = require('../utils/envHelpers');
 
 function validateEnv() {
-    const dbKeys = ['DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_NAME', 'DB_PORT', 'DB_SSL'];
+    applyEnvAliases();
+
+    const dbKeys = ['DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_NAME', 'DB_PORT', 'DB_SSL', 'DB_SOCKET'];
     const rawBeforeTrim = {};
 
     if (process.env.DEBUG_DB === 'true') {
