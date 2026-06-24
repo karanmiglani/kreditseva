@@ -216,7 +216,7 @@ router.get('/admin', (req,resp) => {
     if(token){
         return resp.redirect('/admin/dashboard');
     }
-    resp.sendFile(path.join(__dirname,\"../../admin/index.html\"));
+    resp.sendFile(path.join(__dirname, "../../admin/index.html"));
 })
 
 router.get('/admin/dashboard' , authMiddleware, (req, resp) => {
