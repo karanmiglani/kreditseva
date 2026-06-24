@@ -30,7 +30,6 @@ const partnerRoutes = require('./routes/partnerRoutes');
 app.use('/css', express.static(path.join(__dirname,'../css')));
 app.use('/js', express.static(path.join(__dirname,'../js')));
 app.use('/images', express.static(path.join(__dirname,'../images')));
-app.use('/pages', express.static(path.join(__dirname,'../pages')));
 app.use('/admin', express.static(path.join(__dirname,'../admin'), {
     index : false
 }));
@@ -55,7 +54,14 @@ app.get('/sitemap.xml', (req, resp) => {
 });
 app.get('/robots.txt', (req, resp) => {
     resp.setHeader('Content-Type', 'text/plain');
-    resp.send('User-agent: *\nAllow: /\nSitemap: https://www.kreditseva.com/sitemap.xml\n');
+    resp.send(
+        'User-agent: *\n' +
+        'Allow: /\n' +
+        'Disallow: /pages/\n' +
+        'Disallow: /admin\n' +
+        'Disallow: /api/\n' +
+        'Sitemap: https://www.kreditseva.com/sitemap.xml\n'
+    );
 });
 
 // 404 handler — must be after all routes

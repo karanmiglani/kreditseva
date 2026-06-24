@@ -7,6 +7,26 @@ const { getPage: getCityPage } = require('../data/loanCityPages');
 const { saveLead, downloadExcelReport } = require('../controllers/loanApplicationController');
 const router = express.Router();
 
+// Legacy /pages/*.html URLs → clean routes (301 permanent redirect)
+const PAGE_SLUG_OVERRIDES = {
+    'apply.html': '/apply-now',
+    'check_cibil_score.html': '/check-my-credit-score',
+    'sitemap-page.html': '/sitemap',
+};
+
+router.get('/pages/:file', (req, resp) => {
+    const file = req.params.file;
+    if (!file.endsWith('.html')) {
+        return resp.status(404).sendFile(path.join(__dirname, '../../pages/404.html'));
+    }
+    const target = PAGE_SLUG_OVERRIDES[file] || '/' + file.replace(/\.html$/, '');
+    resp.redirect(301, target);
+});
+
+router.get('/pages', (req, resp) => {
+    resp.redirect(301, '/sitemap');
+});
+
 router.get('/',async (req,resp) => {
         try{
             const latestBlogs = await getLatestBlogs();
