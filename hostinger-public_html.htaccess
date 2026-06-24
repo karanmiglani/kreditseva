@@ -1,0 +1,18 @@
+# Upload to Hostinger File Manager → public_html/.htaccess
+# Forces www → apex and stops CDN from caching HTML
+
+RewriteEngine On
+
+# www → kreditseva.com (canonical)
+RewriteCond %{HTTP_HOST} ^www\.kreditseva\.com$ [NC]
+RewriteRule ^(.*)$ https://kreditseva.com/$1 [L,R=301]
+
+# Do not cache HTML pages at CDN/proxy
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "private, no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+    Header set CDN-Cache-Control "no-store"
+  </FilesMatch>
+</IfModule>

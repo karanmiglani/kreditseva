@@ -6,7 +6,14 @@ const loanAmountPages = require('../data/loanAmountPages');
 const { getPage: getCityPage } = require('../data/loanCityPages');
 const { saveLead, downloadExcelReport } = require('../controllers/loanApplicationController');
 const sanitizeBlogContent = require('../utils/sanitizeBlogContent');
+const { setNoStoreHeaders } = require('../config/cacheHeaders');
 const router = express.Router();
+
+// Always serve fresh HTML on kreditseva.com (no stale CDN copy)
+router.use((req, resp, next) => {
+    setNoStoreHeaders(resp);
+    next();
+});
 
 // Legacy /pages/*.html URLs → clean routes (301 permanent redirect)
 const PAGE_SLUG_OVERRIDES = {

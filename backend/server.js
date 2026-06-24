@@ -9,11 +9,30 @@ const pageRoutes = require('./routes/pageRoutes');
 const { generateSitemapXml } = require('./utils/generateSitemap');
 const errorHandler = require('./midllewares/errorHandler');
 const helmetConfig = require('./config/helmetConfig');
+const { setNoStoreHeaders, setStaticAssetHeaders } = require('./config/cacheHeaders');
+
+const assetVersion = process.env.ASSET_VERSION || String(Math.floor(Date.now() / 1000));
+const staticOpts = isProd ? {
+    etag: true,
+    lastModified: true,
+    maxAge: 0,
+    setHeaders: setStaticAssetHeaders
+} : {};
 
 const app = express();
 
 if (isProd) {
     app.set('trust proxy', 1);
+}
+
+// Canonical host — www → apex (kreditseva.com)
+if (isProd) {
+    app.use((req, resp, next) => {
+        if (req.hostname === 'www.kreditseva.com') {
+            return resp.redirect(301, `https://kreditseva.com${req.originalUrl}`);
+        }
+        next();
+    });
 }
 
 app.disable('x-powered-by');
@@ -48,16 +67,22 @@ const dashBoardRoutes = require('./routes/dashboardRoutes');
 const leadRoutes = require('./routes/loanApplicationRoutes');
 const partnerRoutes = require('./routes/partnerRoutes');
 
-// Static files
-app.use('/css', express.static(path.join(__dirname, '../css')));
-app.use('/js', express.static(path.join(__dirname, '../js')));
-app.use('/images', express.static(path.join(__dirname, '../images')));
+// Static files — revalidate on every deploy (no long-lived CDN cache)
+app.use('/css', express.static(path.join(__dirname, '../css'), staticOpts));
+app.use('/js', express.static(path.join(__dirname, '../js'), staticOpts));
+app.use('/images', express.static(path.join(__dirname, '../images'), staticOpts));
 app.use('/admin', express.static(path.join(__dirname, '../admin'), {
-    index: false
+    index: false,
+    ...staticOpts
 }));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
+app.use((req, resp, next) => {
+    resp.locals.assetVersion = assetVersion;
+    resp.locals.siteUrl = 'https://kreditseva.com';
+    next();
+});
 
 // Health check (for Render / load balancers)
 app.get('/health', (req, resp) => {
@@ -74,6 +99,7 @@ app.get('/favicon.ico', (req, resp) => {
 app.get('/sitemap.xml', async (req, resp, next) => {
     try {
         const xml = await generateSitemapXml();
+        setNoStoreHeaders(resp);
         resp.setHeader('Content-Type', 'application/xml');
         resp.send(xml);
     } catch (err) {
@@ -89,7 +115,7 @@ app.get('/robots.txt', (req, resp) => {
         'Disallow: /pages/\n' +
         'Disallow: /admin\n' +
         'Disallow: /api/\n' +
-        'Sitemap: https://www.kreditseva.com/sitemap.xml\n'
+        'Sitemap: https://kreditseva.com/sitemap.xml\n'
     );
 });
 
@@ -102,6 +128,7 @@ app.use('/api/partner', partnerRoutes);
 
 // 404 handler — must be after all routes
 app.use((req, resp) => {
+    setNoStoreHeaders(resp);
     resp.status(404).sendFile(path.join(__dirname, '../pages/404.html'));
 });
 

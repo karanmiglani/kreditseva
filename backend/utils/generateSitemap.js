@@ -17,7 +17,7 @@ async function generateSitemapXml() {
         const slugs = await getPublishedBlogSlugs();
         if (slugs.length > 0) {
             const blogEntries = slugs.map((slug) =>
-                `  <url><loc>https://www.kreditseva.com/blog/${slug}</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>`
+                `  <url><loc>https://kreditseva.com/blog/${slug}</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>`
             ).join('\n');
             xml = xml.replace('</urlset>', `\n  <!-- Blog Posts -->\n${blogEntries}\n</urlset>`);
         }

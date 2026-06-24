@@ -2,105 +2,105 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <!-- Homepage -->
-  <url><loc>https://www.kreditseva.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://kreditseva.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
 
   <!-- Personal Loan Pages -->
-  <url><loc>https://www.kreditseva.com/personal-loan</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.kreditseva.com/personal-overdraft</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.kreditseva.com/balance-transfer</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.kreditseva.com/debt-consolidation</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.kreditseva.com/insta-loan</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kreditseva.com/personal-loan</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kreditseva.com/personal-overdraft</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kreditseva.com/balance-transfer</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kreditseva.com/debt-consolidation</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kreditseva.com/insta-loan</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
   <!-- Business Loan Pages -->
-  <url><loc>https://www.kreditseva.com/business-loan</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.kreditseva.com/working-capital</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.kreditseva.com/unsecured-business-loan</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.kreditseva.com/business-overdraft</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kreditseva.com/business-loan</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kreditseva.com/working-capital</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kreditseva.com/unsecured-business-loan</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kreditseva.com/business-overdraft</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
   <!-- Professional Loan Pages -->
-  <url><loc>https://www.kreditseva.com/professional-loan</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.kreditseva.com/loan-for-ca</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.kreditseva.com/loan-for-cs</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.kreditseva.com/loan-for-doctor</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kreditseva.com/professional-loan</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kreditseva.com/loan-for-ca</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kreditseva.com/loan-for-cs</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kreditseva.com/loan-for-doctor</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
   <!-- Secured Loan Pages -->
-  <url><loc>https://www.kreditseva.com/secured-loan</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.kreditseva.com/loan-against-property</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.kreditseva.com/home-loan</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.kreditseva.com/car-loan</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kreditseva.com/secured-loan</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kreditseva.com/loan-against-property</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kreditseva.com/home-loan</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kreditseva.com/car-loan</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
   <!-- Other Products -->
-  <url><loc>https://www.kreditseva.com/credit-card</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/check-my-credit-score</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kreditseva.com/credit-card</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/check-my-credit-score</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
   <!-- Apply -->
-  <url><loc>https://www.kreditseva.com/apply-now</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kreditseva.com/apply-now</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
 
   <!-- Blogs -->
-  <url><loc>https://www.kreditseva.com/blogs</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://kreditseva.com/blogs</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
 
   <!-- Company Pages -->
-  <url><loc>https://www.kreditseva.com/about-us</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.kreditseva.com/our-team</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.kreditseva.com/contact-us</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.kreditseva.com/become-our-partner</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/sitemap</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://kreditseva.com/about-us</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://kreditseva.com/our-team</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://kreditseva.com/contact-us</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://kreditseva.com/become-our-partner</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/sitemap</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
 
   <!-- Legal Pages -->
-  <url><loc>https://www.kreditseva.com/privacy-policy</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://www.kreditseva.com/terms-condition</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://www.kreditseva.com/disclaimer</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://www.kreditseva.com/grievance-redressal</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://kreditseva.com/privacy-policy</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://kreditseva.com/terms-condition</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://kreditseva.com/disclaimer</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://kreditseva.com/grievance-redressal</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
 
   <!-- Loan Amount SEO Pages -->
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-1-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-2-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-3-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-5-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-10-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-15-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-20-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-25-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-30-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-35-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-40-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-45-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-50-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-1-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-2-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-3-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-5-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-10-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-15-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-20-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-25-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-30-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-35-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-40-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-45-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-50-lakh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- Loan City SEO Pages — Personal Loan -->
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-delhi</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-mumbai</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-bangalore</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-hyderabad</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-pune</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-chennai</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-kolkata</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-ahmedabad</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-noida</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-gurugram</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-jaipur</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-lucknow</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-chandigarh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-indore</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-surat</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/personal-loan-nagpur</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-delhi</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-mumbai</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-bangalore</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-hyderabad</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-pune</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-chennai</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-kolkata</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-ahmedabad</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-noida</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-gurugram</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-jaipur</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-lucknow</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-chandigarh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-indore</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-surat</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/personal-loan-nagpur</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- Loan City SEO Pages — Business Loan -->
-  <url><loc>https://www.kreditseva.com/loan/business-loan-delhi</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-mumbai</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-bangalore</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-ahmedabad</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-hyderabad</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-pune</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-chennai</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-kolkata</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-noida</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-gurugram</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-jaipur</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-chandigarh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-indore</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-surat</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-ludhiana</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.kreditseva.com/loan/business-loan-coimbatore</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-delhi</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-mumbai</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-bangalore</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-ahmedabad</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-hyderabad</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-pune</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-chennai</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-kolkata</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-noida</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-gurugram</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-jaipur</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-chandigarh</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-indore</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-surat</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-ludhiana</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://kreditseva.com/loan/business-loan-coimbatore</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
 </urlset>
