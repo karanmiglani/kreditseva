@@ -174,14 +174,18 @@
           </div>
         </div>
 
-        <div class="ct-info-card">
+        <div class="ct-info-card ct-info-card--office">
           <div class="ct-info-icon">
             <i class="fa-solid fa-location-dot"></i>
           </div>
           <div>
             <h4>Office</h4>
-            <p>Visit us at our office</p>
-            Plot no 20&amp;21 Hartron Complex, Electronic City Sector -18 Udhyog Vihar Gurugram, Haryana-122015
+            <p class="ct-info-sub">KreditSeva — Voice Technologies &amp; Business Solutions</p>
+            <address class="ct-address">
+              Plot No. 20 &amp; 21, Hartron Complex,<br>
+              Electronic City, Sector 18, Udyog Vihar,<br>
+              Gurugram, Haryana — 122015
+            </address>
           </div>
         </div>
 
@@ -239,6 +243,12 @@
             <textarea id="ct-message" rows="4" placeholder="Tell us how we can help you..."></textarea>
             <span class="pl-field-err" id="err-ctMessage"></span>
           </div>
+
+          <div class="ct-consent">
+            <input type="checkbox" id="ct-agree" checked />
+            <label for="ct-agree">I agree to KreditSeva's <a href="/terms-condition" target="_blank" rel="noopener">Terms &amp; Conditions</a>, <a href="/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>, and authorise contact via Call, SMS, Email, or WhatsApp.</label>
+          </div>
+          <span class="pl-field-err" id="err-ctAgree"></span>
 
           <button type="submit" class="ct-submit">
             Send Message <i class="fa-solid fa-arrow-right"></i>
@@ -300,7 +310,7 @@
             <i class="fa-solid fa-location-dot"></i>
             <div>
               <h5>KreditSeva (Voice Technologies &amp; Business Solutions)</h5>
-              <p>Plot no 20&amp;21 Hartron Complex, Electronic City Sector -18 Udhyog Vihar Gurugram, Haryana-122015</p>
+              <p>Plot No. 20 &amp; 21, Hartron Complex, Electronic City, Sector 18, Udyog Vihar, Gurugram, Haryana — 122015</p>
             </div>
           </div>
           <div class="footer-address-card">
@@ -377,6 +387,10 @@
       el.style.display = 'none';
     }
 
+    document.getElementById('ct-agree').addEventListener('change', function() {
+      if (this.checked) clearCtErr('err-ctAgree');
+    });
+
     document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       var valid = true;
@@ -398,6 +412,10 @@
       var message = document.getElementById('ct-message').value.trim();
       if (!message) { showCtErr('err-ctMessage', 'Please enter your message'); valid = false; }
       else clearCtErr('err-ctMessage');
+
+      var agreed = document.getElementById('ct-agree').checked;
+      if (!agreed) { showCtErr('err-ctAgree', 'Please agree to continue'); valid = false; }
+      else clearCtErr('err-ctAgree');
 
       if (!valid) return;
     try {

@@ -4,12 +4,12 @@
   <!-- Homepage -->
   <url><loc>https://kreditseva.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
 
-  <!-- Personal Loan Pages -->
+  <!-- Personal Loan Pages — client priority: debt consolidation, balance transfer, insta loan -->
+  <url><loc>https://kreditseva.com/debt-consolidation</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://kreditseva.com/balance-transfer</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://kreditseva.com/insta-loan</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
   <url><loc>https://kreditseva.com/personal-loan</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://kreditseva.com/personal-overdraft</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://kreditseva.com/balance-transfer</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://kreditseva.com/debt-consolidation</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://kreditseva.com/insta-loan</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
   <!-- Business Loan Pages -->
   <url><loc>https://kreditseva.com/business-loan</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>

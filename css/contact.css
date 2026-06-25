@@ -225,6 +225,31 @@ body { background: #f0f5ff; }
 
 .ct-info-card a:hover { color: #1039a0; }
 
+.ct-info-card--office {
+  align-items: flex-start;
+}
+
+.ct-info-card--office .ct-info-icon {
+  margin-top: 2px;
+}
+
+.ct-info-sub {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #5a6a8a;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.ct-info-card .ct-address {
+  font-style: normal;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #2a3a5e;
+  line-height: 1.65;
+}
+
 .ct-quick {
   border-top: 1px solid rgba(26,82,204,0.08);
   padding-top: 20px;
@@ -400,6 +425,44 @@ body { background: #f0f5ff; }
   background: #1039a0;
   transform: translateY(-1px);
   box-shadow: 0 8px 24px rgba(26,82,204,0.3);
+}
+
+.ct-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.ct-consent input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  margin-top: 3px;
+  accent-color: #1a52cc;
+  cursor: pointer;
+}
+
+.ct-consent label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.78rem;
+  color: #5a6a8a;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.ct-consent label a {
+  color: #1a52cc;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.ct-consent label a:hover {
+  text-decoration: underline;
+}
+
+#err-ctAgree {
+  margin-top: -6px;
 }
 
 /* Success state */

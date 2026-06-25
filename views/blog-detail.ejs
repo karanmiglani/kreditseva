@@ -5,15 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
-  <!-- =====================================================
-    DYNAMIC: Replace these meta tags from backend
-  ====================================================== -->
-  <title>Types of Debt Funds You Should Know | KreditSeva Blog</title>
-  <meta name="description" content="Learn about different types of debt funds and how they can help you build a stable portfolio.">
-  <meta property="og:title" content="Types of Debt Funds You Should Know">
-  <meta property="og:image" content="/images/blog/blog1.png">
-  <link rel="canonical" href="https://kreditseva.com/blog/<%= blog[0]?.slug || '' %>" />
-  <!-- ===================================================== -->
+  <% const post = blog[0]; %>
+  <% const seoTitle = post.meta_title || post.title; %>
+  <% const pageTitle = seoTitle + ' | KreditSeva Blog'; %>
+  <% const seoDesc = post.meta_desc || ('Read ' + post.title + ' on KreditSeva — expert guides on loans, debt consolidation and personal finance in India.'); %>
+  <% const seoKeywords = post.meta_keywords || ('kreditseva, ' + (post.category || 'loans').replace(/-/g, ', ') + ', personal finance, loans india'); %>
+  <% let ogImage = post.featured_image || '/images/blog/blog1.png';
+     if (!ogImage.startsWith('http')) {
+       ogImage = siteUrl + (ogImage.startsWith('/') ? ogImage : '/' + ogImage);
+     } %>
+  <title><%= pageTitle %></title>
+  <meta name="description" content="<%= seoDesc %>">
+  <meta name="keywords" content="<%= seoKeywords %>">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="<%= siteUrl %>/blog/<%= post.slug %>">
+  <meta property="og:title" content="<%= seoTitle %>">
+  <meta property="og:description" content="<%= seoDesc %>">
+  <meta property="og:image" content="<%= ogImage %>">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= seoTitle %>">
+  <meta name="twitter:description" content="<%= seoDesc %>">
+  <meta name="twitter:image" content="<%= ogImage %>">
+  <link rel="canonical" href="<%= siteUrl %>/blog/<%= post.slug %>" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -273,7 +286,7 @@
            <% recentBlogs.forEach((item, index) => { %>
           <a href="#" class="bds-rel-item">
             <div class="bds-rel-img">
-              <img src="/<%= item.featured_image %>" alt="<%= item.title %>" />
+              <img src="<%= item.featured_image %>" alt="<%= item.title %>" />
             </div>
             <div class="bds-rel-body">
               <span class="bds-rel-cat"><%= item.category %></span>
@@ -315,7 +328,7 @@
          <% relatedBlogs.forEach((item,index) => { %>
         <a href="/blog/<%= item.slug %>" class="bd-more-card">
           <div class="bd-more-img">
-            <img src="/<%= item.featured_image %>" alt="Best Saving Schemes" />
+            <img src="<%= item.featured_image %>" alt="Best Saving Schemes" />
             <span class="bd-more-cat-badge"><%= item.category
                   .split('-')
                   .map(word => word.charAt(0).toUpperCase() + word.slice(1))
