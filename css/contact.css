@@ -225,31 +225,6 @@ body { background: #f0f5ff; }
 
 .ct-info-card a:hover { color: #1039a0; }
 
-.ct-info-card--office {
-  align-items: flex-start;
-}
-
-.ct-info-card--office .ct-info-icon {
-  margin-top: 2px;
-}
-
-.ct-info-sub {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.72rem;
-  color: #5a6a8a;
-  margin-bottom: 6px;
-  line-height: 1.5;
-}
-
-.ct-info-card .ct-address {
-  font-style: normal;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #2a3a5e;
-  line-height: 1.65;
-}
-
 .ct-quick {
   border-top: 1px solid rgba(26,82,204,0.08);
   padding-top: 20px;
