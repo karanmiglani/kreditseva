@@ -362,6 +362,39 @@
   box-shadow: 0 14px 32px rgba(26,82,204,0.5);
 }
 
+.pl-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 4px 0 2px;
+}
+
+.pl-consent input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  margin-top: 2px;
+  accent-color: #1a52cc;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.pl-consent label {
+  font-size: 0.72rem;
+  color: #5a6a8a;
+  line-height: 1.55;
+  cursor: pointer;
+}
+
+.pl-consent label a {
+  color: #1a52cc;
+  text-decoration: none;
+}
+
+.pl-consent label a:hover {
+  text-decoration: underline;
+}
+
 .pl-form-note {
   font-size: 0.72rem;
   color: #6e7e93;

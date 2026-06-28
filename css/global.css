@@ -3311,3 +3311,38 @@ body.popup-open {
   .plx-credit-floater .ficon { width: 32px; height: 32px; }
   .plx-credit-floater .value { font-size: 0.82rem; }
 }
+
+/* Form consent checkbox — all lead forms */
+.ks-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 8px 0 4px;
+}
+
+.ks-consent input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  margin-top: 2px;
+  accent-color: #1a52cc;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.ks-consent label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #5a6a8a;
+  line-height: 1.55;
+  cursor: pointer;
+}
+
+.ks-consent label a {
+  color: #1a52cc;
+  text-decoration: none;
+}
+
+.ks-consent label a:hover {
+  text-decoration: underline;
+}

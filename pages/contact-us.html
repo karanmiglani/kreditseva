@@ -240,11 +240,11 @@
             <span class="pl-field-err" id="err-ctMessage"></span>
           </div>
 
-          <div class="ct-consent">
-            <input type="checkbox" id="ct-agree" checked />
-            <label for="ct-agree">I agree to KreditSeva's <a href="/terms-condition" target="_blank" rel="noopener">Terms &amp; Conditions</a>, <a href="/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>, and authorise contact via Call, SMS, Email, or WhatsApp.</label>
+          <div class="ks-consent ct-consent">
+            <input type="checkbox" id="ks-agree" checked />
+            <label for="ks-agree">I agree to KreditSeva's <a href="/terms-condition" target="_blank" rel="noopener">Terms &amp; Conditions</a>, <a href="/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>, and authorise contact via Call, SMS, Email, or WhatsApp.</label>
           </div>
-          <span class="pl-field-err" id="err-ctAgree"></span>
+          <span class="pl-field-err" id="err-ksAgree"></span>
 
           <button type="submit" class="ct-submit">
             Send Message <i class="fa-solid fa-arrow-right"></i>
@@ -383,8 +383,8 @@
       el.style.display = 'none';
     }
 
-    document.getElementById('ct-agree').addEventListener('change', function() {
-      if (this.checked) clearCtErr('err-ctAgree');
+    document.getElementById('ks-agree').addEventListener('change', function() {
+      if (this.checked) clearCtErr('err-ksAgree');
     });
 
     document.getElementById('contactForm').addEventListener('submit', async function(e) {
@@ -409,9 +409,9 @@
       if (!message) { showCtErr('err-ctMessage', 'Please enter your message'); valid = false; }
       else clearCtErr('err-ctMessage');
 
-      var agreed = document.getElementById('ct-agree').checked;
-      if (!agreed) { showCtErr('err-ctAgree', 'Please agree to continue'); valid = false; }
-      else clearCtErr('err-ctAgree');
+      var agreed = document.getElementById('ks-agree').checked;
+      if (!agreed) { showCtErr('err-ksAgree', 'Please agree to continue'); valid = false; }
+      else clearCtErr('err-ksAgree');
 
       if (!valid) return;
     try {
