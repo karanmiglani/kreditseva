@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karan Miglani — Backend Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #475569;
+      --accent: #1d4ed8;
+      --border: #e2e8f0;
+      --bg: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 10.25pt;
+      line-height: 1.42;
+      color: var(--ink);
+      background: #f1f5f9;
+      padding: 20px;
+    }
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--bg);
+      box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .header {
+      padding: 28px 36px 22px;
+      border-bottom: 3px solid var(--accent);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: start;
+    }
+    .name { font-size: 26pt; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+    .title { font-size: 11pt; font-weight: 500; color: var(--accent); margin-top: 5px; }
+    .contact { text-align: right; font-size: 8.75pt; color: var(--muted); line-height: 1.65; }
+    .contact a { color: var(--muted); text-decoration: none; }
+    .contact .loc { font-weight: 600; color: var(--ink); margin-top: 3px; }
+    .body {
+      padding: 20px 36px 28px;
+      display: grid;
+      grid-template-columns: 228px 1fr;
+      gap: 28px;
+    }
+    .sidebar section, .main section { margin-bottom: 18px; }
+    .sidebar section:last-child, .main section:last-child { margin-bottom: 0; }
+    h2 {
+      font-size: 8pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: var(--accent);
+      margin-bottom: 8px;
+      padding-bottom: 3px;
+      border-bottom: 1.5px solid var(--border);
+    }
+    .skill-group { margin-bottom: 8px; }
+    .skill-group:last-child { margin-bottom: 0; }
+    .skill-label {
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .skill-tags { font-size: 8.75pt; line-height: 1.5; }
+    .edu-degree { font-weight: 600; font-size: 9pt; }
+    .edu-school { font-size: 8.75pt; color: var(--muted); margin-top: 1px; }
+    .edu-meta { font-size: 8.25pt; color: var(--muted); margin-top: 1px; }
+    .achievement { margin-bottom: 8px; font-size: 8.75pt; }
+    .achievement:last-child { margin-bottom: 0; }
+    .achievement strong { display: block; font-weight: 600; }
+    .achievement span { color: var(--muted); font-size: 8.25pt; }
+    .summary { font-size: 9.5pt; color: var(--muted); line-height: 1.55; }
+    .job { margin-bottom: 16px; }
+    .job:last-child { margin-bottom: 0; }
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 1px;
+    }
+    .job-title { font-weight: 700; font-size: 10pt; }
+    .job-date {
+      font-size: 8.25pt;
+      font-weight: 600;
+      color: var(--muted);
+      white-space: nowrap;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .job-company { font-size: 9pt; font-weight: 500; color: var(--accent); margin-bottom: 1px; }
+    .job-context { font-size: 8.25pt; color: var(--muted); font-style: italic; margin-bottom: 6px; }
+    ul.bullets { list-style: none; padding: 0; }
+    ul.bullets li {
+      position: relative;
+      padding-left: 13px;
+      margin-bottom: 4px;
+      font-size: 9pt;
+      line-height: 1.45;
+    }
+    ul.bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .print-hint {
+      text-align: center;
+      font-size: 8.75pt;
+      color: var(--muted);
+      padding: 14px;
+    }
+    .print-hint kbd {
+      background: #e2e8f0;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.75pt;
+    }
+    @media print {
+      body { background: white; padding: 0; }
+      .page { box-shadow: none; border-radius: 0; max-width: 100%; }
+      .print-hint { display: none; }
+      a { color: var(--muted) !important; }
+    }
+    @media (max-width: 700px) {
+      .header { grid-template-columns: 1fr; }
+      .contact { text-align: left; }
+      .body { grid-template-columns: 1fr; padding: 18px 22px 24px; }
+      .header { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="header">
+    <div>
+      <h1 class="name">Karan Miglani</h1>
+      <p class="title">Backend Engineer &nbsp;·&nbsp; Node.js &nbsp;·&nbsp; Java &nbsp;·&nbsp; Spring Boot</p>
+    </div>
+    <div class="contact">
+      <a href="mailto:karanmiglani03@gmail.com">karanmiglani03@gmail.com</a><br />
+      <a href="tel:+917056319213">+91-7056319213</a><br />
+      <a href="https://linkedin.com/in/karanmiglani">linkedin.com/in/karanmiglani</a><br />
+      <a href="https://github.com/karanmiglani">github.com/karanmiglani</a>
+      <div class="loc">Remote, India</div>
+    </div>
+  </header>
+
+  <div class="body">
+
+    <aside class="sidebar">
+
+      <section>
+        <h2>Skills</h2>
+        <div class="skill-group">
+          <div class="skill-label">Languages</div>
+          <div class="skill-tags">Java, Python, C++, SQL</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label">Backend</div>
+          <div class="skill-tags">Node.js, Express.js, Spring Boot, REST APIs, Microservices, JWT, RBAC, WebSockets</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label">Data</div>
+          <div class="skill-tags">MySQL, MongoDB, Redis, Elasticsearch, Hibernate, JPA</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label">Infra</div>
+          <div class="skill-tags">RabbitMQ, AWS (EC2, S3), Docker, ELK Stack, Git, CI/CD</div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Education</h2>
+        <div class="edu-degree">B.Tech — Information Technology</div>
+        <div class="edu-school">Chandigarh Group of Colleges, Mohali</div>
+        <div class="edu-meta">2018 – 2022 &nbsp;·&nbsp; CGPA 8.19 / 10</div>
+      </section>
+
+      <section>
+        <h2>Achievements</h2>
+        <div class="achievement">
+          <strong>Codeforces — Candidate Master</strong>
+          <span>Rating 2050 · Global #93 (Div. 2, R618)</span>
+        </div>
+        <div class="achievement">
+          <strong>CodeChef — 6-Star</strong>
+          <span>Rating 2285</span>
+        </div>
+        <div class="achievement">
+          <strong>Facebook Hacker Cup 2020</strong>
+          <span>Round 2 Qualifier</span>
+        </div>
+      </section>
+
+    </aside>
+
+    <main class="main">
+
+      <section>
+        <h2>Summary</h2>
+        <p class="summary">
+          Backend Engineer with experience across <strong>Node.js</strong> and <strong>Java/Spring Boot</strong>
+          — B2B platforms, high-traffic APIs, and production systems. Strong in
+          <strong>Redis caching</strong>, message queues, and real-time systems. Codeforces
+          Candidate Master (2050).
+        </p>
+      </section>
+
+      <section>
+        <h2>Experience</h2>
+
+        <article class="job">
+          <div class="job-header">
+            <span class="job-title">Software Engineer</span>
+            <span class="job-date">Jun 2023 – Present</span>
+          </div>
+          <div class="job-company">Le-Mantus Pharmaceuticals Pvt. Ltd.</div>
+          <div class="job-context">Veterinary pharma · B2B distributor network · Remote</div>
+          <ul class="bullets">
+            <li>Built B2B distributor platform APIs — order placement, batch lookup, and dispatch tracking serving pan-India partners.</li>
+            <li>Cut API response times by <strong>40%</strong> at peak load by fixing N+1 queries and adding a <strong>Redis</strong> caching layer on high-traffic batch endpoints.</li>
+            <li>Designed event-driven notification pipeline using <strong>RabbitMQ</strong> for async status updates and audit logging across the supply chain.</li>
+            <li>Shipped real-time distributor alerts via <strong>WebSockets</strong> for urgent batch recalls — replacing manual phone-based communication.</li>
+            <li>Set up centralized logging with <strong>ELK stack</strong> to speed up production incident debugging.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-header">
+            <span class="job-title">Software Engineer</span>
+            <span class="job-date">Mar 2022 – Apr 2023</span>
+          </div>
+          <div class="job-company">Lunar Astro</div>
+          <div class="job-context">Live astrology platform · Web + Android · Dehradun</div>
+          <ul class="bullets">
+            <li>Built Node.js/Express backend serving unified REST APIs for web and Android clients.</li>
+            <li>Migrated search for <strong>27,000+ records</strong> from MySQL full-text to <strong>Elasticsearch</strong>, fixing latency on multi-parameter queries.</li>
+            <li>Integrated Razorpay and Paytm payment flows for 10k+ users — consultations and course purchases.</li>
+            <li>Implemented JWT authentication and RBAC for admins, astrologers, and students.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-header">
+            <span class="job-title">Teaching Assistant</span>
+            <span class="job-date">Jan 2021 – Jul 2021</span>
+          </div>
+          <div class="job-company">CodePulse · Gurugram</div>
+          <ul class="bullets">
+            <li>Mentored students on data structures, algorithms, and competitive programming.</li>
+          </ul>
+        </article>
+
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<p class="print-hint">PDF: <kbd>Cmd+P</kbd> / <kbd>Ctrl+P</kbd> → Save as PDF → Background graphics ON</p>
+
+</body>
+</html>
