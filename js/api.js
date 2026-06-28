@@ -47,7 +47,7 @@ async function savePhoneNumber(){
     })
     const data = await resp.json();
     if(data.success){
-      showToast(data.message);
+      showToast('Please click on Proceed button to continue');
       document.getElementById('btn-submit').disabled = false;
       sessionStorage.setItem('id', data.rawLeadId)
     }
@@ -56,8 +56,17 @@ async function savePhoneNumber(){
   }
 }
 
-// ── Hero form redirect — sirf phone validate karo ──
+// ── Hero form redirect — consent + phone ──
 function redirect(product = '') {
+  const agree = document.getElementById('ks-agree');
+  if (agree && !agree.checked) {
+    if (document.getElementById('err-ksAgree')) {
+      showMessage('err-ksAgree', 'Please agree to continue');
+    } else if (typeof showToast === 'function') {
+      showToast('Please agree to continue');
+    }
+    return;
+  }
   window.location.href = '/apply-now?product=' + encodeURIComponent(product);
 }
 
