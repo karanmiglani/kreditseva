@@ -1276,7 +1276,6 @@ $(document).ready(function() {
     var agreeErr = document.getElementById('err-dcPopupAgree');
     var mobileRegex = /^[6-9]\d{9}$/;
     var reopenTimer = null;
-    var INITIAL_DELAY = 3500;
     var REOPEN_DELAY = 7000;
 
     function showErr(el, msg) {
@@ -1376,7 +1375,7 @@ $(document).ready(function() {
       }
     });
 
-    setTimeout(openPopup, INITIAL_DELAY);
+    openPopup();
   })();
   </script>
 </body>

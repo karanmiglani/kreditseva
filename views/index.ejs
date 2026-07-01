@@ -1559,7 +1559,6 @@
     var agreeErr = document.getElementById('err-ksAgree');
     var mobileRegex = /^[6-9]\d{9}$/;
     var reopenTimer = null;
-    var INITIAL_DELAY = 3500;
     var REOPEN_DELAY = 7000;
 
     function showErr(el, msg) {
@@ -1658,7 +1657,7 @@
       }
     });
 
-    setTimeout(openPopup, INITIAL_DELAY);
+    openPopup();
   })();
   </script>
 </body>
