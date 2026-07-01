@@ -17,8 +17,8 @@ const cspDirectives = {
         'data:'
     ],
     imgSrc: ["'self'", 'data:', 'https:'],
-    connectSrc: ["'self'"],
-    objectSrc: ["'none'"],
+    connectSrc: ["'self'", 'https://cdn.jsdelivr.net'],
+    objectSrc: ["'self'"],
     baseUri: ["'self'"],
     formAction: ["'self'"],
     frameAncestors: ["'self'"],

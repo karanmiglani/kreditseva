@@ -1487,6 +1487,47 @@
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
+  <!-- Debt Consolidation — Homepage popup -->
+  <div class="ks-popup-overlay dc-home-popup" id="dcHomePopup" aria-hidden="true">
+    <div class="ks-popup-modal dc-home-popup-modal" role="dialog" aria-labelledby="dcHomePopupTitle">
+      <button type="button" class="ks-popup-close" id="dcHomePopupClose" aria-label="Close">&times;</button>
+
+      <div class="dc-home-popup-top">
+        <img src="images/debt-consolidation.png" alt="Debt Consolidation" class="dc-home-popup-img" />
+        <div class="dc-home-popup-copy">
+          <span class="dc-home-popup-badge">Save up to 30% monthly</span>
+          <h2 id="dcHomePopupTitle">Merge All EMIs Into <span>One</span></h2>
+          <p>Combine personal loans, credit cards &amp; other EMIs into a single affordable payment — free expert help from 25+ lenders.</p>
+          <ul class="dc-home-popup-points">
+            <li><i class="fa-solid fa-check"></i> Lower monthly EMI</li>
+            <li><i class="fa-solid fa-check"></i> Quick eligibility check</li>
+            <li><i class="fa-solid fa-check"></i> 100% confidential</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dc-home-popup-form">
+        <label class="dc-home-popup-label" for="dcHomePhone">Mobile Number</label>
+        <div class="dc-home-popup-phone">
+          <span><i class="fa-solid fa-phone"></i> +91</span>
+          <input type="tel" id="dcHomePhone" placeholder="Enter mobile number" maxlength="10" autocomplete="tel" />
+        </div>
+        <span class="pl-field-err" id="err-dcHomePhone"></span>
+
+        <div class="ks-consent">
+          <input type="checkbox" id="ks-agree" checked />
+          <label for="ks-agree">I agree to KreditSeva's <a href="/terms-condition" target="_blank" rel="noopener">Terms &amp; Conditions</a>, <a href="/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>, and authorise contact via Call, SMS, Email, or WhatsApp.</label>
+        </div>
+        <span class="pl-field-err" id="err-ksAgree"></span>
+
+        <button type="button" class="ks-submit-btn" id="dcHomePopupSubmit">
+          Check My Savings — Free
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+        <a href="/debt-consolidation" class="dc-home-popup-link">Learn more about debt consolidation</a>
+      </div>
+    </div>
+  </div>
 
   <!-- =========================
        SCRIPTS — UNCHANGED
@@ -1505,6 +1546,119 @@
 
   <script src="js/loader.js?v=<%= assetVersion %>"></script>
   <script src="js/smooth-scroll.js?v=<%= assetVersion %>"></script>
+
+  <script>
+  (function () {
+    var popup = document.getElementById('dcHomePopup');
+    if (!popup || window.location.pathname !== '/') return;
+
+    var closeBtn = document.getElementById('dcHomePopupClose');
+    var submitBtn = document.getElementById('dcHomePopupSubmit');
+    var phoneInput = document.getElementById('dcHomePhone');
+    var phoneErr = document.getElementById('err-dcHomePhone');
+    var agreeErr = document.getElementById('err-ksAgree');
+    var mobileRegex = /^[6-9]\d{9}$/;
+    var storageKey = 'ks-dc-popup-dismissed';
+
+    function showErr(el, msg) {
+      if (!el) return;
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
+    function clearErr(el) {
+      if (!el) return;
+      el.textContent = '';
+      el.style.display = 'none';
+    }
+
+    function openPopup() {
+      popup.classList.add('active');
+      popup.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('popup-open');
+      setTimeout(function () { phoneInput && phoneInput.focus(); }, 300);
+    }
+
+    function closePopup(store) {
+      popup.classList.remove('active');
+      popup.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('popup-open');
+      if (store) sessionStorage.setItem(storageKey, '1');
+    }
+
+    function canShowPopup() {
+      return !sessionStorage.getItem(storageKey);
+    }
+
+    closeBtn && closeBtn.addEventListener('click', function () { closePopup(true); });
+    popup.addEventListener('click', function (e) {
+      if (e.target === popup) closePopup(true);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && popup.classList.contains('active')) closePopup(true);
+    });
+
+    document.getElementById('ks-agree') && document.getElementById('ks-agree').addEventListener('change', function () {
+      if (this.checked) clearErr(agreeErr);
+    });
+
+    phoneInput && phoneInput.addEventListener('input', function () {
+      this.value = this.value.replace(/\D/g, '');
+      clearErr(phoneErr);
+    });
+
+    submitBtn && submitBtn.addEventListener('click', async function () {
+      clearErr(phoneErr);
+      clearErr(agreeErr);
+
+      var agree = document.getElementById('ks-agree');
+      if (agree && !agree.checked) {
+        showErr(agreeErr, 'Please agree to continue');
+        return;
+      }
+
+      var phone = phoneInput.value.trim();
+      if (!mobileRegex.test(phone)) {
+        showErr(phoneErr, 'Please enter a valid 10-digit mobile number');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.75';
+
+      try {
+        var resp = await fetch(window.location.origin + '/api/leads/save-phone-number', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ phone_number: phone, product: 'debt-consolidation' })
+        });
+        var data = await resp.json();
+
+        if (data.success) {
+          sessionStorage.setItem('id', data.rawLeadId || '');
+          sessionStorage.setItem(storageKey, '1');
+          closePopup(false);
+          if (typeof showToast === 'function') showToast(data.message || 'Redirecting...');
+          setTimeout(function () {
+            window.location.href = '/apply-now?product=debt-consolidation';
+          }, 1200);
+        } else {
+          showErr(phoneErr, data.message || 'Something went wrong. Please try again.');
+        }
+      } catch (err) {
+        showErr(phoneErr, 'Network error. Please try again.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+      }
+    });
+
+    if (canShowPopup()) {
+      setTimeout(openPopup, 3500);
+    }
+  })();
+  </script>
 </body>
 
 </html>

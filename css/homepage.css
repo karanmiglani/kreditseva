@@ -2095,6 +2095,165 @@
   .plx-blog-body { padding: 20px 20px 22px; }
 }
 
+/* =========================
+   DEBT CONSOLIDATION — HOMEPAGE POPUP
+========================= */
+.dc-home-popup .ks-popup-modal {
+  max-width: 520px;
+  padding: 24px 24px 22px;
+}
+
+.dc-home-popup-top {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.dc-home-popup-img {
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.dc-home-popup-copy h2 {
+  font-size: 1.35rem;
+  line-height: 1.25;
+  color: #0a1f44;
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.dc-home-popup-copy h2 span {
+  color: #1a52cc;
+}
+
+.dc-home-popup-copy p {
+  font-size: 0.82rem;
+  color: #5a6a8a;
+  line-height: 1.55;
+  margin: 0 0 10px;
+}
+
+.dc-home-popup-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #0f766e;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.dc-home-popup-points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.dc-home-popup-points li {
+  font-size: 0.78rem;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dc-home-popup-points i {
+  color: #16a34a;
+  font-size: 0.72rem;
+}
+
+.dc-home-popup-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #0a1f44;
+  margin-bottom: 6px;
+}
+
+.dc-home-popup-phone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px solid #d9e2f0;
+  border-radius: 14px;
+  padding: 0 14px;
+  height: 50px;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.dc-home-popup-phone:focus-within {
+  border-color: #1a52cc;
+  box-shadow: 0 0 0 4px rgba(26, 82, 204, 0.1);
+}
+
+.dc-home-popup-phone span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1a52cc;
+  white-space: nowrap;
+}
+
+.dc-home-popup-phone input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 1rem;
+  color: #0f172a;
+  background: transparent;
+}
+
+.dc-home-popup-form .ks-consent {
+  margin-top: 12px;
+}
+
+.dc-home-popup-form .ks-submit-btn {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dc-home-popup-link {
+  display: block;
+  text-align: center;
+  margin-top: 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #1a52cc;
+  text-decoration: none;
+}
+
+.dc-home-popup-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .dc-home-popup-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .dc-home-popup-points li {
+    justify-content: center;
+  }
+
+  .dc-home-popup-copy h2 {
+    font-size: 1.2rem;
+  }
+}
+
 /* ============================================================
    KREDITSEVA THEME VARIABLES
 ============================================================ */
