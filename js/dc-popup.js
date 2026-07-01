@@ -1,19 +1,7 @@
 (function () {
   var POPUPS = [
-    {
-      popupId: 'dcHomePopup',
-      paths: ['/'],
-      closeId: 'dcHomePopupClose',
-      submitId: 'dcHomePopupSubmit',
-      redirect: '/apply-now?product=debt-consolidation'
-    },
-    {
-      popupId: 'dcPagePopup',
-      paths: ['/debt-consolidation'],
-      closeId: 'dcPagePopupClose',
-      submitId: 'dcPagePopupSubmit',
-      redirect: '#emi-calculator'
-    }
+    { popupId: 'dcHomePopup', paths: ['/'], closeId: 'dcHomePopupClose' },
+    { popupId: 'dcPagePopup', paths: ['/debt-consolidation'], closeId: 'dcPagePopupClose' }
   ];
 
   var path = window.location.pathname;
@@ -30,7 +18,6 @@
 
   var popup = document.getElementById(cfg.popupId);
   var closeBtn = document.getElementById(cfg.closeId);
-  var submitBtn = document.getElementById(cfg.submitId);
   var reopenTimer = null;
   var REOPEN_DELAY = 7000;
 
@@ -70,16 +57,6 @@
     launch();
   }
 
-  function goToAction() {
-    closePopup(false);
-    if (cfg.redirect.charAt(0) === '#') {
-      var target = document.querySelector(cfg.redirect);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      return;
-    }
-    window.location.href = cfg.redirect;
-  }
-
   closeBtn && closeBtn.addEventListener('click', function () { closePopup(true); });
   popup.addEventListener('click', function (e) {
     if (e.target === popup) closePopup(true);
@@ -87,8 +64,6 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && popup.classList.contains('active')) closePopup(true);
   });
-
-  submitBtn && submitBtn.addEventListener('click', goToAction);
 
   scheduleInitialOpen();
 })();
