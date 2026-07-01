@@ -5,7 +5,10 @@
 
   function hideLoader() {
     loader.classList.add('ks-loader-hide');
-    setTimeout(function () { loader.style.display = 'none'; }, 450);
+    setTimeout(function () {
+      loader.style.display = 'none';
+      document.dispatchEvent(new CustomEvent('ks:loaderhidden'));
+    }, 450);
   }
 
   if (document.readyState !== 'loading') {
