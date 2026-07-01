@@ -1494,27 +1494,31 @@
 
       <h2 id="dcHomePopupTitle" class="dc-pop-title">Paying multiple EMI's?</h2>
 
-      <div class="dc-pop-debts" aria-hidden="true">
-        <span class="dc-pop-chip">CC</span>
+      <div class="dc-pop-amounts">
+        <div class="dc-pop-debt dc-pop-debt-cc">
+          <span class="dc-pop-debt-type">CC</span>
+          <span class="dc-pop-debt-amt">₹5,00,000</span>
+        </div>
         <span class="dc-pop-plus">+</span>
-        <span class="dc-pop-chip">PL</span>
+        <div class="dc-pop-debt dc-pop-debt-pl">
+          <span class="dc-pop-debt-type">PL</span>
+          <span class="dc-pop-debt-amt">₹10,00,000</span>
+        </div>
         <span class="dc-pop-plus">+</span>
-        <span class="dc-pop-chip">OD</span>
+        <div class="dc-pop-debt dc-pop-debt-od">
+          <span class="dc-pop-debt-type">OD</span>
+          <span class="dc-pop-debt-amt">₹2,50,000</span>
+        </div>
         <span class="dc-pop-plus">+</span>
-        <span class="dc-pop-chip dc-pop-chip-wide">Other Loan</span>
+        <div class="dc-pop-debt dc-pop-debt-other">
+          <span class="dc-pop-debt-type">Other</span>
+          <span class="dc-pop-debt-amt">₹2,50,000</span>
+        </div>
       </div>
 
       <div class="dc-pop-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
 
       <p class="dc-pop-benefit">One EMI — <strong>30% Less</strong></p>
-
-      <div class="dc-pop-input-box">
-        <div class="dc-pop-phone">
-          <span>+91</span>
-          <input type="tel" id="dcHomePhone" placeholder="Enter mobile number" maxlength="10" autocomplete="tel" />
-        </div>
-        <span class="pl-field-err" id="err-dcHomePhone"></span>
-      </div>
 
       <div class="ks-consent dc-pop-consent">
         <input type="checkbox" id="ks-agree" checked />

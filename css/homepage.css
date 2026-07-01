@@ -2106,8 +2106,8 @@
 }
 
 .dc-pop .dc-pop-modal {
-  max-width: 400px;
-  padding: 28px 24px 24px;
+  max-width: 420px;
+  padding: 28px 22px 24px;
   text-align: center;
   transform: translateY(16px) scale(0.98);
   transition: transform 0.18s ease, opacity 0.18s ease;
@@ -2121,52 +2121,87 @@
   font-size: 1.45rem;
   font-weight: 700;
   color: #0a1f44;
-  margin: 0 0 20px;
+  margin: 0 0 18px;
   line-height: 1.3;
 }
 
-.dc-pop-debts {
+.dc-pop-amounts {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 6px 4px;
-  margin-bottom: 12px;
+  gap: 8px 6px;
+  padding: 16px 12px;
+  margin-bottom: 8px;
+  border-radius: 16px;
+  background: linear-gradient(160deg, #f0f5ff 0%, #f8fafc 50%, #eef8ff 100%);
+  border: 1px solid #dbe4f5;
 }
 
-.dc-pop-chip {
-  display: inline-flex;
+.dc-pop-debt {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-width: 44px;
-  height: 36px;
-  padding: 0 10px;
-  border: 2px solid #1a52cc;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #1a52cc;
-  background: #f0f5ff;
+  min-width: 72px;
+  padding: 10px 8px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
 }
 
-.dc-pop-chip-wide {
-  min-width: auto;
-  padding: 0 12px;
+.dc-pop-debt-type {
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  opacity: 0.85;
+}
+
+.dc-pop-debt-amt {
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.dc-pop-debt-cc {
+  background: linear-gradient(145deg, #fff1f2 0%, #ffe4e6 100%);
+  border-color: #fecdd3;
+  color: #be123c;
+}
+
+.dc-pop-debt-pl {
+  background: linear-gradient(145deg, #eff6ff 0%, #dbeafe 100%);
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.dc-pop-debt-od {
+  background: linear-gradient(145deg, #fff7ed 0%, #ffedd5 100%);
+  border-color: #fed7aa;
+  color: #c2410c;
+}
+
+.dc-pop-debt-other {
+  background: linear-gradient(145deg, #f5f3ff 0%, #ede9fe 100%);
+  border-color: #ddd6fe;
+  color: #6d28d9;
 }
 
 .dc-pop-plus {
   font-size: 1rem;
-  font-weight: 700;
-  color: #64748b;
+  font-weight: 800;
+  color: #94a3b8;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .dc-pop-arrow {
   color: #1a52cc;
   font-size: 1.25rem;
-  margin: 4px 0 14px;
+  margin: 6px 0 12px;
   animation: dc-pop-bounce 1.6s ease-in-out infinite;
 }
 
@@ -2179,58 +2214,12 @@
   font-size: 1.15rem;
   font-weight: 600;
   color: #0a1f44;
-  margin: 0 0 20px;
+  margin: 0 0 16px;
 }
 
 .dc-pop-benefit strong {
   color: #16a34a;
   font-weight: 800;
-}
-
-.dc-pop-input-box {
-  border: 2px solid #c7d5ee;
-  border-radius: 14px;
-  padding: 16px 14px 10px;
-  margin-bottom: 14px;
-  background: #f8fbff;
-}
-
-.dc-pop-phone {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #fff;
-  border: 1.5px solid #d9e2f0;
-  border-radius: 10px;
-  padding: 0 12px;
-  height: 48px;
-}
-
-.dc-pop-phone:focus-within {
-  border-color: #1a52cc;
-  box-shadow: 0 0 0 3px rgba(26, 82, 204, 0.12);
-}
-
-.dc-pop-phone span {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #1a52cc;
-  white-space: nowrap;
-}
-
-.dc-pop-phone input {
-  border: none;
-  outline: none;
-  width: 100%;
-  font-size: 1rem;
-  color: #0f172a;
-  background: transparent;
-  text-align: left;
-}
-
-.dc-pop-input-box .pl-field-err {
-  text-align: left;
-  margin-top: 6px;
 }
 
 .dc-pop-consent {
@@ -2248,7 +2237,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-top: 14px;
+  margin-top: 12px;
   padding: 14px 20px;
   border: none;
   border-radius: 12px;
@@ -2266,34 +2255,31 @@
   box-shadow: 0 12px 28px rgba(26, 82, 204, 0.42);
 }
 
-.dc-pop-cta:disabled {
-  opacity: 0.75;
-  cursor: not-allowed;
-  transform: none;
-}
-
 .dc-pop-cta i {
   font-size: 0.9rem;
 }
 
 @media (max-width: 480px) {
   .dc-pop .dc-pop-modal {
-    padding: 24px 18px 20px;
+    padding: 24px 16px 20px;
   }
 
   .dc-pop-title {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
 
-  .dc-pop-chip {
-    min-width: 38px;
-    height: 32px;
-    font-size: 0.72rem;
+  .dc-pop-amounts {
+    gap: 6px 4px;
+    padding: 12px 8px;
   }
 
-  .dc-pop-chip-wide {
-    font-size: 0.65rem;
-    padding: 0 8px;
+  .dc-pop-debt {
+    min-width: 62px;
+    padding: 8px 6px;
+  }
+
+  .dc-pop-debt-amt {
+    font-size: 0.68rem;
   }
 
   .dc-pop-benefit {
