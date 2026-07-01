@@ -570,9 +570,9 @@
           <div class="bt-calc-field">
             <div class="bt-calc-field-top">
               <label>New Interest Rate (p.a.)</label>
-              <div class="bt-calc-val-box"><input type="number" id="btNewRate" value="12" /><span>%</span></div>
+              <div class="bt-calc-val-box"><input type="number" id="btNewRate" value="9.98" step="0.01" /><span>%</span></div>
             </div>
-            <input type="range" id="btNewRateRange" min="1" max="36" step="0.5" value="12" />
+            <input type="range" id="btNewRateRange" min="1" max="36" step="0.01" value="9.98" />
             <div class="bt-calc-range-labels"><span>1%</span><span>36%</span></div>
           </div>
 
@@ -636,7 +636,7 @@
     function btUpdate() {
       var amt     = parseFloat(document.getElementById('btLoanAmt').value)   || 0;
       var oldRate = parseFloat(document.getElementById('btOldRate').value)   || 18;
-      var newRate = parseFloat(document.getElementById('btNewRate').value)   || 12;
+      var newRate = parseFloat(document.getElementById('btNewRate').value)   || 9.98;
       var months  = 60;
 
       document.getElementById('btLoanRange').value     = Math.min(amt, 5000000);
@@ -762,9 +762,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td>HDFC Bank</td><td class="pl-bt-roi">9.99%*</td><td>₹40 Lakhs</td><td>Up to ₹6,500 + GST</td><td>Personal Loan BT, Credit Card BT, Debt Consolidation</td></tr>
+              <tr><td>HDFC Bank</td><td class="pl-bt-roi">9.98%*</td><td>₹40 Lakhs</td><td>Up to ₹6,500 + GST</td><td>Personal Loan BT, Credit Card BT, Debt Consolidation</td></tr>
               <tr><td>ICICI Bank</td><td class="pl-bt-roi">10.80%*</td><td>₹50 Lakhs</td><td>Up to 2% + GST</td><td>High-income salaried customers</td></tr>
-              <tr><td>IDFC FIRST Bank</td><td class="pl-bt-roi">9.99%*</td><td>₹35 Lakhs</td><td>0%–3.5% + GST</td><td>Loan &amp; Credit Card Consolidation</td></tr>
+              <tr><td>IDFC FIRST Bank</td><td class="pl-bt-roi">9.98%*</td><td>₹35 Lakhs</td><td>0%–3.5% + GST</td><td>Loan &amp; Credit Card Consolidation</td></tr>
               <tr><td>IndusInd Bank</td><td class="pl-bt-roi">10.49%*</td><td>₹50 Lakhs</td><td>Up to 3.5% + GST</td><td>Large-ticket balance transfer</td></tr>
               <tr><td>Axis Finance</td><td class="pl-bt-roi">11.00%*</td><td>₹30 Lakhs</td><td>Up to 2% + GST</td><td>Existing salary account customers</td></tr>
               <tr><td>Bajaj Finance</td><td class="pl-bt-roi">10.00%*</td><td>₹55 Lakhs</td><td>Up to 3.93% + GST</td><td>Large debt consolidation cases</td></tr>

@@ -48,7 +48,7 @@ function update() {
   const ccMinDue = cc * 0.05;
   const loanEmi  = calcEMI(loan, 13, 60);
   const oldEmi   = ccMinDue + loanEmi;
-  const newEmi   = calcEMI(total, 12, 60);
+  const newEmi   = calcEMI(total, 9.98, 60);
   const saving   = oldEmi > 0 ? ((oldEmi - newEmi) / oldEmi * 100) : 0;
 
   newEmiEl.textContent = formatINR(newEmi);

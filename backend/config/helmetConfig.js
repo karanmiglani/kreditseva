@@ -3,6 +3,7 @@ const isProd = process.env.NODE_ENV === 'production';
 const cspDirectives = {
     defaultSrc: ["'self'"],
     scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.jsdelivr.net'],
+    scriptSrcAttr: ["'unsafe-inline'"],
     styleSrc: [
         "'self'",
         "'unsafe-inline'",

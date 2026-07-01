@@ -1558,7 +1558,9 @@
     var phoneErr = document.getElementById('err-dcHomePhone');
     var agreeErr = document.getElementById('err-ksAgree');
     var mobileRegex = /^[6-9]\d{9}$/;
-    var storageKey = 'ks-dc-popup-dismissed';
+    var reopenTimer = null;
+    var INITIAL_DELAY = 3500;
+    var REOPEN_DELAY = 7000;
 
     function showErr(el, msg) {
       if (!el) return;
@@ -1573,21 +1575,24 @@
     }
 
     function openPopup() {
+      if (popup.classList.contains('active')) return;
       popup.classList.add('active');
       popup.setAttribute('aria-hidden', 'false');
       document.body.classList.add('popup-open');
       setTimeout(function () { phoneInput && phoneInput.focus(); }, 300);
     }
 
-    function closePopup(store) {
+    function closePopup(reschedule) {
       popup.classList.remove('active');
       popup.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('popup-open');
-      if (store) sessionStorage.setItem(storageKey, '1');
-    }
-
-    function canShowPopup() {
-      return !sessionStorage.getItem(storageKey);
+      if (reopenTimer) {
+        clearTimeout(reopenTimer);
+        reopenTimer = null;
+      }
+      if (reschedule) {
+        reopenTimer = setTimeout(openPopup, REOPEN_DELAY);
+      }
     }
 
     closeBtn && closeBtn.addEventListener('click', function () { closePopup(true); });
@@ -1637,7 +1642,6 @@
 
         if (data.success) {
           sessionStorage.setItem('id', data.rawLeadId || '');
-          sessionStorage.setItem(storageKey, '1');
           closePopup(false);
           if (typeof showToast === 'function') showToast(data.message || 'Redirecting...');
           setTimeout(function () {
@@ -1654,9 +1658,7 @@
       }
     });
 
-    if (canShowPopup()) {
-      setTimeout(openPopup, 3500);
-    }
+    setTimeout(openPopup, INITIAL_DELAY);
   })();
   </script>
 </body>
