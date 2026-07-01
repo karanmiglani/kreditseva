@@ -5,8 +5,6 @@
       paths: ['/'],
       closeId: 'dcHomePopupClose',
       submitId: 'dcHomePopupSubmit',
-      agreeId: 'ks-agree',
-      agreeErrId: 'err-ksAgree',
       redirect: '/apply-now?product=debt-consolidation'
     },
     {
@@ -14,8 +12,6 @@
       paths: ['/debt-consolidation'],
       closeId: 'dcPagePopupClose',
       submitId: 'dcPagePopupSubmit',
-      agreeId: 'dc-popup-agree',
-      agreeErrId: 'err-dcPopupAgree',
       redirect: '#emi-calculator'
     }
   ];
@@ -35,22 +31,8 @@
   var popup = document.getElementById(cfg.popupId);
   var closeBtn = document.getElementById(cfg.closeId);
   var submitBtn = document.getElementById(cfg.submitId);
-  var agreeErr = document.getElementById(cfg.agreeErrId);
-  var agreeEl = document.getElementById(cfg.agreeId);
   var reopenTimer = null;
   var REOPEN_DELAY = 7000;
-
-  function showErr(el, msg) {
-    if (!el) return;
-    el.textContent = msg;
-    el.style.display = 'block';
-  }
-
-  function clearErr(el) {
-    if (!el) return;
-    el.textContent = '';
-    el.style.display = 'none';
-  }
 
   function openPopup() {
     if (popup.classList.contains('active')) return;
@@ -106,20 +88,7 @@
     if (e.key === 'Escape' && popup.classList.contains('active')) closePopup(true);
   });
 
-  agreeEl && agreeEl.addEventListener('change', function () {
-    if (this.checked) clearErr(agreeErr);
-  });
-
-  submitBtn && submitBtn.addEventListener('click', function () {
-    clearErr(agreeErr);
-
-    if (agreeEl && !agreeEl.checked) {
-      showErr(agreeErr, 'Please agree to continue');
-      return;
-    }
-
-    goToAction();
-  });
+  submitBtn && submitBtn.addEventListener('click', goToAction);
 
   scheduleInitialOpen();
 })();
