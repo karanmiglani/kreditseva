@@ -2102,21 +2102,20 @@
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   background: rgba(8, 18, 45, 0.35);
+  padding: 12px;
   transition: opacity 0.18s ease, visibility 0.18s ease;
 }
 
 .dc-pop .dc-pop-modal {
   position: relative;
   overflow: hidden;
-  max-width: 440px;
+  max-width: 340px;
   padding: 0;
   text-align: center;
   background: linear-gradient(165deg, #ffffff 0%, #f5f9ff 42%, #eef4ff 100%);
   border: 1px solid rgba(26, 82, 204, 0.18);
-  box-shadow:
-    0 28px 70px rgba(15, 35, 90, 0.22),
-    0 0 0 1px rgba(255, 255, 255, 0.85) inset;
-  transform: translateY(16px) scale(0.98);
+  box-shadow: 0 16px 40px rgba(15, 35, 90, 0.18);
+  transform: translateY(12px) scale(0.98);
   transition: transform 0.18s ease, opacity 0.18s ease;
 }
 
@@ -2137,7 +2136,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 5px;
+  height: 3px;
   background: linear-gradient(90deg, #1a52cc 0%, #00a8d6 50%, #16a34a 100%);
 }
 
@@ -2145,22 +2144,26 @@
   content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.35;
-  background-image: radial-gradient(rgba(26, 82, 204, 0.18) 1px, transparent 1px);
-  background-size: 18px 18px;
+  opacity: 0.25;
+  background-image: radial-gradient(rgba(26, 82, 204, 0.15) 1px, transparent 1px);
+  background-size: 14px 14px;
 }
 
 .dc-pop-inner {
   position: relative;
   z-index: 1;
-  padding: 28px 22px 24px;
+  padding: 18px 16px 16px;
 }
 
 .dc-pop .ks-popup-close {
   z-index: 3;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  font-size: 22px;
   background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(26, 82, 204, 0.12);
-  box-shadow: 0 4px 12px rgba(15, 35, 90, 0.1);
 }
 
 .ks-popup-overlay.dc-pop.active .dc-pop-modal {
@@ -2170,13 +2173,13 @@
 .dc-pop-tag {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  margin-bottom: 12px;
+  gap: 4px;
+  padding: 3px 9px;
+  margin-bottom: 8px;
   border-radius: 999px;
-  font-size: 0.68rem;
+  font-size: 0.6rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #1a52cc;
   background: linear-gradient(135deg, rgba(26, 82, 204, 0.1) 0%, rgba(0, 168, 214, 0.08) 100%);
@@ -2184,15 +2187,15 @@
 }
 
 .dc-pop-tag i {
-  font-size: 0.7rem;
+  font-size: 0.58rem;
 }
 
 .dc-pop-title {
-  font-size: 1.45rem;
+  font-size: 1.12rem;
   font-weight: 800;
   color: #0a1f44;
-  margin: 0 0 18px;
-  line-height: 1.3;
+  margin: 0 0 12px;
+  line-height: 1.25;
 }
 
 .dc-pop-amounts {
@@ -2200,15 +2203,13 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 8px 6px;
-  padding: 18px 14px;
-  margin-bottom: 12px;
-  border-radius: 18px;
+  gap: 5px 3px;
+  padding: 10px 8px;
+  margin-bottom: 8px;
+  border-radius: 12px;
   background: linear-gradient(160deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 247, 255, 0.9) 100%);
   border: 1px solid rgba(26, 82, 204, 0.12);
-  box-shadow:
-    0 8px 24px rgba(26, 82, 204, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 12px rgba(26, 82, 204, 0.06);
 }
 
 .dc-pop-debt {
@@ -2216,31 +2217,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-width: 74px;
-  padding: 11px 9px;
-  border-radius: 14px;
+  min-width: 52px;
+  padding: 6px 5px;
+  border-radius: 10px;
   border: 1px solid transparent;
-  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
-  transition: transform 0.15s ease;
-}
-
-.dc-pop-debt:hover {
-  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.06);
 }
 
 .dc-pop-debt-type {
-  font-size: 0.72rem;
+  font-size: 0.62rem;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   opacity: 0.9;
 }
 
 .dc-pop-debt-amt {
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.1;
   white-space: nowrap;
 }
 
@@ -2269,9 +2265,9 @@
 }
 
 .dc-pop-plus {
-  font-size: 1rem;
+  font-size: 0.82rem;
   font-weight: 800;
-  color: #64748b;
+  color: #94a3b8;
   line-height: 1;
   flex-shrink: 0;
 }
@@ -2280,39 +2276,38 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 12px 16px;
-  margin-bottom: 10px;
-  border-radius: 14px;
+  gap: 8px;
+  padding: 7px 12px;
+  margin-bottom: 8px;
+  border-radius: 10px;
   background: linear-gradient(135deg, #1a52cc 0%, #0f3d99 100%);
   color: #fff;
-  box-shadow: 0 10px 24px rgba(26, 82, 204, 0.28);
+  box-shadow: 0 4px 14px rgba(26, 82, 204, 0.22);
 }
 
 .dc-pop-total span {
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   font-weight: 600;
   opacity: 0.9;
 }
 
 .dc-pop-total strong {
-  font-size: 1rem;
+  font-size: 0.88rem;
   font-weight: 800;
-  letter-spacing: -0.01em;
 }
 
 .dc-pop-result {
-  padding: 10px 14px 14px;
-  margin-bottom: 4px;
-  border-radius: 16px;
+  padding: 6px 10px 8px;
+  margin-bottom: 0;
+  border-radius: 10px;
   background: linear-gradient(180deg, rgba(22, 163, 74, 0.08) 0%, rgba(22, 163, 74, 0.03) 100%);
-  border: 1px dashed rgba(22, 163, 74, 0.35);
+  border: 1px dashed rgba(22, 163, 74, 0.3);
 }
 
 .dc-pop-arrow {
   color: #1a52cc;
-  font-size: 1.2rem;
-  margin: 0 0 8px;
+  font-size: 0.95rem;
+  margin: 0 0 4px;
   animation: dc-pop-bounce 1.6s ease-in-out infinite;
 }
 
@@ -2322,7 +2317,7 @@
 }
 
 .dc-pop-benefit {
-  font-size: 1.12rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #0a1f44;
   margin: 0;
@@ -2338,58 +2333,49 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-top: 16px;
-  padding: 15px 20px;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 11px 14px;
   border: none;
-  border-radius: 14px;
+  border-radius: 10px;
   background: linear-gradient(135deg, #1a52cc 0%, #0d3a9e 100%);
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.88rem;
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
-  box-shadow: 0 10px 28px rgba(26, 82, 204, 0.38);
+  box-shadow: 0 6px 18px rgba(26, 82, 204, 0.3);
 }
 
 .dc-pop-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(26, 82, 204, 0.45);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(26, 82, 204, 0.38);
 }
 
 .dc-pop-cta i {
-  font-size: 0.9rem;
+  font-size: 0.78rem;
 }
 
 @media (max-width: 480px) {
+  .dc-pop .dc-pop-modal {
+    max-width: 92vw;
+  }
+
   .dc-pop-inner {
-    padding: 24px 16px 20px;
+    padding: 16px 14px 14px;
   }
 
   .dc-pop-title {
-    font-size: 1.2rem;
-  }
-
-  .dc-pop-amounts {
-    gap: 6px 4px;
-    padding: 14px 10px;
+    font-size: 1.05rem;
   }
 
   .dc-pop-debt {
-    min-width: 62px;
-    padding: 8px 6px;
+    min-width: 48px;
+    padding: 5px 4px;
   }
 
   .dc-pop-debt-amt {
-    font-size: 0.68rem;
-  }
-
-  .dc-pop-total strong {
-    font-size: 0.9rem;
-  }
-
-  .dc-pop-benefit {
-    font-size: 1.02rem;
+    font-size: 0.62rem;
   }
 }
 
