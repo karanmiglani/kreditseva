@@ -10,7 +10,7 @@ var SALARY_OPTIONS = {
   'self-employed': [
     'Below 25 Lakhs',
     '25-50 Lakhs',
-    '50 - 1 Cr',
+    '50 Lakhs - 1 Cr',
     '1 Cr - 5 Cr',
     'Above 5 Cr'
   ]
@@ -253,6 +253,7 @@ try {
 
 
 async function submitDebtConsolidationForm(product){
+  
   console.log('Function called');
   if(!phone_number || phone_number === undefined || !validatePhone() ) { showMsg('err-dcPhone','Please enter valid mobile number'); return; }
   const name = document.getElementById('dcName').value.trim().toLowerCase();
