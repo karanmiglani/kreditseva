@@ -1679,6 +1679,16 @@
   z-index: 1;
 }
 
+.plx-review-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 10px;
+  line-height: 1.35;
+  position: relative;
+  z-index: 1;
+}
+
 .plx-review-author {
   display: flex;
   align-items: center;
