@@ -754,11 +754,10 @@
   }
 
   function updateApplyIncomeField() {
-    var product = document.getElementById('af-product').value;
     var occupation = document.getElementById('af-occupation').value;
     var select = document.getElementById('af-income');
     var label = document.getElementById('ap-income-label');
-    var useAnnual = product === 'debt-consolidation' && occupation === 'self-employed';
+    var useAnnual = occupation === 'self-employed';
     var options = useAnnual ? AP_SALARY_OPTIONS.annual : AP_SALARY_OPTIONS.monthly;
 
     label.innerHTML = (useAnnual ? 'Annual Income' : 'Net Monthly Income') + ' <span>*</span>';
@@ -809,8 +808,6 @@
         input.placeholder = 'Enter amount e.g. 500000';
       }
     }
-
-    updateApplyIncomeField();
   });
 
   document.getElementById('af-loan-amount').addEventListener('input', function () {
