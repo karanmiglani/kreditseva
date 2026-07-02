@@ -627,7 +627,7 @@
           </div>
 
           <div class="ap-field">
-            <div class="ap-flabel">Net Monthly Income <span>*</span></div>
+            <div class="ap-flabel" id="ap-income-label">Net Monthly Income <span>*</span></div>
             <select id="af-income">
               <option value="">Select Income</option>
               <option>Below ₹25,000</option>
@@ -726,12 +726,67 @@
   <script src="/js/loader.js"></script>
 
   <script>
+  var AP_SALARY_OPTIONS = {
+    monthly: [
+      'Below ₹25,000',
+      '₹25,000 – ₹50,000',
+      '₹50,000 – ₹1 Lakh',
+      '₹1 Lakh – ₹3 Lakh',
+      'Above ₹3 Lakh'
+    ],
+    annual: [
+      'Below 25 Lakhs',
+      '25-50 Lakhs',
+      '50 - 1 Cr',
+      '1 Cr - 5 Cr',
+      'Above 5 Cr'
+    ]
+  };
+
+  function initApplyIncomeSelect2() {
+    var $sel = $('#af-income');
+    if ($sel.data('select2')) $sel.select2('destroy');
+    $sel.select2({
+      placeholder: 'Select Income',
+      allowClear: true,
+      width: '100%'
+    });
+  }
+
+  function updateApplyIncomeField() {
+    var product = document.getElementById('af-product').value;
+    var occupation = document.getElementById('af-occupation').value;
+    var select = document.getElementById('af-income');
+    var label = document.getElementById('ap-income-label');
+    var useAnnual = product === 'debt-consolidation' && occupation === 'self-employed';
+    var options = useAnnual ? AP_SALARY_OPTIONS.annual : AP_SALARY_OPTIONS.monthly;
+
+    label.innerHTML = (useAnnual ? 'Annual Income' : 'Net Monthly Income') + ' <span>*</span>';
+
+    var $sel = $('#af-income');
+    if ($sel.data('select2')) $sel.select2('destroy');
+
+    select.innerHTML = '<option value="">Select Income</option>' +
+      options.map(function (opt) { return '<option>' + opt + '</option>'; }).join('');
+    select.value = '';
+
+    initApplyIncomeSelect2();
+    $sel.val('').trigger('change.select2');
+
+    var errIncome = document.getElementById('err-income');
+    if (errIncome) {
+      errIncome.textContent = '';
+      errIncome.style.display = 'none';
+    }
+  }
+
   // Occupation toggle
   document.querySelectorAll('.ap-occ-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.ap-occ-btn').forEach(function(b) { b.classList.remove('active'); });
       btn.classList.add('active');
       document.getElementById('af-occupation').value = btn.getAttribute('data-occ');
+      updateApplyIncomeField();
     });
   });
 
@@ -754,6 +809,8 @@
         input.placeholder = 'Enter amount e.g. 500000';
       }
     }
+
+    updateApplyIncomeField();
   });
 
   document.getElementById('af-loan-amount').addEventListener('input', function () {
@@ -782,6 +839,8 @@
         $('#af-product')
             .val(selectedProduct)
             .trigger('change');
+    } else {
+        updateApplyIncomeField();
     }
   </script>
 

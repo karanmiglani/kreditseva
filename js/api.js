@@ -83,7 +83,7 @@ async function submitForm() {
   if (!city) { showMessage('err-city', 'Please enter city'); return; }
 
   const net_monthly_salary = document.getElementById('af-income').value;
-  if (!net_monthly_salary) { showMessage('err-income', 'Please select net monthly income'); return; }
+  if (!net_monthly_salary) { showMessage('err-income', 'Please select income'); return; }
 
   const product = document.getElementById('af-product').value;
   if (!product) { showMessage('err-product', 'Please select product'); return; }

@@ -1,11 +1,77 @@
-// Occupation toggle
+// Occupation toggle + income dropdown
+var SALARY_OPTIONS = {
+  salaried: [
+    'Below ₹25,000',
+    '₹25,000 – ₹50,000',
+    '₹50,000 – ₹1 Lakh',
+    '₹1 Lakh – ₹3 Lakh',
+    'Above ₹3 Lakh'
+  ],
+  'self-employed': [
+    'Below 25 Lakhs',
+    '25-50 Lakhs',
+    '50 - 1 Cr',
+    '1 Cr - 5 Cr',
+    'Above 5 Cr'
+  ]
+};
+
+function initSalarySelect2() {
+  if (!window.jQuery || !jQuery.fn.select2) return;
+  var $sel = jQuery('#formSalary');
+  if ($sel.data('select2')) $sel.select2('destroy');
+  $sel.select2({
+    placeholder: 'Select Income',
+    allowClear: true,
+    width: '100%'
+  });
+}
+
+function setSalaryFieldMode(occupation) {
+  var select = document.getElementById('formSalary');
+  var label = document.getElementById('dc-salary-label');
+  if (!select || !label) return;
+
+  var isSelf = occupation === 'self-employed';
+  var options = SALARY_OPTIONS[isSelf ? 'self-employed' : 'salaried'];
+
+  label.innerHTML = (isSelf ? 'Annual Income' : 'Net Monthly Salary') + ' <span class="dc-req">*</span>';
+
+  if (window.jQuery) {
+    var $sel = jQuery('#formSalary');
+    if ($sel.data('select2')) $sel.select2('destroy');
+  }
+
+  select.innerHTML = '<option value="">Select Income</option>' +
+    options.map(function (opt) { return '<option>' + opt + '</option>'; }).join('');
+  select.value = '';
+
+  initSalarySelect2();
+  if (window.jQuery) {
+    jQuery('#formSalary').val('').trigger('change.select2');
+  }
+}
+
 document.querySelectorAll('.dc-occ-btn').forEach(function(btn) {
   btn.addEventListener('click', function() {
     document.querySelectorAll('.dc-occ-btn').forEach(function(b) { b.classList.remove('active'); });
     btn.classList.add('active');
-    document.getElementById('dc-occupation').value = btn.getAttribute('data-occ');
+    var occ = btn.getAttribute('data-occ');
+    document.getElementById('dc-occupation').value = occ;
+    setSalaryFieldMode(occ);
+    showMsg('err-dcSalary', '');
   });
 });
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function () {
+    initSalarySelect2();
+    setSalaryFieldMode(document.getElementById('dc-occupation')?.value || 'salaried');
+  });
+} else {
+  initSalarySelect2();
+  setSalaryFieldMode(document.getElementById('dc-occupation')?.value || 'salaried');
+}
 
 const ccInput   = document.getElementById('dcCcBills');
 const loanInput = document.getElementById('dcLoanOut');
@@ -196,7 +262,7 @@ async function submitDebtConsolidationForm(product){
   const city = document.getElementById('dcCity').value.trim().toLowerCase();
   if(!city){ showMsg('err-dcCity', 'Please enter city'); return;}
   const net_monthly_salary = document.getElementById('formSalary').value;
-  if(!net_monthly_salary) { showMsg('err-dcSalary','Please enter montly salary.'); return;}
+  if(!net_monthly_salary) { showMsg('err-dcSalary','Please select income.'); return;}
   const occupation = document.getElementById('dc-occupation')?.value || 'salaried';
   const source = window.location.pathname;
   const spinner = document.querySelector('.dc-btn-spinner');

@@ -1,7 +1,6 @@
 (function () {
   var POPUPS = [
-    { popupId: 'dcHomePopup', paths: ['/'], closeId: 'dcHomePopupClose' },
-    { popupId: 'dcPagePopup', paths: ['/debt-consolidation'], closeId: 'dcPagePopupClose' }
+    { popupId: 'dcHomePopup', paths: ['/'], closeId: 'dcHomePopupClose' }
   ];
 
   var path = window.location.pathname;

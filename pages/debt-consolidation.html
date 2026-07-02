@@ -23,7 +23,6 @@
 
   
   <link rel="stylesheet" href="/css/loader.css" />
-  <link rel="stylesheet" href="/css/homepage.css" />
   <link rel="canonical" href="https://kreditseva.com/debt-consolidation" />
 </head>
 <body class="dc-page">
@@ -248,7 +247,7 @@
         </div>
 
         <div class="dc-form-field">
-          <label>Net Monthly Salary <span class="dc-req">*</span></label>
+          <label id="dc-salary-label">Net Monthly Salary <span class="dc-req">*</span></label>
           <select id="formSalary">
             <option value="">Select Income</option>
             <option>Below ₹25,000</option>
@@ -1192,17 +1191,6 @@
   <i class="fa-brands fa-whatsapp"></i>
 </a>
 
-  <!-- Debt Consolidation popup -->
-  <div class="ks-popup-overlay dc-pop" id="dcPagePopup" aria-hidden="true">
-    <div class="ks-popup-modal dc-pop-modal" role="dialog" aria-label="Debt Consolidation Offer">
-      <button type="button" class="ks-popup-close dc-pop-close" id="dcPagePopupClose" aria-label="Close">&times;</button>
-      <div class="dc-pop-media">
-        <img src="/images/popup.jpeg" alt="Paying Multiple EMIs? Consolidate and save every month" class="dc-pop-img" />
-        <a href="/apply-now?product=debt-consolidation" class="dc-pop-apply-float">Apply Now</a>
-      </div>
-    </div>
-  </div>
-
 
 <!-- =========================
      SCRIPTS
@@ -1213,24 +1201,12 @@
 <script src="/js/swiper.js"></script>
 <script src="/js/custom.js"></script>
 
-
-<script>
-$(document).ready(function() {
-  $('#formSalary').select2({
-    placeholder: 'Select Income',
-    allowClear: true,
-    width: '100%'
-  });
-});
-</script>
-
 <a href="tel:+919990033593" class="call-float" aria-label="Call Now">
   <i class="fa-solid fa-phone"></i>
 </a>
 
   <script src="/js/debt-consolidation.js"></script>
   <script src="/js/loader.js"></script>
-  <script src="/js/dc-popup.js"></script>
   <script src="/js/smooth-scroll.js"></script>
 </body>
 </html>
