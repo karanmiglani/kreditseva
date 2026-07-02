@@ -445,8 +445,12 @@ if (testimonialEl) {
     loop: true,
     spaceBetween: 18,
     speed: 600,
+    autoHeight: true,
+    observer: true,
+    observeParents: true,
+    observeSlideChildren: true,
     autoplay: {
-      delay: 2500,
+      delay: 6000,
       disableOnInteraction: false,
     },
     pagination: {
@@ -454,13 +458,22 @@ if (testimonialEl) {
       clickable: true,
     },
     breakpoints: {
-      0:    { slidesPerView: 1 },
-      768:  { slidesPerView: 2 },
-      1100: { slidesPerView: 3 },
+      0:    { slidesPerView: 1, spaceBetween: 14, autoHeight: true },
+      768:  { slidesPerView: 1, spaceBetween: 18, autoHeight: true },
+      992:  { slidesPerView: 2, spaceBetween: 18, autoHeight: false },
+      1280: { slidesPerView: 3, spaceBetween: 20, autoHeight: false },
     },
   });
 
-  // Hover pe autoplay rok do
+  const refreshTestimonialHeight = () => {
+    if (testimonialSwiper.params.autoHeight) {
+      testimonialSwiper.updateAutoHeight(300);
+    } else {
+      testimonialSwiper.update();
+    }
+  };
+
+  window.addEventListener('resize', refreshTestimonialHeight);
   testimonialEl.addEventListener('mouseenter', () => testimonialSwiper.autoplay.stop());
   testimonialEl.addEventListener('mouseleave', () => testimonialSwiper.autoplay.start());
 }
