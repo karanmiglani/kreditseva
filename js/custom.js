@@ -436,6 +436,63 @@ if (faqLoadBtn && hiddenFaqs.length) {
 }
 
 // ================================================================
+//  TESTIMONIALS — avatar image fallback to initials
+// ================================================================
+
+function initReviewAvatars(root) {
+  const scope = root || document;
+  scope.querySelectorAll('.plx-review-avatar').forEach(function (avatar) {
+    const img = avatar.querySelector('img');
+    let initialsEl = avatar.querySelector('.plx-review-avatar-initials');
+
+    const getInitials = function (name) {
+      if (!name) return '';
+      return name.trim().split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) {
+        return w.charAt(0).toUpperCase();
+      }).join('');
+    };
+
+    const showFallback = function () {
+      if (!initialsEl) {
+        initialsEl = document.createElement('span');
+        initialsEl.className = 'plx-review-avatar-initials';
+        initialsEl.setAttribute('aria-hidden', 'true');
+        avatar.appendChild(initialsEl);
+      }
+      initialsEl.textContent = avatar.dataset.initials || getInitials(img && img.alt) || '?';
+      avatar.classList.add('is-fallback');
+    };
+
+    const hideFallback = function () {
+      avatar.classList.remove('is-fallback');
+    };
+
+    if (!img) {
+      showFallback();
+      return;
+    }
+
+    const src = (img.getAttribute('src') || '').trim();
+    if (!src) {
+      showFallback();
+      return;
+    }
+
+    const checkLoaded = function () {
+      if (img.naturalWidth > 0) hideFallback();
+      else showFallback();
+    };
+
+    img.addEventListener('error', showFallback);
+    img.addEventListener('load', checkLoaded);
+
+    if (img.complete) checkLoaded();
+  });
+}
+
+initReviewAvatars();
+
+// ================================================================
 //  TESTIMONIALS SWIPER — Auto-scroll, pauses on hover
 // ================================================================
 
