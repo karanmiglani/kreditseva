@@ -2525,77 +2525,208 @@
 
 @media (max-width: 768px) {
   .ks-popup-overlay.dc-pop {
-    padding: max(10px, env(safe-area-inset-top)) 8px max(10px, env(safe-area-inset-bottom));
+    padding: max(8px, env(safe-area-inset-top)) 6px max(8px, env(safe-area-inset-bottom));
   }
 
   .ks-popup-overlay.dc-pop .ks-popup-modal.dc-pop-modal {
-    max-width: calc(100vw - 16px);
-    padding-top: 40px;
-    max-height: calc(100dvh - 16px);
-    overflow-y: auto;
+    max-width: calc(100vw - 12px);
+    padding-top: 38px;
+    max-height: calc(100dvh - 12px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .dc-pop-card {
-    padding: 18px 16px 16px;
+    padding: 14px 12px 14px;
     border-radius: 14px;
+    min-width: 0;
+  }
+
+  .dc-pop-badge {
+    font-size: 0.62rem;
+    padding: 5px 10px;
+    margin-bottom: 10px;
   }
 
   .dc-pop-layout {
-    grid-template-columns: 1fr;
-    gap: 14px;
-    margin-bottom: 14px;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.55fr);
+    gap: 10px 12px;
+    margin-bottom: 12px;
+  }
+
+  .dc-pop-copy h2 {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
   }
 
   .dc-pop-copy p {
+    font-size: 0.66rem;
+    line-height: 1.45;
     max-width: none;
   }
 
   .dc-pop-visual {
-    grid-template-columns: 1fr;
-    gap: 10px;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.15fr);
+    gap: 6px;
+  }
+
+  .dc-pop-debts {
+    gap: 5px;
+  }
+
+  .dc-pop-debt {
+    padding: 5px 6px;
+    gap: 5px;
+    border-radius: 8px;
+  }
+
+  .dc-pop-debt-icon {
+    width: 22px;
+    height: 22px;
+    font-size: 0.62rem;
+    border-radius: 6px;
+  }
+
+  .dc-pop-debt-info strong {
+    font-size: 0.56rem;
+  }
+
+  .dc-pop-debt-info em {
+    font-size: 0.6rem;
+  }
+
+  .dc-pop-debt-info em span {
+    font-size: 0.5rem;
   }
 
   .dc-pop-flow {
-    flex-direction: row;
-    padding: 2px 0;
+    flex-direction: column;
+    padding: 0 1px;
   }
 
   .dc-pop-flow-line {
-    width: 48px;
-    height: 2px;
-    background: repeating-linear-gradient(90deg, #1a52cc 0 5px, transparent 5px 9px);
+    width: 2px;
+    height: 22px;
+    background: repeating-linear-gradient(180deg, #1a52cc 0 4px, transparent 4px 7px);
   }
 
   .dc-pop-flow i {
-    transform: rotate(90deg);
+    font-size: 0.72rem;
+    transform: none;
   }
 
   .dc-pop-merge {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 5px;
+  }
+
+  .dc-pop-merge-main {
+    padding: 8px 6px;
+    border-radius: 10px;
+  }
+
+  .dc-pop-merge-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 0.78rem;
+    margin-bottom: 4px;
+  }
+
+  .dc-pop-merge-main > strong {
+    font-size: 0.5rem;
+  }
+
+  .dc-pop-merge-label {
+    font-size: 0.54rem;
+  }
+
+  .dc-pop-merge-emi {
+    font-size: 0.82rem;
+  }
+
+  .dc-pop-merge-emi span {
+    font-size: 0.5rem;
+  }
+
+  .dc-pop-save {
+    padding: 8px 6px;
+    border-radius: 10px;
+  }
+
+  .dc-pop-save-icon {
+    width: 22px;
+    height: 22px;
+    font-size: 0.68rem;
+    margin-bottom: 4px;
+  }
+
+  .dc-pop-save p {
+    font-size: 0.5rem;
+  }
+
+  .dc-pop-save > strong {
+    font-size: 0.78rem;
+  }
+
+  .dc-pop-save > span {
+    font-size: 0.5rem;
+    margin-bottom: 5px;
+  }
+
+  .dc-pop-save-new {
+    padding-top: 5px;
+  }
+
+  .dc-pop-save-new small {
+    font-size: 0.48rem;
+  }
+
+  .dc-pop-save-new em {
+    font-size: 0.68rem;
+  }
+
+  .dc-pop-save-new em span {
+    font-size: 0.48rem;
   }
 
   .dc-pop-apply-btn {
-    padding: 12px 22px;
-    font-size: 0.9rem;
-    animation: none;
+    padding: 10px 20px;
+    font-size: 0.82rem;
+    width: min(220px, 100%);
   }
 
   .dc-pop-close {
-    width: 32px;
-    height: 32px;
-    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
   }
 }
 
 @media (max-width: 380px) {
-  .dc-pop-debt {
-    padding: 7px 8px;
+  .dc-pop-card {
+    padding: 12px 10px 12px;
+  }
+
+  .dc-pop-copy h2 {
+    font-size: 0.88rem;
+  }
+
+  .dc-pop-copy p {
+    font-size: 0.62rem;
+  }
+
+  .dc-pop-debt-info strong {
+    font-size: 0.52rem;
+  }
+
+  .dc-pop-debt-info em {
+    font-size: 0.56rem;
   }
 
   .dc-pop-apply-btn {
-    white-space: normal;
-    text-align: center;
-    line-height: 1.2;
+    font-size: 0.78rem;
+    padding: 9px 16px;
   }
 }
 
