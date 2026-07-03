@@ -2167,7 +2167,7 @@
 .ks-popup-overlay.dc-pop .ks-popup-modal.dc-pop-modal {
   position: relative;
   width: 100%;
-  max-width: min(520px, calc(100vw - 32px));
+  max-width: min(450px, calc(100vw - 32px));
   padding: 0;
   margin: 0;
   overflow: visible;
@@ -2206,8 +2206,7 @@
   max-width: 100%;
   border-radius: clamp(10px, 2.5vw, 14px);
   box-shadow: 0 12px 32px rgba(15, 35, 90, 0.18);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+  image-rendering: auto;
 }
 
 .dc-pop-close {
@@ -2263,7 +2262,7 @@
   }
 
   .ks-popup-overlay.dc-pop .ks-popup-modal.dc-pop-modal {
-    max-width: min(340px, calc(100vw - 24px));
+    max-width: min(450px, calc(100vw - 20px));
   }
 
   .dc-pop-media {
@@ -2273,10 +2272,9 @@
   }
 
   .dc-pop-img {
-    max-height: min(190px, calc(100dvh - 120px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
     width: 100%;
     height: auto;
-    object-fit: contain;
+    max-width: 100%;
     border-radius: 10px;
   }
 
@@ -2308,10 +2306,9 @@
   }
 
   .dc-pop-img {
-    max-height: calc(100dvh - 56px);
     width: 100%;
     height: auto;
-    object-fit: contain;
+    max-width: 100%;
     border-radius: 8px;
   }
 
