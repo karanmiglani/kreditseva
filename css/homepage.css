@@ -2167,8 +2167,8 @@
 .ks-popup-overlay.dc-pop .ks-popup-modal.dc-pop-modal {
   position: relative;
   width: 100%;
-  max-width: min(450px, calc(100vw - 32px));
-  padding: 0;
+  max-width: min(720px, calc(100vw - 24px));
+  padding: 44px 0 0;
   margin: 0;
   overflow: visible;
   background: transparent;
@@ -2189,7 +2189,15 @@
 .dc-pop-media {
   position: relative;
   width: 100%;
-  line-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  padding: 0 0 16px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 18px 48px rgba(8, 18, 45, 0.28);
+  overflow: hidden;
 }
 
 .dc-pop-img-link {
@@ -2197,6 +2205,7 @@
   width: 100%;
   line-height: 0;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .dc-pop-img {
@@ -2204,90 +2213,89 @@
   width: 100%;
   height: auto;
   max-width: 100%;
-  border-radius: clamp(10px, 2.5vw, 14px);
-  box-shadow: 0 12px 32px rgba(15, 35, 90, 0.18);
+  border-radius: 0;
+  box-shadow: none;
   image-rendering: auto;
 }
 
 .dc-pop-close {
   position: absolute;
-  top: clamp(6px, 2vw, 10px);
-  right: clamp(6px, 2vw, 10px);
+  top: 0;
+  right: 0;
   z-index: 5;
-  width: clamp(30px, 8vw, 36px);
-  height: clamp(30px, 8vw, 36px);
-  font-size: clamp(18px, 5vw, 22px);
+  width: 36px;
+  height: 36px;
+  font-size: 22px;
+  line-height: 1;
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(26, 82, 204, 0.12);
+  border-radius: 50%;
   box-shadow: 0 4px 12px rgba(15, 35, 90, 0.12);
 }
 
-.dc-pop-apply-float {
-  position: absolute;
-  bottom: clamp(6px, 2vw, 10px);
-  left: 50%;
+.dc-pop-apply-btn {
+  position: relative;
   z-index: 4;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(7px, 2vw, 10px) clamp(14px, 4vw, 22px);
+  align-self: center;
+  padding: 12px 28px;
   border-radius: 999px;
   background: linear-gradient(135deg, #1a52cc 0%, #0d3a9e 100%);
   color: #fff;
-  font-size: clamp(0.78rem, 2.8vw, 0.88rem);
+  font-size: 0.92rem;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
-  max-width: calc(100% - 20px);
-  box-shadow: 0 10px 28px rgba(26, 82, 204, 0.45);
+  min-width: min(220px, calc(100% - 32px));
+  box-shadow: 0 10px 28px rgba(26, 82, 204, 0.4);
   transition: box-shadow 0.15s ease;
-  animation: dc-pop-float 2.4s ease-in-out infinite;
-  transform: translateX(-50%);
+  animation: dc-pop-btn-float 2.4s ease-in-out infinite;
 }
 
-.dc-pop-apply-float:hover {
+.dc-pop-apply-btn:hover {
   color: #fff;
   box-shadow: 0 14px 32px rgba(26, 82, 204, 0.5);
 }
 
-@keyframes dc-pop-float {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-4px); }
+@keyframes dc-pop-btn-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 
 @media (max-width: 768px) {
   .ks-popup-overlay.dc-pop {
     align-items: center;
-    padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom));
+    padding: max(10px, env(safe-area-inset-top)) 8px max(10px, env(safe-area-inset-bottom));
   }
 
   .ks-popup-overlay.dc-pop .ks-popup-modal.dc-pop-modal {
-    max-width: min(450px, calc(100vw - 20px));
+    max-width: calc(100vw - 16px);
+    padding-top: 40px;
   }
 
   .dc-pop-media {
-    position: relative;
-    width: 100%;
-    line-height: 0;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-radius: 12px;
   }
 
-  .dc-pop-img {
-    width: 100%;
-    height: auto;
-    max-width: 100%;
-    border-radius: 10px;
+  .dc-pop-apply-btn {
+    padding: 11px 24px;
+    font-size: 0.88rem;
+    min-width: min(200px, calc(100% - 28px));
   }
 
-  .dc-pop-apply-float {
-    bottom: clamp(5px, 1.8vw, 8px);
-    padding: clamp(6px, 1.8vw, 9px) clamp(12px, 3.5vw, 18px);
-    font-size: clamp(0.72rem, 3vw, 0.82rem);
-    max-width: calc(100% - 16px);
+  .dc-pop-close {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
   }
 }
 
 @media (max-width: 380px) {
-  .dc-pop-apply-float {
+  .dc-pop-apply-btn {
     white-space: normal;
     text-align: center;
     line-height: 1.2;
@@ -2296,26 +2304,30 @@
 
 @media (max-height: 520px) and (orientation: landscape) {
   .ks-popup-overlay.dc-pop .ks-popup-modal.dc-pop-modal {
-    max-width: min(460px, calc(100vw - 24px));
+    max-width: min(640px, calc(100vw - 20px));
+    padding-top: 36px;
   }
 
   .dc-pop-media {
-    position: relative;
-    width: 100%;
-    line-height: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 12px 12px;
   }
 
-  .dc-pop-img {
-    width: 100%;
-    height: auto;
-    max-width: 100%;
-    border-radius: 8px;
+  .dc-pop-img-link {
+    flex: 1 1 280px;
+    min-width: 0;
   }
 
-  .dc-pop-apply-float {
-    bottom: 6px;
-    padding: 6px 14px;
-    font-size: 0.76rem;
+  .dc-pop-apply-btn {
+    flex: 0 0 auto;
+    min-width: 140px;
+    padding: 8px 18px;
+    font-size: 0.82rem;
+    animation: none;
   }
 
   .dc-pop-close {
