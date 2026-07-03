@@ -58,7 +58,7 @@
 
   closeBtn && closeBtn.addEventListener('click', function () { closePopup(true); });
 
-  var dcLinks = popup.querySelectorAll('.dc-pop-apply-btn');
+  var dcLinks = popup.querySelectorAll('.dc-pop-apply-btn, .dc-pop-img-link');
   for (var j = 0; j < dcLinks.length; j++) {
     dcLinks[j].setAttribute('href', '/debt-consolidation');
     dcLinks[j].addEventListener('click', function () { closePopup(false); });
