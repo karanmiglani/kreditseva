@@ -249,22 +249,21 @@
 
 .bl-float-form {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
   background: #fff;
   border-radius: 16px;
   padding: 14px 20px;
   border: none;
-  flex-wrap: nowrap;
   width: 100%;
 }
 
-.bl-float-form-col {
-  flex: 1 1 auto;
-  min-width: 0;
+.bl-float-form-top {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: nowrap;
 }
 
 .bl-float-consent {
@@ -285,10 +284,10 @@
   padding: 0 16px;
   height: 54px;
   background: #f0f6ff;
-  width: 100%;
-  min-width: 0;
+  width: 260px;
+  max-width: 100%;
+  flex: 0 0 auto;
   transition: border-color 0.2s, background 0.2s;
-  flex: none;
 }
 
 .bl-float-field:focus-within { border-color: #1a52cc; }
@@ -339,7 +338,6 @@
   box-shadow: 0 4px 14px rgba(26,82,204,0.28);
   transition: transform 0.2s, box-shadow 0.2s;
   flex-shrink: 0;
-  align-self: center;
 }
 
 .bl-float-btn:hover {
@@ -360,9 +358,9 @@
   .bl-hero-checks { justify-items: center; }
   .bl-hero-actions { justify-content: center; }
   .bl-hero-sub { margin-left: auto; margin-right: auto; }
-  .bl-float-form { gap: 12px; padding: 12px 16px; }
-  .bl-float-form-col { gap: 8px; }
-  .bl-float-field { min-width: 0; }
+  .bl-float-form { gap: 10px; padding: 12px 16px; }
+  .bl-float-form-top { gap: 10px; }
+  .bl-float-field { width: 220px; }
 }
 
 @media (max-width: 560px) {
@@ -371,10 +369,10 @@
   .bl-hero-h1 { font-size: 1.7rem; }
   .bl-hero-checks { grid-template-columns: 1fr; }
   .bl-hero-img { max-height: 280px; }
-  .bl-float-form { flex-direction: column; align-items: stretch; gap: 14px; padding: 20px 18px; }
-  .bl-float-form-col { gap: 10px; }
-  .bl-float-field { min-width: unset; height: 56px; padding: 0 18px; font-size: 16px; }
-  .bl-float-btn { width: 100%; justify-content: center; height: 46px; font-size: 15px; align-self: stretch; }
+  .bl-float-form { gap: 12px; padding: 20px 18px; }
+  .bl-float-form-top { flex-direction: column; align-items: stretch; gap: 12px; }
+  .bl-float-field { width: 100%; height: 56px; padding: 0 18px; font-size: 16px; }
+  .bl-float-btn { width: 100%; justify-content: center; height: 46px; font-size: 15px; }
 }
 
 @media (max-width: 960px) {
