@@ -2167,7 +2167,7 @@
 .ks-popup-overlay.dc-pop .ks-popup-modal.dc-pop-modal {
   position: relative;
   width: 100%;
-  max-width: min(900px, calc(100vw - 24px));
+  max-width: min(520px, calc(100vw - 32px));
   padding: 0;
   margin: 0;
   overflow: visible;
@@ -2190,6 +2190,13 @@
   position: relative;
   width: 100%;
   line-height: 0;
+}
+
+.dc-pop-img-link {
+  display: block;
+  width: 100%;
+  line-height: 0;
+  text-decoration: none;
 }
 
 .dc-pop-img {
@@ -2218,17 +2225,17 @@
 
 .dc-pop-apply-float {
   position: absolute;
-  bottom: clamp(8px, 2.5vw, 14px);
+  bottom: clamp(6px, 2vw, 10px);
   left: 50%;
   z-index: 4;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(9px, 2.5vw, 12px) clamp(18px, 5vw, 28px);
+  padding: clamp(7px, 2vw, 10px) clamp(14px, 4vw, 22px);
   border-radius: 999px;
   background: linear-gradient(135deg, #1a52cc 0%, #0d3a9e 100%);
   color: #fff;
-  font-size: clamp(0.82rem, 3.2vw, 0.95rem);
+  font-size: clamp(0.78rem, 2.8vw, 0.88rem);
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
@@ -2256,37 +2263,28 @@
   }
 
   .ks-popup-overlay.dc-pop .ks-popup-modal.dc-pop-modal {
-    max-width: calc(100vw - 16px);
+    max-width: min(340px, calc(100vw - 24px));
   }
 
   .dc-pop-media {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-    line-height: normal;
+    position: relative;
+    width: 100%;
+    line-height: 0;
   }
 
   .dc-pop-img {
-    max-height: calc(100dvh - 130px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    max-height: min(190px, calc(100dvh - 120px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
     width: 100%;
     height: auto;
+    object-fit: contain;
     border-radius: 10px;
   }
 
   .dc-pop-apply-float {
-    position: static;
-    transform: none;
-    animation: none;
-    width: 100%;
-    max-width: 300px;
-    margin: 0;
-    padding: 12px 20px;
-    font-size: 0.92rem;
-  }
-
-  .dc-pop-apply-float:hover {
-    transform: none;
+    bottom: clamp(5px, 1.8vw, 8px);
+    padding: clamp(6px, 1.8vw, 9px) clamp(12px, 3.5vw, 18px);
+    font-size: clamp(0.72rem, 3vw, 0.82rem);
+    max-width: calc(100% - 16px);
   }
 }
 
@@ -2300,30 +2298,27 @@
 
 @media (max-height: 520px) and (orientation: landscape) {
   .ks-popup-overlay.dc-pop .ks-popup-modal.dc-pop-modal {
-    max-width: min(720px, calc(100vw - 24px));
+    max-width: min(460px, calc(100vw - 24px));
   }
 
   .dc-pop-media {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+    position: relative;
+    width: 100%;
+    line-height: 0;
   }
 
   .dc-pop-img {
     max-height: calc(100dvh - 56px);
-    max-width: calc(100% - 150px);
+    width: 100%;
+    height: auto;
+    object-fit: contain;
     border-radius: 8px;
   }
 
   .dc-pop-apply-float {
-    position: static;
-    transform: none;
-    animation: none;
-    width: auto;
-    padding: 8px 18px;
-    font-size: 0.82rem;
+    bottom: 6px;
+    padding: 6px 14px;
+    font-size: 0.76rem;
   }
 
   .dc-pop-close {

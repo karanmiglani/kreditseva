@@ -57,6 +57,13 @@
   }
 
   closeBtn && closeBtn.addEventListener('click', function () { closePopup(true); });
+
+  var dcLinks = popup.querySelectorAll('.dc-pop-apply-float, .dc-pop-img-link');
+  for (var j = 0; j < dcLinks.length; j++) {
+    dcLinks[j].setAttribute('href', '/debt-consolidation');
+    dcLinks[j].addEventListener('click', function () { closePopup(false); });
+  }
+
   popup.addEventListener('click', function (e) {
     if (e.target === popup) closePopup(true);
   });
