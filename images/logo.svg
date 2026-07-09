@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="KreditSeva">
+  <defs>
+    <linearGradient id="ks-logo-bg" x1="6" y1="6" x2="42" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#0A1F44"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="12" fill="url(#ks-logo-bg)"/>
+  <text x="24" y="32" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="800" letter-spacing="-0.5">KS</text>
+  <circle cx="37.5" cy="10.5" r="3.75" fill="#38BDF8"/>
+</svg>

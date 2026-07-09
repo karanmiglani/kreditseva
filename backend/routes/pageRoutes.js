@@ -1,6 +1,9 @@
 const express = require('express');
 const path = require('path');
 const authMiddleware = require('../midllewares/authMiddleware');
+const { requireRole } = authMiddleware;
+const adminOnly = [authMiddleware, requireRole('admin')];
+const blogAccess = [authMiddleware, requireRole('admin', 'editor')];
 const { getLatestBlogs, featuredBlog, getBlog, getRecentArticles, relatedArticle } = require('../services/blogService');
 const loanAmountPages = require('../data/loanAmountPages');
 const { getPage: getCityPage } = require('../data/loanCityPages');
@@ -221,40 +224,48 @@ router.get('/loan/:slug', (req, resp) => {
 router.get('/admin', (req,resp) => {
     const token = req.cookies.token;
     if(token){
-        return resp.redirect('/admin/dashboard');
+        try {
+            const jwt = require('jsonwebtoken');
+            const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+            let role = String(decoded.role || '').toLowerCase().trim();
+            if (role === 'super admin' || role === 'superadmin' || role === 'super_admin') role = 'admin';
+            return resp.redirect(role === 'editor' ? '/admin/blogs' : '/admin/dashboard');
+        } catch (_) {
+            resp.clearCookie('token');
+        }
     }
     resp.sendFile(path.join(__dirname, "../../admin/index.html"));
 })
 
-router.get('/admin/dashboard' , authMiddleware, (req, resp) => {
+router.get('/admin/dashboard' , ...adminOnly, (req, resp) => {
     resp.sendFile(path.join(__dirname, '../../protected/dashboard.html'))
 })
 
-router.get('/admin/blogs' , authMiddleware, (req, resp) => {
+router.get('/admin/blogs' , ...blogAccess, (req, resp) => {
     resp.sendFile(path.join(__dirname, '../../protected/blogs.html'))
 })
 
-router.get('/admin/blog-editor' , authMiddleware, (req, resp) => {
+router.get('/admin/blog-editor' , ...blogAccess, (req, resp) => {
     resp.sendFile(path.join(__dirname, '../../protected/blog-editor.html'))
 })
 
-router.get('/admin/loan-applications', authMiddleware, (req, resp) => {
+router.get('/admin/loan-applications', ...adminOnly, (req, resp) => {
     resp.sendFile(path.join(__dirname, '../../protected/loan-applications.html'))
 })
 
-router.get('/admin/contact-messages', authMiddleware, (req, resp) => {
+router.get('/admin/contact-messages', ...adminOnly, (req, resp) => {
     resp.sendFile(path.join(__dirname, '../../protected/contact-messages.html'))
 })
 
-router.get('/admin/partner-leads', authMiddleware, (req, resp) => {
+router.get('/admin/partner-leads', ...adminOnly, (req, resp) => {
     resp.sendFile(path.join(__dirname, '../../protected/partner-leads.html'))
 })
 
-router.get('/admin/complete-leads', authMiddleware, (req, resp) => {
+router.get('/admin/complete-leads', ...adminOnly, (req, resp) => {
     resp.sendFile(path.join(__dirname, '../../protected/complete-leads.html'))
 })
 
-router.get('/admin/raw-leads', authMiddleware, (req, resp) => {
+router.get('/admin/raw-leads', ...adminOnly, (req, resp) => {
     resp.sendFile(path.join(__dirname, '../../protected/raw-leads.html'))
 })
 
@@ -284,6 +295,6 @@ router.get('/sitemap', (req,resp) => {
     resp.sendFile(path.join(__dirname,'../../pages/sitemap-page.html'))
 })
 
-router.get('/download-exel-report', authMiddleware, downloadExcelReport)
+router.get('/download-exel-report', ...adminOnly, downloadExcelReport)
 
 module.exports = router;
