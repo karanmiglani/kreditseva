@@ -46,7 +46,9 @@
       const data = await response.json();
 
       if (data.success) {
-        window.location.href = 'dashboard';
+        var role = String((data.admin && data.admin.role) || '').toLowerCase().trim();
+        if (role === 'super admin' || role === 'superadmin' || role === 'super_admin') role = 'admin';
+        window.location.href = role === 'editor' ? '/admin/blogs' : '/admin/dashboard';
       } else {
         showAlert(data.message || 'Invalid credentials');
       }

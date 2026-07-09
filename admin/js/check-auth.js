@@ -1,18 +1,69 @@
 (function(){
 
+    const BLOG_ONLY_PATHS = ['/admin/blogs', '/admin/blog-editor'];
+    const ADMIN_ONLY_SELECTORS = [
+        'a[href="/admin/dashboard"]',
+        'a[href="/admin/loan-applications"]',
+        'a[href="/admin/contact-messages"]',
+        'a[href="/admin/partner-leads"]',
+        '.sb-group'
+    ];
+
+    function normalizeRole(role) {
+        const r = String(role || '').toLowerCase().trim();
+        if (r === 'super admin' || r === 'superadmin' || r === 'super_admin') return 'admin';
+        return r;
+    }
+
+    function roleLabel(role) {
+        const r = normalizeRole(role);
+        if (r === 'editor') return 'Blog Editor';
+        if (r === 'admin') return 'Admin';
+        return role || 'Admin';
+    }
+
+    function applyRoleUI(role) {
+        const r = normalizeRole(role);
+        if (r !== 'editor') return;
+
+        ADMIN_ONLY_SELECTORS.forEach((sel) => {
+            document.querySelectorAll(sel).forEach((el) => {
+                el.style.display = 'none';
+            });
+        });
+
+        const path = window.location.pathname;
+        if (!BLOG_ONLY_PATHS.includes(path)) {
+            window.location.replace('/admin/blogs');
+        }
+    }
+
     async function checkAuth(){
         try{
             const resp = await fetch(`${window.location.origin}/api/auth/check-auth`, {
                 credentials : 'include'
             });
             const data = await resp.json();
-            if(!data.success){ console.log(data); }
+            if(!data.success || !data.admin){
+                window.location.href = '/admin';
+                return;
+            }
             localStorage.setItem('admin-name', data.admin.name);
             localStorage.setItem('admin-role', data.admin.role);
-            document.getElementById('adminName').textContent = data.admin.name;
-            document.getElementById('adminRole').textContent = data.admin.role;
+            const nameEl = document.getElementById('adminName');
+            const roleEl = document.getElementById('adminRole');
+            if (nameEl) nameEl.textContent = data.admin.name;
+            if (roleEl) roleEl.textContent = roleLabel(data.admin.role);
+            const avatar = document.getElementById('adminAvatar');
+            if (avatar && data.admin.name) {
+                avatar.textContent = data.admin.name.charAt(0).toUpperCase();
+            }
+            const welcome = document.getElementById('welcomeName');
+            if (welcome) welcome.textContent = data.admin.name;
+            applyRoleUI(data.admin.role);
         }catch(err){
             console.log('Message from console : ', err);
+            window.location.href = '/admin';
         }
     }
     checkAuth();
