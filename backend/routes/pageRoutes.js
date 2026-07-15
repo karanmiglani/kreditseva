@@ -9,6 +9,7 @@ const loanAmountPages = require('../data/loanAmountPages');
 const { getPage: getCityPage } = require('../data/loanCityPages');
 const { saveLead, downloadExcelReport } = require('../controllers/loanApplicationController');
 const sanitizeBlogContent = require('../utils/sanitizeBlogContent');
+const { buildBlogSchemaJson } = require('../utils/buildBlogSchema');
 const { setNoStoreHeaders } = require('../config/cacheHeaders');
 const router = express.Router();
 
@@ -192,10 +193,13 @@ router.get('/blog/:slug', async (req, resp, next) => {
 
         blog[0].content = sanitizeBlogContent(blog[0].content);
 
+        const schemaJson = buildBlogSchemaJson(blog[0], resp.locals.siteUrl || 'https://kreditseva.com');
+
         resp.render('blog-detail', {
             blog,
             recentBlogs,
-            relatedBlogs
+            relatedBlogs,
+            schemaJson
         });
     } catch (error) {
         next(error);

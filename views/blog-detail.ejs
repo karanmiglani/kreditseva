@@ -27,6 +27,9 @@
   <meta name="twitter:description" content="<%= seoDesc %>">
   <meta name="twitter:image" content="<%= ogImage %>">
   <link rel="canonical" href="<%= siteUrl %>/blog/<%= post.slug %>" />
+  <% if (typeof schemaJson === 'string' && schemaJson) { %>
+  <script type="application/ld+json"><%- schemaJson %></script>
+  <% } %>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

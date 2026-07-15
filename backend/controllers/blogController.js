@@ -8,7 +8,7 @@ const sanitizeBlogContent = require('../utils/sanitizeBlogContent');
 const createBlog = async (req, resp) => {
     let imagePath = null;
     try{
-    const { title , slug, content, metaTitle, metaDec, metaKeywords, status, category, readTime} = req.body;
+    const { title , slug, content, metaTitle, metaDesc, metaKeywords, status, category, readTime} = req.body;
     const safeContent = sanitizeBlogContent(content);
 
     if(req.file){
@@ -40,7 +40,7 @@ const createBlog = async (req, resp) => {
         author_id
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         const author_id = req.admin.id;
-        const values = [title, slug, safeContent, category, status, imagePath, metaTitle, metaDec, metaKeywords, readTime, author_id];
+        const values = [title, slug, safeContent, category, status, imagePath, metaTitle, metaDesc, metaKeywords, readTime, author_id];
         const [result] = await db.query(query,values);
 
         
