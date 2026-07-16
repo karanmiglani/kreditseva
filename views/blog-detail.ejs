@@ -272,22 +272,30 @@
       ================================================= -->
       <aside class="bd-sidebar">
 
-        <!-- CTA Card -->
-        <div class="bds-cta">
-          <div class="bds-cta-shine"></div>
-          <div class="bds-cta-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
-          <h4>Need a Loan?</h4>
-          <p>Get personal loan up to ₹50 Lakhs at 9.99% p.a. Instant approval, 100% digital.</p>
-          <a href="/apply-now" class="bds-cta-btn">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+        <!-- Sticky CTAs — stay visible while reading the article -->
+        <div class="bd-sidebar-sticky">
+          <div class="bds-cta">
+            <div class="bds-cta-shine"></div>
+            <div class="bds-cta-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+            <h4>Need a Loan?</h4>
+            <p>Get personal loan up to ₹50 Lakhs at 9.99% p.a. Instant approval, 100% digital.</p>
+            <a href="/apply-now" class="bds-cta-btn">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+
+          <div class="bds-score">
+            <div class="bds-score-badge">FREE</div>
+            <i class="fa-solid fa-star bds-score-star"></i>
+            <h4>Check Your Credit Score</h4>
+            <p>Free, instant, zero impact on your score.</p>
+            <a href="/check-my-credit-score" class="bds-score-btn">Check for Free <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
         </div>
 
-        <!-- Related Articles -->
+        <!-- Related Articles (scroll with page; not sticky) -->
         <div class="bds-related">
           <h4 class="bds-heading"><i class="fa-solid fa-newspaper"></i> Recent Articles</h4>
-
-          <!-- DYNAMIC: related_posts[] — loop 3-4 posts -->
            <% recentBlogs.forEach((item, index) => { %>
-          <a href="#" class="bds-rel-item">
+          <a href="/blog/<%= item.slug %>" class="bds-rel-item">
             <div class="bds-rel-img">
               <img src="<%= item.featured_image %>" alt="<%= item.title %>" />
             </div>
@@ -298,21 +306,14 @@
             </div>
           </a>
           <% }) %>
-          <!-- END DYNAMIC -->
-        </div>
-
-
-
-        <!-- Credit Score CTA -->
-        <div class="bds-score">
-          <div class="bds-score-badge">FREE</div>
-          <i class="fa-solid fa-star bds-score-star"></i>
-          <h4>Check Your Credit Score</h4>
-          <p>Free, instant, zero impact on your score.</p>
-          <a href="/check-my-credit-score" class="bds-score-btn">Check for Free <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
       </aside>
+
+  <!-- Mobile fixed Apply bar (CTAs visible on small screens) -->
+  <div class="bd-mobile-cta" id="bdMobileCta">
+    <a href="/apply-now" class="bd-mobile-cta-btn">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
 
     </div>
 
