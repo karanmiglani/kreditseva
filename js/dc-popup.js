@@ -18,7 +18,7 @@
   var popup = document.getElementById(cfg.popupId);
   var closeBtn = document.getElementById(cfg.closeId);
   var reopenTimer = null;
-  var REOPEN_DELAY = 7000;
+  var REOPEN_DELAY = 40000;
 
   function openPopup() {
     if (popup.classList.contains('active')) return;
