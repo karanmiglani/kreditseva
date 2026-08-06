@@ -33,7 +33,7 @@ function errorHandler(err, req, res, next) {
     }
 
     if (status === 404) {
-        return res.status(404).sendFile(path.join(__dirname, '../pages/404.html'));
+        return res.status(404).sendFile(path.join(__dirname, '../../pages/404.html'));
     }
 
     return res.status(status).send(message);
