@@ -13,7 +13,7 @@ const createBlog = async (req, resp) => {
 
     if(req.file){
 
-        const uploadPath = path.join(__dirname,'../../images/blog' );
+        const uploadPath = path.join(__dirname,'../images/blog' );
 
         // create folder if not exists
         if(!fs.existsSync(uploadPath)){
@@ -59,7 +59,7 @@ const createBlog = async (req, resp) => {
     }catch(err){
         console.log(err);
         if(imagePath){
-            const fullPath = path.join(__dirname, '../../',imagePath);
+            const fullPath = path.join(__dirname, '..', imagePath);
             if(fs.existsSync(fullPath)){
                 fs.unlinkSync(fullPath);
             }
@@ -202,7 +202,7 @@ const updateBlog = async(req, resp) => {
         // =========================
         if(req.file){
 
-            const uploadPath = path.join(__dirname,'../../images/blog' );
+            const uploadPath = path.join(__dirname,'../images/blog' );
 
             // Create folder
             if(!fs.existsSync(uploadPath)){
@@ -242,7 +242,7 @@ const updateBlog = async(req, resp) => {
 
                 const oldImageFullPath = path.join(
                     __dirname,
-                    '../../',
+                    '..',
                     existingBlog.featured_image
                 );
 
@@ -319,7 +319,7 @@ const updateBlog = async(req, resp) => {
 
             const fullPath = path.join(
                 __dirname,
-                '../../',
+                '..',
                 newImagePath
             );
 
@@ -355,7 +355,7 @@ const deleteBlog = async(req , resp) => {
         });
     }
     const imagePath = row[0].featured_image;
-    const fullImagePath = path.join(__dirname,'../../',imagePath);
+    const fullImagePath = path.join(__dirname, '..', imagePath);
     const [rows] = await db.query('DELETE FROM blogs where id = ?',[blogId]);
     if(rows.affectedRows > 0){
         if(fullImagePath && fs.existsSync(fullImagePath)){

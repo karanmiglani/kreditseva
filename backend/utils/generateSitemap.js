@@ -10,7 +10,7 @@ async function getPublishedBlogSlugs() {
 }
 
 async function generateSitemapXml() {
-    const basePath = path.join(__dirname, '../../sitemap.xml');
+    const basePath = path.join(__dirname, '../sitemap.xml');
     let xml = await fs.readFile(basePath, 'utf8');
 
     try {
