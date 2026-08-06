@@ -164,14 +164,15 @@
 
 .ks-seo-hero {
   width: 100%;
-  background: #f3f5f8;
-  border-bottom: 1px solid rgba(10, 31, 68, 0.08);
+  background: linear-gradient(135deg, #cce4ff 0%, #daeeff 50%, #e8f4ff 100%);
+  overflow: clip;
 }
 
 .ks-seo-hero-split {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.8fr);
   min-height: 0;
+  align-items: center;
 }
 
 .ks-seo-hero-content {
@@ -179,18 +180,12 @@
   flex-direction: column;
   justify-content: center;
   padding: 28px 40px 28px clamp(20px, 5vw, 64px);
-  background: linear-gradient(90deg, #ffffff 0%, #f7f9fc 100%);
+  background: transparent;
   position: relative;
 }
 
 .ks-seo-hero-content::after {
-  content: "";
-  position: absolute;
-  top: 28px;
-  bottom: 28px;
-  right: 0;
-  width: 1px;
-  background: linear-gradient(180deg, transparent, rgba(10, 31, 68, 0.12), transparent);
+  display: none;
 }
 
 .ks-seo-hero-kicker {
@@ -238,10 +233,10 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0;
   margin: 0 0 18px;
-  border: 1px solid rgba(10, 31, 68, 0.1);
+  border: 1px solid rgba(26, 82, 204, 0.16);
   border-radius: 10px;
   overflow: hidden;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.55);
   max-width: 520px;
 }
 
@@ -320,46 +315,48 @@
   background: rgba(26, 82, 204, 0.05);
 }
 
-/* Right stage — navy panel, angled cut */
+/* Right stage — old blue bg + soft blob shape */
 .ks-seo-hero-stage {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 24px 28px 22px;
-  background:
-    radial-gradient(circle at 70% 30%, rgba(77, 127, 255, 0.35), transparent 45%),
-    linear-gradient(160deg, #0d1547 0%, #0A1F44 55%, #081633 100%);
-  color: #fff;
-  clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
-  overflow: hidden;
+  padding: 24px 32px 22px 16px;
+  background: transparent;
+  color: #0A1F44;
+  overflow: visible;
 }
 
 .ks-seo-hero-stage-glow {
   position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: rgba(94, 224, 255, 0.12);
-  filter: blur(20px);
-  bottom: 8%;
-  left: 18%;
+  z-index: 0;
+  width: min(86%, 300px);
+  aspect-ratio: 1;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.55) 0%, rgba(147, 197, 253, 0.45) 100%);
+  border: 1px solid rgba(26, 82, 204, 0.12);
+  /* organic blob / squircle frame */
+  border-radius: 42% 58% 48% 52% / 52% 40% 60% 48%;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+    0 16px 36px rgba(26, 82, 204, 0.12);
   pointer-events: none;
+  transform: rotate(-6deg);
 }
 
 .ks-seo-hero-stage-badge {
   position: relative;
-  z-index: 1;
-  margin: 0 0 10px;
+  z-index: 2;
+  margin: 0 0 8px;
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #0A1F44;
+  border: none;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.3px;
-  color: #5ee0ff;
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(10, 31, 68, 0.2);
 }
 
 .ks-seo-hero-img {
@@ -369,17 +366,17 @@
   max-width: 260px;
   max-height: 200px;
   object-fit: contain;
-  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 14px 24px rgba(13, 21, 71, 0.14));
 }
 
 .ks-seo-hero-stage-note {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   margin: 10px 0 0;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.2px;
-  color: rgba(255, 255, 255, 0.7);
+  color: #475569;
   text-align: center;
 }
 
@@ -390,7 +387,6 @@
 
   .ks-seo-hero-stage {
     padding: 22px 20px;
-    clip-path: polygon(5% 0, 100% 0, 100% 100%, 0 100%);
   }
 
   .ks-seo-hero-title {
@@ -408,15 +404,14 @@
     order: 2;
   }
 
-  .ks-seo-hero-content::after {
-    display: none;
-  }
-
   .ks-seo-hero-stage {
     order: 1;
-    clip-path: none;
     min-height: 0;
-    padding: 18px 20px 16px;
+    padding: 20px 20px 8px;
+  }
+
+  .ks-seo-hero-stage-glow {
+    width: min(70%, 240px);
   }
 
   .ks-seo-hero-rail {
@@ -426,7 +421,7 @@
 
   .ks-seo-hero-rail-item {
     border-right: none;
-    border-bottom: 1px solid rgba(10, 31, 68, 0.08);
+    border-bottom: 1px solid rgba(26, 82, 204, 0.1);
     flex-direction: row;
     align-items: center;
     gap: 10px;
