@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const path = require('path');
+const fs = require('fs');
 const cookieParser = require('cookie-parser');
 
 const { isProd, port } = require('./config/env');
@@ -18,6 +19,42 @@ const staticOpts = isProd ? {
     maxAge: 0,
     setHeaders: setStaticAssetHeaders
 } : {};
+
+/**
+ * Hostinger / local layouts differ:
+ * - sibling of backend/nodejs: ../views/index.ejs
+ * - inside app folder:        ./views/index.ejs
+ * - cwd is repo root:         <cwd>/views/index.ejs
+ */
+function resolveProjectPath(...segments) {
+    const candidates = [
+        path.join(__dirname, '..', ...segments),
+        path.join(__dirname, ...segments),
+        path.join(process.cwd(), ...segments),
+        path.join(process.cwd(), '..', ...segments)
+    ];
+    return candidates.find((p) => fs.existsSync(p)) || candidates[0];
+}
+
+const viewsDir = resolveProjectPath('views');
+const cssDir = resolveProjectPath('css');
+const jsDir = resolveProjectPath('js');
+const imagesDir = resolveProjectPath('images');
+const adminDir = resolveProjectPath('admin');
+const pagesDir = resolveProjectPath('pages');
+const indexViewPath = path.join(viewsDir, 'index.ejs');
+
+console.log('[paths] __dirname =', __dirname);
+console.log('[paths] cwd       =', process.cwd());
+console.log('[paths] viewsDir  =', viewsDir, fs.existsSync(viewsDir) ? 'OK' : 'MISSING');
+console.log('[paths] index.ejs =', indexViewPath, fs.existsSync(indexViewPath) ? 'OK' : 'MISSING');
+if (fs.existsSync(viewsDir)) {
+    try {
+        console.log('[paths] views contents =', fs.readdirSync(viewsDir).join(', '));
+    } catch (err) {
+        console.error('[paths] cannot read viewsDir:', err.message);
+    }
+}
 
 const app = express();
 
@@ -68,16 +105,16 @@ const leadRoutes = require('./routes/loanApplicationRoutes');
 const partnerRoutes = require('./routes/partnerRoutes');
 
 // Static files — revalidate on every deploy (no long-lived CDN cache)
-app.use('/css', express.static(path.join(__dirname, '../css'), staticOpts));
-app.use('/js', express.static(path.join(__dirname, '../js'), staticOpts));
-app.use('/images', express.static(path.join(__dirname, '../images'), staticOpts));
-app.use('/admin', express.static(path.join(__dirname, '../admin'), {
+app.use('/css', express.static(cssDir, staticOpts));
+app.use('/js', express.static(jsDir, staticOpts));
+app.use('/images', express.static(imagesDir, staticOpts));
+app.use('/admin', express.static(adminDir, {
     index: false,
     ...staticOpts
 }));
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', viewsDir);
 app.use((req, resp, next) => {
     resp.locals.assetVersion = assetVersion;
     resp.locals.siteUrl = 'https://kreditseva.com';
@@ -88,7 +125,14 @@ app.use((req, resp, next) => {
 app.get('/health', (req, resp) => {
     resp.status(200).json({
         status: 'ok',
-        uptime: Math.floor(process.uptime())
+        uptime: Math.floor(process.uptime()),
+        paths: {
+            dirname: __dirname,
+            cwd: process.cwd(),
+            viewsDir,
+            indexEjs: fs.existsSync(indexViewPath),
+            viewsListing: fs.existsSync(viewsDir) ? fs.readdirSync(viewsDir) : []
+        }
     });
 });
 
@@ -129,7 +173,11 @@ app.use('/api/partner', partnerRoutes);
 // 404 handler — must be after all routes
 app.use((req, resp) => {
     setNoStoreHeaders(resp);
-    resp.status(404).sendFile(path.join(__dirname, '../pages/404.html'));
+    const notFoundPage = path.join(pagesDir, '404.html');
+    if (fs.existsSync(notFoundPage)) {
+        return resp.status(404).sendFile(notFoundPage);
+    }
+    resp.status(404).send('Not found');
 });
 
 // Global error handler — must be last
