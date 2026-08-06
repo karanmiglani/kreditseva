@@ -415,26 +415,54 @@
   }
 }
 
+.ks-seo-hero-ghost-wrap {
+  display: inline-block;
+  border-radius: 10px;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--ks-seo-spin),
+    rgba(26, 82, 204, 0.95) 0deg,
+    rgba(56, 189, 248, 0.9) 90deg,
+    rgba(255, 255, 255, 0.95) 180deg,
+    rgba(14, 165, 233, 0.9) 270deg,
+    rgba(26, 82, 204, 0.95) 360deg
+  );
+  animation: ksSeoBorderSpin 3s linear infinite;
+  box-shadow: 0 6px 18px rgba(26, 82, 204, 0.18);
+}
+
 .ks-seo-hero-ghost {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   height: 48px;
   padding: 0 18px;
-  border-radius: 6px;
-  border: 1.5px solid rgba(10, 31, 68, 0.22);
-  background: transparent;
+  border-radius: 8px;
+  border: none;
+  background: #fff;
   color: #0A1F44;
   font-size: 0.92rem;
   font-weight: 700;
   text-decoration: none;
-  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  animation: ksSeoBtnFloat 2.2s ease-in-out infinite;
+  animation-delay: 0.35s;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .ks-seo-hero-ghost:hover {
-  border-color: #1a52cc;
-  color: #1a52cc;
-  background: rgba(26, 82, 204, 0.05);
+  color: #fff;
+  background: #1a52cc;
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-seo-hero-ghost-wrap {
+    animation: none;
+    background: rgba(26, 82, 204, 0.35);
+  }
+  .ks-seo-hero-ghost {
+    animation: none;
+  }
 }
 
 .ks-seo-hero-stage {
