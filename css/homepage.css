@@ -159,7 +159,7 @@
 
 
 /* ============================================================
-   HERO — STATIC SEO (split stage — distinct from slider look)
+   HERO — STATIC SEO (single stack)
 ============================================================ */
 
 .ks-seo-hero {
@@ -168,24 +168,14 @@
   overflow: clip;
 }
 
-.ks-seo-hero-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.8fr);
-  min-height: 0;
-  align-items: center;
-}
-
-.ks-seo-hero-content {
+.ks-seo-hero-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 24px 30px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 28px 40px 28px clamp(20px, 5vw, 64px);
-  background: transparent;
-  position: relative;
-}
-
-.ks-seo-hero-content::after {
-  display: none;
+  align-items: center;
+  text-align: center;
 }
 
 .ks-seo-hero-kicker {
@@ -198,11 +188,11 @@
 }
 
 .ks-seo-hero-title {
-  margin: 0 0 10px;
-  max-width: 22ch;
-  font-size: clamp(1.45rem, 2.4vw, 1.95rem);
+  margin: 0 0 16px;
+  max-width: 18em;
+  font-size: clamp(1.45rem, 2.6vw, 2rem);
   font-weight: 800;
-  line-height: 1.18;
+  line-height: 1.2;
   letter-spacing: -0.4px;
   color: #0A1F44;
 }
@@ -215,10 +205,53 @@
   padding: 0 2px;
 }
 
+/* Wide capsule media — not a side column */
+.ks-seo-hero-media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 420px);
+  height: 150px;
+  margin: 0 0 16px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.65) 0%, rgba(147, 197, 253, 0.4) 100%);
+  border: 1px solid rgba(26, 82, 204, 0.12);
+  border-radius: 999px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+    0 12px 28px rgba(26, 82, 204, 0.1);
+}
+
+.ks-seo-hero-stage-badge {
+  position: absolute;
+  top: 10px;
+  right: 28px;
+  z-index: 2;
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #0A1F44;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(10, 31, 68, 0.2);
+}
+
+.ks-seo-hero-img {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  max-width: 220px;
+  max-height: 130px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(13, 21, 71, 0.12));
+}
+
 .ks-seo-hero-desc {
   margin: 0 0 16px;
-  max-width: 54ch;
-  font-size: 0.86rem;
+  max-width: 58ch;
+  font-size: 0.88rem;
   font-weight: 500;
   line-height: 1.55;
   color: #4b5568;
@@ -232,12 +265,14 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0;
+  width: 100%;
+  max-width: 560px;
   margin: 0 0 18px;
   border: 1px solid rgba(26, 82, 204, 0.16);
   border-radius: 10px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.55);
-  max-width: 520px;
+  text-align: left;
 }
 
 .ks-seo-hero-rail-item {
@@ -270,6 +305,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 }
 
@@ -315,108 +351,24 @@
   background: rgba(26, 82, 204, 0.05);
 }
 
-/* Right stage — old blue bg + soft blob shape */
-.ks-seo-hero-stage {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px 32px 22px 16px;
-  background: transparent;
-  color: #0A1F44;
-  overflow: visible;
-}
-
-.ks-seo-hero-stage-glow {
-  position: absolute;
-  z-index: 0;
-  width: min(86%, 300px);
-  aspect-ratio: 1;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.55) 0%, rgba(147, 197, 253, 0.45) 100%);
-  border: 1px solid rgba(26, 82, 204, 0.12);
-  /* organic blob / squircle frame */
-  border-radius: 42% 58% 48% 52% / 52% 40% 60% 48%;
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
-    0 16px 36px rgba(26, 82, 204, 0.12);
-  pointer-events: none;
-  transform: rotate(-6deg);
-}
-
-.ks-seo-hero-stage-badge {
-  position: relative;
-  z-index: 2;
-  margin: 0 0 8px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: #0A1F44;
-  border: none;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  color: #fff;
-  box-shadow: 0 6px 14px rgba(10, 31, 68, 0.2);
-}
-
-.ks-seo-hero-img {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 260px;
-  max-height: 200px;
-  object-fit: contain;
-  filter: drop-shadow(0 14px 24px rgba(13, 21, 71, 0.14));
-}
-
-.ks-seo-hero-stage-note {
-  position: relative;
-  z-index: 2;
-  margin: 10px 0 0;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-  color: #475569;
-  text-align: center;
-}
-
-@media (max-width: 1024px) {
-  .ks-seo-hero-content {
-    padding: 24px 28px;
+@media (max-width: 640px) {
+  .ks-seo-hero-inner {
+    padding: 22px 18px 24px;
   }
 
-  .ks-seo-hero-stage {
-    padding: 22px 20px;
+  .ks-seo-hero-media {
+    width: 100%;
+    height: 130px;
+    border-radius: 28px;
   }
 
-  .ks-seo-hero-title {
-    max-width: none;
-  }
-}
-
-@media (max-width: 860px) {
-  .ks-seo-hero-split {
-    grid-template-columns: 1fr;
-  }
-
-  .ks-seo-hero-content {
-    padding: 24px 20px 22px;
-    order: 2;
-  }
-
-  .ks-seo-hero-stage {
-    order: 1;
-    min-height: 0;
-    padding: 20px 20px 8px;
-  }
-
-  .ks-seo-hero-stage-glow {
-    width: min(70%, 240px);
+  .ks-seo-hero-stage-badge {
+    right: 12px;
+    top: 8px;
   }
 
   .ks-seo-hero-rail {
     grid-template-columns: 1fr;
-    max-width: none;
   }
 
   .ks-seo-hero-rail-item {
@@ -425,11 +377,14 @@
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    padding: 9px 12px;
   }
 
   .ks-seo-hero-rail-item:last-child {
     border-bottom: none;
+  }
+
+  .ks-seo-hero-desc {
+    -webkit-line-clamp: 3;
   }
 
   .ks-seo-hero-actions {
@@ -439,16 +394,6 @@
   .ks-seo-hero-btn,
   .ks-seo-hero-ghost {
     flex: 1 1 auto;
-    text-align: center;
-  }
-
-  .ks-seo-hero-img {
-    max-height: 150px;
-    max-width: 200px;
-  }
-
-  .ks-seo-hero-desc {
-    -webkit-line-clamp: 3;
   }
 }
 
