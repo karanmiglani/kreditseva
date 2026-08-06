@@ -29,7 +29,7 @@ const PAGE_SLUG_OVERRIDES = {
 router.get('/pages/:file', (req, resp) => {
     const file = req.params.file;
     if (!file.endsWith('.html')) {
-        return resp.status(404).sendFile(path.join(__dirname, '../../pages/404.html'));
+        return resp.status(404).sendFile(path.join(__dirname, '../pages/404.html'));
     }
     const target = PAGE_SLUG_OVERRIDES[file] || '/' + file.replace(/\.html$/, '');
     resp.redirect(301, target);
@@ -52,105 +52,105 @@ router.get('/', async (req, resp, next) => {
 
 // Personal Loan Routes
 router.get('/personal-loan',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/personal-loan.html'));
+    resp.sendFile(path.join(__dirname, '../pages/personal-loan.html'));
 });
 
 router.get('/personal-overdraft',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/personal-overdraft.html'));
+    resp.sendFile(path.join(__dirname, '../pages/personal-overdraft.html'));
 });
 
 router.get('/balance-transfer',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/balance-transfer.html'));
+    resp.sendFile(path.join(__dirname, '../pages/balance-transfer.html'));
 });
 
 router.get('/debt-consolidation',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/debt-consolidation.html'));
+    resp.sendFile(path.join(__dirname, '../pages/debt-consolidation.html'));
 });
 
 router.get('/insta-loan',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/insta-loan.html'));
+    resp.sendFile(path.join(__dirname, '../pages/insta-loan.html'));
 });
 
 
 // Business Loan
 router.get('/business-loan',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/business-loan.html'));
+    resp.sendFile(path.join(__dirname, '../pages/business-loan.html'));
 });
 
 router.get('/working-capital',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/working-capital.html'));
+    resp.sendFile(path.join(__dirname, '../pages/working-capital.html'));
 });
 
 router.get('/unsecured-business-loan',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/unsecured-business-loan.html'));
+    resp.sendFile(path.join(__dirname, '../pages/unsecured-business-loan.html'));
 });
 
 router.get('/business-overdraft',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/business-overdraft.html'));
+    resp.sendFile(path.join(__dirname, '../pages/business-overdraft.html'));
 });
 
 
 // Professional Loan
 router.get('/professional-loan',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/professional-loan.html'));
+    resp.sendFile(path.join(__dirname, '../pages/professional-loan.html'));
 });
 
 router.get('/loan-for-ca',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/loan-for-ca.html'));
+    resp.sendFile(path.join(__dirname, '../pages/loan-for-ca.html'));
 });
 
 router.get('/loan-for-cs',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/loan-for-cs.html'));
+    resp.sendFile(path.join(__dirname, '../pages/loan-for-cs.html'));
 });
 
 router.get('/loan-for-doctor',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/loan-for-doctor.html'));
+    resp.sendFile(path.join(__dirname, '../pages/loan-for-doctor.html'));
 });
 
 
 // Secured Loan
 router.get('/secured-loan',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/secured-loan.html'));
+    resp.sendFile(path.join(__dirname, '../pages/secured-loan.html'));
 });
 
 router.get('/loan-against-property',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/loan-against-property.html'));
+    resp.sendFile(path.join(__dirname, '../pages/loan-against-property.html'));
 });
 
 router.get('/car-loan',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/car-loan.html'));
+    resp.sendFile(path.join(__dirname, '../pages/car-loan.html'));
 });
 
 router.get('/home-loan',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/home-loan.html'));
+    resp.sendFile(path.join(__dirname, '../pages/home-loan.html'));
 });
 
 // Cibil sore
 router.get('/check-my-credit-score', (req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/check_cibil_score.html'));
+    resp.sendFile(path.join(__dirname, '../pages/check_cibil_score.html'));
 })
 
 // About us
 router.get('/about-us', (req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/about-us.html'))
+    resp.sendFile(path.join(__dirname, '../pages/about-us.html'))
 })
 
 // Become Our partner
 router.get('/become-our-partner', (req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/become-our-partner.html'))
+    resp.sendFile(path.join(__dirname, '../pages/become-our-partner.html'))
 })
 
 router.get('/contact-us',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/contact-us.html'));
+    resp.sendFile(path.join(__dirname, '../pages/contact-us.html'));
 })
 
 router.get('/our-team',(req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/our-team.html'));
+    resp.sendFile(path.join(__dirname, '../pages/our-team.html'));
 })
 
 // Credit Cards
 router.get('/credit-card', (req, resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/credit-card.html'));
+    resp.sendFile(path.join(__dirname, '../pages/credit-card.html'));
 })
 
 router.get('/blogs', async (req, resp, next) => {
@@ -188,7 +188,7 @@ router.get('/blog/:slug', async (req, resp, next) => {
         ]);
 
         if (!blog || blog.length === 0) {
-            return resp.status(404).sendFile(path.join(__dirname, '../../pages/404.html'));
+            return resp.status(404).sendFile(path.join(__dirname, '../pages/404.html'));
         }
 
         blog[0].content = sanitizeBlogContent(blog[0].content);
@@ -207,7 +207,7 @@ router.get('/blog/:slug', async (req, resp, next) => {
 });
 
 router.get('/apply-now', (req, resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/apply.html'));
+    resp.sendFile(path.join(__dirname, '../pages/apply.html'));
 });
 
 // Loan Amount & City Dynamic Pages
@@ -222,7 +222,7 @@ router.get('/loan/:slug', (req, resp) => {
     const cityPage = getCityPage(slug);
     if (cityPage) return resp.render('loan-city', { page: cityPage });
 
-    resp.status(404).sendFile(path.join(__dirname, '../../pages/404.html'));
+    resp.status(404).sendFile(path.join(__dirname, '../pages/404.html'));
 });
 
 router.get('/admin', (req,resp) => {
@@ -238,39 +238,39 @@ router.get('/admin', (req,resp) => {
             resp.clearCookie('token');
         }
     }
-    resp.sendFile(path.join(__dirname, "../../admin/index.html"));
+    resp.sendFile(path.join(__dirname, '../admin/index.html"));
 })
 
 router.get('/admin/dashboard' , ...adminOnly, (req, resp) => {
-    resp.sendFile(path.join(__dirname, '../../protected/dashboard.html'))
+    resp.sendFile(path.join(__dirname, '../protected/dashboard.html'))
 })
 
 router.get('/admin/blogs' , ...blogAccess, (req, resp) => {
-    resp.sendFile(path.join(__dirname, '../../protected/blogs.html'))
+    resp.sendFile(path.join(__dirname, '../protected/blogs.html'))
 })
 
 router.get('/admin/blog-editor' , ...blogAccess, (req, resp) => {
-    resp.sendFile(path.join(__dirname, '../../protected/blog-editor.html'))
+    resp.sendFile(path.join(__dirname, '../protected/blog-editor.html'))
 })
 
 router.get('/admin/loan-applications', ...adminOnly, (req, resp) => {
-    resp.sendFile(path.join(__dirname, '../../protected/loan-applications.html'))
+    resp.sendFile(path.join(__dirname, '../protected/loan-applications.html'))
 })
 
 router.get('/admin/contact-messages', ...adminOnly, (req, resp) => {
-    resp.sendFile(path.join(__dirname, '../../protected/contact-messages.html'))
+    resp.sendFile(path.join(__dirname, '../protected/contact-messages.html'))
 })
 
 router.get('/admin/partner-leads', ...adminOnly, (req, resp) => {
-    resp.sendFile(path.join(__dirname, '../../protected/partner-leads.html'))
+    resp.sendFile(path.join(__dirname, '../protected/partner-leads.html'))
 })
 
 router.get('/admin/complete-leads', ...adminOnly, (req, resp) => {
-    resp.sendFile(path.join(__dirname, '../../protected/complete-leads.html'))
+    resp.sendFile(path.join(__dirname, '../protected/complete-leads.html'))
 })
 
 router.get('/admin/raw-leads', ...adminOnly, (req, resp) => {
-    resp.sendFile(path.join(__dirname, '../../protected/raw-leads.html'))
+    resp.sendFile(path.join(__dirname, '../protected/raw-leads.html'))
 })
 
 router.post('/apply-now/save-lead', saveLead)
@@ -280,23 +280,23 @@ router.get('/admin/logout', (req,resp)=> {
 })
 
 router.get('/disclaimer', (req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/disclaimer.html'))
+    resp.sendFile(path.join(__dirname, '../pages/disclaimer.html'))
 })
 
 router.get('/terms-condition', (req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/terms-condition.html'))
+    resp.sendFile(path.join(__dirname, '../pages/terms-condition.html'))
 })
 
 router.get('/privacy-policy', (req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/privacy-policy.html'))
+    resp.sendFile(path.join(__dirname, '../pages/privacy-policy.html'))
 })
 
 router.get('/grievance-redressal', (req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/grievance-redressal.html'))
+    resp.sendFile(path.join(__dirname, '../pages/grievance-redressal.html'))
 })
 
 router.get('/sitemap', (req,resp) => {
-    resp.sendFile(path.join(__dirname,'../../pages/sitemap-page.html'))
+    resp.sendFile(path.join(__dirname, '../pages/sitemap-page.html'))
 })
 
 router.get('/download-exel-report', ...adminOnly, downloadExcelReport)

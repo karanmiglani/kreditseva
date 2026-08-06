@@ -21,15 +21,14 @@ const staticOpts = isProd ? {
 } : {};
 
 /**
- * Hostinger / local layouts differ:
- * - sibling of backend/nodejs: ../views/index.ejs
- * - inside app folder:        ./views/index.ejs
- * - cwd is repo root:         <cwd>/views/index.ejs
+ * Hostinger shared hosting deploys backend → nodejs only.
+ * Assets live inside this app folder (views/css/js/...).
+ * Fallbacks keep older sibling-folder layouts working if present.
  */
 function resolveProjectPath(...segments) {
     const candidates = [
-        path.join(__dirname, '..', ...segments),
         path.join(__dirname, ...segments),
+        path.join(__dirname, '..', ...segments),
         path.join(process.cwd(), ...segments),
         path.join(process.cwd(), '..', ...segments)
     ];
