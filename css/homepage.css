@@ -280,7 +280,7 @@
 .ks-seo-hero-title {
   margin: 0 0 14px;
   max-width: 22em;
-  font-size: clamp(1.35rem, 2.1vw, 1.7rem);
+  font-size: clamp(1.45rem, 2.3vw, 1.85rem);
   font-weight: 800;
   line-height: 1.25;
   letter-spacing: -0.35px;
@@ -479,7 +479,7 @@
 
   .ks-seo-hero-title {
     max-width: 20em;
-    font-size: clamp(1.3rem, 5vw, 1.55rem);
+    font-size: clamp(1.35rem, 5vw, 1.65rem);
   }
 
   .ks-seo-hero-stage {
