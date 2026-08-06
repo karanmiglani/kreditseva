@@ -255,7 +255,7 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.2fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(400px, 1.35fr);
   align-items: center;
   max-width: 1280px;
   margin: 0 auto;
@@ -443,45 +443,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 12px 16px 12px 0;
-  min-height: 400px;
-}
-
-.ks-seo-hero-stage-badge {
-  position: relative;
-  z-index: 2;
-  margin: 10px 0 0;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: #0A1F44;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  color: #fff;
-  box-shadow: 0 6px 14px rgba(10, 31, 68, 0.2);
+  padding: 8px 8px 8px 0;
+  min-height: 420px;
+  overflow: visible;
 }
 
 .ks-seo-hero-img {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 620px;
+  max-width: 720px;
   height: auto;
   max-height: none;
   object-fit: contain;
   filter: drop-shadow(0 14px 24px rgba(13, 21, 71, 0.14));
-  transform: scale(1.06);
-}
-
-.ks-seo-hero-stage-note {
-  position: relative;
-  z-index: 2;
-  margin: 8px 0 0;
-  font-size: 0.84rem;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-  color: #475569;
-  text-align: center;
+  transform: scale(1.12);
 }
 
 @media (max-width: 1024px) {
@@ -526,8 +502,8 @@
   }
 
   .ks-seo-hero-img {
-    max-width: 440px;
-    transform: none;
+    max-width: 480px;
+    transform: scale(1.04);
   }
 
   .ks-seo-hero-rail {
