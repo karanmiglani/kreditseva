@@ -403,7 +403,7 @@
 .ks-seo-hero-stage-glow {
   position: absolute;
   z-index: 0;
-  width: min(92%, 340px);
+  width: min(96%, 420px);
   aspect-ratio: 1;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.55) 0%, rgba(147, 197, 253, 0.45) 100%);
   border: 1px solid rgba(26, 82, 204, 0.12);
@@ -433,8 +433,8 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 340px;
-  max-height: 270px;
+  max-width: 420px;
+  max-height: 340px;
   object-fit: contain;
   filter: drop-shadow(0 14px 24px rgba(13, 21, 71, 0.14));
 }
@@ -488,12 +488,12 @@
   }
 
   .ks-seo-hero-img {
-    max-width: 280px;
-    max-height: 220px;
+    max-width: 320px;
+    max-height: 260px;
   }
 
   .ks-seo-hero-stage-glow {
-    width: min(80%, 280px);
+    width: min(85%, 320px);
   }
 
   .ks-seo-hero-rail {
