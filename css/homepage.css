@@ -1079,11 +1079,31 @@
 }
 
 .plx-loans .plx-section-head {
-  margin-bottom: 36px;
+  margin-bottom: 28px;
 }
 
-.plx-loans .plx-section-head p {
-  max-width: 720px;
+.plx-loans-title {
+  margin: 0 0 8px;
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+  color: #0A1F44;
+}
+
+.plx-loans-title .plx-h-accent {
+  color: #1a52cc;
+  font-style: italic;
+  font-weight: 800;
+}
+
+.plx-loans-desc {
+  margin: 0 auto;
+  max-width: 640px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.55;
+  color: #5a6a8a;
 }
 
 .plx-loans-grid {
