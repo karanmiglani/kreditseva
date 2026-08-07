@@ -777,7 +777,7 @@ if (document.querySelector('.ksHeroSwiper')) {
   if (nextBtn) nextBtn.addEventListener('click', () => heroSwiper.slideNext());
 
   // Hero section pe mouse aaye toh autoplay rok do, jaaye toh resume karo
-  const heroSection = document.querySelector('.ks-seo-hero') || document.querySelector('.ks-hero');
+  const heroSection = document.querySelector('.ks-hero') || document.querySelector('.ks-seo-hero');
   if (heroSection) {
     heroSection.addEventListener('mouseenter', () => heroSwiper.autoplay.stop());
     heroSection.addEventListener('mouseleave', () => heroSwiper.autoplay.start());
