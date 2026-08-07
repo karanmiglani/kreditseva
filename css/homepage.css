@@ -17,6 +17,76 @@
     linear-gradient(135deg, #f4f9ff 0%, #e8f3ff 45%, #dcecff 100%);
 }
 
+.ks-seo-hero .ksHeroSwiper {
+  width: 100%;
+}
+
+.ks-seo-hero .ks-hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 12;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid rgba(10, 31, 68, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(10, 31, 68, 0.1);
+  color: #0A1F44;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.ks-seo-hero .ks-hero-arrow:hover {
+  background: #0A1F44;
+  color: #fff;
+}
+
+.ks-seo-hero .ks-hero-prev { left: 16px; }
+.ks-seo-hero .ks-hero-next { right: 16px; }
+
+.ks-seo-hero .ks-hero-dots-pagination {
+  position: absolute !important;
+  bottom: 18px !important;
+  left: 50% !important;
+  top: auto !important;
+  transform: translateX(-50%) !important;
+  width: auto !important;
+  z-index: 12;
+}
+
+.ks-seo-hero .ks-hero-dots-pagination .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: #0A1F44;
+  opacity: 0.3;
+  border-radius: 50%;
+}
+
+.ks-seo-hero .ks-hero-dots-pagination .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #1a52cc;
+  width: 24px;
+  border-radius: 10px;
+}
+
+.ks-seo-hero-points-chips {
+  grid-template-columns: repeat(3, auto);
+  width: auto;
+}
+
+.ks-seo-hero-points-chips li {
+  align-items: center;
+}
+
+.ks-seo-hero h2.ks-seo-hero-title {
+  font-size: clamp(1.4rem, 2.15vw, 1.95rem);
+}
+
 .ks-seo-hero-bg {
   position: absolute;
   inset: 0;
@@ -314,7 +384,7 @@
 @media (max-width: 900px) {
   .ks-seo-hero-inner {
     grid-template-columns: 1fr;
-    padding: 36px 28px 40px;
+    padding: 36px 28px 48px;
     text-align: center;
     gap: 28px;
   }
@@ -334,6 +404,12 @@
     text-align: left;
   }
 
+  .ks-seo-hero-points-chips {
+    justify-content: center;
+    max-width: none;
+    width: auto;
+  }
+
   .ks-seo-hero-actions {
     justify-content: center;
     width: 100%;
@@ -350,12 +426,25 @@
   .ks-seo-hero-dots {
     opacity: 0.35;
   }
+
+  .ks-seo-hero .ks-hero-prev { left: 8px; }
+  .ks-seo-hero .ks-hero-next { right: 8px; }
 }
 
 @media (max-width: 600px) {
   .ks-seo-hero-inner {
-    padding: 28px 16px 32px;
+    padding: 28px 16px 52px;
     gap: 22px;
+  }
+
+  .ks-seo-hero .ks-hero-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 0.75rem;
+  }
+
+  .ks-seo-hero-points-chips {
+    grid-template-columns: 1fr;
   }
 
   .ks-seo-hero-title {
