@@ -863,6 +863,11 @@
   font-size: clamp(1.5rem, 2.2vw, 2.1rem);
 }
 
+.ks-hero-title-debt {
+  font-size: clamp(1.25rem, 1.9vw, 1.7rem);
+  line-height: 1.25;
+}
+
 .ks-hero-subtitle {
   font-size: clamp(0.8rem, 1.1vw, 1rem);
   font-weight: 500;
@@ -993,6 +998,7 @@
   .ks-hero-next { right: 8px; }
   .ks-hero-title { font-size: clamp(1.9rem, 7vw, 2.4rem); }
   .ks-hero-title-sm { font-size: clamp(1.3rem, 5vw, 1.6rem); }
+  .ks-hero-title-debt { font-size: clamp(1.15rem, 4.6vw, 1.4rem); }
   .ks-hero-subtitle { font-size: clamp(0.9rem, 4vw, 1.1rem); margin: -6px 0 14px; }
   .ks-hero-desc { font-size: 0.9rem; }
   .ks-hero-btn { width: auto; padding: 13px 36px; }
