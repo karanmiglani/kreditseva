@@ -781,6 +781,13 @@ if (document.querySelector('.ksHeroSwiper')) {
   if (heroSection) {
     heroSection.addEventListener('mouseenter', () => heroSwiper.autoplay.stop());
     heroSection.addEventListener('mouseleave', () => heroSwiper.autoplay.start());
+
+    // First slide only: shift bottom pagination to the right
+    const syncHeroPaginationPos = () => {
+      heroSection.classList.toggle('ks-hero-first-slide', heroSwiper.realIndex === 0);
+    };
+    syncHeroPaginationPos();
+    heroSwiper.on('slideChange', syncHeroPaginationPos);
   }
 
 }

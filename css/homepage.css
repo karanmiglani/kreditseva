@@ -743,6 +743,7 @@
   width: auto !important;
   text-align: center;
   z-index: 10;
+  transition: left 0.3s ease, transform 0.3s ease;
 }
 .ks-hero-dots-pagination .swiper-pagination-bullet {
   width: 10px; height: 10px;
@@ -756,6 +757,18 @@
   background: #1a52cc;
   width: 24px;
   border-radius: 10px;
+}
+
+/* First slide only — pagination shifted right */
+.ks-hero.ks-hero-first-slide .ks-hero-dots-pagination {
+  left: 62% !important;
+  transform: translateX(-50%) !important;
+}
+
+@media (max-width: 768px) {
+  .ks-hero.ks-hero-first-slide .ks-hero-dots-pagination {
+    left: 50% !important;
+  }
 }
 
 /* BIG SOFT CIRCLES */
