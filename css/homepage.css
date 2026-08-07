@@ -290,22 +290,33 @@
   50% { border-color: rgba(26, 82, 204, 0.85); }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   .ks-seo-hero-inner {
-    padding: 40px 40px 44px;
-    gap: 28px;
+    padding: 40px 36px 44px;
+    gap: 28px 32px;
   }
 
   .ks-seo-hero-title {
     max-width: none;
+    font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  }
+
+  .ks-seo-hero-points {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .ks-seo-hero-img {
+    max-width: 440px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .ks-seo-hero-inner {
     grid-template-columns: 1fr;
-    padding: 32px 22px 36px;
+    padding: 36px 28px 40px;
     text-align: center;
+    gap: 28px;
   }
 
   .ks-seo-hero-copy {
@@ -314,14 +325,13 @@
 
   .ks-seo-hero-title,
   .ks-seo-hero-desc {
-    max-width: none;
+    max-width: 40em;
   }
 
   .ks-seo-hero-points {
-    grid-template-columns: 1fr;
+    max-width: 420px;
+    width: 100%;
     text-align: left;
-    max-width: 360px;
-    gap: 12px;
   }
 
   .ks-seo-hero-actions {
@@ -329,17 +339,79 @@
     width: 100%;
   }
 
-  .ks-seo-hero-btn {
-    width: 100%;
-    max-width: 320px;
+  .ks-seo-hero-visual {
+    order: 2;
   }
 
   .ks-seo-hero-img {
-    max-width: 340px;
+    max-width: min(380px, 92vw);
   }
 
   .ks-seo-hero-dots {
+    opacity: 0.35;
+  }
+}
+
+@media (max-width: 600px) {
+  .ks-seo-hero-inner {
+    padding: 28px 16px 32px;
+    gap: 22px;
+  }
+
+  .ks-seo-hero-title {
+    font-size: clamp(1.25rem, 5.6vw, 1.5rem);
+    line-height: 1.28;
+    margin-bottom: 12px;
+  }
+
+  .ks-seo-hero-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+
+  .ks-seo-hero-points {
+    margin-bottom: 22px;
+    max-width: 100%;
+  }
+
+  .ks-seo-hero-points li {
+    font-size: 0.78rem;
+  }
+
+  .ks-seo-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .ks-seo-hero-btn {
+    width: 100%;
+    max-width: none;
+    min-height: 46px;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+
+  .ks-seo-hero-img {
+    max-width: min(300px, 88vw);
+  }
+
+  .ks-seo-hero-orb-a,
+  .ks-seo-hero-orb-b,
+  .ks-seo-hero-dots {
     display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .ks-seo-hero-title {
+    font-size: 1.18rem;
+  }
+
+  .ks-seo-hero-btn {
+    font-size: 0.85rem;
+    gap: 8px;
   }
 }
 
@@ -902,6 +974,32 @@
   overflow: hidden;
 }
 
+.plx-loans-intro {
+  max-width: 720px;
+  margin: 0 auto 28px;
+  padding: 0 8px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.plx-loans-intro h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: #0A1F44;
+}
+
+.plx-loans-intro p {
+  margin: 0 auto;
+  max-width: 58ch;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #475569;
+}
+
 .plx-loans-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -919,7 +1017,7 @@
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   isolation: isolate;
-  min-height: 380px;
+  min-height: 0;
 }
 
 .plx-loan-card[data-tone="cyan"]   { --tone-color: #5ee0ff; --tone-bg: rgba(94, 224, 255, 0.12); --tone-ring: rgba(94, 224, 255, 0.25); }
@@ -1006,13 +1104,12 @@
 }
 
 .plx-loan-card h3 {
-  
-  font-size: 1.35rem;
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
   font-weight: 700;
   color: #0d1547;
   margin: 0 0 8px;
-  letter-spacing: -0.5px;
-  line-height: 1.2;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
 }
 
 .plx-loan-card h3 a {
@@ -1026,11 +1123,11 @@
 }
 
 .plx-loan-card > p {
-  
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   line-height: 1.55;
   color: #5a6a8a;
-  margin: 0 0 18px;
+  margin: 0 0 16px;
+  flex: 1;
 }
 
 .plx-loan-features {
@@ -1043,12 +1140,12 @@
 }
 
 .plx-loan-features li {
-  
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #3a4660;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 9px;
+  line-height: 1.4;
 }
 
 .plx-loan-features .plx-tick {
@@ -1069,9 +1166,29 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   padding-top: 18px;
   border-top: 1px dashed #e7ecf5;
   margin-top: auto;
+}
+
+.plx-loan-cta {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #1a52cc;
+  text-decoration: none;
+  line-height: 1.3;
+  transition: color 0.25s ease;
+}
+
+.plx-loan-cta:hover {
+  color: #0A1F44;
+}
+
+.plx-loan-card:hover .plx-loan-cta {
+  color: var(--tone-color, #1a52cc);
 }
 
 .plx-loan-rate {
@@ -1133,14 +1250,37 @@
 
 @media (max-width: 1200px) {
   .plx-loans { padding: 30px 40px 80px; }
+  .plx-loans-intro { margin-bottom: 24px; padding: 0; }
   .plx-loans-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 640px) {
-  .plx-loans { padding: 24px 18px 60px; }
+  .plx-loans { padding: 24px 16px 60px; }
+  .plx-loans-intro {
+    margin-bottom: 20px;
+    padding: 0 4px;
+  }
+  .plx-loans-intro h2 {
+    font-size: 1.12rem;
+    line-height: 1.35;
+  }
+  .plx-loans-intro p {
+    font-size: 0.84rem;
+    line-height: 1.55;
+    max-width: none;
+  }
   .plx-loans-grid { grid-template-columns: 1fr; gap: 16px; }
   .plx-loan-card { padding: 24px 22px; min-height: auto; }
+  .plx-loan-card h3 { font-size: 1.08rem; }
+  .plx-loan-card > p { font-size: 0.8rem; }
+  .plx-loan-cta { font-size: 0.8rem; }
   .plx-loan-ribbon { font-size: 0.58rem; padding: 5px 10px; }
+}
+
+@media (max-width: 380px) {
+  .plx-loans { padding: 20px 12px 48px; }
+  .plx-loans-intro h2 { font-size: 1.05rem; }
+  .plx-loans-intro p { font-size: 0.8rem; }
 }
 
 
