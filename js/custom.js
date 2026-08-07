@@ -756,11 +756,18 @@ if (document.querySelector('.ksHeroSwiper')) {
     autoplay: {
       delay: 4500,
       disableOnInteraction: false, // interaction ke baad bhi autoplay resume ho
+      pauseOnMouseEnter: true,
     },
     pagination: {
       el: '.ks-hero-dots-pagination',
       clickable: true,
     },
+    // Mobile: swipe-friendly
+    touchRatio: 1,
+    threshold: 8,
+    followFinger: true,
+    shortSwipes: true,
+    resistanceRatio: 0.65,
   });
 
   // Prev / Next buttons
