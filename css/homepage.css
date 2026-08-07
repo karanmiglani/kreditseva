@@ -1,4 +1,320 @@
 /* ============================================================
+   SEO HERO — debt consolidation (static, replaces slider)
+============================================================ */
+
+.ks-seo-hero {
+  --seo-navy: #0A1F44;
+  --seo-blue: #1a52cc;
+  --seo-blue-soft: #4d7fff;
+  --seo-ink: #334155;
+  --seo-muted: #64748b;
+  position: relative;
+  width: 100%;
+  overflow: clip;
+  background:
+    radial-gradient(ellipse 70% 60% at 85% 20%, rgba(77, 127, 255, 0.14), transparent 55%),
+    radial-gradient(ellipse 50% 50% at 10% 90%, rgba(26, 82, 204, 0.08), transparent 50%),
+    linear-gradient(135deg, #f4f9ff 0%, #e8f3ff 45%, #dcecff 100%);
+}
+
+.ks-seo-hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ks-seo-hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+.ks-seo-hero-orb-a {
+  width: 340px;
+  height: 340px;
+  top: -140px;
+  left: -100px;
+  background: rgba(56, 189, 248, 0.16);
+}
+
+.ks-seo-hero-orb-b {
+  width: 280px;
+  height: 280px;
+  right: -80px;
+  bottom: -120px;
+  background: rgba(26, 82, 204, 0.1);
+}
+
+.ks-seo-hero-dots {
+  position: absolute;
+  top: 28px;
+  right: 6%;
+  width: 140px;
+  height: 90px;
+  background-image: radial-gradient(circle, rgba(10, 31, 68, 0.28) 1.4px, transparent 1.4px);
+  background-size: 14px 14px;
+  opacity: 0.7;
+}
+
+.ks-seo-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 48px 56px 52px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: 36px 48px;
+}
+
+.ks-seo-hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.ks-seo-hero-brand {
+  margin: 0 0 14px;
+  font-size: clamp(1.55rem, 2.4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--seo-navy);
+  animation: ksSeoFadeUp 0.7s ease both;
+}
+
+.ks-seo-hero-brand span {
+  color: var(--seo-blue);
+}
+
+.ks-seo-hero-title {
+  margin: 0 0 16px;
+  max-width: 34ch;
+  font-size: clamp(1.55rem, 2.35vw, 2.15rem);
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -0.03em;
+  color: var(--seo-navy);
+  animation: ksSeoFadeUp 0.75s ease 0.06s both;
+}
+
+.ks-seo-hero-title span {
+  color: var(--seo-blue);
+  background: linear-gradient(90deg, transparent, rgba(26, 82, 204, 0.12), transparent);
+  background-size: 200% 100%;
+  animation: ksSeoShine 4.5s ease-in-out 1s infinite;
+}
+
+.ks-seo-hero-desc {
+  margin: 0 0 22px;
+  max-width: 52ch;
+  font-size: 0.98rem;
+  font-weight: 500;
+  line-height: 1.65;
+  color: var(--seo-ink);
+  animation: ksSeoFadeUp 0.75s ease 0.12s both;
+}
+
+.ks-seo-hero-points {
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 18px;
+  width: 100%;
+  animation: ksSeoFadeUp 0.75s ease 0.18s both;
+}
+
+.ks-seo-hero-points li {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: start;
+  gap: 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--seo-navy);
+}
+
+.ks-seo-hero-points i {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(26, 82, 204, 0.1);
+  color: var(--seo-blue);
+  font-size: 0.78rem;
+  margin-top: 1px;
+}
+
+.ks-seo-hero-points strong {
+  font-weight: 700;
+  color: var(--seo-navy);
+}
+
+.ks-seo-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  animation: ksSeoFadeUp 0.75s ease 0.24s both;
+}
+
+.ks-seo-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.ks-seo-hero-btn i:last-child {
+  font-size: 0.78rem;
+  transition: transform 0.2s ease;
+}
+
+.ks-seo-hero-btn:hover i:last-child {
+  transform: translateX(3px);
+}
+
+.ks-seo-hero-btn-primary {
+  background: var(--seo-blue);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(26, 82, 204, 0.28);
+}
+
+.ks-seo-hero-btn-primary:hover {
+  background: var(--seo-navy);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(10, 31, 68, 0.3);
+}
+
+.ks-seo-hero-btn-secondary {
+  background: #fff;
+  color: var(--seo-blue);
+  border: 1.5px solid rgba(26, 82, 204, 0.45);
+}
+
+.ks-seo-hero-btn-secondary:hover {
+  background: rgba(26, 82, 204, 0.06);
+  transform: translateY(-2px);
+}
+
+.ks-seo-hero-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  animation: ksSeoFadeIn 0.9s ease 0.15s both;
+}
+
+.ks-seo-hero-img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 36px rgba(13, 21, 71, 0.12));
+  animation: ksSeoFloat 5s ease-in-out infinite;
+}
+
+@keyframes ksSeoFadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ksSeoFadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes ksSeoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes ksSeoShine {
+  0%, 100% { background-position: 100% 0; }
+  50% { background-position: 0 0; }
+}
+
+@media (max-width: 1024px) {
+  .ks-seo-hero-inner {
+    padding: 40px 40px 44px;
+    gap: 28px;
+  }
+
+  .ks-seo-hero-title {
+    max-width: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .ks-seo-hero-inner {
+    grid-template-columns: 1fr;
+    padding: 32px 22px 36px;
+    text-align: center;
+  }
+
+  .ks-seo-hero-copy {
+    align-items: center;
+  }
+
+  .ks-seo-hero-title,
+  .ks-seo-hero-desc {
+    max-width: none;
+  }
+
+  .ks-seo-hero-points {
+    grid-template-columns: 1fr;
+    text-align: left;
+    max-width: 360px;
+    gap: 12px;
+  }
+
+  .ks-seo-hero-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .ks-seo-hero-btn {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .ks-seo-hero-img {
+    max-width: 340px;
+  }
+
+  .ks-seo-hero-dots {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-seo-hero-brand,
+  .ks-seo-hero-title,
+  .ks-seo-hero-desc,
+  .ks-seo-hero-points,
+  .ks-seo-hero-actions,
+  .ks-seo-hero-visual,
+  .ks-seo-hero-img,
+  .ks-seo-hero-title span {
+    animation: none;
+  }
+}
+
+/* ============================================================
    NEW HOMEPAGE SECTIONS — APPEND TO homepage.css
    All classes use plx- prefix to avoid conflicts with existing CSS.
    Hero CSS above this stays untouched.
