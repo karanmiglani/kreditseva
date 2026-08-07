@@ -98,7 +98,7 @@
   margin: 0 0 22px;
   max-width: 52ch;
   font-size: 0.98rem;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.65;
   color: var(--seo-ink);
   animation: ksSeoFadeUp 0.75s ease 0.12s both;
@@ -152,6 +152,7 @@
 }
 
 .ks-seo-hero-btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -162,39 +163,73 @@
   font-size: 0.95rem;
   font-weight: 700;
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
 .ks-seo-hero-btn i:last-child {
   font-size: 0.78rem;
-  transition: transform 0.2s ease;
+  transition: transform 0.25s ease;
 }
 
 .ks-seo-hero-btn:hover i:last-child {
-  transform: translateX(3px);
+  transform: translateX(5px);
+}
+
+.ks-seo-hero-btn:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .ks-seo-hero-btn-primary {
   background: var(--seo-blue);
   color: #fff;
   box-shadow: 0 8px 22px rgba(26, 82, 204, 0.28);
+  animation: ksSeoCtaPulse 2.6s ease-in-out 1s infinite;
+}
+
+.ks-seo-hero-btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.28) 48%,
+    transparent 66%
+  );
+  transform: translateX(-120%);
+  animation: ksSeoCtaShine 3.2s ease-in-out 1.4s infinite;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .ks-seo-hero-btn-primary:hover {
   background: var(--seo-navy);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(10, 31, 68, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(10, 31, 68, 0.34);
+  animation: none;
+}
+
+.ks-seo-hero-btn-primary:hover::before {
+  animation: none;
+  transform: translateX(120%);
+  transition: transform 0.45s ease;
 }
 
 .ks-seo-hero-btn-secondary {
   background: #fff;
   color: var(--seo-blue);
   border: 1.5px solid rgba(26, 82, 204, 0.45);
+  animation: ksSeoCtaBorder 3s ease-in-out 1.2s infinite;
 }
 
 .ks-seo-hero-btn-secondary:hover {
-  background: rgba(26, 82, 204, 0.06);
-  transform: translateY(-2px);
+  background: rgba(26, 82, 204, 0.08);
+  border-color: var(--seo-blue);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(26, 82, 204, 0.14);
+  animation: none;
 }
 
 .ks-seo-hero-visual {
@@ -232,6 +267,27 @@
 @keyframes ksSeoShine {
   0%, 100% { background-position: 100% 0; }
   50% { background-position: 0 0; }
+}
+
+@keyframes ksSeoCtaPulse {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 8px 22px rgba(26, 82, 204, 0.28);
+  }
+  50% {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(26, 82, 204, 0.42);
+  }
+}
+
+@keyframes ksSeoCtaShine {
+  0%, 55% { transform: translateX(-120%); }
+  75%, 100% { transform: translateX(120%); }
+}
+
+@keyframes ksSeoCtaBorder {
+  0%, 100% { border-color: rgba(26, 82, 204, 0.4); }
+  50% { border-color: rgba(26, 82, 204, 0.85); }
 }
 
 @media (max-width: 1024px) {
@@ -294,7 +350,10 @@
   .ks-seo-hero-actions,
   .ks-seo-hero-visual,
   .ks-seo-hero-img,
-  .ks-seo-hero-title span {
+  .ks-seo-hero-title span,
+  .ks-seo-hero-btn-primary,
+  .ks-seo-hero-btn-primary::before,
+  .ks-seo-hero-btn-secondary {
     animation: none;
   }
 }
