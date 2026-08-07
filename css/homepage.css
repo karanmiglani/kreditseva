@@ -761,7 +761,7 @@
 
 /* First slide only — pagination shifted right */
 .ks-hero.ks-hero-first-slide .ks-hero-dots-pagination {
-  left: 62% !important;
+  left: 55% !important;
   transform: translateX(-50%) !important;
 }
 
