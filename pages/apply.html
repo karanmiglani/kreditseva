@@ -199,8 +199,79 @@
       font-size: 1.2rem;
       font-weight: 700;
       color: #0d1b3e;
-      margin-bottom: 18px;
+      margin-bottom: 8px;
     }
+
+    .ap-form-sub {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-bottom: 22px;
+      line-height: 1.45;
+    }
+
+    .ap-step { display: none; }
+    .ap-step.active { display: block; }
+
+    .ap-phone-wrap {
+      display: flex;
+      align-items: stretch;
+      border: 1.5px solid #1a2470;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+
+    .ap-phone-wrap:focus-within {
+      border-color: #1a52cc;
+      box-shadow: 0 0 0 3px rgba(26,82,204,0.07);
+    }
+
+    .ap-phone-prefix {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 12px;
+      background: #f1f5f9;
+      color: #0d1b3e;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-right: 1.5px solid #e2e8f0;
+      white-space: nowrap;
+    }
+
+    .ap-phone-wrap input {
+      border: none !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .ap-step-actions {
+      margin-top: 20px;
+    }
+
+    .ap-next-btn {
+      width: 100%;
+      padding: 15px;
+      background: #1a52cc;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Open Sans', sans-serif;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.18s, opacity 0.18s;
+    }
+
+    .ap-next-btn:hover { background: #1543a8; }
+    .ap-next-btn.is-visible { display: inline-flex; }
 
     /* section label */
     .ap-flabel {
@@ -438,13 +509,110 @@
     .ap-success p { font-size: 0.76rem; color: #166534; margin-top: 3px; }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .ap-left { padding: 48px 36px; }
+      .ap-right { padding: 28px 28px; }
+    }
+
     @media (max-width: 900px) {
-      .ap-page { grid-template-columns: 1fr; }
+      .ap-page {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
       .ap-left { display: none; }
-      .ap-right { padding: 36px 24px; justify-content: flex-start; }
-      .ap-fields-grid { grid-template-columns: 1fr; }
+      .ap-right {
+        padding: 24px 20px 40px;
+        justify-content: flex-start;
+        width: 100%;
+        max-width: 560px;
+        margin: 0 auto;
+        min-height: calc(100vh - 114px);
+      }
+      .ap-progress-wrap { margin-bottom: 22px; }
+      .ap-form-title { font-size: 1.15rem; }
+      .ap-form-sub { font-size: 0.82rem; margin-bottom: 18px; }
+      .ap-fields-grid { grid-template-columns: 1fr; row-gap: 10px; }
       .ap-field input,
-      .ap-field select { border-color: #c4d4f5; background: #f5f8ff; }
+      .ap-field select {
+        border-color: #c4d4f5;
+        background: #f5f8ff;
+        font-size: 16px; /* prevent iOS zoom */
+        min-height: 48px;
+      }
+      .ap-phone-wrap {
+        border-color: #c4d4f5;
+        background: #f5f8ff;
+      }
+      .ap-phone-wrap input {
+        background: transparent !important;
+        font-size: 16px;
+        min-height: 48px;
+        padding: 12px 14px;
+      }
+      .ap-phone-prefix {
+        font-size: 0.9rem;
+        padding: 0 14px;
+        background: #e8eefc;
+      }
+      .ap-next-btn,
+      .ap-submit {
+        min-height: 52px;
+        font-size: 1rem;
+        padding: 14px 16px;
+      }
+      .ap-step-actions { margin-top: 24px; }
+      .ks-consent label { font-size: 0.78rem; line-height: 1.5; }
+    }
+
+    @media (max-width: 540px) {
+      .ap-page { min-height: calc(100dvh - 100px); }
+      .ap-right {
+        padding: 18px 16px 32px;
+        max-width: 100%;
+        min-height: calc(100dvh - 100px);
+      }
+      .ap-back-btn {
+        margin-bottom: 12px;
+        padding: 6px 12px;
+        font-size: 0.85rem;
+      }
+      .ap-progress-wrap {
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+      .ap-progress-label { font-size: 0.7rem; }
+      .ap-form-title {
+        font-size: 1.08rem;
+        line-height: 1.3;
+      }
+      .ap-form-sub {
+        font-size: 0.8rem;
+        margin-bottom: 16px;
+      }
+      .ap-flabel { font-size: 0.8rem; margin-bottom: 8px; }
+      .ap-occ-group {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .ap-occ-btn {
+        padding: 12px 8px;
+        min-height: 72px;
+      }
+      .ap-occ-btn strong { font-size: 0.78rem; }
+      .ap-phone-prefix {
+        padding: 0 10px;
+        font-size: 0.85rem;
+        gap: 4px;
+      }
+      .whatsapp-float,
+      .call-float { z-index: 40; }
+    }
+
+    @media (max-width: 380px) {
+      .ap-right { padding: 14px 12px 28px; }
+      .ap-form-title { font-size: 1rem; }
+      .ap-phone-prefix span,
+      .ap-phone-prefix { font-size: 0.8rem; }
     }
   </style>
   <link rel="canonical" href="https://kreditseva.com/apply-now" />
@@ -585,18 +753,39 @@
 
       <a href="javascript:history.back()" class="ap-back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg> Back</a>
 
-      <div class="ap-form-title">Enter Your Basic Details</div>
+      <div class="ap-progress-wrap">
+        <div class="ap-progress-bar"><div class="ap-progress-fill" id="ap-progress-fill" style="width:20%;"></div></div>
+        <div class="ap-progress-label" id="ap-progress-label">Step 1</div>
+      </div>
+
+      <div class="ap-form-title" id="ap-form-title">Enter Your Mobile Number</div>
+      <p class="ap-form-sub" id="ap-form-sub">We'll use this number to verify and contact you about your loan.</p>
 
       <form id="applyForm" onsubmit="return false;">
 
-
-        <div class="ap-fields-grid">
-
-          <div class="ap-field ap-field-full" id="ap-phone-field">
-            <div class="ap-flabel">Mobile Number <span>*</span></div>
-            <input type="tel" id="af-phone" maxlength="10" placeholder="10-digit mobile number" />
-            <span class="ap-err" id="err-phone"></span>
+        <!-- STEP 1: Mobile -->
+        <div class="ap-step active" id="ap-step-1" data-step="1">
+          <div class="ap-fields-grid">
+            <div class="ap-field ap-field-full" id="ap-phone-field">
+              <div class="ap-flabel">Mobile Number <span>*</span></div>
+              <div class="ap-phone-wrap">
+                <span class="ap-phone-prefix"><i class="fa-solid fa-phone" style="font-size:0.75rem;color:#1a52cc;"></i> +91</span>
+                <input type="tel" id="af-phone" maxlength="10" placeholder="10-digit mobile number" inputmode="numeric" autocomplete="tel" />
+              </div>
+              <span class="ap-err" id="err-phone"></span>
+            </div>
           </div>
+          <div class="ap-step-actions">
+            <button type="button" class="ap-next-btn" id="ap-next-btn">
+              Next
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2+: remaining fields (hidden for now — next steps later) -->
+        <div class="ap-step" id="ap-step-2" data-step="2">
+        <div class="ap-fields-grid">
 
           <div class="ap-field ap-field-full">
             <div class="ap-flabel">Occupation <span>*</span></div>
@@ -704,6 +893,7 @@
             Submitting...
           </span>
         </button>
+        </div>
 
         
 

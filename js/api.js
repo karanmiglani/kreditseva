@@ -4,6 +4,7 @@ let phoneNumberSave = false;
 let phoneNumber = null;
 let phoneRegex = /^[6-9][0-9]{9}$/;
 let lastSavedphoneNumber = '';
+let applyStep = 1;
 document.getElementById('btn-submit')?.setAttribute('disabled', 'disabled');
 const heroPhone = document.getElementById('heroPhone');
 const applyPhone = document.getElementById('af-phone');
@@ -15,11 +16,27 @@ function getApplyProduct() {
   return urlProduct || formProduct || lsProduct || 'personal-loan';
 }
 
+function setApplyNextVisible(visible) {
+  const nextBtn = document.getElementById('ap-next-btn');
+  if (!nextBtn) return;
+  nextBtn.classList.toggle('is-visible', !!visible);
+}
+
 function bindPhoneSave(input, errId) {
   if (!input) return;
   input.addEventListener('input', function () {
     this.value = this.value.replace(/\D/g, '').slice(0, 10);
     clearTimeout(phoneTimer);
+
+    // Hide Next until this number is saved again
+    if (window.location.pathname === '/apply-now') {
+      const current = this.value.trim();
+      if (current !== lastSavedphoneNumber || !phoneNumberSave) {
+        setApplyNextVisible(false);
+        phoneNumberSave = false;
+      }
+    }
+
     phoneTimer = setTimeout(() => {
       phoneNumber = this.value.trim();
       if (phoneNumber.length < 10) return;
@@ -27,7 +44,10 @@ function bindPhoneSave(input, errId) {
         if (errId) showMessage(errId, 'Please enter valid mobile number');
         return;
       }
-      if (phoneNumber === lastSavedphoneNumber) return;
+      if (phoneNumber === lastSavedphoneNumber && phoneNumberSave) {
+        if (window.location.pathname === '/apply-now') setApplyNextVisible(true);
+        return;
+      }
       lastSavedphoneNumber = phoneNumber;
       savePhoneNumber();
     }, 500);
@@ -61,6 +81,7 @@ async function savePhoneNumber(){
       sessionStorage.setItem('id', data.rawLeadId);
       phoneNumberSave = true;
       if (onApply) {
+        setApplyNextVisible(true);
         if (typeof showToast === 'function') showToast(data.message || 'Mobile number saved');
       } else {
         if (typeof showToast === 'function') showToast('Please click on Proceed button to continue');
@@ -68,13 +89,41 @@ async function savePhoneNumber(){
         if (btn) btn.disabled = false;
       }
     } else if (onApply) {
+      phoneNumberSave = false;
+      setApplyNextVisible(false);
       showMessage('err-phone', data.message || 'Could not save mobile number');
     }
   } catch (error) {
     console.log(error);
-    if (onApply) showMessage('err-phone', 'Network error. Please try again.');
+    if (onApply) {
+      phoneNumberSave = false;
+      setApplyNextVisible(false);
+      showMessage('err-phone', 'Network error. Please try again.');
+    }
   }
 }
+
+// Step helpers — step 2+ wiring later
+function goToApplyStep(step) {
+  const target = document.getElementById('ap-step-' + step);
+  if (!target) return;
+  document.querySelectorAll('.ap-step').forEach((el) => el.classList.remove('active'));
+  target.classList.add('active');
+  applyStep = step;
+
+  const fill = document.getElementById('ap-progress-fill');
+  const label = document.getElementById('ap-progress-label');
+  const title = document.getElementById('ap-form-title');
+  const sub = document.getElementById('ap-form-sub');
+  if (step === 1) {
+    if (fill) fill.style.width = '20%';
+    if (label) label.textContent = 'Step 1';
+    if (title) title.textContent = 'Enter Your Mobile Number';
+    if (sub) sub.textContent = "We'll use this number to verify and contact you about your loan.";
+  }
+}
+
+window.goToApplyStep = goToApplyStep;
 
 // ── Hero form redirect — consent + phone ──
 function redirect(product = '') {
