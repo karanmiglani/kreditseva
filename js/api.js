@@ -326,6 +326,7 @@ function redirect(product = '') {
   window.location.href = '/apply-now?product=' + encodeURIComponent(product);
 }
 
+// Collect all apply-now form fields (used on OTP Save)
 function collectApplyFormData() {
   const occupation = document.getElementById('af-occupation').value;
   const name = document.getElementById('af-name').value.trim().toLowerCase();
@@ -339,6 +340,105 @@ function collectApplyFormData() {
   return { occupation, name, city, net_monthly_salary, product, loan_amount, pancard };
 }
 
+// ── Step 6 Submit → send OTP → open Verify OTP popup ──
+// Form is NOT saved here. Save happens only after user enters OTP and clicks Save.
+let applyOtpResendTimer = null;
+let applyOtpResendSeconds = 0;
+
+function maskPhone(phone) {
+  const p = String(phone || '');
+  if (p.length < 4) return p;
+  return p.slice(0, 2) + '******' + p.slice(-2);
+}
+
+function closeApplyOtpPopup() {
+  const overlay = document.getElementById('apOtpOverlay');
+  if (!overlay) return;
+  overlay.classList.remove('active');
+  overlay.setAttribute('aria-hidden', 'true');
+}
+
+function openApplyOtpPopup() {
+  const overlay = document.getElementById('apOtpOverlay');
+  const input = document.getElementById('apOtpInput');
+  const err = document.getElementById('apOtpErr');
+  const sub = document.getElementById('apOtpSub');
+  const phone = document.getElementById('af-phone')?.value || phoneNumber || '';
+  if (!overlay) return;
+
+  if (sub) {
+    sub.innerHTML = `Enter the OTP sent to <strong>+91 ${maskPhone(phone)}</strong>`;
+  }
+  if (input) input.value = '';
+  if (err) err.textContent = '';
+  overlay.classList.add('active');
+  overlay.setAttribute('aria-hidden', 'false');
+  setTimeout(() => input?.focus(), 80);
+  startApplyOtpResendCooldown(30);
+}
+
+function startApplyOtpResendCooldown(seconds = 30) {
+  const btn = document.getElementById('apOtpResend');
+  if (!btn) return;
+  clearInterval(applyOtpResendTimer);
+  applyOtpResendSeconds = seconds;
+  btn.disabled = true;
+  btn.textContent = `Resend OTP in ${applyOtpResendSeconds}s`;
+  applyOtpResendTimer = setInterval(() => {
+    applyOtpResendSeconds -= 1;
+    if (applyOtpResendSeconds <= 0) {
+      clearInterval(applyOtpResendTimer);
+      btn.disabled = false;
+      btn.textContent = 'Resend OTP';
+      return;
+    }
+    btn.textContent = `Resend OTP in ${applyOtpResendSeconds}s`;
+  }, 1000);
+}
+
+// Calls existing backend: POST /api/leads/send-otp (needs rawLeadId from session)
+async function sendApplyOtp() {
+  const rawLeadId = sessionStorage.getItem('id');
+  if (!rawLeadId) {
+    if (typeof showToast === 'function') showToast('Session expired, Please enter your phone number to continue...');
+    goToApplyStep(2);
+    return false;
+  }
+
+  const mobile = (document.getElementById('af-phone')?.value || phoneNumber || '').trim();
+  if (mobile && !phoneRegex.test(mobile)) {
+    showMessage('err-phone', 'Please enter valid mobile number');
+    return false;
+  }
+
+  try {
+    const resp = await fetch(`${BASE_URL}/api/leads/send-otp`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        rawLeadId,
+        phone_number: mobile,
+        product: getApplyProduct()
+      })
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (resp.ok && data.success) {
+      if (typeof showToast === 'function') showToast(data.message || 'OTP sent to your mobile number');
+      return true;
+    }
+    if (typeof showToast === 'function') {
+      showToast(data.message || 'Could not send OTP. Please try again.');
+    }
+    return false;
+  } catch (error) {
+    console.log('sendApplyOtp:', error);
+    if (typeof showToast === 'function') showToast('Network error. Please try again.');
+    return false;
+  }
+}
+
+// Step 6 Submit: validate form → send OTP → open popup (do not save lead yet)
 async function submitForm() {
   const agree = document.getElementById('ks-agree');
   if (agree && !agree.checked) {
@@ -361,8 +461,7 @@ async function submitForm() {
     return;
   }
 
-  const rawLeadId = sessionStorage.getItem('id');
-  if (!rawLeadId) {
+  if (!sessionStorage.getItem('id')) {
     if (typeof showToast === 'function') showToast('Session expired, Please enter your phone number to continue...');
     goToApplyStep(2);
     return;
@@ -375,8 +474,44 @@ async function submitForm() {
   if (btnText) btnText.style.display = 'none';
   if (btnSpinner) btnSpinner.style.display = 'inline-flex';
 
+  try {
+    const sent = await sendApplyOtp();
+    if (sent) openApplyOtpPopup();
+  } finally {
+    if (btn) btn.disabled = false;
+    if (btnText) btnText.style.display = 'inline';
+    if (btnSpinner) btnSpinner.style.display = 'none';
+  }
+}
+
+// OTP popup Save: send OTP + ALL form details to existing /apply-now/save-lead
+async function saveApplyWithOtp() {
+  const otp = (document.getElementById('apOtpInput')?.value || '').trim();
+  const err = document.getElementById('apOtpErr');
+  const saveBtn = document.getElementById('apOtpSave');
+
+  if (!/^\d{4,6}$/.test(otp)) {
+    if (err) err.textContent = 'Please enter a valid OTP';
+    return;
+  }
+  if (err) err.textContent = '';
+
+  // Re-read latest form values at save time
+  const form = collectApplyFormData();
+  const rawLeadId = sessionStorage.getItem('id');
+  if (!rawLeadId) {
+    if (err) err.textContent = 'Session expired. Please start again.';
+    return;
+  }
+
+  if (saveBtn) {
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Saving...';
+  }
+
   const successBox = document.getElementById('apply-success');
   const successMsg = document.getElementById('apply-success-msg');
+  const applyBtn = document.getElementById('apply-btn');
 
   try {
     const resp = await fetch(`${BASE_URL}/apply-now/save-lead`, {
@@ -384,6 +519,7 @@ async function submitForm() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         rawLeadId,
+        otp, // included with form payload
         ...form,
         source: window.location.pathname
       })
@@ -391,8 +527,9 @@ async function submitForm() {
     const data = await resp.json();
 
     if (data.success) {
+      closeApplyOtpPopup();
       document.querySelectorAll('.ap-step').forEach((el) => el.classList.remove('active'));
-      if (btn) btn.style.display = 'none';
+      if (applyBtn) applyBtn.style.display = 'none';
       if (successBox) successBox.style.display = 'block';
       if (successMsg) {
         successMsg.style.display = 'block';
@@ -405,22 +542,50 @@ async function submitForm() {
       if (typeof showToast === 'function') showToast(data.message || 'Application saved successfully');
       setTimeout(() => window.location.reload(), 5000);
     } else {
-      if (typeof showToast === 'function') showToast(data.message || 'Could not save application');
+      if (err) err.textContent = data.message || 'Invalid OTP or save failed. Try again.';
       if (data.rawLeadId === null) {
+        if (typeof showToast === 'function') showToast(data.message || 'Session expired');
         setTimeout(() => window.location.reload(), 2500);
       }
     }
   } catch (e) {
     console.error(e);
-    if (typeof showToast === 'function') showToast('Network error. Please try again.');
+    if (err) err.textContent = 'Network error. Please try again.';
   } finally {
-    if (btn) btn.disabled = false;
-    if (btnText) btnText.style.display = 'inline';
-    if (btnSpinner) btnSpinner.style.display = 'none';
+    if (saveBtn) {
+      saveBtn.disabled = false;
+      saveBtn.textContent = 'Save';
+    }
   }
 }
 
+// OTP popup UI events
+document.getElementById('apOtpClose')?.addEventListener('click', closeApplyOtpPopup);
+document.getElementById('apOtpOverlay')?.addEventListener('click', function (e) {
+  if (e.target === this) closeApplyOtpPopup();
+});
+document.getElementById('apOtpInput')?.addEventListener('input', function () {
+  this.value = this.value.replace(/\D/g, '').slice(0, 6);
+  const errEl = document.getElementById('apOtpErr');
+  if (errEl) errEl.textContent = '';
+});
+document.getElementById('apOtpSave')?.addEventListener('click', saveApplyWithOtp);
+document.getElementById('apOtpResend')?.addEventListener('click', async function () {
+  if (this.disabled) return;
+  const sent = await sendApplyOtp();
+  if (sent) startApplyOtpResendCooldown(30);
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') closeApplyOtpPopup();
+  if (e.key === 'Enter' && document.getElementById('apOtpOverlay')?.classList.contains('active')) {
+    e.preventDefault();
+    saveApplyWithOtp();
+  }
+});
+
 window.submitForm = submitForm;
+window.saveApplyWithOtp = saveApplyWithOtp;
+window.closeApplyOtpPopup = closeApplyOtpPopup;
 
 function showMessage(id, msg) {
   const el = document.getElementById(id);
