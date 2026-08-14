@@ -185,6 +185,52 @@ function redirect(product = '') {
 }
 
 
+// ── Cloudflare Turnstile (Apply Now) ──
+let applyTurnstileToken = '';
+
+function setApplySubmitEnabled(enabled) {
+  const btn = document.getElementById('apply-btn');
+  if (!btn) return;
+  btn.disabled = !enabled;
+  btn.style.opacity = enabled ? '1' : '0.55';
+  btn.style.cursor = enabled ? 'pointer' : 'not-allowed';
+}
+
+function onApplyTurnstileSuccess(token) {
+  applyTurnstileToken = token || '';
+  const err = document.getElementById('err-turnstile');
+  if (err) err.textContent = '';
+  setApplySubmitEnabled(true);
+}
+
+function onApplyTurnstileError() {
+  applyTurnstileToken = '';
+  setApplySubmitEnabled(false);
+  showMessage('err-turnstile', 'Verification failed. Please try again.');
+}
+
+function onApplyTurnstileExpired() {
+  applyTurnstileToken = '';
+  setApplySubmitEnabled(false);
+  showMessage('err-turnstile', 'Verification expired. Please check again.');
+}
+
+function resetApplyTurnstile() {
+  applyTurnstileToken = '';
+  setApplySubmitEnabled(false);
+  if (window.turnstile) {
+    try {
+      window.turnstile.reset();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+window.onApplyTurnstileSuccess = onApplyTurnstileSuccess;
+window.onApplyTurnstileError = onApplyTurnstileError;
+window.onApplyTurnstileExpired = onApplyTurnstileExpired;
+
 // ── Apply-now form submit ──
 async function submitForm() {
   const occupation = document.getElementById('af-occupation').value;
@@ -222,6 +268,17 @@ async function submitForm() {
     }
   }
 
+  const turnstileToken =
+    applyTurnstileToken ||
+    document.querySelector('textarea[name="cf-turnstile-response"]')?.value ||
+    document.querySelector('input[name="cf-turnstile-response"]')?.value ||
+    '';
+  if (!turnstileToken) {
+    showMessage('err-turnstile', 'Please complete the verification check');
+    setApplySubmitEnabled(false);
+    return;
+  }
+
   const btn        = document.getElementById('apply-btn');
   const btnText    = btn.querySelector('.ap-btn-text');
   const btnSpinner = btn.querySelector('.ap-btn-spinner');
@@ -254,6 +311,7 @@ async function submitForm() {
       body: JSON.stringify({
         rawLeadId, name, city, net_monthly_salary, product, loan_amount,
         occupation, pancard, otp,
+        'cf-turnstile-response': turnstileToken,
         source: window.location.pathname
       })
     });
@@ -275,6 +333,7 @@ async function submitForm() {
       successMsg.innerText     = data.message || 'Something went wrong';
       successMsg.style.display = 'block';
       successMsg.style.color   = '#dc2626';
+      resetApplyTurnstile();
       if(data.rawLeadId === null){
          showToast(data.message);
          setTimeout(() => {
@@ -286,11 +345,12 @@ async function submitForm() {
     successMsg.innerText     = 'Network error. Please try again.';
     successMsg.style.display = 'block';
     successMsg.style.color   = '#dc2626';
+    resetApplyTurnstile();
     console.error(err);
   } finally {
-    btn.disabled             = false;
     btnText.style.display    = 'inline';
     btnSpinner.style.display = 'none';
+    setApplySubmitEnabled(!!applyTurnstileToken);
   }
 }
 
