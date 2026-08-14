@@ -374,10 +374,10 @@ function openApplyOtpPopup() {
   overlay.classList.add('active');
   overlay.setAttribute('aria-hidden', 'false');
   setTimeout(() => input?.focus(), 80);
-  startApplyOtpResendCooldown(30);
+  startApplyOtpResendCooldown(120);
 }
 
-function startApplyOtpResendCooldown(seconds = 30) {
+function startApplyOtpResendCooldown(seconds = 120) {
   const btn = document.getElementById('apOtpResend');
   if (!btn) return;
   clearInterval(applyOtpResendTimer);
@@ -573,7 +573,7 @@ document.getElementById('apOtpSave')?.addEventListener('click', saveApplyWithOtp
 document.getElementById('apOtpResend')?.addEventListener('click', async function () {
   if (this.disabled) return;
   const sent = await sendApplyOtp();
-  if (sent) startApplyOtpResendCooldown(30);
+  if (sent) startApplyOtpResendCooldown(120);
 });
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') closeApplyOtpPopup();
