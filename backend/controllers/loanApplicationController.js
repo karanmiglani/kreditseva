@@ -76,12 +76,59 @@ const saveLead = async (req, resp) => {
     const connection = await db.getConnection();
     try {
         const rawLeadId = req.body.rawLeadId?.trim();
+        const otp = req.body.otp?.trim();
         if (!rawLeadId) {
             return resp.status(400).json({
                 success: false,
                 rawLeadId: null,
                 message: 'Session expired, Please enter mobile number to continue'
             });
+        }
+        if (!otp) {
+            return resp.status(400).json({
+                success: false,
+                message: 'Please enter 6 digit code sent to your WhatsApp account to continue'
+            });
+        }
+        const verifiedOtp = await verifyOtp(otp, rawLeadId);
+        console.log(verifiedOtp);
+        if(!verifiedOtp.success){
+            if(verifiedOtp.expired){
+                 return resp.status(410).json({
+                success : false,
+                message : verifiedOtp.message
+            })
+            }
+            if(verifiedOtp.blocked){
+                return resp.status(429).json({
+                    success : false,
+                    message : verifiedOtp.message
+                })           
+            }
+            if(verifiedOtp.found === false){
+                return resp.status(404).json({
+                    success : false,
+                    message : "Please generate new OTP..."
+                }) ;
+            }
+            if(verifiedOtp.valid === 0){
+                return resp.status(400).json({
+                    success : false,
+                    message : "Please enter valid OTP",
+                })
+            }
+            if(verifiedOtp.verified === 1){
+                return resp.status(400).json({
+                    success : false,
+                    message : verifiedOtp.message
+                })
+            }
+            if(verifiedOtp.error){
+                return resp.status(500).json({
+                    success : false,
+                    message : verifiedOtp.message
+                })
+            }
         }
         const phone_number = await checkLeadId(rawLeadId);
         if (!phone_number) {
@@ -163,7 +210,7 @@ const insertFinalLead = async (connection, req, phoneNumber, rawLeadId) => {
 
 const updateRawLead = async (connection, rawLeadId) => {
     try {
-        const sql = "UPDATE raw_leads set is_completed = 1 where raw_lead_id = ? ";
+        const sql = "UPDATE raw_leads set is_completed = 1, otp_verified = 1 where raw_lead_id = ? ";
         const [result] = await connection.query(sql, [rawLeadId]);
     } catch (error) {
         console.log(error);
@@ -252,7 +299,7 @@ const getAllLeads = async (req, resp) => {
     } catch (error) {
         console.error(error);
         resp.status(500).json({
-            darw: 1,
+            draw: 1,
             recordsTotal: 0,
             recordsFiltered: 0,
             data: []
@@ -265,7 +312,7 @@ const getAllCities = async (req, resp) => {
         const sql = "SELECT DISTINCT(city) from loan_applications where city IS NOT NULL ORDER BY city";
         const [result] = await db.query(sql);
         return resp.status(200).json({
-            success: 'true',
+            success: true,
             totalCities: result.length,
             cities: result
         })
@@ -470,61 +517,168 @@ const getOtpByRawLeadId = async(leadId) => {
     return rows[0] || null;
 }
 
-const verifyOtp = async(req, resp) => {
+const verifyOtp = async (otp, rawLeadId) => {
     try {
-        const rawLeadId = req.body.rawLeadId?.trim();
-        const otp = req.body.otp?.trim();
-        if(!rawLeadId || !otp){
-            return resp.status(400).json({
-                success : false,
-                message : "OTP is required"
-            });
-        }
-
-        const otpRecord = await getOtpByRawLeadId(rawLeadId);
-        if(!otpRecord){
-            return resp.status(400).json({
-                success : false,
-                message : "OTP not found, Please request new OTP."
-            });
-        }
-
-        // check expiry
-        if(new Date() >= new Date(otpRecord.expires_at)){
-            return resp.status(400).json({
-                success : false,
-                expired : true,
-                message : "Otp has expired. Please requet"
-            })
-        }
-
-        if(otpRecord.attempts >= 5){
-            return resp.status(400).json({
-                success : false,
-                blocked : true,
-                message: "Too many incorrect attempts. Please request a new OTP."
-            })
-        }
-        const otpHash = crypto.createHash("sha256").update(otp).digest("hex");
-
-        if(otpHash != otpRecord.otp_hash ){
-            await db.query(" UPDATE otp_verifications SET attempts = attempts + 1 WHERE id = ?",[otpRecord.id]);
-             return resp.status(400).json({
+        if (!rawLeadId || !otp) {
+            return {
                 success: false,
-                message: "Invalid OTP"
-            });
+                message: "OTP is required"
+            };
         }
-       return  saveLead(req,resp);
-        
-    } catch (error) {
-         console.error("verifyOtp error:", error);
 
-        return resp.status(500).json({
+        // Get latest OTP for this lead
+        const otpRecord = await getOtpByRawLeadId(rawLeadId);
+        console.log(otpRecord);
+
+        // OTP record not found
+        if (!otpRecord) {
+            return {
+                success: false,
+                found: false,
+                message: "OTP not found. Please request a new OTP."
+            };
+        }
+
+        // OTP already used
+        if (otpRecord.is_verified === 1) {
+            return {
+                success: false,
+                verified: true,
+                message: "OTP has already been used. Please request a new OTP."
+            };
+        }
+
+        // OTP expired
+        if (new Date() >= new Date(otpRecord.expires_at)) {
+            return {
+                success: false,
+                expired: true,
+                message: "OTP has expired. Please request a new OTP."
+            };
+        }
+
+        // Maximum attempts already reached
+        if (otpRecord.attempts >= 5) {
+            return {
+                success: false,
+                blocked: true,
+                message: "Too many incorrect attempts. Please request a new OTP."
+            };
+        }
+
+        // Hash entered OTP
+        const otpHash = crypto
+            .createHash("sha256")
+            .update(String(otp))
+            .digest("hex");
+
+        // =====================================================
+        // INVALID OTP
+        // =====================================================
+        if (otpHash !== otpRecord.otp_hash) {
+
+            /*
+             * IMPORTANT:
+             *
+             * attempts < 5 is checked inside the UPDATE itself.
+             * This makes the increment atomic and prevents
+             * concurrent requests from bypassing the 5-attempt limit.
+             */
+            const [result] = await db.query(
+                `UPDATE otp_verifications
+                 SET attempts = attempts + 1
+                 WHERE id = ?
+                   AND is_verified = 0
+                   AND attempts < 5`,
+                [otpRecord.id]
+            );
+
+            /*
+             * If affectedRows = 0, another request may have already
+             * reached the maximum attempts.
+             */
+            if (result.affectedRows === 0) {
+                return {
+                    success: false,
+                    valid: 0,
+                    blocked: true,
+                    message: "Too many incorrect attempts. Please request a new OTP."
+                };
+            }
+
+            /*
+             * We already know the old attempts value.
+             * Since this request successfully incremented it,
+             * the new value is old value + 1.
+             */
+            const newAttempts = otpRecord.attempts + 1;
+
+            // Block immediately on 5th failed attempt
+            if (newAttempts >= 5) {
+                return {
+                    success: false,
+                    valid: 0,
+                    blocked: true,
+                    message: "Too many incorrect attempts. Please request a new OTP."
+                };
+            }
+
+            return {
+                success: false,
+                valid: 0,
+                message: "Invalid OTP"
+            };
+        }
+
+        // =====================================================
+        // CORRECT OTP
+        // =====================================================
+
+        /*
+         * Make verification atomic.
+         *
+         * If two requests submit the same correct OTP at almost
+         * exactly the same time, only ONE request can change
+         * is_verified from 0 to 1.
+         */
+        const [result] = await db.query(
+            `UPDATE otp_verifications
+             SET is_verified = 1,
+                 verified_at = NOW()
+             WHERE id = ?
+               AND is_verified = 0
+               AND expires_at > NOW()
+               AND attempts < 5`,
+            [otpRecord.id]
+        );
+
+        /*
+         * If no row was updated, another request already used
+         * the OTP or it became invalid/expired.
+         */
+        if (result.affectedRows === 0) {
+            return {
+                success: false,
+                verified: true,
+                message: "OTP has already been used. Please request a new OTP."
+            };
+        }
+
+        return {
+            success: true,
+            message: "OTP verified"
+        };
+
+    } catch (error) {
+        console.error("verifyOtp error:", error);
+
+        return {
             success: false,
+            error: 1,
             message: "Something went wrong"
-        });
+        };
     }
-}
+};
 
 
 
