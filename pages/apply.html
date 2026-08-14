@@ -352,8 +352,216 @@
 
     .ap-occ-btn.active strong { color: #1a52cc; font-weight: 700; }
 
-    @media (max-width: 540px) {
-      .ap-occ-group { grid-template-columns: 1fr 1fr; }
+    /* Step 2 — interactive occupation cards */
+    .ap-occ-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 4px;
+    }
+
+    .ap-occ-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+      padding: 28px 16px 22px;
+      border: 2px solid #e2e8f0;
+      border-radius: 18px;
+      background: #fff;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.25s cubic-bezier(0.34, 1.4, 0.64, 1),
+                  border-color 0.2s ease,
+                  box-shadow 0.25s ease,
+                  background 0.2s ease;
+      font-family: 'Open Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      animation: ap-card-in 0.45s ease both;
+    }
+
+    .ap-occ-card:nth-child(2) { animation-delay: 0.08s; }
+
+    @keyframes ap-card-in {
+      from { opacity: 0; transform: translateY(14px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .ap-occ-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(26,82,204,0.08), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .ap-occ-card:hover {
+      transform: translateY(-4px);
+      border-color: #93b4f5;
+      box-shadow: 0 12px 28px rgba(26,82,204,0.12);
+    }
+
+    .ap-occ-card:hover::before { opacity: 1; }
+    .ap-occ-card:active { transform: translateY(-1px) scale(0.98); }
+
+    .ap-occ-card.active {
+      border-color: #1a52cc;
+      background: linear-gradient(180deg, #f0f6ff 0%, #ffffff 100%);
+      box-shadow: 0 10px 28px rgba(26,82,204,0.18);
+      transform: translateY(-2px);
+    }
+
+    .ap-occ-card.active::before { opacity: 1; }
+
+    .ap-occ-card-check {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #1a52cc;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.25s cubic-bezier(0.34, 1.4, 0.64, 1);
+    }
+
+    .ap-occ-card.active .ap-occ-card-check {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .ap-occ-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.55rem;
+      background: #f1f5f9;
+      color: #64748b;
+      transition: all 0.28s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ap-occ-card[data-occ="salaried"] .ap-occ-icon {
+      background: linear-gradient(145deg, #e8f1ff, #f8fbff);
+      color: #3b82f6;
+    }
+
+    .ap-occ-card[data-occ="self-employed"] .ap-occ-icon {
+      background: linear-gradient(145deg, #fff4e8, #fffaf5);
+      color: #f59e0b;
+    }
+
+    .ap-occ-card.active .ap-occ-icon {
+      transform: scale(1.08);
+      box-shadow: 0 8px 18px rgba(26,82,204,0.18);
+    }
+
+    .ap-occ-card.active[data-occ="salaried"] .ap-occ-icon {
+      background: linear-gradient(145deg, #1a52cc, #3b82f6);
+      color: #fff;
+    }
+
+    .ap-occ-card.active[data-occ="self-employed"] .ap-occ-icon {
+      background: linear-gradient(145deg, #f59e0b, #fbbf24);
+      color: #fff;
+    }
+
+    .ap-occ-card strong {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0d1b3e;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ap-occ-card span.ap-occ-desc {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      line-height: 1.4;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ap-occ-card.active strong { color: #1a52cc; }
+    .ap-occ-card.active[data-occ="self-employed"] strong { color: #d97706; }
+
+    .ap-step-nav {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .ap-step-nav .ap-next-btn { flex: 1; }
+
+    .ap-prev-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 14px 18px;
+      border: 1.5px solid #dbe4f5;
+      border-radius: 50px;
+      background: #fff;
+      color: #5a6a8a;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: 'Open Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.18s;
+      white-space: nowrap;
+    }
+
+    .ap-prev-btn:hover {
+      border-color: #1a52cc;
+      color: #1a52cc;
+      background: #f5f8ff;
+    }
+
+    .ap-city-wrap {
+      display: flex;
+      align-items: stretch;
+      border: 1.5px solid #1a2470;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+
+    .ap-city-wrap:focus-within {
+      border-color: #1a52cc;
+      box-shadow: 0 0 0 3px rgba(26,82,204,0.07);
+    }
+
+    .ap-city-prefix {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      background: #f1f5f9;
+      color: #1a52cc;
+      border-right: 1.5px solid #e2e8f0;
+      flex-shrink: 0;
+    }
+
+    .ap-city-wrap input {
+      border: none !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      flex: 1;
+      min-width: 0;
     }
 
     .ap-field input,
@@ -385,21 +593,46 @@
     .select2-container--default .select2-selection--single {
       border: 1.5px solid #1a2470;
       border-radius: 10px;
-      height: 40px;
+      height: 48px;
       background: #fff;
       font-family: 'Open Sans', sans-serif;
     }
 
     .select2-container--default .select2-selection--single .select2-selection__rendered {
-      line-height: 38px;
+      line-height: 46px;
       padding-left: 14px;
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       color: #0d1b3e;
     }
 
+    .select2-container--default .select2-selection--single .select2-selection__placeholder {
+      color: #94a3b8;
+      line-height: 46px;
+    }
+
     .select2-container--default .select2-selection--single .select2-selection__arrow {
-      height: 38px;
+      height: 46px;
       right: 8px;
+    }
+
+    #ap-product-field .select2-container {
+      width: 100% !important;
+    }
+
+    #ap-step-2 .select2-container--default .select2-selection--single {
+      min-height: 52px;
+      height: 52px;
+      border-radius: 12px;
+    }
+
+    #ap-step-2 .select2-container--default .select2-selection--single .select2-selection__rendered,
+    #ap-step-2 .select2-container--default .select2-selection--single .select2-selection__placeholder {
+      line-height: 50px;
+      font-size: 0.95rem;
+    }
+
+    #ap-step-2 .select2-container--default .select2-selection--single .select2-selection__arrow {
+      height: 50px;
     }
 
     .select2-container--default.select2-container--open .select2-selection--single,
@@ -508,6 +741,113 @@
     .ap-success h4 { font-size: 0.9rem; font-weight: 600; color: #15803d; }
     .ap-success p { font-size: 0.76rem; color: #166534; margin-top: 3px; }
 
+    /* OTP popup */
+    .ap-otp-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 27, 62, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .ap-otp-overlay.active { display: flex; }
+    .ap-otp-box {
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      border-radius: 18px;
+      padding: 28px 24px 24px;
+      box-shadow: 0 20px 50px rgba(4, 15, 45, 0.25);
+      position: relative;
+      animation: ap-otp-in 0.28s ease;
+    }
+    @keyframes ap-otp-in {
+      from { opacity: 0; transform: translateY(12px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .ap-otp-close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      border: none;
+      background: #f1f5f9;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      color: #64748b;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .ap-otp-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0d1b3e;
+      margin-bottom: 6px;
+    }
+    .ap-otp-sub {
+      font-size: 0.84rem;
+      color: #64748b;
+      margin-bottom: 18px;
+      line-height: 1.45;
+    }
+    .ap-otp-sub strong { color: #1a52cc; }
+    .ap-otp-input {
+      width: 100%;
+      border: 1.5px solid #1a2470;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 1.25rem;
+      letter-spacing: 0.35em;
+      text-align: center;
+      font-weight: 700;
+      font-family: 'Open Sans', sans-serif;
+      color: #0d1b3e;
+      outline: none;
+      margin-bottom: 8px;
+    }
+    .ap-otp-input:focus {
+      border-color: #1a52cc;
+      box-shadow: 0 0 0 3px rgba(26,82,204,0.1);
+    }
+    .ap-otp-err {
+      display: block;
+      min-height: 16px;
+      font-size: 0.75rem;
+      color: #ef4444;
+      margin-bottom: 10px;
+    }
+    .ap-otp-save {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 50px;
+      background: #1a52cc;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Open Sans', sans-serif;
+      cursor: pointer;
+    }
+    .ap-otp-save:hover { background: #1543a8; }
+    .ap-otp-save:disabled { opacity: 0.55; cursor: not-allowed; }
+    .ap-otp-resend {
+      display: block;
+      width: 100%;
+      margin-top: 12px;
+      border: none;
+      background: none;
+      color: #1a52cc;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .ap-otp-resend:disabled { color: #94a3b8; cursor: not-allowed; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
       .ap-left { padding: 48px 36px; }
@@ -549,6 +889,17 @@
         min-height: 48px;
         padding: 12px 14px;
       }
+      .ap-city-wrap {
+        border-color: #c4d4f5;
+        background: #f5f8ff;
+      }
+      .ap-city-wrap input {
+        background: transparent !important;
+        font-size: 16px;
+        min-height: 48px;
+        padding: 12px 14px;
+      }
+      .ap-city-prefix { background: #e8eefc; }
       .ap-phone-prefix {
         font-size: 0.9rem;
         padding: 0 14px;
@@ -590,15 +941,44 @@
         margin-bottom: 16px;
       }
       .ap-flabel { font-size: 0.8rem; margin-bottom: 8px; }
-      .ap-occ-group {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
+      .ap-occ-cards {
+        grid-template-columns: 1fr;
+        gap: 12px;
       }
-      .ap-occ-btn {
-        padding: 12px 8px;
-        min-height: 72px;
+      .ap-occ-card {
+        flex-direction: row;
+        text-align: left;
+        padding: 16px 14px;
+        gap: 14px;
+        align-items: center;
+        animation: none;
       }
-      .ap-occ-btn strong { font-size: 0.78rem; }
+      .ap-occ-card .ap-occ-text {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        flex: 1;
+        min-width: 0;
+        padding-right: 28px;
+      }
+      .ap-occ-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+      }
+      .ap-occ-card strong { font-size: 0.95rem; }
+      .ap-occ-card-check {
+        top: 50%;
+        right: 14px;
+        transform: translateY(-50%) scale(0.5);
+      }
+      .ap-occ-card.active .ap-occ-card-check {
+        transform: translateY(-50%) scale(1);
+      }
+      .ap-step-nav { flex-direction: column-reverse; }
+      .ap-prev-btn { width: 100%; min-height: 48px; }
       .ap-phone-prefix {
         padding: 0 10px;
         font-size: 0.85rem;
@@ -776,126 +1156,194 @@
             </div>
           </div>
           <div class="ap-step-actions">
-            <button type="button" class="ap-next-btn" id="ap-next-btn">
+            <button type="button" class="ap-next-btn" id="ap-next-btn" onclick="goToApplyStep(2)">
               Next
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
           </div>
         </div>
 
-        <!-- STEP 2+: remaining fields (hidden for now — next steps later) -->
+        <!-- STEP 2: Loan Type -->
         <div class="ap-step" id="ap-step-2" data-step="2">
-        <div class="ap-fields-grid">
-
-          <div class="ap-field ap-field-full">
-            <div class="ap-flabel">Occupation <span>*</span></div>
-            <div class="ap-occ-group" style="grid-template-columns: 1fr 1fr;">
-              <button type="button" class="ap-occ-btn active" data-occ="salaried">
-                <i class="fa-solid fa-briefcase"></i>
-                <strong>Salaried</strong>
-              </button>
-              <button type="button" class="ap-occ-btn" data-occ="self-employed">
-                <i class="fa-solid fa-store"></i>
-                <strong>Self Employed</strong>
-              </button>
+          <div class="ap-fields-grid">
+            <div class="ap-field ap-field-full" id="ap-product-field">
+              <div class="ap-flabel">Loan Type <span>*</span></div>
+              <select id="af-product">
+                <option value="">Select Loan Type</option>
+                <optgroup label="Personal Loans">
+                  <option value="personal-loan">Personal Loan</option>
+                  <option value="personal-overdraft">Personal Overdraft</option>
+                  <option value="balance-transfer">Balance Transfer</option>
+                  <option value="debt-consolidation">Debt Consolidation</option>
+                  <option value="insta-loan">Insta Loan</option>
+                </optgroup>
+                <optgroup label="Business Loans">
+                  <option value="business-loan">Business Loan</option>
+                  <option value="working-capital">Working Capital</option>
+                  <option value="unsecured-business-loan">Unsecured Business Loan</option>
+                  <option value="business-overdraft">Business Overdraft</option>
+                </optgroup>
+                <optgroup label="Professional Loans">
+                  <option value="professional-loan">Professional Loan</option>
+                  <option value="loan-for-ca">Loan for CA</option>
+                  <option value="loan-for-cs">Loan for CS</option>
+                  <option value="loan-for-doctor">Loan for Doctors</option>
+                </optgroup>
+                <optgroup label="Secured Loans">
+                  <option value="secured-loan">Secured Loan</option>
+                  <option value="loan-Against-roperty">Loan Against Property</option>
+                  <option value="home-Loan">Home Loan</option>
+                  <option value="car-Loan">Car Loan</option>
+                </optgroup>
+                <optgroup label="Other">
+                  <option value="credit-card">Credit Card</option>
+                </optgroup>
+              </select>
+              <span class="ap-err" id="err-product"></span>
             </div>
-            <input type="hidden" id="af-occupation" value="salaried">
-            <span class="ap-err" id="err-occupation"></span>
           </div>
-
-          <div class="ap-field">
-            <div class="ap-flabel">Full Name <span>*</span></div>
-            <input type="text" id="af-name" placeholder="Enter your full name" />
-            <span class="ap-err" id="err-name"></span>
+          <div class="ap-step-nav">
+            <button type="button" class="ap-prev-btn" onclick="goToApplyStep(1)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              Back
+            </button>
+            <button type="button" class="ap-next-btn" id="ap-next-btn-2" onclick="goToApplyStep(3)">
+              Next
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
           </div>
-
-          <div class="ap-field">
-            <div class="ap-flabel">City <span>*</span></div>
-            <input type="text" id="af-city" placeholder="Enter your city" />
-            <span class="ap-err" id="err-city"></span>
-          </div>
-
-          <div class="ap-field">
-            <div class="ap-flabel" id="ap-income-label">Net Monthly Income <span>*</span></div>
-            <select id="af-income">
-              <option value="">Select Income</option>
-              <option>Below ₹25,000</option>
-              <option>₹25,000 – ₹50,000</option>
-              <option>₹50,000 – ₹1 Lakh</option>
-              <option>₹1 Lakh – ₹3 Lakh</option>
-              <option>Above ₹3 Lakh</option>
-            </select>
-            <span class="ap-err" id="err-income"></span>
-          </div>
-
-          <div class="ap-field">
-            <div class="ap-flabel">Loan Category <span>*</span></div>
-            <select id="af-product">
-              <option value="">Select Loan Type</option>
-              <optgroup label="Personal Loans">
-                <option value="personal-loan">Personal Loan</option>
-                <option value="personal-overdraft">Personal Overdraft</option>
-                <option value="balance-transfer">Balance Transfer</option>
-                <option value="debt-consolidation">Debt Consolidation</option>
-                <option value="insta-loan">Instant Loan</option>
-              </optgroup>
-              <optgroup label="Business Loans">
-                <option value="business-loan">Business Loan</option>
-                <option value="working-capital">Working Capital</option>
-                <option value="unsecured-business-loan">Unsecured Business Loan</option>
-                <option value="business-overdraft">Business Overdraft</option>
-              </optgroup>
-              <optgroup label="Professional Loans">
-                <option value="professional-loan">Professional Loan</option>
-                <option value="loan-for-ca">Loan for CA</option>
-                <option value="loan-for-cs">Loan for CS</option>
-                <option value="loan-for-doctor">Loan for Doctor</option>
-              </optgroup>
-              <optgroup label="Secured Loans">
-                <option value="loan-Against-roperty">Loan Against Property</option>
-                <option value="home-Loan">Home Loan</option>
-                <option value="car-Loan">Car Loan</option>
-              </optgroup>
-              <optgroup label="Other">
-                <option value="credit-card">Credit Card</option>
-              </optgroup>
-            </select>
-            <span class="ap-err" id="err-product"></span>
-          </div>
-
-          <div class="ap-field" id="ap-loan-amount-field">
-            <div class="ap-flabel">Loan Amount Required <span>*</span></div>
-            <input type="number" id="af-loan-amount" placeholder="Enter amount e.g. 500000" min="1000" />
-            <span style="font-size:0.75rem;color:#ef4444;font-weight:600;margin-top:4px;display:block;min-height:16px;" id="af-loan-amount-words"></span>
-            <span class="ap-err" id="err-loan-amount"></span>
-          </div>
-
-          <div class="ap-field">
-            <div class="ap-flabel">PAN Card <span style="font-weight:400; color:#94a3b8;">(Optional)</span></div>
-            <input type="text" id="af-pan" placeholder="e.g. ABCDE1234F" maxlength="10" style="text-transform:uppercase;" />
-            <span class="ap-err" id="err-pan"></span>
-          </div>
-
-        </div>
-        <div class="ks-consent">
-          <input type="checkbox" id="ks-agree" checked />
-          <label for="ks-agree">I agree to KreditSeva's <a href="/terms-condition" target="_blank" rel="noopener">Terms &amp; Conditions</a>, <a href="/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>, and authorise contact via Call, SMS, Email, or WhatsApp.</label>
         </div>
 
+        <!-- STEP 3: Occupation -->
+        <div class="ap-step" id="ap-step-3" data-step="3">
+          <div class="ap-occ-cards" id="ap-occ-cards">
+            <button type="button" class="ap-occ-card" data-occ="salaried" aria-pressed="false">
+              <span class="ap-occ-card-check"><i class="fa-solid fa-check"></i></span>
+              <span class="ap-occ-icon"><i class="fa-solid fa-briefcase"></i></span>
+              <span class="ap-occ-text">
+                <strong>Salaried</strong>
+                <span class="ap-occ-desc">Private / Govt job with monthly salary</span>
+              </span>
+            </button>
+            <button type="button" class="ap-occ-card" data-occ="self-employed" aria-pressed="false">
+              <span class="ap-occ-card-check"><i class="fa-solid fa-check"></i></span>
+              <span class="ap-occ-icon"><i class="fa-solid fa-store"></i></span>
+              <span class="ap-occ-text">
+                <strong>Business Owner</strong>
+                <span class="ap-occ-desc">Self-employed / business / profession</span>
+              </span>
+            </button>
+          </div>
+          <input type="hidden" id="af-occupation" value="">
+          <span class="ap-err" id="err-occupation"></span>
+          <div class="ap-step-nav">
+            <button type="button" class="ap-prev-btn" onclick="goToApplyStep(2)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              Back
+            </button>
+            <button type="button" class="ap-next-btn" id="ap-next-btn-3" onclick="goToApplyStep(4)">
+              Next
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
 
+        <!-- STEP 4: City -->
+        <div class="ap-step" id="ap-step-4" data-step="4">
+          <div class="ap-fields-grid">
+            <div class="ap-field ap-field-full" id="ap-city-field">
+              <div class="ap-flabel">City <span>*</span></div>
+              <div class="ap-city-wrap">
+                <span class="ap-city-prefix"><i class="fa-solid fa-location-dot"></i></span>
+                <input type="text" id="af-city" placeholder="e.g. Delhi, Mumbai, Bengaluru" autocomplete="address-level2" />
+              </div>
+              <span class="ap-err" id="err-city"></span>
+            </div>
+          </div>
+          <div class="ap-step-nav">
+            <button type="button" class="ap-prev-btn" onclick="goToApplyStep(3)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              Back
+            </button>
+            <button type="button" class="ap-next-btn" id="ap-next-btn-4" onclick="goToApplyStep(5)">
+              Next
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 5: Income / Amount / PAN -->
+        <div class="ap-step" id="ap-step-5" data-step="5">
+          <div class="ap-fields-grid">
+            <div class="ap-field ap-field-full" id="ap-income-field">
+              <div class="ap-flabel" id="ap-income-label">Net Monthly Income <span>*</span></div>
+              <select id="af-income">
+                <option value="">Select Income</option>
+                <option>Below ₹25,000</option>
+                <option>₹25,000 – ₹50,000</option>
+                <option>₹50,000 – ₹1 Lakh</option>
+                <option>₹1 Lakh – ₹3 Lakh</option>
+                <option>Above ₹3 Lakh</option>
+              </select>
+              <span class="ap-err" id="err-income"></span>
+            </div>
+
+            <div class="ap-field ap-field-full" id="ap-loan-amount-field">
+              <div class="ap-flabel" id="ap-loan-amount-label">Loan Amount Required <span>*</span></div>
+              <input type="number" id="af-loan-amount" placeholder="Enter amount e.g. 500000" min="1000" />
+              <span style="font-size:0.75rem;color:#ef4444;font-weight:600;margin-top:4px;display:block;min-height:16px;" id="af-loan-amount-words"></span>
+              <span class="ap-err" id="err-loan-amount"></span>
+            </div>
+
+            <div class="ap-field ap-field-full" id="ap-pan-field">
+              <div class="ap-flabel">PAN Card <span style="font-weight:400; color:#94a3b8;">(Optional)</span></div>
+              <input type="text" id="af-pan" placeholder="e.g. ABCDE1234F" maxlength="10" style="text-transform:uppercase;" autocomplete="off" />
+              <span class="ap-err" id="err-pan"></span>
+            </div>
+          </div>
+
+          <div class="ap-step-nav">
+            <button type="button" class="ap-prev-btn" onclick="goToApplyStep(4)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              Back
+            </button>
+            <button type="button" class="ap-next-btn" id="ap-next-btn-5" onclick="goToApplyStep(6)">
+              Next
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 6: Name + Submit -->
+        <div class="ap-step" id="ap-step-6" data-step="6">
+          <div class="ap-fields-grid">
+            <div class="ap-field ap-field-full">
+              <div class="ap-flabel">Full Name <span>*</span></div>
+              <input type="text" id="af-name" placeholder="Enter your full name" autocomplete="name" />
+              <span class="ap-err" id="err-name"></span>
+            </div>
+          </div>
+          <div class="ks-consent">
+            <input type="checkbox" id="ks-agree" checked />
+            <label for="ks-agree">I agree to KreditSeva's <a href="/terms-condition" target="_blank" rel="noopener">Terms &amp; Conditions</a>, <a href="/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>, and authorise contact via Call, SMS, Email, or WhatsApp.</label>
+          </div>
           <span class="pl-field-err" id="err-ksAgree"></span>
-<span class="ap-success-msg" id="apply-success-msg" style="display:none;"></span>
+          <span class="ap-success-msg" id="apply-success-msg" style="display:none;"></span>
 
-        <button type="submit" class="ap-submit" id="apply-btn" onclick="submitForm();">
-          <span class="ap-btn-text">Apply Now</span>
-          <span class="ap-btn-spinner" style="display:none;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:ap-spin 0.8s linear infinite;"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-            Submitting...
-          </span>
-        </button>
+          <div class="ap-step-nav">
+            <button type="button" class="ap-prev-btn" onclick="goToApplyStep(5)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              Back
+            </button>
+            <button type="button" class="ap-submit" id="apply-btn" onclick="submitForm();" style="flex:1;margin:0;">
+              <span class="ap-btn-text">Submit</span>
+              <span class="ap-btn-spinner" style="display:none;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:ap-spin 0.8s linear infinite;"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                Sending OTP...
+              </span>
+            </button>
+          </div>
         </div>
-
-        
 
         <div class="ap-success" id="apply-success">
           <i class="fa-solid fa-circle-check"></i>
@@ -904,6 +1352,19 @@
         </div>
 
       </form>
+    </div>
+  </div>
+
+  <!-- OTP Popup -->
+  <div class="ap-otp-overlay" id="apOtpOverlay" aria-hidden="true">
+    <div class="ap-otp-box" role="dialog" aria-modal="true" aria-labelledby="apOtpTitle">
+      <button type="button" class="ap-otp-close" id="apOtpClose" aria-label="Close">&times;</button>
+      <div class="ap-otp-title" id="apOtpTitle">Verify OTP</div>
+      <p class="ap-otp-sub" id="apOtpSub">Enter the OTP sent to your mobile number.</p>
+      <input type="tel" class="ap-otp-input" id="apOtpInput" maxlength="6" inputmode="numeric" placeholder="••••••" autocomplete="one-time-code" />
+      <span class="ap-otp-err" id="apOtpErr"></span>
+      <button type="button" class="ap-otp-save" id="apOtpSave">Save</button>
+      <button type="button" class="ap-otp-resend" id="apOtpResend">Resend OTP</button>
     </div>
   </div>
 
@@ -935,11 +1396,13 @@
 
   function initApplyIncomeSelect2() {
     var $sel = $('#af-income');
+    if (!$sel.length) return;
     if ($sel.data('select2')) $sel.select2('destroy');
     $sel.select2({
       placeholder: 'Select Income',
       allowClear: true,
-      width: '100%'
+      width: '100%',
+      dropdownParent: $('#ap-step-5')
     });
   }
 
@@ -947,6 +1410,8 @@
     var occupation = document.getElementById('af-occupation').value;
     var select = document.getElementById('af-income');
     var label = document.getElementById('ap-income-label');
+    if (!select || !label) return;
+
     var useAnnual = occupation === 'self-employed';
     var options = useAnnual ? AP_SALARY_OPTIONS.annual : AP_SALARY_OPTIONS.monthly;
 
@@ -967,9 +1432,41 @@
       errIncome.textContent = '';
       errIncome.style.display = 'none';
     }
+
+    if (typeof syncIncomeStepNextButton === 'function') syncIncomeStepNextButton();
   }
 
-  // Occupation toggle
+  function updateApplyAmountField() {
+    var product = document.getElementById('af-product')?.value || '';
+    var field = document.getElementById('ap-loan-amount-field');
+    var label = document.getElementById('ap-loan-amount-label') || field?.querySelector('.ap-flabel');
+    var input = document.getElementById('af-loan-amount');
+    if (!field || !label || !input) return;
+
+    if (product === 'credit-card') {
+      field.style.display = 'none';
+      input.value = '';
+      var words = document.getElementById('af-loan-amount-words');
+      if (words) words.textContent = '';
+    } else {
+      field.style.display = '';
+      if (product === 'debt-consolidation') {
+        label.innerHTML = 'Total Outstanding Amount <span>*</span>';
+        input.placeholder = 'Enter total outstanding amount';
+      } else {
+        label.innerHTML = 'Loan Amount Required <span>*</span>';
+        input.placeholder = 'Enter amount e.g. 500000';
+      }
+    }
+
+    if (typeof syncIncomeStepNextButton === 'function') syncIncomeStepNextButton();
+  }
+
+  window.updateApplyAmountField = updateApplyAmountField;
+  window.initApplyIncomeSelect2 = initApplyIncomeSelect2;
+  window.updateApplyIncomeField = updateApplyIncomeField;
+
+  // Occupation cards handled in api.js (selectApplyOccupation)
   document.querySelectorAll('.ap-occ-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.ap-occ-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -979,45 +1476,69 @@
     });
   });
 
-  // Label change + hide/show on product select
+  // Product select → amount label (Loan Amount vs Total Outstanding)
   $('#af-product').on('change', function () {
-    const field = document.getElementById('ap-loan-amount-field');
-    const label = field.querySelector('.ap-flabel');
-    const input = document.getElementById('af-loan-amount');
+    const product = this.value || '';
+    localStorage.setItem('product', product);
 
-    if (this.value === 'credit-card') {
-      field.style.display = 'none';
-      input.value = '';
-    } else {
-      field.style.display = '';
-      if (this.value === 'debt-consolidation') {
-        label.innerHTML = 'Total Outstanding Amount <span>*</span>';
-        input.placeholder = 'Enter total outstanding amount';
-      } else {
-        label.innerHTML = 'Loan Amount Required <span>*</span>';
-        input.placeholder = 'Enter amount e.g. 500000';
-      }
+    if (typeof setApplyNextVisible === 'function') {
+      setApplyNextVisible(!!product, 'ap-next-btn-2');
     }
+
+    const err = document.getElementById('err-product');
+    if (err) {
+      err.textContent = '';
+      err.style.display = 'none';
+    }
+
+    updateApplyAmountField();
+  });
+
+  $('#af-income').on('change', function () {
+    if (typeof syncIncomeStepNextButton === 'function') syncIncomeStepNextButton();
   });
 
   document.getElementById('af-loan-amount').addEventListener('input', function () {
     const n = parseInt(this.value.replace(/[^0-9]/g, '')) || 0;
     const el = document.getElementById('af-loan-amount-words');
-    if (!n) { el.textContent = ''; return; }
-    if (n >= 10000000) el.textContent = '₹ ' + (n / 10000000).toFixed(2).replace(/\.?0+$/, '') + ' Crore';
+    if (!n) { el.textContent = ''; }
+    else if (n >= 10000000) el.textContent = '₹ ' + (n / 10000000).toFixed(2).replace(/\.?0+$/, '') + ' Crore';
     else if (n >= 100000) el.textContent = '₹ ' + (n / 100000).toFixed(2).replace(/\.?0+$/, '') + ' Lakh';
     else if (n >= 1000)   el.textContent = '₹ ' + (n / 1000).toFixed(2).replace(/\.?0+$/, '') + ' Thousand';
     else el.textContent = '₹ ' + n;
+    if (typeof syncIncomeStepNextButton === 'function') syncIncomeStepNextButton();
+  });
+
+  document.getElementById('af-pan')?.addEventListener('input', function () {
+    this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10);
+    const err = document.getElementById('err-pan');
+    if (!err) return;
+    const val = this.value;
+    if (val && !/^[A-Z]{5}[0-9]{4}[A-Z]?$/.test(val) && val.length === 10) {
+      err.textContent = 'Please enter a valid PAN (e.g. ABCDE1234F)';
+      err.style.display = 'block';
+    } else {
+      err.textContent = '';
+      err.style.display = 'none';
+    }
   });
   </script>
 
   <script>
-  $(document).ready(function() {
-    $('#af-product').select2({
-      placeholder: 'Select Loan Type',
+  function initApplyProductSelect2() {
+    var $sel = $('#af-product');
+    if (!$sel.length) return;
+    if ($sel.data('select2')) $sel.select2('destroy');
+    $sel.select2({
+      placeholder: 'Search or select loan type',
       allowClear: true,
-      width: '100%'
+      width: '100%',
+      dropdownParent: $('#ap-step-2')
     });
+  }
+
+  $(document).ready(function() {
+    initApplyProductSelect2();
   });
    const urlProduct = new URLSearchParams(window.location.search).get('product');
     const lsProduct = localStorage.getItem('product');
