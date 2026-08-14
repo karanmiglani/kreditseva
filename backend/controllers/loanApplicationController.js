@@ -2,8 +2,6 @@ const db = require('../config/db');
 const crypto = require('crypto');
 const ExcelJS = require('exceljs');
 const sendWhatsappOtp = require('../services/whatsAppService');
-// Turnstile siteverify helper (server-side only — never call from browser)
-const { verifyTurnstileToken } = require('../utils/verifyTurnstile');
 
 
 
@@ -75,8 +73,6 @@ const insertLead = async (phoneNumber, product, raw_lead_id, expiry_date) => {
 }
 
 const saveLead = async (req, resp) => {
-    // Turnstile is verified earlier on POST /api/leads/send-otp (token is single-use).
-    // This handler only verifies WhatsApp OTP + saves the lead.
     const connection = await db.getConnection();
     try {
         const rawLeadId = req.body.rawLeadId?.trim();
@@ -461,36 +457,6 @@ const contactUs = async(req, resp) => {
 
 const sendOtp = async(req, resp) => {
     try {
-        // ── Turnstile MUST pass before any OTP is generated / sent ──
-        // Token is single-use: after this succeeds, frontend must reset the widget.
-        const turnstileToken =
-            req.body['cf-turnstile-response'] ||
-            req.body.cfTurnstileResponse ||
-            req.body.turnstileToken;
-        const clientIp =
-            (req.headers['x-forwarded-for'] || '').split(',')[0].trim() ||
-            req.ip;
-        const turnstile = await verifyTurnstileToken({
-            token: turnstileToken,
-            remoteip: clientIp,
-            expectedAction: 'apply-now'
-        });
-        if (!turnstile.ok) {
-            const isLocal = process.env.NODE_ENV !== 'production';
-            let message = 'Bot verification failed. Please complete the check and try again.';
-            if (isLocal && turnstile.reason === 'misconfigured') {
-                message = 'Turnstile not configured. Set TURNSTILE_SECRET in backend/.env and restart.';
-            } else if (isLocal && turnstile.reason === 'hostname_mismatch') {
-                message = `Turnstile hostname "${turnstile.got}" not in TURNSTILE_HOSTNAMES. Add localhost,127.0.0.1 and restart.`;
-            }
-            return resp.status(403).json({
-                success: false,
-                rawLeadId: req.body.rawLeadId || null,
-                message,
-                ...(isLocal ? { reason: turnstile.reason } : {})
-            });
-        }
-
         const rawLeadId = req.body.rawLeadId?.trim();
         if (!rawLeadId) {
             return resp.status(400).json({

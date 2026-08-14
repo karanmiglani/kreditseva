@@ -340,76 +340,6 @@ function collectApplyFormData() {
   return { occupation, name, city, net_monthly_salary, product, loan_amount, pancard };
 }
 
-// ═══════════════════════════════════════════════════════════
-// Cloudflare Turnstile (apply-now step 6)
-// Site key is public. Secret is verified only on the server
-// inside POST /api/leads/send-otp — OTP is never sent until that passes.
-// Action must match backend expectedAction: "apply-now"
-// Token is single-use: reset widget after each send-otp attempt.
-// ═══════════════════════════════════════════════════════════
-const APPLY_TURNSTILE_SITEKEY = '0x4AAAAAAEPpGlF99gGA36nq';
-const APPLY_TURNSTILE_ACTION = 'apply-now';
-let applyTurnstileToken = '';      // latest cf-turnstile-response token
-let applyTurnstileWidgetId = null; // needed for turnstile.reset() after failed save
-
-// Submit stays disabled until Turnstile succeeds (or after expire/error/reset)
-function setApplySubmitEnabled(enabled) {
-  const btn = document.getElementById('apply-btn');
-  if (btn) btn.disabled = !enabled;
-}
-
-function onApplyTurnstileSuccess(token) {
-  applyTurnstileToken = token || '';
-  const err = document.getElementById('err-turnstile');
-  if (err) {
-    err.textContent = '';
-    err.style.display = 'none';
-  }
-  setApplySubmitEnabled(!!applyTurnstileToken);
-}
-
-function onApplyTurnstileExpireOrError() {
-  applyTurnstileToken = '';
-  setApplySubmitEnabled(false);
-}
-
-// Tokens are single-use — reset after every save attempt that hit the server
-function resetApplyTurnstile() {
-  applyTurnstileToken = '';
-  setApplySubmitEnabled(false);
-  if (applyTurnstileWidgetId != null && window.turnstile) {
-    try {
-      window.turnstile.reset(applyTurnstileWidgetId);
-    } catch (e) {
-      console.log('turnstile.reset:', e);
-    }
-  }
-}
-
-function initApplyTurnstile() {
-  const el = document.getElementById('ap-turnstile');
-  if (!el || !window.turnstile || typeof window.turnstile.render !== 'function') return;
-  // Avoid double-render if onload + api.js both fire
-  if (applyTurnstileWidgetId != null) return;
-
-  applyTurnstileWidgetId = window.turnstile.render(el, {
-    sitekey: APPLY_TURNSTILE_SITEKEY,
-    action: APPLY_TURNSTILE_ACTION,
-    callback: onApplyTurnstileSuccess,
-    'expired-callback': onApplyTurnstileExpireOrError,
-    'error-callback': onApplyTurnstileExpireOrError
-  });
-  setApplySubmitEnabled(false);
-}
-
-// Expose for Turnstile ?onload=onTurnstileApiLoad (works with async/defer)
-window.initApplyTurnstile = initApplyTurnstile;
-
-// If Turnstile finished loading before this deferred file ran, render now
-if (window.__ksTurnstileApiReady) {
-  initApplyTurnstile();
-}
-
 // ── Step 6 Submit → send OTP → open Verify OTP popup ──
 // Form is NOT saved here. Save happens only after user enters OTP and clicks Save.
 let applyOtpResendTimer = null;
@@ -467,22 +397,11 @@ function startApplyOtpResendCooldown(seconds = 30) {
 }
 
 // Calls existing backend: POST /api/leads/send-otp
-// OTP is sent ONLY after Turnstile siteverify succeeds on the server.
 async function sendApplyOtp() {
   const rawLeadId = sessionStorage.getItem('id');
   if (!rawLeadId) {
     if (typeof showToast === 'function') showToast('Session expired, Please enter your phone number to continue...');
     goToApplyStep(2);
-    return false;
-  }
-
-  // No token ⇒ never call send-otp (bot / expired check)
-  if (!applyTurnstileToken) {
-    showMessage('err-turnstile', 'Please complete the verification check');
-    setApplySubmitEnabled(false);
-    if (typeof showToast === 'function') {
-      showToast('Please complete the verification check before requesting OTP');
-    }
     return false;
   }
 
@@ -500,16 +419,10 @@ async function sendApplyOtp() {
       body: JSON.stringify({
         rawLeadId,
         phone_number: mobile,
-        product: getApplyProduct(),
-        // Required: backend verifies this before generating/sending OTP
-        'cf-turnstile-response': applyTurnstileToken
+        product: getApplyProduct()
       })
     });
     const data = await resp.json().catch(() => ({}));
-
-    // Token is single-use — always clear/reset after an attempt that hit the server
-    resetApplyTurnstile();
-
     if (resp.ok && data.success) {
       if (typeof showToast === 'function') showToast(data.message || 'OTP sent to your mobile number');
       return true;
@@ -520,13 +433,12 @@ async function sendApplyOtp() {
     return false;
   } catch (error) {
     console.log('sendApplyOtp:', error);
-    resetApplyTurnstile();
     if (typeof showToast === 'function') showToast('Network error. Please try again.');
     return false;
   }
 }
 
-// Step 6 Submit: validate form → require Turnstile → send OTP → open popup (do not save lead yet)
+// Step 6 Submit: validate form → send OTP → open popup (do not save lead yet)
 async function submitForm() {
   const agree = document.getElementById('ks-agree');
   if (agree && !agree.checked) {
@@ -549,13 +461,6 @@ async function submitForm() {
     return;
   }
 
-  // Client gate — server also blocks send-otp without a valid Turnstile token
-  if (!applyTurnstileToken) {
-    showMessage('err-turnstile', 'Please complete the verification check');
-    setApplySubmitEnabled(false);
-    return;
-  }
-
   if (!sessionStorage.getItem('id')) {
     if (typeof showToast === 'function') showToast('Session expired, Please enter your phone number to continue...');
     goToApplyStep(2);
@@ -573,15 +478,13 @@ async function submitForm() {
     const sent = await sendApplyOtp();
     if (sent) openApplyOtpPopup();
   } finally {
+    if (btn) btn.disabled = false;
     if (btnText) btnText.style.display = 'inline';
     if (btnSpinner) btnSpinner.style.display = 'none';
-    // sendApplyOtp resets Turnstile after use → Submit stays disabled until new check
-    setApplySubmitEnabled(!!applyTurnstileToken);
   }
 }
 
 // OTP popup Save: OTP + form details → /apply-now/save-lead
-// (Turnstile already verified when OTP was sent)
 async function saveApplyWithOtp() {
   const otp = (document.getElementById('apOtpInput')?.value || '').trim();
   const err = document.getElementById('apOtpErr');
@@ -669,14 +572,6 @@ document.getElementById('apOtpInput')?.addEventListener('input', function () {
 document.getElementById('apOtpSave')?.addEventListener('click', saveApplyWithOtp);
 document.getElementById('apOtpResend')?.addEventListener('click', async function () {
   if (this.disabled) return;
-  // Resend also needs a fresh Turnstile token (previous one was consumed on first send)
-  if (!applyTurnstileToken) {
-    closeApplyOtpPopup();
-    if (typeof showToast === 'function') {
-      showToast('Please complete the verification check again to resend OTP');
-    }
-    return;
-  }
   const sent = await sendApplyOtp();
   if (sent) startApplyOtpResendCooldown(30);
 });

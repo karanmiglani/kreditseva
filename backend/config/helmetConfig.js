@@ -2,13 +2,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 const cspDirectives = {
     defaultSrc: ["'self'"],
-    // Turnstile widget script lives on challenges.cloudflare.com
-    scriptSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        'https://cdn.jsdelivr.net',
-        'https://challenges.cloudflare.com'
-    ],
+    scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.jsdelivr.net'],
     scriptSrcAttr: ["'unsafe-inline'"],
     styleSrc: [
         "'self'",
@@ -24,14 +18,7 @@ const cspDirectives = {
         'data:'
     ],
     imgSrc: ["'self'", 'data:', 'https:'],
-    // Browser talks to Turnstile challenge endpoints
-    connectSrc: [
-        "'self'",
-        'https://cdn.jsdelivr.net',
-        'https://challenges.cloudflare.com'
-    ],
-    // Widget iframe
-    frameSrc: ["'self'", 'https://challenges.cloudflare.com'],
+    connectSrc: ["'self'", 'https://cdn.jsdelivr.net'],
     objectSrc: ["'self'"],
     baseUri: ["'self'"],
     formAction: ["'self'"],
