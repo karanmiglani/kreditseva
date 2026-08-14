@@ -2,51 +2,6 @@ const db = require('../config/db');
 const crypto = require('crypto');
 const ExcelJS = require('exceljs');
 
-const TURNSTILE_EXPECTED_ACTION = 'apply-now';
-
-async function verifyTurnstileToken(token, remoteip) {
-    const secret = process.env.TURNSTILE_SECRET;
-    const expectedHostnames = new Set(
-        (process.env.TURNSTILE_HOSTNAMES ?? '')
-            .split(',')
-            .map((hostname) => hostname.trim())
-            .filter(Boolean),
-    );
-
-    if (
-        typeof token !== 'string' ||
-        token.length === 0 ||
-        token.length > 2048 ||
-        !secret ||
-        expectedHostnames.size === 0
-    ) {
-        return false;
-    }
-
-    try {
-        const r = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            signal: AbortSignal.timeout(10_000),
-            body: new URLSearchParams({
-                secret,
-                response: token,
-                ...(remoteip ? { remoteip } : {}),
-            }),
-        });
-        if (!r.ok) return false;
-        const result = await r.json();
-        return Boolean(
-            result.success &&
-            result.action === TURNSTILE_EXPECTED_ACTION &&
-            expectedHostnames.has(result.hostname)
-        );
-    } catch (error) {
-        console.log('Turnstile siteverify error:', error);
-        return false;
-    }
-}
-
 
 
 const savePhoneNumber = async (req, resp) => {
@@ -119,19 +74,6 @@ const insertLead = async (phoneNumber, product, raw_lead_id, expiry_date) => {
 const saveLead = async (req, resp) => {
     const connection = await db.getConnection();
     try {
-        const turnstileToken = req.body?.['cf-turnstile-response'];
-        const clientIp = (req.headers['x-forwarded-for'] || req.ip || '')
-            .toString()
-            .split(',')[0]
-            .trim();
-        const turnstileOk = await verifyTurnstileToken(turnstileToken, clientIp);
-        if (!turnstileOk) {
-            return resp.status(403).json({
-                success: false,
-                message: 'Verification failed. Please complete the check and try again.'
-            });
-        }
-
         const rawLeadId = req.body.rawLeadId?.trim();
         if (!rawLeadId) {
             return resp.status(400).json({
