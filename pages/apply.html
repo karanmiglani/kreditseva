@@ -17,8 +17,20 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
   <link rel="stylesheet" href="/css/global.css" />
   <link rel="stylesheet" href="/css/loader.css" />
-  <!-- Cloudflare Turnstile (explicit render from api.js) — sitekey is public -->
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+  <!--
+    Turnstile with async/defer MUST use ?onload=... (do NOT call turnstile.ready()).
+    Stub is defined first so the callback exists even if api.js loads later.
+  -->
+  <script>
+    window.__ksTurnstileApiReady = false;
+    window.onTurnstileApiLoad = function () {
+      window.__ksTurnstileApiReady = true;
+      if (typeof window.initApplyTurnstile === 'function') {
+        window.initApplyTurnstile();
+      }
+    };
+  </script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileApiLoad" async defer></script>
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }

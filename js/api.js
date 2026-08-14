@@ -389,7 +389,7 @@ function resetApplyTurnstile() {
 function initApplyTurnstile() {
   const el = document.getElementById('ap-turnstile');
   if (!el || !window.turnstile || typeof window.turnstile.render !== 'function') return;
-  // Avoid double-render if script fires twice
+  // Avoid double-render if onload + api.js both fire
   if (applyTurnstileWidgetId != null) return;
 
   applyTurnstileWidgetId = window.turnstile.render(el, {
@@ -402,25 +402,13 @@ function initApplyTurnstile() {
   setApplySubmitEnabled(false);
 }
 
-// Wait until Turnstile api.js is ready, then render explicitly
-function whenTurnstileReady(cb) {
-  if (window.turnstile && typeof window.turnstile.ready === 'function') {
-    window.turnstile.ready(cb);
-    return;
-  }
-  let tries = 0;
-  const timer = setInterval(() => {
-    tries += 1;
-    if (window.turnstile && typeof window.turnstile.ready === 'function') {
-      clearInterval(timer);
-      window.turnstile.ready(cb);
-    } else if (tries > 200) {
-      clearInterval(timer); // ~10s
-    }
-  }, 50);
-}
+// Expose for Turnstile ?onload=onTurnstileApiLoad (works with async/defer)
+window.initApplyTurnstile = initApplyTurnstile;
 
-whenTurnstileReady(initApplyTurnstile);
+// If Turnstile finished loading before this deferred file ran, render now
+if (window.__ksTurnstileApiReady) {
+  initApplyTurnstile();
+}
 
 // ── Step 6 Submit → send OTP → open Verify OTP popup ──
 // Form is NOT saved here. Save happens only after user enters OTP and clicks Save.
