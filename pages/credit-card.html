@@ -258,7 +258,7 @@
       <span>Quick Application</span>
       <h2>Apply for a <span>Credit Card</span></h2>
       <p>
-        Fill in your details and our team will help you compare and apply for suitable credit card options.
+        Continue to Apply Now and our team will help you compare and apply for suitable credit card options.
       </p>
     </div>
 
@@ -266,66 +266,15 @@
 
       <div class="cc-form-grid">
 
-        <!-- NAME -->
-        <div class="cc-form-group">
-          <label>Name <span>*</span></label>
-          <input type="text" id="cc-name" placeholder="Enter your Name">
-          <span class="pl-field-err" id="err-ccName"></span>
-        </div>
-
-        <!-- PHONE -->
-        <div class="cc-form-group">
-          <label>Phone Number <span>*</span></label>
-          <input type="tel" id="cc-phone" placeholder="Enter your phone number" maxlength="10">
-          <span class="pl-field-err" id="err-ccPhone"></span>
-        </div>
-
-        <!-- EMPLOYMENT -->
-        <div class="cc-form-group">
-          <label>Employment Type <span>*</span></label>
-          <select id="cc-employment">
-            <option value="">Select Employment Type</option>
-            <option>Salaried</option>
-            <option>self-employed</option>
-            <option>business-owner</option>
-            <option>working-professional</option>
-          </select>
-          <span class="pl-field-err" id="err-ccEmployment"></span>
-        </div>
-
-        <!-- NET MONTHLY INCOME -->
-        <div class="cc-form-group">
-          <label>Net Monthly Income <span>*</span></label>
-          <select id="cc-income">
-            <option value="">Select Income</option>
-            <option>Below ₹25,000</option>
-            <option>₹25,000 – ₹50,000</option>
-            <option>₹50,000 – ₹1 Lakh</option>
-            <option>₹1 Lakh – ₹3 Lakh</option>
-            <option>Above ₹3 Lakh</option>
-          </select>
-          <span class="pl-field-err" id="err-ccIncome"></span>
-        </div>
-
-         <span class="pl-field-err" id="err-success-message"></span>
-        <!-- SUBMIT BUTTON -->
         <div class="ks-consent">
           <input type="checkbox" id="ks-agree" checked />
           <label for="ks-agree">I agree to KreditSeva's <a href="/terms-condition" target="_blank" rel="noopener">Terms &amp; Conditions</a>, <a href="/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>, and authorise contact via Call, SMS, Email, or WhatsApp.</label>
         </div>
-
-
-          <span class="pl-field-err" id="err-ksAgree"></span>
+        <span class="pl-field-err" id="err-ksAgree"></span>
         <div class="cc-form-btn-wrap">
-
-          <button id="cc-submit-btn" type="button" onclick="creditCard();" class="cc-submit-btn">
-            Submit
+          <button id="cc-submit-btn" type="button" onclick="redirect('credit-card');" class="cc-submit-btn">
+            Apply Now
           </button>
-        </div>
-
-        <!-- SUCCESS MESSAGE -->
-        <div id="cc-success-msg" style="display:none; margin-top:12px; color:#22a85a; font-weight:600; font-size:0.95rem; text-align:center;">
-          ✔ Application received! We'll be in touch soon.
         </div>
 
       </div>
@@ -900,6 +849,7 @@
 
   <script src="/js/swiper.js"></script>
   <script src="/js/custom.js"></script>
+  <script src="/js/api.js"></script>
   <script src="/js/loader.js"></script>
   <script src="/js/credit-card.js"></script>
 </body>

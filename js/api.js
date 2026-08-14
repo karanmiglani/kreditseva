@@ -5,8 +5,6 @@ let phoneNumber = null;
 let phoneRegex = /^[6-9][0-9]{9}$/;
 let lastSavedphoneNumber = '';
 let applyStep = 1;
-document.getElementById('btn-submit')?.setAttribute('disabled', 'disabled');
-const heroPhone = document.getElementById('heroPhone');
 const applyPhone = document.getElementById('af-phone');
 
 function getApplyProduct() {
@@ -54,9 +52,6 @@ function bindPhoneSave(input, errId) {
   });
 }
 
-// Hero phone (homepage)
-bindPhoneSave(heroPhone, 'err-heroPhone');
-
 // Apply-now phone — save to DB as soon as valid number is entered
 bindPhoneSave(applyPhone, 'err-phone');
 
@@ -83,10 +78,6 @@ async function savePhoneNumber(){
       if (onApply) {
         setApplyNextVisible(true, 'ap-next-btn-2');
         if (typeof showToast === 'function') showToast(data.message || 'Mobile number saved');
-      } else {
-        if (typeof showToast === 'function') showToast('Please click on Proceed button to continue');
-        const btn = document.getElementById('btn-submit');
-        if (btn) btn.disabled = false;
       }
     } else if (onApply) {
       phoneNumberSave = false;
