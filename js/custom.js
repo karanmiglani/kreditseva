@@ -559,9 +559,11 @@ if (promoSliderEl) {
 }
 
 // ================================================================
-//  NAVBAR QUICK APPLY POPUP
+//  NAVBAR QUICK APPLY POPUP — commented out
+//  Apply Now now goes directly to /apply-now (mobile is first field there)
 // ================================================================
 
+/*
 (function () {
   // Inject popup HTML
   document.body.insertAdjacentHTML('beforeend', `
@@ -591,7 +593,6 @@ if (promoSliderEl) {
   const phoneInput = document.getElementById('navPopupPhone');
   const errEl = document.getElementById('navPopupErr');
 
-  // Open popup — store product from href if present
   function openNavPopup(product = '') {
     overlay.dataset.product = product;
     overlay.classList.add('active');
@@ -600,9 +601,6 @@ if (promoSliderEl) {
     phoneInput.focus();
   }
 
-
-
-  // Navbar Apply Now
   document.querySelectorAll('.desktop-apply-btn, .mobile-apply-btn').forEach(btn => {
     btn.addEventListener('click', e => {
       const href = btn.getAttribute('href') || '';
@@ -613,7 +611,6 @@ if (promoSliderEl) {
     });
   });
 
-  // Hero slider buttons (.ks-hero-btn) — except credit score link
   document.querySelectorAll('.ks-hero-btn').forEach(btn => {
     const href = btn.getAttribute('href') || '';
     if (href.includes('check') || href.includes('credit') || href.includes('debt')) return;
@@ -624,7 +621,6 @@ if (promoSliderEl) {
     });
   });
 
-  // Close disabled — only closes on server success
   closeBtn.addEventListener('click',function(){
     overlay.classList.remove('active');
   })
@@ -638,12 +634,10 @@ if (promoSliderEl) {
   const mobileRegex = /^[6-9]\d{9}$/;
   let popupTimer = null;
 
-  // Button by default disabled
   submitBtn.disabled      = true;
   submitBtn.style.opacity = '0.5';
   submitBtn.style.cursor  = 'not-allowed';
 
-  // Only digits + debounce — valid hone pe auto API call
   phoneInput.addEventListener('input', function () {
     this.value = this.value.replace(/\D/g, '');
     errEl.textContent = '';
@@ -693,13 +687,11 @@ if (promoSliderEl) {
     }
   }
 
-  // Button click bhi triggerSave call kare (manual submit)
   submitBtn.addEventListener('click', () => {
     const phone = phoneInput.value.trim();
     if (mobileRegex.test(phone)) triggerSave(phone);
   });
 
-  // Enter key support
   phoneInput.addEventListener('keydown', e => {
     if (e.key === 'Enter') {
       const phone = phoneInput.value.trim();
@@ -708,6 +700,7 @@ if (promoSliderEl) {
   });
 
 })();
+*/
 
 // ================================================================
 //  GLOBAL TOAST

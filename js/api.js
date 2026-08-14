@@ -22,12 +22,10 @@ heroPhone?.addEventListener('input', function(){
   },500);  
 });
 
+// Popup disabled — phone is first field on apply-now; hide only if already saved
 if(window.location.pathname == '/apply-now'){
   if(rawLeadId){
     document.getElementById('ap-phone-field').style.display = 'none';
-  }else{
-    const overlay = document.getElementById('navPopupOverlay');
-    if (overlay) overlay.classList.add('active');
   }
  }
 async function savePhoneNumber(){
