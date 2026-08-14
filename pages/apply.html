@@ -619,19 +619,19 @@
       width: 100% !important;
     }
 
-    #ap-step-2 .select2-container--default .select2-selection--single {
+    #ap-step-1 .select2-container--default .select2-selection--single {
       min-height: 52px;
       height: 52px;
       border-radius: 12px;
     }
 
-    #ap-step-2 .select2-container--default .select2-selection--single .select2-selection__rendered,
-    #ap-step-2 .select2-container--default .select2-selection--single .select2-selection__placeholder {
+    #ap-step-1 .select2-container--default .select2-selection--single .select2-selection__rendered,
+    #ap-step-1 .select2-container--default .select2-selection--single .select2-selection__placeholder {
       line-height: 50px;
       font-size: 0.95rem;
     }
 
-    #ap-step-2 .select2-container--default .select2-selection--single .select2-selection__arrow {
+    #ap-step-1 .select2-container--default .select2-selection--single .select2-selection__arrow {
       height: 50px;
     }
 
@@ -1134,37 +1134,17 @@
       <a href="javascript:history.back()" class="ap-back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg> Back</a>
 
       <div class="ap-progress-wrap">
-        <div class="ap-progress-bar"><div class="ap-progress-fill" id="ap-progress-fill" style="width:20%;"></div></div>
+        <div class="ap-progress-bar"><div class="ap-progress-fill" id="ap-progress-fill" style="width:16%;"></div></div>
         <div class="ap-progress-label" id="ap-progress-label">Step 1</div>
       </div>
 
-      <div class="ap-form-title" id="ap-form-title">Enter Your Mobile Number</div>
-      <p class="ap-form-sub" id="ap-form-sub">We'll use this number to verify and contact you about your loan.</p>
+      <div class="ap-form-title" id="ap-form-title">Select Loan Type</div>
+      <p class="ap-form-sub" id="ap-form-sub">Choose the loan product you want to apply for.</p>
 
       <form id="applyForm" onsubmit="return false;">
 
-        <!-- STEP 1: Mobile -->
+        <!-- STEP 1: Loan Type -->
         <div class="ap-step active" id="ap-step-1" data-step="1">
-          <div class="ap-fields-grid">
-            <div class="ap-field ap-field-full" id="ap-phone-field">
-              <div class="ap-flabel">Mobile Number <span>*</span></div>
-              <div class="ap-phone-wrap">
-                <span class="ap-phone-prefix"><i class="fa-solid fa-phone" style="font-size:0.75rem;color:#1a52cc;"></i> +91</span>
-                <input type="tel" id="af-phone" maxlength="10" placeholder="10-digit mobile number" inputmode="numeric" autocomplete="tel" />
-              </div>
-              <span class="ap-err" id="err-phone"></span>
-            </div>
-          </div>
-          <div class="ap-step-actions">
-            <button type="button" class="ap-next-btn" id="ap-next-btn" onclick="goToApplyStep(2)">
-              Next
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 2: Loan Type -->
-        <div class="ap-step" id="ap-step-2" data-step="2">
           <div class="ap-fields-grid">
             <div class="ap-field ap-field-full" id="ap-product-field">
               <div class="ap-flabel">Loan Type <span>*</span></div>
@@ -1200,6 +1180,26 @@
                 </optgroup>
               </select>
               <span class="ap-err" id="err-product"></span>
+            </div>
+          </div>
+          <div class="ap-step-actions">
+            <button type="button" class="ap-next-btn is-visible" id="ap-next-btn" onclick="goToApplyStep(2)">
+              Next
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Mobile -->
+        <div class="ap-step" id="ap-step-2" data-step="2">
+          <div class="ap-fields-grid">
+            <div class="ap-field ap-field-full" id="ap-phone-field">
+              <div class="ap-flabel">Mobile Number <span>*</span></div>
+              <div class="ap-phone-wrap">
+                <span class="ap-phone-prefix"><i class="fa-solid fa-phone" style="font-size:0.75rem;color:#1a52cc;"></i> +91</span>
+                <input type="tel" id="af-phone" maxlength="10" placeholder="10-digit mobile number" inputmode="numeric" autocomplete="tel" />
+              </div>
+              <span class="ap-err" id="err-phone"></span>
             </div>
           </div>
           <div class="ap-step-nav">
@@ -1482,7 +1482,7 @@
     localStorage.setItem('product', product);
 
     if (typeof setApplyNextVisible === 'function') {
-      setApplyNextVisible(!!product, 'ap-next-btn-2');
+      setApplyNextVisible(!!product, 'ap-next-btn');
     }
 
     const err = document.getElementById('err-product');
@@ -1531,25 +1531,23 @@
     if ($sel.data('select2')) $sel.select2('destroy');
     $sel.select2({
       placeholder: 'Search or select loan type',
-      allowClear: true,
+      allowClear: false,
       width: '100%',
-      dropdownParent: $('#ap-step-2')
+      dropdownParent: $('#ap-step-1')
     });
   }
 
   $(document).ready(function() {
     initApplyProductSelect2();
-  });
-   const urlProduct = new URLSearchParams(window.location.search).get('product');
-    const lsProduct = localStorage.getItem('product');
-     const selectedProduct = urlProduct || lsProduct;
-         if (selectedProduct) {
-        $('#af-product')
-            .val(selectedProduct)
-            .trigger('change');
-    } else {
-        updateApplyIncomeField();
+    var urlProduct = new URLSearchParams(window.location.search).get('product');
+    var lsProduct = localStorage.getItem('product');
+    var selectedProduct = urlProduct || lsProduct || 'personal-loan';
+    $('#af-product').val(selectedProduct).trigger('change');
+    localStorage.setItem('product', selectedProduct);
+    if (typeof setApplyNextVisible === 'function') {
+      setApplyNextVisible(true, 'ap-next-btn');
     }
+  });
   </script>
 
 

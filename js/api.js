@@ -32,7 +32,7 @@ function bindPhoneSave(input, errId) {
     if (window.location.pathname === '/apply-now') {
       const current = this.value.trim();
       if (current !== lastSavedphoneNumber || !phoneNumberSave) {
-        setApplyNextVisible(false, 'ap-next-btn');
+        setApplyNextVisible(false, 'ap-next-btn-2');
         phoneNumberSave = false;
       }
     }
@@ -45,7 +45,7 @@ function bindPhoneSave(input, errId) {
         return;
       }
       if (phoneNumber === lastSavedphoneNumber && phoneNumberSave) {
-        if (window.location.pathname === '/apply-now') setApplyNextVisible(true, 'ap-next-btn');
+        if (window.location.pathname === '/apply-now') setApplyNextVisible(true, 'ap-next-btn-2');
         return;
       }
       lastSavedphoneNumber = phoneNumber;
@@ -81,7 +81,7 @@ async function savePhoneNumber(){
       sessionStorage.setItem('id', data.rawLeadId);
       phoneNumberSave = true;
       if (onApply) {
-        setApplyNextVisible(true, 'ap-next-btn');
+        setApplyNextVisible(true, 'ap-next-btn-2');
         if (typeof showToast === 'function') showToast(data.message || 'Mobile number saved');
       } else {
         if (typeof showToast === 'function') showToast('Please click on Proceed button to continue');
@@ -90,14 +90,14 @@ async function savePhoneNumber(){
       }
     } else if (onApply) {
       phoneNumberSave = false;
-      setApplyNextVisible(false, 'ap-next-btn');
+      setApplyNextVisible(false, 'ap-next-btn-2');
       showMessage('err-phone', data.message || 'Could not save mobile number');
     }
   } catch (error) {
     console.log(error);
     if (onApply) {
       phoneNumberSave = false;
-      setApplyNextVisible(false, 'ap-next-btn');
+      setApplyNextVisible(false, 'ap-next-btn-2');
       showMessage('err-phone', 'Network error. Please try again.');
     }
   }
@@ -107,14 +107,14 @@ const APPLY_STEP_META = {
   1: {
     width: '16%',
     label: 'Step 1',
-    title: 'Enter Your Mobile Number',
-    sub: "We'll use this number to verify and contact you about your loan."
+    title: 'Select Loan Type',
+    sub: 'Choose the loan product you want to apply for.'
   },
   2: {
     width: '33%',
     label: 'Step 2',
-    title: 'Select Loan Type',
-    sub: 'Choose the loan product you want to apply for.'
+    title: 'Enter Your Mobile Number',
+    sub: "We'll use this number to verify and contact you about your loan."
   },
   3: {
     width: '50%',
@@ -162,7 +162,7 @@ function syncCityNextButton() {
 
 function syncProductNextButton() {
   const product = document.getElementById('af-product')?.value || '';
-  setApplyNextVisible(!!product, 'ap-next-btn-2');
+  setApplyNextVisible(!!product, 'ap-next-btn');
 }
 
 function syncIncomeStepNextButton() {
@@ -180,13 +180,13 @@ function goToApplyStep(step) {
   const target = document.getElementById('ap-step-' + step);
   if (!target) return;
 
-  if (step === 2 && !phoneNumberSave && !sessionStorage.getItem('id')) {
-    showMessage('err-phone', 'Please enter a valid mobile number first');
+  if (step === 2 && !document.getElementById('af-product')?.value) {
+    showMessage('err-product', 'Please select a loan type');
     return;
   }
 
-  if (step === 3 && !document.getElementById('af-product')?.value) {
-    showMessage('err-product', 'Please select a loan type');
+  if (step === 3 && !phoneNumberSave && !sessionStorage.getItem('id')) {
+    showMessage('err-phone', 'Please enter a valid mobile number first');
     return;
   }
 
@@ -233,18 +233,20 @@ function goToApplyStep(step) {
     }
   }
 
-  if (step === 1 && phoneNumberSave) {
-    setApplyNextVisible(true, 'ap-next-btn');
-  }
-
-  if (step === 2) {
+  if (step === 1) {
     if (typeof initApplyProductSelect2 === 'function') initApplyProductSelect2();
-    const selected = document.getElementById('af-product')?.value;
-    if (selected && window.jQuery) {
+    const selected = document.getElementById('af-product')?.value || 'personal-loan';
+    if (window.jQuery) {
       window.jQuery('#af-product').val(selected).trigger('change');
     } else {
       syncProductNextButton();
     }
+  }
+
+  if (step === 2) {
+    if (phoneNumberSave) setApplyNextVisible(true, 'ap-next-btn-2');
+    else setApplyNextVisible(false, 'ap-next-btn-2');
+    setTimeout(() => document.getElementById('af-phone')?.focus(), 120);
   }
 
   if (step === 3) {
