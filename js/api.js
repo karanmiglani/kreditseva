@@ -172,6 +172,7 @@ function goToApplyStep(step) {
   if (!target) return;
 
   if (step === 2 && !document.getElementById('af-product')?.value) {
+    localStorage.setItem('product',document.getElementById('af-product')?.value);
     showMessage('err-product', 'Please select a loan type');
     return;
   }
