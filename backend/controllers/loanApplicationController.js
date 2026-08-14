@@ -1,6 +1,7 @@
 const db = require('../config/db');
 const crypto = require('crypto');
 const ExcelJS = require('exceljs');
+const sendWhatsappOtp = require('../services/whatsAppService');
 
 
 
@@ -407,8 +408,127 @@ const contactUs = async(req, resp) => {
 }
 
 
+const sendOtp = async(req, resp) => {
+    try {
+            const rawLeadId = req.body.rawLeadId?.trim();
+     if (!rawLeadId) {
+            return resp.status(400).json({
+                success: false,
+                rawLeadId: null,
+                message: 'Session expired, Please enter mobile number to continue'
+            });
+        }
+        const phone_number = await checkLeadId(rawLeadId);
+        if (!phone_number) {
+            return resp.status(400).json({
+                success: false,
+                rawLeadId: null,
+                message: 'Session expired, Please enter mobile number to continue'
+            })
+        }
+
+
+        // if phone number found generate otp
+        const otp = crypto.randomInt(100000, 1000000).toString( );
+        const whatsappResp = await sendWhatsappOtp.sendWhatsappOtp(phone_number,otp);
+        if(whatsappResp.success !== true) {
+            return resp.status(500).json({
+                success : false,
+                rawLeadId : rawLeadId,
+                message : "Something went wrong while sending OTP"
+            });
+        }
+        await insertOtp(otp,phone_number, rawLeadId);
+        return resp.status(200).json({
+            success : true,
+            rawLeadId : rawLeadId,
+            message : "Otp sent successfully on you WhatApp"
+        })
+        
+    } catch (error) {
+        console.error("send otp error:  " , error)
+        return resp.status(500).json({
+            success : false,
+            rawLeadId : null,
+            message : "Something went wrong"
+        })
+    }
+}
+
+
+const insertOtp = async(otp, phone_number, rawLeadId) => {
+    const otpHash = crypto.createHash("sha256").update(otp).digest('hex');
+    const expiresAt = new Date(Date.now() + 5 *60*1000);
+    const sql = "INSERT INTO otp_verifications (lead_id,phone,otp_hash,expires_at,attempts,last_sent_at,created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())";
+    const values = [rawLeadId,phone_number,otpHash,expiresAt,0,new Date()];
+    await db.query(sql,values);
+}
+
+const getOtpByRawLeadId = async(leadId) => {
+    const sql = "SELECT * from otp_verifications where lead_id = ? ORDER BY id DESC LIMIT 1" ;
+    const [rows] = await db.query(sql, [leadId]);
+    return rows[0] || null;
+}
+
+const verifyOtp = async(req, resp) => {
+    try {
+        const rawLeadId = req.body.rawLeadId?.trim();
+        const otp = req.body.otp?.trim();
+        if(!rawLeadId || !otp){
+            return resp.status(400).json({
+                success : false,
+                message : "OTP is required"
+            });
+        }
+
+        const otpRecord = await getOtpByRawLeadId(rawLeadId);
+        if(!otpRecord){
+            return resp.status(400).json({
+                success : false,
+                message : "OTP not found, Please request new OTP."
+            });
+        }
+
+        // check expiry
+        if(new Date() >= new Date(otpRecord.expires_at)){
+            return resp.status(400).json({
+                success : false,
+                expired : true,
+                message : "Otp has expired. Please requet"
+            })
+        }
+
+        if(otpRecord.attempts >= 5){
+            return resp.status(400).json({
+                success : false,
+                blocked : true,
+                message: "Too many incorrect attempts. Please request a new OTP."
+            })
+        }
+        const otpHash = crypto.createHash("sha256").update(otp).digest("hex");
+
+        if(otpHash != otpRecord.otp_hash ){
+            await db.query(" UPDATE otp_verifications SET attempts = attempts + 1 WHERE id = ?",[otpRecord.id]);
+             return resp.status(400).json({
+                success: false,
+                message: "Invalid OTP"
+            });
+        }
+       return  saveLead(req,resp);
+        
+    } catch (error) {
+         console.error("verifyOtp error:", error);
+
+        return resp.status(500).json({
+            success: false,
+            message: "Something went wrong"
+        });
+    }
+}
+
+
 
 
 module.exports = {
-    saveLead, getAllLeads, getAllCities, getAllProducts, savePhoneNumber, downloadExcelReport, contactUs
+    saveLead, getAllLeads, getAllCities, getAllProducts, savePhoneNumber, downloadExcelReport, contactUs, sendOtp
 }
