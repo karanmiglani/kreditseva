@@ -26,13 +26,10 @@ function bindPhoneSave(input, errId) {
     this.value = this.value.replace(/\D/g, '').slice(0, 10);
     clearTimeout(phoneTimer);
 
-    // Hide Next until this number is saved again
-    if (window.location.pathname === '/apply-now') {
-      const current = this.value.trim();
-      if (current !== lastSavedphoneNumber || !phoneNumberSave) {
-        setApplyNextVisible(false, 'ap-next-btn-2');
-        phoneNumberSave = false;
-      }
+    const current = this.value.trim();
+    if (current !== lastSavedphoneNumber || !phoneNumberSave) {
+      setApplyNextVisible(false, 'ap-next-btn-2');
+      phoneNumberSave = false;
     }
 
     phoneTimer = setTimeout(() => {
@@ -43,7 +40,7 @@ function bindPhoneSave(input, errId) {
         return;
       }
       if (phoneNumber === lastSavedphoneNumber && phoneNumberSave) {
-        if (window.location.pathname === '/apply-now') setApplyNextVisible(true, 'ap-next-btn-2');
+        setApplyNextVisible(true, 'ap-next-btn-2');
         return;
       }
       lastSavedphoneNumber = phoneNumber;
@@ -55,11 +52,8 @@ function bindPhoneSave(input, errId) {
 // Apply-now phone — save to DB as soon as valid number is entered
 bindPhoneSave(applyPhone, 'err-phone');
 
-async function savePhoneNumber(){
-  const onApply = window.location.pathname === '/apply-now';
-  const product = onApply
-    ? getApplyProduct()
-    : (window.location.pathname.replace('/', '') || 'personal-loan');
+async function savePhoneNumber() {
+  const product = getApplyProduct();
   localStorage.setItem('product', product);
   try {
     const resp = await fetch(`${BASE_URL}/api/leads/save-phone-number`, {
@@ -75,22 +69,18 @@ async function savePhoneNumber(){
     if (data.success) {
       sessionStorage.setItem('id', data.rawLeadId);
       phoneNumberSave = true;
-      if (onApply) {
-        setApplyNextVisible(true, 'ap-next-btn-2');
-        if (typeof showToast === 'function') showToast(data.message || 'Mobile number saved');
-      }
-    } else if (onApply) {
+      setApplyNextVisible(true, 'ap-next-btn-2');
+      if (typeof showToast === 'function') showToast(data.message || 'Mobile number saved');
+    } else {
       phoneNumberSave = false;
       setApplyNextVisible(false, 'ap-next-btn-2');
       showMessage('err-phone', data.message || 'Could not save mobile number');
     }
   } catch (error) {
     console.log(error);
-    if (onApply) {
-      phoneNumberSave = false;
-      setApplyNextVisible(false, 'ap-next-btn-2');
-      showMessage('err-phone', 'Network error. Please try again.');
-    }
+    phoneNumberSave = false;
+    setApplyNextVisible(false, 'ap-next-btn-2');
+    showMessage('err-phone', 'Network error. Please try again.');
   }
 }
 
@@ -322,7 +312,7 @@ document.querySelector('.ap-back-btn')?.addEventListener('click', function (e) {
   }
 });
 
-// ── Hero form redirect — consent + phone ──
+// ── Hero form redirect — consent check then apply-now ──
 function redirect(product = '') {
   const agree = document.getElementById('ks-agree');
   if (agree && !agree.checked) {
@@ -334,94 +324,6 @@ function redirect(product = '') {
     return;
   }
   window.location.href = '/apply-now?product=' + encodeURIComponent(product);
-}
-
-
-// ── Apply-now: Submit → OTP popup → Save ──
-let applyOtpResendTimer = null;
-let applyOtpResendSeconds = 0;
-
-function maskPhone(phone) {
-  const p = String(phone || '');
-  if (p.length < 4) return p;
-  return p.slice(0, 2) + '******' + p.slice(-2);
-}
-
-function closeApplyOtpPopup() {
-  const overlay = document.getElementById('apOtpOverlay');
-  if (!overlay) return;
-  overlay.classList.remove('active');
-  overlay.setAttribute('aria-hidden', 'true');
-}
-
-function openApplyOtpPopup() {
-  const overlay = document.getElementById('apOtpOverlay');
-  const input = document.getElementById('apOtpInput');
-  const err = document.getElementById('apOtpErr');
-  const sub = document.getElementById('apOtpSub');
-  const phone = document.getElementById('af-phone')?.value || phoneNumber || '';
-  if (!overlay) return;
-
-  if (sub) {
-    sub.innerHTML = `Enter the OTP sent to <strong>+91 ${maskPhone(phone)}</strong>`;
-  }
-  if (input) input.value = '';
-  if (err) err.textContent = '';
-  overlay.classList.add('active');
-  overlay.setAttribute('aria-hidden', 'false');
-  setTimeout(() => input?.focus(), 80);
-  startApplyOtpResendCooldown(30);
-}
-
-function startApplyOtpResendCooldown(seconds = 30) {
-  const btn = document.getElementById('apOtpResend');
-  if (!btn) return;
-  clearInterval(applyOtpResendTimer);
-  applyOtpResendSeconds = seconds;
-  btn.disabled = true;
-  btn.textContent = `Resend OTP in ${applyOtpResendSeconds}s`;
-  applyOtpResendTimer = setInterval(() => {
-    applyOtpResendSeconds -= 1;
-    if (applyOtpResendSeconds <= 0) {
-      clearInterval(applyOtpResendTimer);
-      btn.disabled = false;
-      btn.textContent = 'Resend OTP';
-      return;
-    }
-    btn.textContent = `Resend OTP in ${applyOtpResendSeconds}s`;
-  }, 1000);
-}
-
-async function sendApplyOtp() {
-  const mobile = (document.getElementById('af-phone')?.value || phoneNumber || '').trim();
-  if (!phoneRegex.test(mobile)) {
-    showMessage('err-phone', 'Please enter valid mobile number');
-    return false;
-  }
-  try {
-    const resp = await fetch(`${BASE_URL}/api/leads/send-otp`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({
-        phone_number: mobile,
-        product: getApplyProduct(),
-        rawLeadId: sessionStorage.getItem('id') || ''
-      })
-    });
-    const data = await resp.json().catch(() => ({}));
-    if (resp.ok && data.success !== false) {
-      if (typeof showToast === 'function') showToast(data.message || 'OTP sent to your mobile number');
-      return true;
-    }
-    // Backend may not be ready — still allow popup UI
-    if (typeof showToast === 'function') showToast('OTP sent to your mobile number');
-    return true;
-  } catch (error) {
-    console.log('sendApplyOtp:', error);
-    if (typeof showToast === 'function') showToast('OTP sent to your mobile number');
-    return true;
-  }
 }
 
 function collectApplyFormData() {
@@ -444,24 +346,25 @@ async function submitForm() {
     return;
   }
 
-  const data = collectApplyFormData();
-  if (!data.occupation) { showMessage('err-occupation', 'Please select occupation'); return; }
-  if (!data.name) { showMessage('err-name', 'Please enter your name'); return; }
-  if (!data.city) { showMessage('err-city', 'Please enter city'); return; }
-  if (!data.net_monthly_salary) { showMessage('err-income', 'Please select income'); return; }
-  if (!data.product) { showMessage('err-product', 'Please select product'); return; }
-  if (data.product !== 'credit-card' && !data.loan_amount) {
+  const form = collectApplyFormData();
+  if (!form.occupation) { showMessage('err-occupation', 'Please select occupation'); return; }
+  if (!form.name) { showMessage('err-name', 'Please enter your name'); return; }
+  if (!form.city) { showMessage('err-city', 'Please enter city'); return; }
+  if (!form.net_monthly_salary) { showMessage('err-income', 'Please select income'); return; }
+  if (!form.product) { showMessage('err-product', 'Please select product'); return; }
+  if (form.product !== 'credit-card' && !form.loan_amount) {
     showMessage('err-loan-amount', 'Please enter loan amount');
     return;
   }
-  if (data.pancard && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(data.pancard)) {
+  if (form.pancard && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(form.pancard)) {
     showMessage('err-pan', 'Please enter a valid PAN (e.g. ABCDE1234F)');
     return;
   }
 
-  if (!sessionStorage.getItem('id')) {
-    showToast('Session expired, Please enter your phone number to continue...');
-    goToApplyStep(1);
+  const rawLeadId = sessionStorage.getItem('id');
+  if (!rawLeadId) {
+    if (typeof showToast === 'function') showToast('Session expired, Please enter your phone number to continue...');
+    goToApplyStep(2);
     return;
   }
 
@@ -471,39 +374,6 @@ async function submitForm() {
   if (btn) btn.disabled = true;
   if (btnText) btnText.style.display = 'none';
   if (btnSpinner) btnSpinner.style.display = 'inline-flex';
-
-  try {
-    await sendApplyOtp();
-    openApplyOtpPopup();
-  } finally {
-    if (btn) btn.disabled = false;
-    if (btnText) btnText.style.display = 'inline';
-    if (btnSpinner) btnSpinner.style.display = 'none';
-  }
-}
-
-async function saveApplyWithOtp() {
-  const otp = (document.getElementById('apOtpInput')?.value || '').trim();
-  const err = document.getElementById('apOtpErr');
-  const saveBtn = document.getElementById('apOtpSave');
-
-  if (!/^\d{4,6}$/.test(otp)) {
-    if (err) err.textContent = 'Please enter a valid OTP';
-    return;
-  }
-  if (err) err.textContent = '';
-
-  const form = collectApplyFormData();
-  const rawLeadId = sessionStorage.getItem('id');
-  if (!rawLeadId) {
-    if (err) err.textContent = 'Session expired. Please start again.';
-    return;
-  }
-
-  if (saveBtn) {
-    saveBtn.disabled = true;
-    saveBtn.textContent = 'Saving...';
-  }
 
   const successBox = document.getElementById('apply-success');
   const successMsg = document.getElementById('apply-success-msg');
@@ -515,17 +385,14 @@ async function saveApplyWithOtp() {
       body: JSON.stringify({
         rawLeadId,
         ...form,
-        otp,
         source: window.location.pathname
       })
     });
     const data = await resp.json();
 
     if (data.success) {
-      closeApplyOtpPopup();
       document.querySelectorAll('.ap-step').forEach((el) => el.classList.remove('active'));
-      const applyBtn = document.getElementById('apply-btn');
-      if (applyBtn) applyBtn.style.display = 'none';
+      if (btn) btn.style.display = 'none';
       if (successBox) successBox.style.display = 'block';
       if (successMsg) {
         successMsg.style.display = 'block';
@@ -538,60 +405,27 @@ async function saveApplyWithOtp() {
       if (typeof showToast === 'function') showToast(data.message || 'Application saved successfully');
       setTimeout(() => window.location.reload(), 5000);
     } else {
-      if (err) err.textContent = data.message || 'Invalid OTP or save failed. Try again.';
+      if (typeof showToast === 'function') showToast(data.message || 'Could not save application');
       if (data.rawLeadId === null) {
-        showToast(data.message || 'Session expired');
         setTimeout(() => window.location.reload(), 2500);
       }
     }
   } catch (e) {
     console.error(e);
-    if (err) err.textContent = 'Network error. Please try again.';
+    if (typeof showToast === 'function') showToast('Network error. Please try again.');
   } finally {
-    if (saveBtn) {
-      saveBtn.disabled = false;
-      saveBtn.textContent = 'Save';
-    }
+    if (btn) btn.disabled = false;
+    if (btnText) btnText.style.display = 'inline';
+    if (btnSpinner) btnSpinner.style.display = 'none';
   }
 }
 
-document.getElementById('apOtpClose')?.addEventListener('click', closeApplyOtpPopup);
-document.getElementById('apOtpOverlay')?.addEventListener('click', function (e) {
-  if (e.target === this) closeApplyOtpPopup();
-});
-document.getElementById('apOtpInput')?.addEventListener('input', function () {
-  this.value = this.value.replace(/\D/g, '').slice(0, 6);
-  const err = document.getElementById('apOtpErr');
-  if (err) err.textContent = '';
-});
-document.getElementById('apOtpSave')?.addEventListener('click', saveApplyWithOtp);
-document.getElementById('apOtpResend')?.addEventListener('click', async function () {
-  if (this.disabled) return;
-  await sendApplyOtp();
-  startApplyOtpResendCooldown(30);
-});
-document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') closeApplyOtpPopup();
-  if (e.key === 'Enter' && document.getElementById('apOtpOverlay')?.classList.contains('active')) {
-    e.preventDefault();
-    saveApplyWithOtp();
-  }
-});
-
 window.submitForm = submitForm;
-window.saveApplyWithOtp = saveApplyWithOtp;
-window.closeApplyOtpPopup = closeApplyOtpPopup;
 
 function showMessage(id, msg) {
-
   const el = document.getElementById(id);
   if (!el) return;
   el.textContent = msg;
-  el.style.display = 'block'
-  setTimeout(() => { el.textContent = '';el.style.display = 'none' }, 3000);
-}
-
-
-function creditCard(){
-  if(!sessionStorage.getItem('id')){ showMessage('', 'Session expired, Please fill the application form again.')}
+  el.style.display = 'block';
+  setTimeout(() => { el.textContent = ''; el.style.display = 'none'; }, 3000);
 }
