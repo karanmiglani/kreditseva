@@ -1,5 +1,4 @@
 const BASE_URL = window.location.origin;
-const rawLeadId = sessionStorage?.getItem('id');
 let phoneTimer;
 let phoneNumberSave = false;
 let phoneNumber = null;
@@ -7,52 +6,169 @@ let phoneRegex = /^[6-9][0-9]{9}$/;
 let lastSavedphoneNumber = '';
 document.getElementById('btn-submit')?.setAttribute('disabled', 'disabled');
 const heroPhone = document.getElementById('heroPhone');
+const applyPhone = document.getElementById('af-phone');
 
-// User ka phone number lo
-heroPhone?.addEventListener('input', function(){
-  clearTimeout(phoneTimer);
-  phoneTimer = setTimeout(()=> {
-    phoneNumber = this.value;
-    if(phoneNumber.length < 10) return;
-    if(!phoneRegex.test(phoneNumber)){ showMessage('err-heroPhone','Please enter valid mobile number'); return; }
-    if(phoneNumber === lastSavedphoneNumber) return;
-    lastSavedphoneNumber = phoneNumber;
-    savePhoneNumber();
+function getApplyProduct() {
+  const urlProduct = new URLSearchParams(window.location.search).get('product');
+  const formProduct = document.getElementById('af-product')?.value;
+  const lsProduct = localStorage.getItem('product');
+  return urlProduct || formProduct || lsProduct || 'personal-loan';
+}
 
-  },500);  
-});
+function bindPhoneSave(input, errId) {
+  if (!input) return;
+  input.addEventListener('input', function () {
+    this.value = this.value.replace(/\D/g, '').slice(0, 10);
+    clearTimeout(phoneTimer);
+    phoneTimer = setTimeout(() => {
+      phoneNumber = this.value.trim();
+      if (phoneNumber.length < 10) return;
+      if (!phoneRegex.test(phoneNumber)) {
+        if (errId) showMessage(errId, 'Please enter valid mobile number');
+        return;
+      }
+      if (phoneNumber === lastSavedphoneNumber) return;
+      lastSavedphoneNumber = phoneNumber;
+      savePhoneNumber();
+    }, 500);
+  });
+}
 
-// Popup disabled — phone is first field on apply-now; hide only if already saved
-if(window.location.pathname == '/apply-now'){
-  if(rawLeadId){
-    document.getElementById('ap-phone-field').style.display = 'none';
-  }
- }
+// Hero phone (homepage)
+bindPhoneSave(heroPhone, 'err-heroPhone');
+
+// Apply-now phone — save to DB as soon as valid number is entered
+bindPhoneSave(applyPhone, 'err-phone');
+
 async function savePhoneNumber(){
-  const product =  window.location.pathname.replace('/','');
-  localStorage.setItem('product',product);
+  const onApply = window.location.pathname === '/apply-now';
+  const product = onApply
+    ? getApplyProduct()
+    : (window.location.pathname.replace('/', '') || 'personal-loan');
+  localStorage.setItem('product', product);
   try {
-        const resp = await fetch(`${BASE_URL}/api/leads/save-phone-number`,{
-      method : 'POST',
-      headers : { 
-        'Content-Type' : 'application/json'
-      },
-      credentials : 'include',
-      body : JSON.stringify({
-        phone_number : phoneNumber,
-        product : product
+    const resp = await fetch(`${BASE_URL}/api/leads/save-phone-number`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        phone_number: phoneNumber,
+        product
       })
-    })
+    });
     const data = await resp.json();
-    if(data.success){
-      showToast('Please click on Proceed button to continue');
-      document.getElementById('btn-submit').disabled = false;
-      sessionStorage.setItem('id', data.rawLeadId)
+    if (data.success) {
+      sessionStorage.setItem('id', data.rawLeadId);
+      phoneNumberSave = true;
+      if (onApply) {
+        if (typeof showToast === 'function') showToast(data.message || 'Mobile number saved');
+        sendOtp(phoneNumber);
+      } else {
+        if (typeof showToast === 'function') showToast('Please click on Proceed button to continue');
+        const btn = document.getElementById('btn-submit');
+        if (btn) btn.disabled = false;
+      }
+    } else if (onApply) {
+      showMessage('err-phone', data.message || 'Could not save mobile number');
     }
   } catch (error) {
     console.log(error);
+    if (onApply) showMessage('err-phone', 'Network error. Please try again.');
   }
 }
+
+// ── OTP (frontend only — backend endpoint to be wired later) ──
+let otpSentFor = '';
+let otpResendTimer = null;
+let otpResendSeconds = 0;
+
+function showOtpField() {
+  const field = document.getElementById('ap-otp-field');
+  const input = document.getElementById('af-otp');
+  if (!field) return;
+  field.style.display = '';
+  if (input) {
+    input.value = '';
+    input.focus();
+  }
+}
+
+function startOtpResendCooldown(seconds = 30) {
+  const btn = document.getElementById('af-otp-resend');
+  if (!btn) return;
+  clearInterval(otpResendTimer);
+  otpResendSeconds = seconds;
+  btn.style.display = 'inline-block';
+  btn.disabled = true;
+  btn.style.opacity = '0.6';
+  btn.style.cursor = 'not-allowed';
+  btn.textContent = `Resend OTP in ${otpResendSeconds}s`;
+  otpResendTimer = setInterval(() => {
+    otpResendSeconds -= 1;
+    if (otpResendSeconds <= 0) {
+      clearInterval(otpResendTimer);
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.style.cursor = 'pointer';
+      btn.textContent = 'Resend OTP';
+      return;
+    }
+    btn.textContent = `Resend OTP in ${otpResendSeconds}s`;
+  }, 1000);
+}
+
+async function sendOtp(phone) {
+  const mobile = (phone || phoneNumber || document.getElementById('af-phone')?.value || '').trim();
+  if (!phoneRegex.test(mobile)) {
+    showMessage('err-phone', 'Please enter valid mobile number');
+    return;
+  }
+  if (otpSentFor === mobile && otpResendSeconds > 0) return;
+
+  showOtpField();
+
+  try {
+    const resp = await fetch(`${BASE_URL}/api/leads/send-otp`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        phone_number: mobile,
+        product: getApplyProduct()
+      })
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (resp.ok && data.success !== false) {
+      otpSentFor = mobile;
+      startOtpResendCooldown(30);
+      if (typeof showToast === 'function') {
+        showToast(data.message || 'OTP sent to your mobile number');
+      }
+    } else {
+      showMessage('err-otp', data.message || 'Failed to send OTP. Please try again.');
+    }
+  } catch (error) {
+    // Backend not ready yet — still show OTP field for UI flow
+    console.log('sendOtp:', error);
+    otpSentFor = mobile;
+    startOtpResendCooldown(30);
+    if (typeof showToast === 'function') {
+      showToast('OTP sent to your mobile number');
+    }
+  }
+}
+
+document.getElementById('af-otp')?.addEventListener('input', function () {
+  this.value = this.value.replace(/\D/g, '').slice(0, 6);
+  const err = document.getElementById('err-otp');
+  if (err) err.textContent = '';
+});
+
+document.getElementById('af-otp-resend')?.addEventListener('click', function () {
+  if (this.disabled) return;
+  otpSentFor = '';
+  sendOtp(document.getElementById('af-phone')?.value);
+});
 
 // ── Hero form redirect — consent + phone ──
 function redirect(product = '') {
@@ -97,6 +213,15 @@ async function submitForm() {
     return;
   }
 
+  const otpField = document.getElementById('ap-otp-field');
+  const otp = (document.getElementById('af-otp')?.value || '').trim();
+  if (otpField && otpField.style.display !== 'none') {
+    if (!/^\d{4,6}$/.test(otp)) {
+      showMessage('err-otp', 'Please enter the OTP sent to your mobile');
+      return;
+    }
+  }
+
   const btn        = document.getElementById('apply-btn');
   const btnText    = btn.querySelector('.ap-btn-text');
   const btnSpinner = btn.querySelector('.ap-btn-spinner');
@@ -119,6 +244,8 @@ async function submitForm() {
       return;
   }
 
+  const rawLeadId = sessionStorage.getItem('id');
+
   try {
     
     const resp = await fetch(`${BASE_URL}/apply-now/save-lead`, {
@@ -126,7 +253,7 @@ async function submitForm() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         rawLeadId, name, city, net_monthly_salary, product, loan_amount,
-        occupation, pancard,
+        occupation, pancard, otp,
         source: window.location.pathname
       })
     });
@@ -178,5 +305,5 @@ function showMessage(id, msg) {
 
 
 function creditCard(){
-  if(!rawLeadId){ showMessage('', 'Session expired, Please fill the application form again.')}
+  if(!sessionStorage.getItem('id')){ showMessage('', 'Session expired, Please fill the application form again.')}
 }

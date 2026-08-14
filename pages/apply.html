@@ -687,6 +687,13 @@
             <span class="ap-err" id="err-pan"></span>
           </div>
 
+          <div class="ap-field ap-field-full" id="ap-otp-field" style="display:none;">
+            <div class="ap-flabel">Enter OTP <span>*</span></div>
+            <input type="tel" id="af-otp" maxlength="6" placeholder="6-digit OTP" inputmode="numeric" autocomplete="one-time-code" />
+            <span class="ap-err" id="err-otp"></span>
+            <button type="button" class="ap-otp-resend" id="af-otp-resend" style="display:none;margin-top:8px;background:none;border:none;color:#1a52cc;font-size:0.8rem;font-weight:600;cursor:pointer;padding:0;">Resend OTP</button>
+          </div>
+
         </div>
         <div class="ks-consent">
           <input type="checkbox" id="ks-agree" checked />
