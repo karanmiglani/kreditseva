@@ -476,10 +476,18 @@ const sendOtp = async(req, resp) => {
             expectedAction: 'apply-now'
         });
         if (!turnstile.ok) {
+            const isLocal = process.env.NODE_ENV !== 'production';
+            let message = 'Bot verification failed. Please complete the check and try again.';
+            if (isLocal && turnstile.reason === 'misconfigured') {
+                message = 'Turnstile not configured. Set TURNSTILE_SECRET in backend/.env and restart.';
+            } else if (isLocal && turnstile.reason === 'hostname_mismatch') {
+                message = `Turnstile hostname "${turnstile.got}" not in TURNSTILE_HOSTNAMES. Add localhost,127.0.0.1 and restart.`;
+            }
             return resp.status(403).json({
                 success: false,
                 rawLeadId: req.body.rawLeadId || null,
-                message: 'Bot verification failed. Please complete the check and try again.'
+                message,
+                ...(isLocal ? { reason: turnstile.reason } : {})
             });
         }
 

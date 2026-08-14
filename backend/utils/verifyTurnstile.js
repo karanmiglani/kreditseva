@@ -17,21 +17,24 @@ async function verifyTurnstileToken({ token, remoteip, expectedAction }) {
       .filter(Boolean)
   );
 
+  const secret = (process.env.TURNSTILE_SECRET || '').trim();
+
   // Basic token + config guards (fail closed)
-  if (
-    typeof token !== 'string' ||
-    token.length === 0 ||
-    token.length > 2048 ||
-    !process.env.TURNSTILE_SECRET ||
-    expectedHostnames.size === 0
-  ) {
-    return { ok: false, reason: 'missing_or_invalid_input' };
+  if (!secret || expectedHostnames.size === 0) {
+    console.error(
+      'Turnstile misconfigured: set TURNSTILE_SECRET and TURNSTILE_HOSTNAMES in backend/.env (include localhost for local testing)'
+    );
+    return { ok: false, reason: 'misconfigured' };
+  }
+
+  if (typeof token !== 'string' || token.length === 0 || token.length > 2048) {
+    return { ok: false, reason: 'missing_token' };
   }
 
   let result;
   try {
     const body = new URLSearchParams({
-      secret: process.env.TURNSTILE_SECRET,
+      secret,
       response: token
     });
     if (remoteip) body.set('remoteip', remoteip);
@@ -50,16 +53,28 @@ async function verifyTurnstileToken({ token, remoteip, expectedAction }) {
   }
 
   // Must succeed + match expected action + hostname allowlist
-  if (
-    !result.success ||
-    result.action !== expectedAction ||
-    !expectedHostnames.has(result.hostname)
-  ) {
+  if (!result.success) {
+    console.error('Turnstile rejected token:', result['error-codes'] || []);
     return {
       ok: false,
       reason: 'verification_failed',
       errorCodes: result['error-codes'] || []
     };
+  }
+
+  if (result.action !== expectedAction) {
+    console.error('Turnstile action mismatch:', result.action, 'expected:', expectedAction);
+    return { ok: false, reason: 'action_mismatch', got: result.action };
+  }
+
+  if (!expectedHostnames.has(result.hostname)) {
+    console.error(
+      'Turnstile hostname not allowed:',
+      result.hostname,
+      'allowed:',
+      [...expectedHostnames]
+    );
+    return { ok: false, reason: 'hostname_mismatch', got: result.hostname };
   }
 
   return { ok: true, result };
