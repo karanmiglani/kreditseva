@@ -374,14 +374,13 @@ function openApplyOtpPopup() {
   overlay.classList.add('active');
   overlay.setAttribute('aria-hidden', 'false');
   setTimeout(() => input?.focus(), 80);
-  startApplyOtpResendCooldown(120);
 }
 
-function startApplyOtpResendCooldown(seconds = 120) {
+function startApplyOtpResendCooldown(seconds = 90) {
   const btn = document.getElementById('apOtpResend');
   if (!btn) return;
   clearInterval(applyOtpResendTimer);
-  applyOtpResendSeconds = seconds;
+  applyOtpResendSeconds = Number(seconds) || 90;;
   btn.disabled = true;
   btn.textContent = `Resend OTP in ${applyOtpResendSeconds}s`;
   applyOtpResendTimer = setInterval(() => {
@@ -399,22 +398,44 @@ function startApplyOtpResendCooldown(seconds = 120) {
 // Calls existing backend: POST /api/leads/send-otp
 async function sendApplyOtp() {
   const rawLeadId = sessionStorage.getItem('id');
+
+  // ==========================================
+  // SESSION CHECK
+  // ==========================================
   if (!rawLeadId) {
-    if (typeof showToast === 'function') showToast('Session expired, Please enter your phone number to continue...');
+    if (typeof showToast === 'function') {
+      showToast(
+        'Session expired, Please enter your phone number to continue...'
+      );
+    }
+
     goToApplyStep(2);
     return false;
   }
 
-  const mobile = (document.getElementById('af-phone')?.value || phoneNumber || '').trim();
+  // ==========================================
+  // PHONE CHECK
+  // ==========================================
+  const mobile = (
+    document.getElementById('af-phone')?.value ||
+    phoneNumber ||
+    ''
+  ).trim();
+
   if (mobile && !phoneRegex.test(mobile)) {
     showMessage('err-phone', 'Please enter valid mobile number');
     return false;
   }
 
   try {
+    // ==========================================
+    // SEND OTP API
+    // ==========================================
     const resp = await fetch(`${BASE_URL}/api/leads/send-otp`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json'
+      },
       credentials: 'include',
       body: JSON.stringify({
         rawLeadId,
@@ -422,18 +443,77 @@ async function sendApplyOtp() {
         product: getApplyProduct()
       })
     });
+
     const data = await resp.json().catch(() => ({}));
+
+    // ==========================================
+    // OTP SENT SUCCESSFULLY
+    // ==========================================
     if (resp.ok && data.success) {
-      if (typeof showToast === 'function') showToast(data.message || 'OTP sent to your mobile number');
+
+      if (typeof showToast === 'function') {
+        showToast(
+          data.message ||
+          'OTP sent to your mobile number'
+        );
+      }
+
+      // Backend decides cooldown
+      startApplyOtpResendCooldown(
+        Number(data.retryAfter) || 90
+      );
+
       return true;
     }
-    if (typeof showToast === 'function') {
-      showToast(data.message || 'Could not send OTP. Please try again.');
+
+    // ==========================================
+    // RATE LIMITED
+    // ==========================================
+    if (data.rateLimited) {
+
+      // If backend sends remaining cooldown,
+      // sync frontend timer with backend
+      if (data.retryAfter) {
+        startApplyOtpResendCooldown(
+          Number(data.retryAfter)
+        );
+      }
+
+      if (typeof showToast === 'function') {
+        showToast(
+          data.message ||
+          'Please wait before requesting another OTP.'
+        );
+      }
+
+      return false;
     }
+
+    // ==========================================
+    // OTHER API ERROR
+    // ==========================================
+    if (typeof showToast === 'function') {
+      showToast(
+        data.message ||
+        'Could not send OTP. Please try again.'
+      );
+    }
+
     return false;
+
   } catch (error) {
-    console.log('sendApplyOtp:', error);
-    if (typeof showToast === 'function') showToast('Network error. Please try again.');
+
+    // ==========================================
+    // NETWORK / SERVER ERROR
+    // ==========================================
+    console.error('sendApplyOtp:', error);
+
+    if (typeof showToast === 'function') {
+      showToast(
+        'Network error. Please try again.'
+      );
+    }
+
     return false;
   }
 }
@@ -572,8 +652,7 @@ document.getElementById('apOtpInput')?.addEventListener('input', function () {
 document.getElementById('apOtpSave')?.addEventListener('click', saveApplyWithOtp);
 document.getElementById('apOtpResend')?.addEventListener('click', async function () {
   if (this.disabled) return;
-  const sent = await sendApplyOtp();
-  if (sent) startApplyOtpResendCooldown(120);
+   await sendApplyOtp();
 });
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') closeApplyOtpPopup();

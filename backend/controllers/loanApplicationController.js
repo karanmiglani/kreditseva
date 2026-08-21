@@ -474,6 +474,33 @@ const sendOtp = async(req, resp) => {
             })
         }
 
+        const [rateLimitRows] = await db.query("SELECT COUNT(*) as todayOtpCount, MAx(created_at) as lastOtpSentAt from otp_verifications where phone = ? AND created_at >= CURDATE()",[phone_number]);
+        const todayOtpCount = Number(rateLimitRows[0]?.todayOtpCount || 0);
+        const lastOtpSentAt = rateLimitRows[0]?.lastOtpSentAt;
+        if(todayOtpCount >= 5){
+            return resp.status(429).json({
+                success : false,
+                rateLimited : true,
+                type : "daily_limit",
+                message : `Todays's OTP limit has been reached. Please try again tomorrow.`
+            })
+        }
+
+        if(lastOtpSentAt){
+            const lastSentTime = new Date(lastOtpSentAt).getTime();
+            const elapsedSeconds = (Date.now() - lastSentTime)/1000;
+            if(elapsedSeconds < 90){
+                const retryAfter = Math.ceil(90 - elapsedSeconds);
+                return resp.status(429).json({
+                    success : false,
+                    rateLimited : true,
+                    type : "cooldown",
+                    retryAfter,
+                    message: `Please wait ${retryAfter} seconds before requesting another OTP.`
+                })
+            }
+        }
+
 
         // if phone number found generate otp
         const otp = crypto.randomInt(100000, 1000000).toString( );
@@ -489,6 +516,7 @@ const sendOtp = async(req, resp) => {
         return resp.status(200).json({
             success : true,
             rawLeadId : rawLeadId,
+            retryAfter: 90,
             message : "Otp sent successfully on you WhatApp"
         })
         
