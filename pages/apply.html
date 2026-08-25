@@ -10,7 +10,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Archivo:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
   <link rel="stylesheet" href="/css/global.css" />
@@ -18,292 +18,206 @@
 
   <style>
     /* ═══════════════════════════════════════════════════════════════
-       APPLY-NOW — "the docket"
-       The left panel is the applicant's own file: it writes each answer
-       down as it is given, so the six steps read as a file being built
-       rather than an interrogation. Everything else stays quiet.
+       APPLY-NOW — centred card on a lit ground
+       The background is built from layered gradients rather than a photo:
+       it stays sharp at any size, costs nothing to download, and none of
+       the existing marketing PNGs work here (they all have text baked in).
+       To drop in a real photo later, set --ap-bg-photo on .ap-page.
        ═══════════════════════════════════════════════════════════════ */
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     .desktop-apply-btn, .mobile-apply-btn { display: none !important; }
 
     .ap-page {
-      /* Ink docket / paper form. Named so the roles stay obvious below. */
-      --ap-ink:      #0A1633;
-      --ap-ink-2:    #101E45;
-      --ap-ink-line: rgba(255, 255, 255, .11);
-      --ap-paper:    #ffffff;
-      --ap-ledger:   #F1F4FB;
-      --ap-line:     #DCE3F2;
-      --ap-blue:     #1A52CC;
-      --ap-blue-dk:  #1442A6;
-      --ap-copper:   #C07B45;
-      --ap-mint:     #0F9E6E;
-      --ap-text:     #0D1B3E;
-      --ap-muted:    #5C6B8A;
-      --ap-red:      #D6453D;
+      --ap-navy:    #05102C;
+      --ap-ink:     #0C1733;
+      --ap-blue:    #1A52CC;
+      --ap-blue-dk: #1442A6;
+      --ap-cyan:    #22C4F5;
+      --ap-card:    #ffffff;
+      --ap-well:    #F2F5FC;
+      --ap-line:    #DCE3F2;
+      --ap-text:    #0D1B3E;
+      --ap-muted:   #5C6B8A;
+      --ap-mint:    #0F9E6E;
+      --ap-red:     #D6453D;
 
-      --ap-display: 'Newsreader', Georgia, 'Times New Roman', serif;
-      --ap-ui: 'Archivo', 'Open Sans', system-ui, -apple-system, sans-serif;
+      --ap-ui: 'Plus Jakarta Sans', 'Open Sans', system-ui, -apple-system, sans-serif;
       --ap-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
-      display: grid;
-      grid-template-columns: minmax(340px, 460px) 1fr;
-      min-height: calc(100vh - 114px); /* 78px navbar + 36px top-strip */
-      font-family: var(--ap-ui);
-      color: var(--ap-text);
-      background: var(--ap-paper);
-    }
+      /* A photo would go on top of the base colour and under the blooms. */
+      --ap-bg-photo: none;
 
-    /* ══════════════════════════════════════════
-       LEFT — THE DOCKET
-       ══════════════════════════════════════════ */
-    .ap-docket {
-      background: var(--ap-ink);
-      color: #fff;
-      padding: 46px 40px 34px;
+      position: relative;
+      isolation: isolate;
+      min-height: calc(100vh - 114px); /* 78px navbar + 36px top-strip */
+      padding: 54px 24px 66px;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
       gap: 30px;
-      position: relative;
-      overflow: hidden;
+      font-family: var(--ap-ui);
+      background-color: var(--ap-navy);
+      /*
+       * Listed top layer first, which is the reverse of paint order. The blue
+       * bloom carries the brand and sits underneath everything; the faint
+       * azure wash at 50% 46% is a halo so the card does not float on flat
+       * colour.
+       */
+      background-image:
+        radial-gradient(1100px 820px at 50% 46%, rgba(59, 124, 255, .20), transparent 72%),
+        radial-gradient(820px 660px at 16% 96%, rgba(34, 196, 245, .22), transparent 64%),
+        radial-gradient(1080px 960px at 84% 92%, rgba(96, 52, 190, .46), transparent 68%),
+        radial-gradient(950px 760px at 90% 8%, rgba(34, 196, 245, .34), transparent 66%),
+        radial-gradient(1250px 860px at 10% 14%, rgba(26, 82, 204, .85), transparent 70%),
+        var(--ap-bg-photo);
+      background-size: cover;
+      background-position: center;
     }
 
-    /* Faint ruled paper, at the opacity of a watermark. */
-    .ap-docket::before {
+    /*
+     * Grain. Without it the gradients band visibly on wide screens, which is
+     * the tell that a background was drawn rather than photographed.
+     */
+    .ap-page::before {
       content: '';
       position: absolute;
       inset: 0;
-      background-image: linear-gradient(rgba(255, 255, 255, .028) 1px, transparent 1px);
-      background-size: 100% 34px;
+      z-index: -1;
+      opacity: .05;
+      mix-blend-mode: overlay;
       pointer-events: none;
-    }
-
-    .ap-docket > * { position: relative; z-index: 1; }
-
-    .ap-docket-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 16px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--ap-ink-line);
-    }
-
-    .ap-docket-title {
-      font-family: var(--ap-display);
-      font-size: 1.45rem;
-      font-weight: 500;
-      letter-spacing: -.01em;
-      line-height: 1.15;
-      color: #fff;
-    }
-
-    .ap-docket-ref {
-      font-family: var(--ap-mono);
-      font-size: .66rem;
-      font-weight: 500;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--ap-copper);
-      white-space: nowrap;
-    }
-
-    .ap-docket-note {
-      font-size: .82rem;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, .62);
-      max-width: 34ch;
-      margin-top: -14px;
-    }
-
-    /* ── the six rows ── */
-    .ap-docket-list { list-style: none; }
-
-    .ap-drow {
-      display: grid;
-      grid-template-columns: 2.1rem 1fr 1.1rem;
-      align-items: start;
-      gap: 14px;
-      padding: 13px 0;
-      border-top: 1px solid var(--ap-ink-line);
-      transition: opacity .25s ease;
-      opacity: .42;
-    }
-
-    .ap-drow:first-child { border-top: none; }
-    .ap-drow.is-done { opacity: 1; }
-
-    .ap-drow.is-current {
-      opacity: 1;
-      /* The current row sits in a lit well so it is findable at a glance. */
-      background: linear-gradient(90deg, var(--ap-ink-2), transparent 90%);
-      box-shadow: inset 2px 0 0 var(--ap-copper);
-      padding-left: 12px;
-      margin-left: -12px;
-      border-radius: 0 6px 6px 0;
-    }
-
-    .ap-drow-num {
-      font-family: var(--ap-mono);
-      font-size: .72rem;
-      font-weight: 500;
-      letter-spacing: .04em;
-      color: rgba(255, 255, 255, .5);
-      padding-top: .18rem;
-    }
-
-    .ap-drow.is-current .ap-drow-num { color: var(--ap-copper); }
-    .ap-drow.is-done .ap-drow-num { color: rgba(255, 255, 255, .38); }
-
-    .ap-drow-label {
-      display: block;
-      font-size: .69rem;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, .55);
-    }
-
-    .ap-drow-value {
-      display: block;
-      font-family: var(--ap-mono);
-      font-size: .88rem;
-      font-weight: 400;
-      line-height: 1.45;
-      color: #fff;
-      margin-top: 5px;
-      word-break: break-word;
-    }
-
-    /* Nothing answered yet reads as a blank line on the form, not as an error. */
-    .ap-drow-value:empty::before {
-      content: '—';
-      color: rgba(255, 255, 255, .3);
-      font-family: var(--ap-mono);
-    }
-
-    .ap-drow-value.ap-stamped { animation: ap-stamp .32s cubic-bezier(.2, .8, .3, 1); }
-
-    @keyframes ap-stamp {
-      from { opacity: 0; transform: translateY(3px); }
-      to   { opacity: 1; transform: none; }
-    }
-
-    .ap-drow-mark {
-      width: 1.1rem;
-      height: 1.1rem;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      margin-top: .1rem;
-      border: 1px solid var(--ap-ink-line);
-      color: transparent;
-      font-size: .58rem;
-      transition: background .2s ease, border-color .2s ease, color .2s ease;
-    }
-
-    .ap-drow.is-done .ap-drow-mark {
-      background: var(--ap-copper);
-      border-color: var(--ap-copper);
-      color: #fff;
-    }
-
-    /* ── docket footer: the two facts worth repeating here ── */
-    .ap-docket-foot {
-      margin-top: auto;
-      padding-top: 22px;
-      border-top: 1px solid var(--ap-ink-line);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 26px;
-    }
-
-    .ap-fact-k {
-      display: block;
-      font-family: var(--ap-mono);
-      font-size: 1.02rem;
-      font-weight: 500;
-      color: #fff;
-      letter-spacing: -.01em;
-    }
-
-    .ap-fact-v {
-      display: block;
-      font-size: .68rem;
-      font-weight: 600;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, .5);
-      margin-top: 3px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
     /* ══════════════════════════════════════════
-       RIGHT — THE FORM
+       ABOVE THE CARD
        ══════════════════════════════════════════ */
-    .ap-form-pane {
-      padding: 40px 52px 56px;
-      display: flex;
-      flex-direction: column;
-      max-width: 660px;
+    .ap-intro {
+      text-align: center;
+      max-width: 620px;
+    }
+
+    .ap-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--ap-mono);
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ap-cyan);
+      padding: 7px 14px;
+      border: 1px solid rgba(34, 196, 245, .3);
+      border-radius: 999px;
+      background: rgba(34, 196, 245, .08);
+    }
+
+    .ap-intro h1 {
+      font-size: clamp(1.75rem, 3.6vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.12;
+      color: #fff;
+      margin-top: 18px;
+    }
+
+    .ap-intro h1 em {
+      font-style: normal;
+      background: linear-gradient(95deg, var(--ap-cyan), #7FD9FF);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .ap-intro p {
+      font-size: .95rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, .68);
+      margin-top: 12px;
+    }
+
+    /* ══════════════════════════════════════════
+       THE CARD
+       ══════════════════════════════════════════ */
+    .ap-card {
+      position: relative;
       width: 100%;
-      margin-inline: auto;
+      max-width: 560px;
+      background: var(--ap-card);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, .5) inset,
+        0 34px 90px rgba(2, 8, 24, .5),
+        0 4px 14px rgba(2, 8, 24, .3);
+    }
+
+    /* ── card head: progress lives here ── */
+    .ap-card-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 26px;
+      background: var(--ap-well);
+      border-bottom: 1px solid var(--ap-line);
     }
 
     .ap-back-btn {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      font-size: .78rem;
+      gap: 6px;
+      font-size: .8rem;
       font-weight: 600;
       color: var(--ap-muted);
       text-decoration: none;
-      padding: 7px 12px 7px 8px;
-      margin-left: -8px;
+      padding: 6px 10px 6px 7px;
+      margin-left: -7px;
       border-radius: 8px;
-      align-self: flex-start;
+      flex-shrink: 0;
       transition: color .18s ease, background .18s ease;
     }
 
-    .ap-back-btn:hover { color: var(--ap-blue); background: var(--ap-ledger); }
+    .ap-back-btn:hover { color: var(--ap-blue); background: rgba(26, 82, 204, .08); }
 
-    /* ── progress: six notches, not a smooth bar ── */
     .ap-progress-wrap {
-      margin: 26px 0 34px;
+      flex: 1;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 13px;
+      min-width: 0;
     }
 
     .ap-progress-bar {
       position: relative;
       flex: 1;
-      height: 4px;
-      background: var(--ap-line);
-      border-radius: 2px;
+      height: 5px;
+      background: #E2E8F5;
+      border-radius: 3px;
       overflow: hidden;
     }
 
     .ap-progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--ap-copper), var(--ap-blue));
-      border-radius: 2px;
-      transition: width .4s cubic-bezier(.3, .8, .3, 1);
+      background: linear-gradient(90deg, var(--ap-blue), var(--ap-cyan));
+      border-radius: 3px;
+      transition: width .45s cubic-bezier(.3, .8, .3, 1);
     }
 
-    /* Notches drawn over the top, so the fill reads as "4 of 6", not "66%". */
+    /* Five dividers — one per boundary, none at 0% or 100%, so a finished
+       bar actually reads as finished. */
     .ap-progress-bar::after {
       content: '';
       position: absolute;
       inset: 0;
-      /* Five dividers, one per step boundary — none at 0% or 100%, so a full
-         bar actually reads as full. */
       background-image:
-        linear-gradient(var(--ap-paper), var(--ap-paper)),
-        linear-gradient(var(--ap-paper), var(--ap-paper)),
-        linear-gradient(var(--ap-paper), var(--ap-paper)),
-        linear-gradient(var(--ap-paper), var(--ap-paper)),
-        linear-gradient(var(--ap-paper), var(--ap-paper));
+        linear-gradient(var(--ap-well), var(--ap-well)),
+        linear-gradient(var(--ap-well), var(--ap-well)),
+        linear-gradient(var(--ap-well), var(--ap-well)),
+        linear-gradient(var(--ap-well), var(--ap-well)),
+        linear-gradient(var(--ap-well), var(--ap-well));
       background-size: 3px 100%;
       background-position: 16.6667% 0, 33.3333% 0, 50% 0, 66.6667% 0, 83.3333% 0;
       background-repeat: no-repeat;
@@ -312,37 +226,44 @@
 
     .ap-progress-label {
       font-family: var(--ap-mono);
-      font-size: .7rem;
+      font-size: .68rem;
       font-weight: 500;
-      letter-spacing: .1em;
+      letter-spacing: .09em;
       text-transform: uppercase;
       color: var(--ap-muted);
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
-    .ap-progress-label::after {
-      content: ' / 6';
-      color: var(--ap-line);
+    .ap-progress-label::after { content: ' / 6'; color: #B7C1D8; }
+
+    /* ── card body ── */
+    /*
+     * min-height keeps steps 1-4 and 6 the same height, so the centred card
+     * does not jump as you move between them. Step 5 asks for three fields
+     * and is legitimately taller.
+     */
+    .ap-card-body {
+      padding: 30px 26px 30px;
+      min-height: 310px;
     }
 
     .ap-form-title {
-      font-family: var(--ap-display);
-      font-size: clamp(1.7rem, 2.6vw, 2.25rem);
-      font-weight: 500;
+      font-size: 1.42rem;
+      font-weight: 700;
       letter-spacing: -.02em;
-      line-height: 1.14;
+      line-height: 1.22;
       color: var(--ap-text);
     }
 
     .ap-form-sub {
-      font-size: .92rem;
-      line-height: 1.62;
+      font-size: .88rem;
+      line-height: 1.6;
       color: var(--ap-muted);
-      margin-top: 12px;
-      max-width: 46ch;
+      margin-top: 8px;
     }
 
-    #applyForm { margin-top: 34px; }
+    #applyForm { margin-top: 26px; }
 
     .ap-step { display: none; }
     .ap-step.active { display: block; }
@@ -350,34 +271,31 @@
     .ap-fields-grid {
       display: flex;
       flex-direction: column;
-      gap: 22px;
+      gap: 20px;
     }
 
     .ap-field-full { width: 100%; }
 
-    /* Field labels borrow the docket's data voice. */
     .ap-flabel {
-      font-family: var(--ap-mono);
-      font-size: .68rem;
-      font-weight: 500;
-      letter-spacing: .11em;
-      text-transform: uppercase;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .01em;
       color: var(--ap-text);
-      margin-bottom: 9px;
+      margin-bottom: 8px;
     }
 
-    .ap-flabel span { color: var(--ap-copper); }
+    .ap-flabel span { color: var(--ap-blue); }
 
-    /* ── the ledger well: one shape for every input ── */
+    /* ── one well shape for every input ── */
     .ap-field input[type="text"],
     .ap-field input[type="tel"],
     .ap-field input[type="number"],
     .ap-phone-wrap,
     .ap-city-wrap {
       width: 100%;
-      background: var(--ap-ledger);
+      background: var(--ap-well);
       border: 1.5px solid var(--ap-line);
-      border-radius: 11px;
+      border-radius: 12px;
       font-family: var(--ap-ui);
       font-size: 1rem;
       color: var(--ap-text);
@@ -385,34 +303,27 @@
     }
 
     .ap-field > input { padding: 15px 16px; }
-
     .ap-field input::placeholder { color: #93A0BC; }
 
     .ap-field > input:focus {
       outline: none;
-      background: var(--ap-paper);
+      background: #fff;
       border-color: var(--ap-blue);
-      box-shadow: 0 0 0 3px rgba(26, 82, 204, .13);
+      box-shadow: 0 0 0 3px rgba(26, 82, 204, .14);
     }
 
-    /* number spinners are noise on an amount field */
     .ap-field input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
     .ap-field input[type="number"]::-webkit-outer-spin-button,
     .ap-field input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
-    /* ── prefixed wells (phone, city) ── */
     .ap-phone-wrap,
-    .ap-city-wrap {
-      display: flex;
-      align-items: stretch;
-      overflow: hidden;
-    }
+    .ap-city-wrap { display: flex; align-items: stretch; overflow: hidden; }
 
     .ap-phone-wrap:focus-within,
     .ap-city-wrap:focus-within {
-      background: var(--ap-paper);
+      background: #fff;
       border-color: var(--ap-blue);
-      box-shadow: 0 0 0 3px rgba(26, 82, 204, .13);
+      box-shadow: 0 0 0 3px rgba(26, 82, 204, .14);
     }
 
     .ap-phone-prefix,
@@ -426,7 +337,7 @@
       font-weight: 500;
       color: var(--ap-text);
       border-right: 1.5px solid var(--ap-line);
-      background: rgba(10, 22, 51, .035);
+      background: rgba(12, 23, 51, .04);
       white-space: nowrap;
     }
 
@@ -437,104 +348,99 @@
       border: none !important;
       background: transparent !important;
       padding: 15px 16px !important;
-      font-family: var(--ap-mono);
       font-size: 1rem;
-      letter-spacing: .04em;
       color: var(--ap-text);
       box-shadow: none !important;
+    }
+
+    .ap-phone-wrap input {
+      font-family: var(--ap-mono);
+      letter-spacing: .05em;
     }
 
     .ap-phone-wrap input:focus,
     .ap-city-wrap input:focus { outline: none; }
 
-    .ap-city-wrap input { font-family: var(--ap-ui); letter-spacing: 0; }
+    #af-pan { font-family: var(--ap-mono); letter-spacing: .09em; text-transform: uppercase; }
 
-    /* PAN is read back as an identifier, so it gets the mono treatment. */
-    #af-pan { font-family: var(--ap-mono); letter-spacing: .08em; }
-
-    /* amount in words — a running read-back, not a warning */
     #af-loan-amount-words {
       display: block;
       font-family: var(--ap-mono);
-      font-size: .78rem;
+      font-size: .8rem;
       font-weight: 500;
-      color: var(--ap-copper);
+      color: var(--ap-blue);
       margin-top: 7px;
-      min-height: 17px;
+      min-height: 18px;
     }
 
-    /* ── occupation: two cards ── */
-    .ap-occ-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
+    /* ── occupation ── */
+    .ap-occ-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
 
     .ap-occ-card {
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 16px;
-      padding: 22px 20px;
-      background: var(--ap-ledger);
+      gap: 14px;
+      padding: 20px 18px;
+      background: var(--ap-well);
       border: 1.5px solid var(--ap-line);
-      border-radius: 14px;
+      border-radius: 15px;
       cursor: pointer;
       text-align: left;
       font-family: var(--ap-ui);
-      transition: border-color .18s ease, background .18s ease, transform .18s ease;
+      transition: border-color .18s ease, background .18s ease, transform .18s ease, box-shadow .18s ease;
     }
 
-    .ap-occ-card:hover { border-color: #B9C6E4; transform: translateY(-2px); }
+    .ap-occ-card:hover { border-color: #BCC9E6; transform: translateY(-2px); }
 
     .ap-occ-card.active {
-      background: var(--ap-paper);
-      border-color: var(--ap-ink);
-      box-shadow: 0 0 0 3px rgba(10, 22, 51, .07);
+      background: #fff;
+      border-color: var(--ap-blue);
+      box-shadow: 0 0 0 3px rgba(26, 82, 204, .13);
     }
 
     .ap-occ-icon {
       display: grid;
       place-items: center;
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       border-radius: 11px;
-      background: rgba(10, 22, 51, .06);
+      background: rgba(12, 23, 51, .06);
       color: var(--ap-ink);
-      font-size: 1.02rem;
+      font-size: 1rem;
       transition: background .18s ease, color .18s ease;
     }
 
-    .ap-occ-card.active .ap-occ-icon { background: var(--ap-ink); color: #fff; }
+    .ap-occ-card.active .ap-occ-icon { background: var(--ap-blue); color: #fff; }
 
     .ap-occ-text strong {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--ap-text);
       display: block;
+      font-size: .97rem;
+      font-weight: 700;
+      color: var(--ap-text);
     }
 
     .ap-occ-hint {
       display: block;
-      font-size: .78rem;
-      color: var(--ap-muted);
-      margin-top: 4px;
+      font-size: .76rem;
       line-height: 1.45;
+      color: var(--ap-muted);
+      margin-top: 3px;
     }
 
     .ap-occ-card-check {
       position: absolute;
-      top: 14px;
-      right: 14px;
+      top: 13px;
+      right: 13px;
       width: 20px;
       height: 20px;
       border-radius: 50%;
       display: grid;
       place-items: center;
-      background: var(--ap-copper);
+      background: var(--ap-blue);
       color: #fff;
-      font-size: .6rem;
+      font-size: .58rem;
       opacity: 0;
       transform: scale(.7);
       transition: opacity .18s ease, transform .18s ease;
@@ -542,14 +448,14 @@
 
     .ap-occ-card.active .ap-occ-card-check { opacity: 1; transform: none; }
 
-    /* ── select2, dressed as a ledger well ── */
+    /* ── select2, matched to the well ── */
     .ap-field .select2-container { width: 100% !important; }
 
     .select2-container--default .select2-selection--single {
       height: auto;
-      background: var(--ap-ledger);
+      background: var(--ap-well);
       border: 1.5px solid var(--ap-line);
-      border-radius: 11px;
+      border-radius: 12px;
       padding: 15px 16px;
       transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
     }
@@ -559,7 +465,7 @@
       line-height: 1.35;
       font-family: var(--ap-ui);
       font-size: 1rem;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--ap-text);
     }
 
@@ -580,9 +486,9 @@
 
     .select2-container--default.select2-container--open .select2-selection--single,
     .select2-container--default.select2-container--focus .select2-selection--single {
-      background: var(--ap-paper);
+      background: #fff;
       border-color: var(--ap-blue);
-      box-shadow: 0 0 0 3px rgba(26, 82, 204, .13);
+      box-shadow: 0 0 0 3px rgba(26, 82, 204, .14);
     }
 
     .select2-container--default .select2-selection--single .select2-selection__clear {
@@ -592,9 +498,9 @@
 
     .select2-dropdown {
       border: 1.5px solid var(--ap-line);
-      border-radius: 12px;
+      border-radius: 13px;
       overflow: hidden;
-      box-shadow: 0 20px 44px rgba(10, 22, 51, .14);
+      box-shadow: 0 22px 50px rgba(2, 8, 24, .22);
     }
 
     .select2-container--default .select2-results__option {
@@ -610,16 +516,16 @@
     }
 
     .select2-container--default .select2-results__option[aria-selected="true"] {
-      background: var(--ap-ledger);
+      background: var(--ap-well);
       color: var(--ap-text);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .select2-container--default .select2-results__group {
       font-family: var(--ap-mono);
-      font-size: .64rem;
+      font-size: .63rem;
       font-weight: 500;
-      letter-spacing: .12em;
+      letter-spacing: .13em;
       text-transform: uppercase;
       color: var(--ap-muted);
       padding: 12px 14px 6px;
@@ -644,7 +550,6 @@
     .ap-err,
     .pl-field-err {
       display: block;
-      font-family: var(--ap-ui);
       font-size: .76rem;
       font-weight: 600;
       color: var(--ap-red);
@@ -653,13 +558,13 @@
     }
 
     /* ── actions ── */
-    .ap-step-actions { margin-top: 30px; }
+    .ap-step-actions { margin-top: 26px; }
 
     .ap-step-nav {
       display: flex;
       align-items: stretch;
-      gap: 12px;
-      margin-top: 30px;
+      gap: 11px;
+      margin-top: 26px;
     }
 
     .ap-next-btn,
@@ -673,14 +578,13 @@
       background: var(--ap-blue);
       color: #fff;
       border: none;
-      border-radius: 11px;
+      border-radius: 12px;
       font-family: var(--ap-ui);
-      font-size: .98rem;
-      font-weight: 600;
-      letter-spacing: .01em;
+      font-size: .97rem;
+      font-weight: 700;
       cursor: pointer;
+      box-shadow: 0 8px 20px rgba(26, 82, 204, .28);
       transition: background .18s ease, opacity .18s ease, box-shadow .18s ease;
-      box-shadow: 0 6px 18px rgba(26, 82, 204, .22);
     }
 
     .ap-step-actions .ap-next-btn { width: 100%; }
@@ -689,12 +593,11 @@
     .ap-submit:hover { background: var(--ap-blue-dk); }
 
     /*
-     * The Next button stays in place and dims until the step is answerable.
-     * It used to be display:none, which moved the layout under the cursor and
-     * gave no hint that anything was still required.
+     * Dimmed rather than removed. display:none moved the layout under the
+     * cursor and gave no hint that something was still required.
      */
     .ap-next-btn:not(.is-visible) {
-      opacity: .32;
+      opacity: .34;
       pointer-events: none;
       box-shadow: none;
     }
@@ -704,13 +607,13 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 16px 20px;
+      padding: 16px 19px;
       background: transparent;
       color: var(--ap-muted);
       border: 1.5px solid var(--ap-line);
-      border-radius: 11px;
+      border-radius: 12px;
       font-family: var(--ap-ui);
-      font-size: .94rem;
+      font-size: .93rem;
       font-weight: 600;
       cursor: pointer;
       transition: border-color .18s ease, color .18s ease, background .18s ease;
@@ -719,11 +622,10 @@
     .ap-prev-btn:hover {
       border-color: var(--ap-ink);
       color: var(--ap-ink);
-      background: var(--ap-ledger);
+      background: var(--ap-well);
     }
 
     @keyframes ap-spin { to { transform: rotate(360deg); } }
-
     .ap-btn-spinner { display: inline-flex; align-items: center; gap: 9px; }
 
     /* ── consent ── */
@@ -731,11 +633,11 @@
       display: flex;
       align-items: flex-start;
       gap: 11px;
-      margin-top: 22px;
-      padding: 15px 16px;
-      background: var(--ap-ledger);
+      margin-top: 20px;
+      padding: 14px 15px;
+      background: var(--ap-well);
       border: 1px solid var(--ap-line);
-      border-radius: 11px;
+      border-radius: 12px;
     }
 
     .ks-consent input[type="checkbox"] {
@@ -748,22 +650,22 @@
     }
 
     .ks-consent label {
-      font-size: .8rem;
+      font-size: .78rem;
       line-height: 1.6;
       color: var(--ap-muted);
       cursor: pointer;
     }
 
-    .ks-consent a { color: var(--ap-blue); font-weight: 600; text-decoration: none; }
+    .ks-consent a { color: var(--ap-blue); font-weight: 700; text-decoration: none; }
     .ks-consent a:hover { text-decoration: underline; }
 
-    /* ── privacy line, sits under the fields that ask for identity ── */
+    /* ── the reason each identity field is being asked for ── */
     .ap-assurance {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
-      margin-top: 26px;
-      font-size: .78rem;
+      gap: 9px;
+      margin-top: 22px;
+      font-size: .77rem;
       line-height: 1.55;
       color: var(--ap-muted);
     }
@@ -773,9 +675,8 @@
     /* ── success ── */
     .ap-success-msg {
       display: block;
-      font-family: var(--ap-ui);
       font-size: .8rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--ap-mint);
       margin-top: 10px;
     }
@@ -783,33 +684,56 @@
     .ap-success {
       display: none;
       text-align: center;
-      padding: 44px 28px;
-      background: var(--ap-ledger);
+      padding: 40px 26px;
+      background: var(--ap-well);
       border: 1px solid var(--ap-line);
       border-radius: 16px;
     }
 
-    .ap-success.active { display: block; }
-
     .ap-success i {
       display: block;
-      font-size: 2.1rem;
+      font-size: 2rem;
       color: var(--ap-mint);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .ap-success h4 {
-      font-family: var(--ap-display);
-      font-size: 1.5rem;
-      font-weight: 500;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
       color: var(--ap-text);
     }
 
-    .ap-success p {
-      font-size: .92rem;
-      color: var(--ap-muted);
-      margin-top: 8px;
+    .ap-success p { font-size: .9rem; color: var(--ap-muted); margin-top: 7px; }
+
+    /* ══════════════════════════════════════════
+       BELOW THE CARD
+       ══════════════════════════════════════════ */
+    .ap-trust {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 10px 26px;
+      max-width: 560px;
     }
+
+    .ap-trust-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .8rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .72);
+    }
+
+    .ap-trust-item b {
+      font-family: var(--ap-mono);
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .ap-trust-item i { color: var(--ap-cyan); font-size: .8rem; }
 
     /* ══════════════════════════════════════════
        OTP DIALOG
@@ -819,8 +743,8 @@
       position: fixed;
       inset: 0;
       z-index: 4000;
-      background: rgba(10, 22, 51, .62);
-      backdrop-filter: blur(3px);
+      background: rgba(4, 11, 30, .74);
+      backdrop-filter: blur(4px);
       align-items: center;
       justify-content: center;
       padding: 20px;
@@ -833,11 +757,11 @@
       width: 100%;
       max-width: 400px;
       background: #fff;
-      border-radius: 18px;
-      padding: 36px 30px 28px;
+      border-radius: 20px;
+      padding: 36px 30px 26px;
       text-align: center;
-      font-family: 'Archivo', 'Open Sans', system-ui, sans-serif;
-      box-shadow: 0 30px 70px rgba(10, 22, 51, .3);
+      font-family: 'Plus Jakarta Sans', 'Open Sans', system-ui, sans-serif;
+      box-shadow: 0 34px 80px rgba(2, 8, 24, .5);
       animation: ap-otp-in .28s cubic-bezier(.2, .8, .3, 1);
     }
 
@@ -862,21 +786,20 @@
       transition: background .18s ease, color .18s ease;
     }
 
-    .ap-otp-close:hover { background: #F1F4FB; color: #0D1B3E; }
+    .ap-otp-close:hover { background: #F2F5FC; color: #0D1B3E; }
 
     .ap-otp-title {
-      font-family: 'Newsreader', Georgia, serif;
-      font-size: 1.6rem;
-      font-weight: 500;
-      letter-spacing: -.01em;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
       color: #0D1B3E;
     }
 
     .ap-otp-sub {
-      font-size: .86rem;
+      font-size: .85rem;
       line-height: 1.6;
       color: #5C6B8A;
-      margin-top: 8px;
+      margin-top: 7px;
     }
 
     .ap-otp-sub strong {
@@ -887,28 +810,28 @@
 
     .ap-otp-input {
       width: 100%;
-      margin-top: 22px;
+      margin-top: 20px;
       padding: 16px;
-      background: #F1F4FB;
+      background: #F2F5FC;
       border: 1.5px solid #DCE3F2;
-      border-radius: 12px;
+      border-radius: 13px;
       font-family: 'IBM Plex Mono', ui-monospace, monospace;
-      font-size: 1.6rem;
+      font-size: 1.55rem;
       font-weight: 500;
-      letter-spacing: .5em;
-      text-indent: .5em;
+      letter-spacing: .45em;
+      text-indent: .45em;
       text-align: center;
       color: #0D1B3E;
       transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
     }
 
-    .ap-otp-input::placeholder { letter-spacing: .35em; color: #B7C1D8; }
+    .ap-otp-input::placeholder { letter-spacing: .3em; color: #B7C1D8; }
 
     .ap-otp-input:focus {
       outline: none;
       background: #fff;
       border-color: #1A52CC;
-      box-shadow: 0 0 0 3px rgba(26, 82, 204, .13);
+      box-shadow: 0 0 0 3px rgba(26, 82, 204, .14);
     }
 
     .ap-otp-err {
@@ -922,17 +845,16 @@
 
     .ap-otp-save {
       width: 100%;
-      margin-top: 6px;
       padding: 16px;
       background: #1A52CC;
       color: #fff;
       border: none;
-      border-radius: 11px;
+      border-radius: 12px;
       font-family: inherit;
-      font-size: .98rem;
-      font-weight: 600;
+      font-size: .97rem;
+      font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 6px 18px rgba(26, 82, 204, .22);
+      box-shadow: 0 8px 20px rgba(26, 82, 204, .28);
       transition: background .18s ease, opacity .18s ease;
     }
 
@@ -941,19 +863,19 @@
 
     .ap-otp-resend {
       width: 100%;
-      margin-top: 12px;
+      margin-top: 11px;
       padding: 10px;
       background: transparent;
       border: none;
       font-family: inherit;
       font-size: .84rem;
-      font-weight: 600;
+      font-weight: 700;
       color: #1A52CC;
       cursor: pointer;
       border-radius: 8px;
     }
 
-    .ap-otp-resend:hover:not(:disabled) { background: #F1F4FB; }
+    .ap-otp-resend:hover:not(:disabled) { background: #F2F5FC; }
     .ap-otp-resend:disabled { color: #93A0BC; cursor: not-allowed; }
 
     /* ══════════════════════════════════════════
@@ -969,6 +891,10 @@
       outline-offset: 2px;
     }
 
+    /* On the dark ground the ring needs to be the light colour instead. */
+    .ap-page > .ap-intro a:focus-visible,
+    .ap-trust a:focus-visible { outline-color: var(--ap-cyan); }
+
     @media (prefers-reduced-motion: reduce) {
       .ap-page *, .ap-otp-box, .ap-otp-box * {
         animation-duration: .001ms !important;
@@ -979,108 +905,51 @@
 
     /* ══════════════════════════════════════════
        RESPONSIVE
-       The docket cannot stay a column on a phone, so it becomes a strip:
-       the current question's number, and the answers already on file.
        ══════════════════════════════════════════ */
-    @media (max-width: 1180px) {
-      .ap-docket { padding: 38px 30px 28px; }
-      .ap-form-pane { padding: 36px 36px 48px; }
-    }
-
-    @media (max-width: 940px) {
+    @media (max-width: 700px) {
       .ap-page {
-        grid-template-columns: 1fr;
-        min-height: 0;
+        padding: 32px 16px 44px;
+        gap: 22px;
+        justify-content: flex-start;
       }
 
-      .ap-docket {
-        padding: 26px 22px;
-        gap: 18px;
-      }
+      .ap-intro h1 { margin-top: 14px; }
+      .ap-intro p { display: none; }
 
-      .ap-docket-note,
-      .ap-docket-foot { display: none; }
+      .ap-card { border-radius: 20px; }
+      .ap-card-head { padding: 15px 18px; }
+      .ap-card-body { padding: 24px 18px 26px; min-height: 0; }
 
-      .ap-docket-head { padding-bottom: 14px; }
-      .ap-docket-title { font-size: 1.2rem; }
-
-      /* rows become a horizontal register of what is already on file */
-      .ap-docket-list {
-        display: flex;
-        gap: 8px;
-        overflow-x: auto;
-        scrollbar-width: none;
-        padding-bottom: 2px;
-      }
-
-      .ap-docket-list::-webkit-scrollbar { display: none; }
-
-      .ap-drow {
-        flex: 0 0 auto;
-        display: flex;
-        align-items: center;
-        gap: 9px;
-        padding: 9px 13px;
-        border: 1px solid var(--ap-ink-line);
-        border-radius: 999px;
-        background: rgba(255, 255, 255, .04);
-      }
-
-      .ap-drow.is-current {
-        margin-left: 0;
-        padding-left: 13px;
-        border-radius: 999px;
-        background: var(--ap-ink-2);
-        box-shadow: inset 0 0 0 1px var(--ap-copper);
-      }
-
-      .ap-drow-num { padding-top: 0; }
-      .ap-drow-label { display: none; }
-
-      .ap-drow-value {
-        margin-top: 0;
-        font-size: .8rem;
-        white-space: nowrap;
-      }
-
-      .ap-drow-mark { display: none; }
-
-      .ap-form-pane {
-        padding: 30px 22px 44px;
-        max-width: none;
-      }
-
-      .ap-progress-wrap { margin: 20px 0 26px; }
-    }
-
-    @media (max-width: 560px) {
-      .ap-form-title { font-size: 1.55rem; }
-      .ap-form-sub { font-size: .87rem; }
-      #applyForm { margin-top: 26px; }
+      .ap-form-title { font-size: 1.24rem; }
 
       .ap-occ-cards { grid-template-columns: 1fr; }
 
       .ap-occ-card {
         flex-direction: row;
         align-items: center;
-        padding: 16px 18px;
+        padding: 15px 16px;
       }
 
       .ap-occ-icon { width: 38px; height: 38px; }
 
       .ap-next-btn,
       .ap-submit,
-      .ap-prev-btn {
-        min-height: 54px;
-        padding: 15px 16px;
-      }
+      .ap-prev-btn { min-height: 54px; padding: 15px 16px; }
 
-      /* Back shrinks to its arrow so Continue keeps the width it needs. */
+      /* Back keeps only its arrow so Continue gets the width it needs. */
       .ap-prev-btn { flex: 0 0 auto; padding: 15px 17px; }
       .ap-prev-btn span { display: none; }
 
-      .ap-otp-box { padding: 30px 20px 24px; }
-      .ap-otp-input { font-size: 1.3rem; letter-spacing: .38em; text-indent: .38em; }
+      .ap-trust { gap: 8px 18px; }
+      .ap-trust-item { font-size: .74rem; }
+
+      .ap-otp-box { padding: 30px 20px 22px; }
+      .ap-otp-input { font-size: 1.3rem; letter-spacing: .34em; text-indent: .34em; }
+    }
+
+    @media (max-width: 420px) {
+      .ap-progress-label { font-size: .62rem; }
+      .ap-back-btn span { display: none; }
     }
   </style>
   <link rel="canonical" href="https://kreditseva.com/apply-now" />
@@ -1179,302 +1048,251 @@
 
   <div class="ap-page">
 
-    <!-- ══ LEFT: the docket — writes down each answer as it is given ══ -->
-    <aside class="ap-docket" aria-label="Your application so far">
-      <div class="ap-docket-head">
-        <h1 class="ap-docket-title">Your loan application,<br>in six answers.</h1>
-        <span class="ap-docket-ref">Application file</span>
-      </div>
-
-      <p class="ap-docket-note">Every answer is written down here as you go, so you can see exactly what we have before anything is sent.</p>
-
-      <ol class="ap-docket-list" id="ap-docket-list">
-        <li class="ap-drow is-current" data-drow="1">
-          <span class="ap-drow-num">01</span>
-          <span>
-            <span class="ap-drow-label">Loan type</span>
-            <span class="ap-drow-value" data-dvalue="1"></span>
-          </span>
-          <span class="ap-drow-mark" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
-        </li>
-        <li class="ap-drow" data-drow="2">
-          <span class="ap-drow-num">02</span>
-          <span>
-            <span class="ap-drow-label">Mobile</span>
-            <span class="ap-drow-value" data-dvalue="2"></span>
-          </span>
-          <span class="ap-drow-mark" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
-        </li>
-        <li class="ap-drow" data-drow="3">
-          <span class="ap-drow-num">03</span>
-          <span>
-            <span class="ap-drow-label">Employment</span>
-            <span class="ap-drow-value" data-dvalue="3"></span>
-          </span>
-          <span class="ap-drow-mark" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
-        </li>
-        <li class="ap-drow" data-drow="4">
-          <span class="ap-drow-num">04</span>
-          <span>
-            <span class="ap-drow-label">City</span>
-            <span class="ap-drow-value" data-dvalue="4"></span>
-          </span>
-          <span class="ap-drow-mark" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
-        </li>
-        <li class="ap-drow" data-drow="5">
-          <span class="ap-drow-num">05</span>
-          <span>
-            <span class="ap-drow-label">Income &amp; amount</span>
-            <span class="ap-drow-value" data-dvalue="5"></span>
-          </span>
-          <span class="ap-drow-mark" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
-        </li>
-        <li class="ap-drow" data-drow="6">
-          <span class="ap-drow-num">06</span>
-          <span>
-            <span class="ap-drow-label">Name</span>
-            <span class="ap-drow-value" data-dvalue="6"></span>
-          </span>
-          <span class="ap-drow-mark" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
-        </li>
-      </ol>
-
-      <div class="ap-docket-foot">
-        <div><span class="ap-fact-k">9.98%</span><span class="ap-fact-v">Rates from, p.a.</span></div>
-        <div><span class="ap-fact-k">25+</span><span class="ap-fact-v">Lenders compared</span></div>
-        <div><span class="ap-fact-k">&#8377;0</span><span class="ap-fact-v">Platform fee</span></div>
-      </div>
-    </aside>
-
-    <!-- ══ RIGHT: the form ══ -->
-    <div class="ap-form-pane">
-
-      <a href="javascript:history.back()" class="ap-back-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg> Back</a>
-
-      <div class="ap-progress-wrap">
-        <div class="ap-progress-bar"><div class="ap-progress-fill" id="ap-progress-fill" style="width:16%;"></div></div>
-        <div class="ap-progress-label" id="ap-progress-label">Step 1</div>
-      </div>
-
-      <h2 class="ap-form-title" id="ap-form-title">Select Loan Type</h2>
-      <p class="ap-form-sub" id="ap-form-sub">Choose the loan product you want to apply for.</p>
-
-      <form id="applyForm" onsubmit="return false;">
-
-        <!-- STEP 1: Loan Type -->
-        <div class="ap-step active" id="ap-step-1" data-step="1">
-          <div class="ap-fields-grid">
-            <div class="ap-field ap-field-full" id="ap-product-field">
-              <div class="ap-flabel">Loan Type <span>*</span></div>
-              <select id="af-product">
-                <option value="">Select Loan Type</option>
-                <optgroup label="Personal Loans">
-                  <option value="personal-loan">Personal Loan</option>
-                  <option value="personal-overdraft">Personal Overdraft</option>
-                  <option value="balance-transfer">Balance Transfer</option>
-                  <option value="debt-consolidation">Debt Consolidation</option>
-                  <option value="insta-loan">Insta Loan</option>
-                </optgroup>
-                <optgroup label="Business Loans">
-                  <option value="business-loan">Business Loan</option>
-                  <option value="working-capital">Working Capital</option>
-                  <option value="unsecured-business-loan">Unsecured Business Loan</option>
-                  <option value="business-overdraft">Business Overdraft</option>
-                </optgroup>
-                <optgroup label="Professional Loans">
-                  <option value="professional-loan">Professional Loan</option>
-                  <option value="loan-for-ca">Loan for CA</option>
-                  <option value="loan-for-cs">Loan for CS</option>
-                  <option value="loan-for-doctor">Loan for Doctors</option>
-                </optgroup>
-                <optgroup label="Secured Loans">
-                  <option value="secured-loan">Secured Loan</option>
-                  <option value="loan-Against-roperty">Loan Against Property</option>
-                  <option value="home-Loan">Home Loan</option>
-                  <option value="car-Loan">Car Loan</option>
-                </optgroup>
-                <optgroup label="Other">
-                  <option value="credit-card">Credit Card</option>
-                </optgroup>
-              </select>
-              <span class="ap-err" id="err-product"></span>
-            </div>
-          </div>
-          <div class="ap-step-actions">
-            <button type="button" class="ap-next-btn is-visible" id="ap-next-btn" onclick="goToApplyStep(2)">
-              Continue
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 2: Mobile -->
-        <div class="ap-step" id="ap-step-2" data-step="2">
-          <div class="ap-fields-grid">
-            <div class="ap-field ap-field-full" id="ap-phone-field">
-              <div class="ap-flabel">Mobile Number <span>*</span></div>
-              <div class="ap-phone-wrap">
-                <span class="ap-phone-prefix">+91</span>
-                <input type="tel" id="af-phone" maxlength="10" placeholder="10-digit mobile number" inputmode="numeric" autocomplete="tel" />
-              </div>
-              <span class="ap-err" id="err-phone"></span>
-            </div>
-          </div>
-          <p class="ap-assurance"><i class="fa-solid fa-shield-halved"></i> We send a one-time code to this number on WhatsApp to confirm it is yours.</p>
-          <div class="ap-step-nav">
-            <button type="button" class="ap-prev-btn" onclick="goToApplyStep(1)">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-              <span>Back</span>
-            </button>
-            <button type="button" class="ap-next-btn" id="ap-next-btn-2" onclick="goToApplyStep(3)">
-              Continue
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 3: Occupation -->
-        <div class="ap-step" id="ap-step-3" data-step="3">
-          <div class="ap-occ-cards" id="ap-occ-cards">
-            <button type="button" class="ap-occ-card" data-occ="salaried" aria-pressed="false">
-              <span class="ap-occ-card-check"><i class="fa-solid fa-check"></i></span>
-              <span class="ap-occ-icon"><i class="fa-solid fa-briefcase"></i></span>
-              <span class="ap-occ-text">
-                <strong>Salaried</strong>
-                <span class="ap-occ-hint">I draw a monthly salary from an employer</span>
-              </span>
-            </button>
-            <button type="button" class="ap-occ-card" data-occ="self-employed" aria-pressed="false">
-              <span class="ap-occ-card-check"><i class="fa-solid fa-check"></i></span>
-              <span class="ap-occ-icon"><i class="fa-solid fa-store"></i></span>
-              <span class="ap-occ-text">
-                <strong>Self employed</strong>
-                <span class="ap-occ-hint">I earn from a business or my own practice</span>
-              </span>
-            </button>
-          </div>
-          <input type="hidden" id="af-occupation" value="">
-          <span class="ap-err" id="err-occupation"></span>
-          <div class="ap-step-nav">
-            <button type="button" class="ap-prev-btn" onclick="goToApplyStep(2)">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-              <span>Back</span>
-            </button>
-            <button type="button" class="ap-next-btn" id="ap-next-btn-3" onclick="goToApplyStep(4)">
-              Continue
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 4: City -->
-        <div class="ap-step" id="ap-step-4" data-step="4">
-          <div class="ap-fields-grid">
-            <div class="ap-field ap-field-full" id="ap-city-field">
-              <div class="ap-flabel">City <span>*</span></div>
-              <div class="ap-city-wrap">
-                <span class="ap-city-prefix"><i class="fa-solid fa-location-dot"></i></span>
-                <input type="text" id="af-city" placeholder="e.g. Delhi, Mumbai, Bengaluru" autocomplete="address-level2" />
-              </div>
-              <span class="ap-err" id="err-city"></span>
-            </div>
-          </div>
-          <p class="ap-assurance"><i class="fa-solid fa-building-columns"></i> Lenders differ by city — this decides which offers you can be matched with.</p>
-          <div class="ap-step-nav">
-            <button type="button" class="ap-prev-btn" onclick="goToApplyStep(3)">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-              <span>Back</span>
-            </button>
-            <button type="button" class="ap-next-btn" id="ap-next-btn-4" onclick="goToApplyStep(5)">
-              Continue
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 5: Income / Amount / PAN -->
-        <div class="ap-step" id="ap-step-5" data-step="5">
-          <div class="ap-fields-grid">
-            <div class="ap-field ap-field-full" id="ap-income-field">
-              <div class="ap-flabel" id="ap-income-label">Net Monthly Income <span>*</span></div>
-              <select id="af-income">
-                <option value="">Select Income</option>
-                <option>Below ₹25,000</option>
-                <option>₹25,000 – ₹50,000</option>
-                <option>₹50,000 – ₹1 Lakh</option>
-                <option>₹1 Lakh – ₹3 Lakh</option>
-                <option>Above ₹3 Lakh</option>
-              </select>
-              <span class="ap-err" id="err-income"></span>
-            </div>
-
-            <div class="ap-field ap-field-full" id="ap-loan-amount-field">
-              <div class="ap-flabel" id="ap-loan-amount-label">Loan Amount Required <span>*</span></div>
-              <input type="number" id="af-loan-amount" placeholder="Enter amount e.g. 500000" min="1000" />
-              <span id="af-loan-amount-words"></span>
-              <span class="ap-err" id="err-loan-amount"></span>
-            </div>
-
-            <div class="ap-field ap-field-full" id="ap-pan-field">
-              <div class="ap-flabel">PAN Card <span style="color:#93A0BC;">(optional)</span></div>
-              <input type="text" id="af-pan" placeholder="ABCDE1234F" maxlength="10" autocomplete="off" />
-              <span class="ap-err" id="err-pan"></span>
-            </div>
-          </div>
-
-          <p class="ap-assurance"><i class="fa-solid fa-lock"></i> PAN is used only to check your eligibility with lending partners. Leave it blank if you would rather not share it now.</p>
-
-          <div class="ap-step-nav">
-            <button type="button" class="ap-prev-btn" onclick="goToApplyStep(4)">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-              <span>Back</span>
-            </button>
-            <button type="button" class="ap-next-btn" id="ap-next-btn-5" onclick="goToApplyStep(6)">
-              Continue
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 6: Name + Submit -->
-        <div class="ap-step" id="ap-step-6" data-step="6">
-          <div class="ap-fields-grid">
-            <div class="ap-field ap-field-full">
-              <div class="ap-flabel">Full Name <span>*</span></div>
-              <input type="text" id="af-name" placeholder="Name as printed on your PAN" autocomplete="name" />
-              <span class="ap-err" id="err-name"></span>
-            </div>
-          </div>
-          <div class="ks-consent">
-            <input type="checkbox" id="ks-agree" checked />
-            <label for="ks-agree">I agree to KreditSeva's <a href="/terms-condition" target="_blank" rel="noopener">Terms &amp; Conditions</a>, <a href="/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>, and authorise contact via Call, SMS, Email, or WhatsApp.</label>
-          </div>
-          <span class="pl-field-err" id="err-ksAgree"></span>
-          <span class="ap-success-msg" id="apply-success-msg" style="display:none;"></span>
-
-          <div class="ap-step-nav">
-            <button type="button" class="ap-prev-btn" onclick="goToApplyStep(5)">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-              <span>Back</span>
-            </button>
-            <button type="button" class="ap-submit" id="apply-btn" onclick="submitForm();">
-              <span class="ap-btn-text">Send OTP</span>
-              <span class="ap-btn-spinner" style="display:none;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:ap-spin 0.8s linear infinite;"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-                Sending OTP...
-              </span>
-            </button>
-          </div>
-        </div>
-
-        <div class="ap-success" id="apply-success">
-          <i class="fa-solid fa-circle-check"></i>
-          <h4>Application submitted</h4>
-          <p>A loan expert will call you within 30 minutes.</p>
-        </div>
-
-      </form>
+    <div class="ap-intro">
+      <span class="ap-eyebrow">Takes about 2 minutes</span>
+      <h1>Apply once.<br><em>Compare every offer.</em></h1>
+      <p>One short form, then a loan expert calls you back with the offers you actually qualify for.</p>
     </div>
+
+    <div class="ap-card">
+
+      <div class="ap-card-head">
+        <a href="javascript:history.back()" class="ap-back-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg> <span>Back</span></a>
+        <div class="ap-progress-wrap">
+          <div class="ap-progress-bar"><div class="ap-progress-fill" id="ap-progress-fill" style="width:16%;"></div></div>
+          <div class="ap-progress-label" id="ap-progress-label">Step 1</div>
+        </div>
+      </div>
+
+      <div class="ap-card-body">
+
+        <h2 class="ap-form-title" id="ap-form-title">Select Loan Type</h2>
+        <p class="ap-form-sub" id="ap-form-sub">Choose the loan product you want to apply for.</p>
+
+        <form id="applyForm" onsubmit="return false;">
+
+          <!-- STEP 1: Loan Type -->
+          <div class="ap-step active" id="ap-step-1" data-step="1">
+            <div class="ap-fields-grid">
+              <div class="ap-field ap-field-full" id="ap-product-field">
+                <div class="ap-flabel">Loan Type <span>*</span></div>
+                <select id="af-product">
+                  <option value="">Select Loan Type</option>
+                  <optgroup label="Personal Loans">
+                    <option value="personal-loan">Personal Loan</option>
+                    <option value="personal-overdraft">Personal Overdraft</option>
+                    <option value="balance-transfer">Balance Transfer</option>
+                    <option value="debt-consolidation">Debt Consolidation</option>
+                    <option value="insta-loan">Insta Loan</option>
+                  </optgroup>
+                  <optgroup label="Business Loans">
+                    <option value="business-loan">Business Loan</option>
+                    <option value="working-capital">Working Capital</option>
+                    <option value="unsecured-business-loan">Unsecured Business Loan</option>
+                    <option value="business-overdraft">Business Overdraft</option>
+                  </optgroup>
+                  <optgroup label="Professional Loans">
+                    <option value="professional-loan">Professional Loan</option>
+                    <option value="loan-for-ca">Loan for CA</option>
+                    <option value="loan-for-cs">Loan for CS</option>
+                    <option value="loan-for-doctor">Loan for Doctors</option>
+                  </optgroup>
+                  <optgroup label="Secured Loans">
+                    <option value="secured-loan">Secured Loan</option>
+                    <option value="loan-Against-roperty">Loan Against Property</option>
+                    <option value="home-Loan">Home Loan</option>
+                    <option value="car-Loan">Car Loan</option>
+                  </optgroup>
+                  <optgroup label="Other">
+                    <option value="credit-card">Credit Card</option>
+                  </optgroup>
+                </select>
+                <span class="ap-err" id="err-product"></span>
+              </div>
+            </div>
+            <div class="ap-step-actions">
+              <button type="button" class="ap-next-btn is-visible" id="ap-next-btn" onclick="goToApplyStep(2)">
+                Continue
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Mobile -->
+          <div class="ap-step" id="ap-step-2" data-step="2">
+            <div class="ap-fields-grid">
+              <div class="ap-field ap-field-full" id="ap-phone-field">
+                <div class="ap-flabel">Mobile Number <span>*</span></div>
+                <div class="ap-phone-wrap">
+                  <span class="ap-phone-prefix">+91</span>
+                  <input type="tel" id="af-phone" maxlength="10" placeholder="10-digit mobile number" inputmode="numeric" autocomplete="tel" />
+                </div>
+                <span class="ap-err" id="err-phone"></span>
+              </div>
+            </div>
+            <p class="ap-assurance"><i class="fa-solid fa-shield-halved"></i> We send a one-time code to this number on WhatsApp to confirm it is yours.</p>
+            <div class="ap-step-nav">
+              <button type="button" class="ap-prev-btn" onclick="goToApplyStep(1)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                <span>Back</span>
+              </button>
+              <button type="button" class="ap-next-btn" id="ap-next-btn-2" onclick="goToApplyStep(3)">
+                Continue
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Occupation -->
+          <div class="ap-step" id="ap-step-3" data-step="3">
+            <div class="ap-occ-cards" id="ap-occ-cards">
+              <button type="button" class="ap-occ-card" data-occ="salaried" aria-pressed="false">
+                <span class="ap-occ-card-check"><i class="fa-solid fa-check"></i></span>
+                <span class="ap-occ-icon"><i class="fa-solid fa-briefcase"></i></span>
+                <span class="ap-occ-text">
+                  <strong>Salaried</strong>
+                  <span class="ap-occ-hint">I draw a monthly salary from an employer</span>
+                </span>
+              </button>
+              <button type="button" class="ap-occ-card" data-occ="self-employed" aria-pressed="false">
+                <span class="ap-occ-card-check"><i class="fa-solid fa-check"></i></span>
+                <span class="ap-occ-icon"><i class="fa-solid fa-store"></i></span>
+                <span class="ap-occ-text">
+                  <strong>Self employed</strong>
+                  <span class="ap-occ-hint">I earn from a business or my own practice</span>
+                </span>
+              </button>
+            </div>
+            <input type="hidden" id="af-occupation" value="">
+            <span class="ap-err" id="err-occupation"></span>
+            <div class="ap-step-nav">
+              <button type="button" class="ap-prev-btn" onclick="goToApplyStep(2)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                <span>Back</span>
+              </button>
+              <button type="button" class="ap-next-btn" id="ap-next-btn-3" onclick="goToApplyStep(4)">
+                Continue
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 4: City -->
+          <div class="ap-step" id="ap-step-4" data-step="4">
+            <div class="ap-fields-grid">
+              <div class="ap-field ap-field-full" id="ap-city-field">
+                <div class="ap-flabel">City <span>*</span></div>
+                <div class="ap-city-wrap">
+                  <span class="ap-city-prefix"><i class="fa-solid fa-location-dot"></i></span>
+                  <input type="text" id="af-city" placeholder="e.g. Delhi, Mumbai, Bengaluru" autocomplete="address-level2" />
+                </div>
+                <span class="ap-err" id="err-city"></span>
+              </div>
+            </div>
+            <p class="ap-assurance"><i class="fa-solid fa-building-columns"></i> Lenders differ by city — this decides which offers you can be matched with.</p>
+            <div class="ap-step-nav">
+              <button type="button" class="ap-prev-btn" onclick="goToApplyStep(3)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                <span>Back</span>
+              </button>
+              <button type="button" class="ap-next-btn" id="ap-next-btn-4" onclick="goToApplyStep(5)">
+                Continue
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 5: Income / Amount / PAN -->
+          <div class="ap-step" id="ap-step-5" data-step="5">
+            <div class="ap-fields-grid">
+              <div class="ap-field ap-field-full" id="ap-income-field">
+                <div class="ap-flabel" id="ap-income-label">Net Monthly Income <span>*</span></div>
+                <select id="af-income">
+                  <option value="">Select Income</option>
+                  <option>Below ₹25,000</option>
+                  <option>₹25,000 – ₹50,000</option>
+                  <option>₹50,000 – ₹1 Lakh</option>
+                  <option>₹1 Lakh – ₹3 Lakh</option>
+                  <option>Above ₹3 Lakh</option>
+                </select>
+                <span class="ap-err" id="err-income"></span>
+              </div>
+
+              <div class="ap-field ap-field-full" id="ap-loan-amount-field">
+                <div class="ap-flabel" id="ap-loan-amount-label">Loan Amount Required <span>*</span></div>
+                <input type="number" id="af-loan-amount" placeholder="Enter amount e.g. 500000" min="1000" />
+                <span id="af-loan-amount-words"></span>
+                <span class="ap-err" id="err-loan-amount"></span>
+              </div>
+
+              <div class="ap-field ap-field-full" id="ap-pan-field">
+                <div class="ap-flabel">PAN Card <span style="color:#93A0BC;font-weight:500;">(optional)</span></div>
+                <input type="text" id="af-pan" placeholder="ABCDE1234F" maxlength="10" autocomplete="off" />
+                <span class="ap-err" id="err-pan"></span>
+              </div>
+            </div>
+
+            <p class="ap-assurance"><i class="fa-solid fa-lock"></i> PAN is used only to check your eligibility with lending partners. Leave it blank if you would rather not share it now.</p>
+
+            <div class="ap-step-nav">
+              <button type="button" class="ap-prev-btn" onclick="goToApplyStep(4)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                <span>Back</span>
+              </button>
+              <button type="button" class="ap-next-btn" id="ap-next-btn-5" onclick="goToApplyStep(6)">
+                Continue
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 6: Name + Submit -->
+          <div class="ap-step" id="ap-step-6" data-step="6">
+            <div class="ap-fields-grid">
+              <div class="ap-field ap-field-full">
+                <div class="ap-flabel">Full Name <span>*</span></div>
+                <input type="text" id="af-name" placeholder="Name as printed on your PAN" autocomplete="name" />
+                <span class="ap-err" id="err-name"></span>
+              </div>
+            </div>
+            <div class="ks-consent">
+              <input type="checkbox" id="ks-agree" checked />
+              <label for="ks-agree">I agree to KreditSeva's <a href="/terms-condition" target="_blank" rel="noopener">Terms &amp; Conditions</a>, <a href="/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>, and authorise contact via Call, SMS, Email, or WhatsApp.</label>
+            </div>
+            <span class="pl-field-err" id="err-ksAgree"></span>
+            <span class="ap-success-msg" id="apply-success-msg" style="display:none;"></span>
+
+            <div class="ap-step-nav">
+              <button type="button" class="ap-prev-btn" onclick="goToApplyStep(5)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                <span>Back</span>
+              </button>
+              <button type="button" class="ap-submit" id="apply-btn" onclick="submitForm();">
+                <span class="ap-btn-text">Send OTP</span>
+                <span class="ap-btn-spinner" style="display:none;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:ap-spin 0.8s linear infinite;"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                  Sending OTP...
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div class="ap-success" id="apply-success">
+            <i class="fa-solid fa-circle-check"></i>
+            <h4>Application submitted</h4>
+            <p>A loan expert will call you within 30 minutes.</p>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <div class="ap-trust">
+      <span class="ap-trust-item"><i class="fa-solid fa-check"></i> Rates from <b>9.98%</b> p.a.</span>
+      <span class="ap-trust-item"><i class="fa-solid fa-check"></i> <b>25+</b> lenders compared</span>
+      <span class="ap-trust-item"><i class="fa-solid fa-check"></i> <b>&#8377;0</b> platform fee</span>
+    </div>
+
   </div>
 
   <!-- Verify OTP popup — opens on step 6 Submit; Save sends full form + OTP -->
@@ -1758,103 +1576,5 @@
   </button>
 
 
-<!--
-  Keeps the docket in step with the form. Purely additive: it reads the same
-  inputs api.js already owns and wraps the two functions api.js puts on window,
-  so no existing behaviour changes.
--->
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  var list = document.getElementById('ap-docket-list');
-  if (!list) return;
-
-  var val = function (id) { return (document.getElementById(id) || {}).value || ''; };
-
-  function formatPhone(digits) {
-    if (!digits) return '';
-    return digits.length === 10 ? '+91 ' + digits.slice(0, 5) + ' ' + digits.slice(5) : '+91 ' + digits;
-  }
-
-  function formatAmount(raw) {
-    var n = parseInt(String(raw).replace(/[^0-9]/g, ''), 10);
-    // Indian grouping, because that is how the figure is read back to the user.
-    return n > 0 ? '₹' + n.toLocaleString('en-IN') : '';
-  }
-
-  function readRow(n) {
-    switch (n) {
-      case 1:
-        var sel = document.getElementById('af-product');
-        return sel && sel.selectedIndex > 0 ? sel.options[sel.selectedIndex].text : '';
-      case 2:
-        return formatPhone(val('af-phone').replace(/\D/g, ''));
-      case 3:
-        var occ = val('af-occupation');
-        return occ === 'salaried' ? 'Salaried' : (occ === 'self-employed' ? 'Self employed' : '');
-      case 4:
-        return val('af-city').trim();
-      case 5:
-        return [val('af-income'), formatAmount(val('af-loan-amount'))].filter(Boolean).join(' · ');
-      case 6:
-        return val('af-name').trim();
-    }
-    return '';
-  }
-
-  function currentStep() {
-    var active = document.querySelector('.ap-step.active');
-    return active ? Number(active.getAttribute('data-step')) : 0;
-  }
-
-  function syncDocket() {
-    var step = currentStep();
-
-    for (var n = 1; n <= 6; n++) {
-      var row = list.querySelector('[data-drow="' + n + '"]');
-      var cell = list.querySelector('[data-dvalue="' + n + '"]');
-      if (!row || !cell) continue;
-
-      var next = readRow(n);
-      if (cell.textContent !== next) {
-        cell.textContent = next;
-        if (next) {
-          // Re-trigger the stamp on a changed answer, not just a first one.
-          cell.classList.remove('ap-stamped');
-          void cell.offsetWidth;
-          cell.classList.add('ap-stamped');
-        }
-      }
-
-      // Done means answered — the step you are standing on is marked current
-      // even once it has a value, so the two states never both claim a row.
-      row.classList.toggle('is-done', !!next && n !== step);
-      row.classList.toggle('is-current', n === step);
-    }
-  }
-
-  // Typed fields bubble natively.
-  document.getElementById('applyForm')?.addEventListener('input', syncDocket);
-  document.getElementById('applyForm')?.addEventListener('change', syncDocket);
-
-  // select2 rewrites these through jQuery, whose triggers native listeners
-  // above never see.
-  if (window.jQuery) {
-    window.jQuery('#af-product, #af-income').on('change', syncDocket);
-  }
-
-  // Both are set on window by api.js, which has already run by DOMContentLoaded.
-  ['goToApplyStep', 'selectApplyOccupation'].forEach(function (fn) {
-    var original = window[fn];
-    if (typeof original !== 'function') return;
-    window[fn] = function () {
-      var out = original.apply(this, arguments);
-      syncDocket();
-      return out;
-    };
-  });
-
-  syncDocket();
-});
-</script>
 </body>
 </html>
