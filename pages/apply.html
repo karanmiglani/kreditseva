@@ -21,13 +21,18 @@
        APPLY-NOW — centred card over a photo background
 
        Three layers, bottom to top:
-         ::before  the photo (apply-bg.webp), cover/centre
+         ::before  the photo (apply-bg-v2.webp), cover/centre
          ::after   a navy scrim plus brand blooms — this is what keeps the
                    white heading and the card legible over any crop
          content   the intro, the card, the trust row
 
        The scrim carries the contrast, so swapping the photo needs no other
        change: point ::before at a different file and the text stays readable.
+
+       The -v2 suffix is deliberate. This page is static HTML, so it cannot use
+       the ASSET_VERSION query string that server.js gives the EJS templates.
+       Re-editing an asset under its old name leaves it stuck in browser and
+       CDN caches, so a changed image gets a new filename instead.
        ═══════════════════════════════════════════════════════════════ */
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -78,7 +83,7 @@
       position: absolute;
       inset: 0;
       z-index: -2;
-      background-image: url('/images/apply-bg.webp');
+      background-image: url('/images/apply-bg-v2.webp');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -940,7 +945,7 @@
       }
 
       /* A 1920px-wide asset is wasted data on a phone. */
-      .ap-page::before { background-image: url('/images/apply-bg-sm.webp'); }
+      .ap-page::before { background-image: url('/images/apply-bg-sm-v2.webp'); }
 
       .ap-intro h1 { margin-top: 14px; }
       .ap-intro p { display: none; }
