@@ -85,9 +85,9 @@
     }
 
     /* ── layer 2: the overlay ──
-     * Alpha here is what makes white text legible on a light photo. The source
-     * averages near L 0.8; at these values the ground lands near L 0.13, which
-     * clears AA for body text. Lower it and the heading starts to fail.
+     * Graded, not flat. Heavy at the top where the white heading sits, light
+     * through the middle so the photo is actually visible, and back up at the
+     * bottom to hold the trust row. A flat .88 scrim made the image invisible.
      * Blooms are listed first because the first layer paints on top. */
     .ap-page::after {
       content: '';
@@ -95,13 +95,13 @@
       inset: 0;
       z-index: -1;
       background-image:
-        radial-gradient(1150px 820px at 10% 12%, rgba(26, 82, 204, .55), transparent 68%),
-        radial-gradient(980px 860px at 88% 92%, rgba(96, 52, 190, .42), transparent 66%),
-        radial-gradient(900px 720px at 92% 6%, rgba(34, 196, 245, .26), transparent 64%),
+        radial-gradient(1150px 820px at 10% 12%, rgba(26, 82, 204, .40), transparent 68%),
+        radial-gradient(980px 860px at 88% 92%, rgba(96, 52, 190, .34), transparent 66%),
         linear-gradient(180deg,
-          rgba(5, 16, 44, .88) 0%,
-          rgba(5, 16, 44, .82) 45%,
-          rgba(5, 16, 44, .92) 100%);
+          rgba(5, 16, 44, .74) 0%,
+          rgba(5, 16, 44, .58) 22%,
+          rgba(5, 16, 44, .30) 50%,
+          rgba(5, 16, 44, .46) 100%);
     }
 
     /* ══════════════════════════════════════════
@@ -124,12 +124,15 @@
       text-transform: uppercase;
       color: var(--ap-cyan);
       padding: 7px 14px;
-      border: 1px solid rgba(34, 196, 245, .3);
+      border: 1px solid rgba(34, 196, 245, .38);
       border-radius: 999px;
-      background: rgba(34, 196, 245, .08);
+      background: rgba(5, 16, 44, .55);
+      backdrop-filter: blur(6px);
     }
 
     .ap-intro h1 {
+      /* The scrim is lighter now, so the type carries its own contrast. */
+      text-shadow: 0 2px 18px rgba(2, 8, 24, .55);
       font-size: clamp(1.75rem, 3.6vw, 2.6rem);
       font-weight: 800;
       letter-spacing: -.03em;
@@ -147,6 +150,7 @@
     }
 
     .ap-intro p {
+      text-shadow: 0 1px 12px rgba(2, 8, 24, .7);
       font-size: .95rem;
       line-height: 1.6;
       color: rgba(255, 255, 255, .82);
@@ -741,6 +745,7 @@
     }
 
     .ap-trust-item {
+      text-shadow: 0 1px 12px rgba(2, 8, 24, .8);
       display: inline-flex;
       align-items: center;
       gap: 8px;
