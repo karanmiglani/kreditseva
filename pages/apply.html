@@ -750,27 +750,41 @@
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      gap: 10px 22px;
-      max-width: 460px;
+      gap: 10px 20px;
+      max-width: 480px;
     }
 
     .ap-trust-item {
       text-shadow: 0 1px 12px rgba(8, 10, 13, .8);
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
       font-size: .8rem;
       font-weight: 600;
-      color: rgba(255, 255, 255, .86);
+      color: rgba(255, 255, 255, .88);
+      white-space: nowrap;
     }
 
     .ap-trust-item b {
-      font-family: var(--ap-mono);
-      font-weight: 500;
+      font-weight: 700;
       color: #fff;
     }
 
-    .ap-trust-item i { color: var(--ap-sand); font-size: .8rem; }
+    /* Seated in a ring so the three ticks read as one list rather than as
+     * loose glyphs floating next to the text. */
+    .ap-trust-item i {
+      display: grid;
+      place-items: center;
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(217, 196, 166, .16);
+      border: 1px solid rgba(217, 196, 166, .34);
+      color: var(--ap-sand);
+      font-size: .56rem;
+      text-shadow: none;
+    }
 
     /* ══════════════════════════════════════════
        OTP DIALOG
@@ -1350,9 +1364,9 @@
     </div>
 
     <div class="ap-trust">
-      <span class="ap-trust-item"><i class="fa-solid fa-check"></i> Rates from <b>9.98%</b> p.a.</span>
-      <span class="ap-trust-item"><i class="fa-solid fa-check"></i> <b>25+</b> lenders compared</span>
-      <span class="ap-trust-item"><i class="fa-solid fa-check"></i> <b>&#8377;0</b> platform fee</span>
+      <span class="ap-trust-item"><i class="fa-solid fa-check" aria-hidden="true"></i> From <b>9.98%</b> p.a.</span>
+      <span class="ap-trust-item"><i class="fa-solid fa-check" aria-hidden="true"></i> <b>25+</b> lenders compared</span>
+      <span class="ap-trust-item"><i class="fa-solid fa-check" aria-hidden="true"></i> <b>100%</b> secured</span>
     </div>
 
   </div>
