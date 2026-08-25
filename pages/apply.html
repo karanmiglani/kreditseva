@@ -80,6 +80,10 @@
       font-family: var(--ap-ui);
       /* Shows while the photo loads, and if it ever fails to. */
       background-color: var(--ap-ground);
+      /* Warm hairlines mark this band off from the blue header above and the
+       * navy footer below, which otherwise ran into it. */
+      border-top: 1px solid rgba(217, 196, 166, .20);
+      border-bottom: 1px solid rgba(217, 196, 166, .20);
     }
 
     /* ── layer 1: the photo ── */
@@ -108,10 +112,11 @@
         radial-gradient(1150px 820px at 10% 12%, rgba(140, 122, 102, .38), transparent 68%),
         radial-gradient(980px 860px at 88% 92%, rgba(74, 85, 96, .40), transparent 66%),
         linear-gradient(180deg,
-          rgba(16, 19, 24, .76) 0%,
+          rgba(16, 19, 24, .78) 0%,
           rgba(16, 19, 24, .60) 22%,
-          rgba(16, 19, 24, .32) 50%,
-          rgba(16, 19, 24, .48) 100%);
+          rgba(16, 19, 24, .32) 52%,
+          rgba(16, 19, 24, .66) 88%,
+          rgba(16, 19, 24, .82) 100%);
     }
 
     /* ══════════════════════════════════════════
