@@ -18,11 +18,16 @@
 
   <style>
     /* ═══════════════════════════════════════════════════════════════
-       APPLY-NOW — centred card on a lit ground
-       The background is built from layered gradients rather than a photo:
-       it stays sharp at any size, costs nothing to download, and none of
-       the existing marketing PNGs work here (they all have text baked in).
-       To drop in a real photo later, set --ap-bg-photo on .ap-page.
+       APPLY-NOW — centred card over a photo background
+
+       Three layers, bottom to top:
+         ::before  the photo (apply-bg.webp), cover/centre
+         ::after   a navy scrim plus brand blooms — this is what keeps the
+                   white heading and the card legible over any crop
+         content   the intro, the card, the trust row
+
+       The scrim carries the contrast, so swapping the photo needs no other
+       change: point ::before at a different file and the text stays readable.
        ═══════════════════════════════════════════════════════════════ */
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,50 +50,58 @@
       --ap-ui: 'Plus Jakarta Sans', 'Open Sans', system-ui, -apple-system, sans-serif;
       --ap-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
-      /* A photo would go on top of the base colour and under the blooms. */
-      --ap-bg-photo: none;
-
       position: relative;
       isolation: isolate;
-      min-height: calc(100vh - 114px); /* 78px navbar + 36px top-strip */
+      /* 78px navbar + 36px top-strip. svh ignores the mobile URL bar. */
+      min-height: calc(100vh - 114px);
+      min-height: calc(100svh - 114px);
       padding: 54px 24px 66px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      /*
+       * NOT justify-content:center. On a short viewport that pushes the top of
+       * the content above the scroll origin, where it can never be reached.
+       * The auto margins on the first and last child centre the group and
+       * collapse to zero once there is no spare room.
+       */
+      justify-content: flex-start;
       gap: 30px;
       font-family: var(--ap-ui);
+      /* Shows while the photo loads, and if it ever fails to. */
       background-color: var(--ap-navy);
-      /*
-       * Listed top layer first, which is the reverse of paint order. The blue
-       * bloom carries the brand and sits underneath everything; the faint
-       * azure wash at 50% 46% is a halo so the card does not float on flat
-       * colour.
-       */
-      background-image:
-        radial-gradient(1100px 820px at 50% 46%, rgba(59, 124, 255, .20), transparent 72%),
-        radial-gradient(820px 660px at 16% 96%, rgba(34, 196, 245, .22), transparent 64%),
-        radial-gradient(1080px 960px at 84% 92%, rgba(96, 52, 190, .46), transparent 68%),
-        radial-gradient(950px 760px at 90% 8%, rgba(34, 196, 245, .34), transparent 66%),
-        radial-gradient(1250px 860px at 10% 14%, rgba(26, 82, 204, .85), transparent 70%),
-        var(--ap-bg-photo);
-      background-size: cover;
-      background-position: center;
     }
 
-    /*
-     * Grain. Without it the gradients band visibly on wide screens, which is
-     * the tell that a background was drawn rather than photographed.
-     */
+    /* ── layer 1: the photo ── */
     .ap-page::before {
       content: '';
       position: absolute;
       inset: 0;
+      z-index: -2;
+      background-image: url('/images/apply-bg.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* ── layer 2: the overlay ──
+     * Alpha here is what makes white text legible on a light photo. The source
+     * averages near L 0.8; at these values the ground lands near L 0.13, which
+     * clears AA for body text. Lower it and the heading starts to fail.
+     * Blooms are listed first because the first layer paints on top. */
+    .ap-page::after {
+      content: '';
+      position: absolute;
+      inset: 0;
       z-index: -1;
-      opacity: .05;
-      mix-blend-mode: overlay;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-image:
+        radial-gradient(1150px 820px at 10% 12%, rgba(26, 82, 204, .55), transparent 68%),
+        radial-gradient(980px 860px at 88% 92%, rgba(96, 52, 190, .42), transparent 66%),
+        radial-gradient(900px 720px at 92% 6%, rgba(34, 196, 245, .26), transparent 64%),
+        linear-gradient(180deg,
+          rgba(5, 16, 44, .88) 0%,
+          rgba(5, 16, 44, .82) 45%,
+          rgba(5, 16, 44, .92) 100%);
     }
 
     /* ══════════════════════════════════════════
@@ -97,6 +110,7 @@
     .ap-intro {
       text-align: center;
       max-width: 620px;
+      margin-top: auto;   /* pairs with .ap-trust to centre the group */
     }
 
     .ap-eyebrow {
@@ -135,7 +149,7 @@
     .ap-intro p {
       font-size: .95rem;
       line-height: 1.6;
-      color: rgba(255, 255, 255, .68);
+      color: rgba(255, 255, 255, .82);
       margin-top: 12px;
     }
 
@@ -148,7 +162,11 @@
       max-width: 560px;
       background: var(--ap-card);
       border-radius: 24px;
-      overflow: hidden;
+      /*
+       * No overflow:hidden here. select2 appends its dropdown inside
+       * #ap-step-1 / #ap-step-5, so clipping the card would cut off the
+       * loan-type list. The head rounds its own corners instead.
+       */
       box-shadow:
         0 1px 0 rgba(255, 255, 255, .5) inset,
         0 34px 90px rgba(2, 8, 24, .5),
@@ -163,6 +181,7 @@
       padding: 18px 26px;
       background: var(--ap-well);
       border-bottom: 1px solid var(--ap-line);
+      border-radius: 24px 24px 0 0;
     }
 
     .ap-back-btn {
@@ -246,6 +265,7 @@
     .ap-card-body {
       padding: 30px 26px 30px;
       min-height: 310px;
+      border-radius: 0 0 24px 24px;
     }
 
     .ap-form-title {
@@ -497,6 +517,7 @@
     }
 
     .select2-dropdown {
+      z-index: 20;
       border: 1.5px solid var(--ap-line);
       border-radius: 13px;
       overflow: hidden;
@@ -710,6 +731,7 @@
        BELOW THE CARD
        ══════════════════════════════════════════ */
     .ap-trust {
+      margin-bottom: auto;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -724,7 +746,7 @@
       gap: 8px;
       font-size: .8rem;
       font-weight: 600;
-      color: rgba(255, 255, 255, .72);
+      color: rgba(255, 255, 255, .86);
     }
 
     .ap-trust-item b {
@@ -910,15 +932,17 @@
       .ap-page {
         padding: 32px 16px 44px;
         gap: 22px;
-        justify-content: flex-start;
       }
+
+      /* A 1920px-wide asset is wasted data on a phone. */
+      .ap-page::before { background-image: url('/images/apply-bg-sm.webp'); }
 
       .ap-intro h1 { margin-top: 14px; }
       .ap-intro p { display: none; }
 
       .ap-card { border-radius: 20px; }
-      .ap-card-head { padding: 15px 18px; }
-      .ap-card-body { padding: 24px 18px 26px; min-height: 0; }
+      .ap-card-head { padding: 15px 18px; border-radius: 20px 20px 0 0; }
+      .ap-card-body { padding: 24px 18px 26px; min-height: 0; border-radius: 0 0 20px 20px; }
 
       .ap-form-title { font-size: 1.24rem; }
 
@@ -947,9 +971,32 @@
       .ap-otp-input { font-size: 1.3rem; letter-spacing: .34em; text-indent: .34em; }
     }
 
+    /* .top-strip is hidden here, so the header is just the 78px navbar. */
+    @media (max-width: 768px) {
+      .ap-page {
+        min-height: calc(100vh - 78px);
+        min-height: calc(100svh - 78px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      /* .navbar drops to 64px at this width. */
+      .ap-page {
+        min-height: calc(100vh - 64px);
+        min-height: calc(100svh - 64px);
+      }
+    }
+
     @media (max-width: 420px) {
       .ap-progress-label { font-size: .62rem; }
       .ap-back-btn span { display: none; }
+    }
+
+    /* Landscape phones: the intro eats the whole screen, so drop it. */
+    @media (max-height: 560px) and (max-width: 940px) {
+      .ap-page { padding-top: 22px; padding-bottom: 30px; gap: 16px; }
+      .ap-intro h1 { font-size: 1.4rem; margin-top: 10px; }
+      .ap-eyebrow { display: none; }
     }
   </style>
   <link rel="canonical" href="https://kreditseva.com/apply-now" />
