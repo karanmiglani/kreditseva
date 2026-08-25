@@ -326,7 +326,7 @@ function redirect(product = '') {
   window.location.href = '/apply-now?product=' + encodeURIComponent(product);
 }
 
-// Collect all apply-now form fields (used on OTP Save)
+// Collect all apply-now form fields (used on OTP Submit)
 function collectApplyFormData() {
   const occupation = document.getElementById('af-occupation').value;
   const name = document.getElementById('af-name').value.trim().toLowerCase();
@@ -341,7 +341,7 @@ function collectApplyFormData() {
 }
 
 // ── Step 6 Submit → send OTP → open Verify OTP popup ──
-// Form is NOT saved here. Save happens only after user enters OTP and clicks Save.
+// Form is NOT saved here. It is saved only after the user enters the OTP and clicks Submit.
 let applyOtpResendTimer = null;
 let applyOtpResendSeconds = 0;
 
@@ -564,7 +564,7 @@ async function submitForm() {
   }
 }
 
-// OTP popup Save: OTP + form details → /apply-now/save-lead
+// OTP popup Submit: OTP + form details → /apply-now/save-lead
 async function saveApplyWithOtp() {
   const otp = (document.getElementById('apOtpInput')?.value || '').trim();
   const err = document.getElementById('apOtpErr');
@@ -586,7 +586,7 @@ async function saveApplyWithOtp() {
 
   if (saveBtn) {
     saveBtn.disabled = true;
-    saveBtn.textContent = 'Saving...';
+    saveBtn.textContent = 'Submitting...';
   }
 
   const successBox = document.getElementById('apply-success');
@@ -620,7 +620,13 @@ async function saveApplyWithOtp() {
       sessionStorage.clear();
       if (typeof showCelebration === 'function') showCelebration();
       if (typeof showToast === 'function') showToast(data.message || 'Application saved successfully');
-      setTimeout(() => window.location.reload(), 5000);
+
+      /*
+       * Home, not reload. Reloading dropped the user back on an empty form,
+       * which reads as if the submission failed. The note in the success box
+       * says this is coming, so the navigation is not a surprise.
+       */
+      setTimeout(() => { window.location.href = '/'; }, 6000);
     } else {
       if (err) err.textContent = data.message || 'Invalid OTP or save failed. Try again.';
       if (data.rawLeadId === null) {
@@ -634,7 +640,7 @@ async function saveApplyWithOtp() {
   } finally {
     if (saveBtn) {
       saveBtn.disabled = false;
-      saveBtn.textContent = 'Save';
+      saveBtn.textContent = 'Submit';
     }
   }
 }

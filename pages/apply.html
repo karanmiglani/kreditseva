@@ -746,6 +746,13 @@
 
     .ap-success p { font-size: .9rem; color: var(--ap-muted); margin-top: 7px; }
 
+    /* Quieter than the line above it — this is status, not the message. */
+    .ap-success-note {
+      font-size: .78rem !important;
+      color: #93A0BC !important;
+      margin-top: 14px !important;
+    }
+
     /* ══════════════════════════════════════════
        BELOW THE CARD
        ══════════════════════════════════════════ */
@@ -1362,6 +1369,7 @@
             <i class="fa-solid fa-circle-check"></i>
             <h4>Application submitted</h4>
             <p>A loan expert will call you within 30 minutes.</p>
+            <p class="ap-success-note">Taking you back to the homepage&hellip;</p>
           </div>
 
         </form>
@@ -1384,7 +1392,7 @@
       <p class="ap-otp-sub" id="apOtpSub">Enter the OTP sent to your mobile number.</p>
       <input type="tel" class="ap-otp-input" id="apOtpInput" maxlength="6" inputmode="numeric" placeholder="••••••" autocomplete="one-time-code" />
       <span class="ap-otp-err" id="apOtpErr"></span>
-      <button type="button" class="ap-otp-save" id="apOtpSave">Save</button>
+      <button type="button" class="ap-otp-save" id="apOtpSave">Submit</button>
       <button type="button" class="ap-otp-resend" id="apOtpResend">Resend OTP</button>
     </div>
   </div>
