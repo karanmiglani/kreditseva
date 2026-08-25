@@ -1,7 +1,7 @@
 const db = require('../config/db');
 const crypto = require('crypto');
 const ExcelJS = require('exceljs');
-const sendWhatsappOtp = require('../services/whatsAppService');
+const { sendWhatsappOtp } = require('../services/whatsAppService');
 
 
 
@@ -73,63 +73,37 @@ const insertLead = async (phoneNumber, product, raw_lead_id, expiry_date) => {
 }
 
 const saveLead = async (req, resp) => {
+    const rawLeadId = req.body.rawLeadId?.trim();
+    const otp = req.body.otp?.trim();
+    if (!rawLeadId) {
+        return resp.status(400).json({
+            success: false,
+            rawLeadId: null,
+            message: 'Session expired, Please enter mobile number to continue'
+        });
+    }
+    if (!otp) {
+        return resp.status(400).json({
+            success: false,
+            message: 'Please enter 6 digit code sent to your WhatsApp account to continue'
+        });
+    }
+
+    /*
+     * The form is validated BEFORE the OTP is checked. Verifying first meant a
+     * rejected field burned the code, forcing the user to spend another send
+     * on a mistake the server could have caught for free.
+     */
+    const validation = validateLeadInput(req.body);
+    if (!validation.valid) {
+        return resp.status(400).json({
+            success: false,
+            message: validation.message
+        });
+    }
+
     const connection = await db.getConnection();
     try {
-        const rawLeadId = req.body.rawLeadId?.trim();
-        const otp = req.body.otp?.trim();
-        if (!rawLeadId) {
-            return resp.status(400).json({
-                success: false,
-                rawLeadId: null,
-                message: 'Session expired, Please enter mobile number to continue'
-            });
-        }
-        if (!otp) {
-            return resp.status(400).json({
-                success: false,
-                message: 'Please enter 6 digit code sent to your WhatsApp account to continue'
-            });
-        }
-        const verifiedOtp = await verifyOtp(otp, rawLeadId);
-        console.log(verifiedOtp);
-        if(!verifiedOtp.success){
-            if(verifiedOtp.expired){
-                 return resp.status(410).json({
-                success : false,
-                message : verifiedOtp.message
-            })
-            }
-            if(verifiedOtp.blocked){
-                return resp.status(429).json({
-                    success : false,
-                    message : verifiedOtp.message
-                })           
-            }
-            if(verifiedOtp.found === false){
-                return resp.status(404).json({
-                    success : false,
-                    message : "Please generate new OTP..."
-                }) ;
-            }
-            if(verifiedOtp.valid === 0){
-                return resp.status(400).json({
-                    success : false,
-                    message : "Please enter valid OTP",
-                })
-            }
-            if(verifiedOtp.verified === 1){
-                return resp.status(400).json({
-                    success : false,
-                    message : verifiedOtp.message
-                })
-            }
-            if(verifiedOtp.error){
-                return resp.status(500).json({
-                    success : false,
-                    message : verifiedOtp.message
-                })
-            }
-        }
         const phone_number = await checkLeadId(rawLeadId);
         if (!phone_number) {
             return resp.status(400).json({
@@ -138,9 +112,23 @@ const saveLead = async (req, resp) => {
                 message: 'Session expired, Please enter mobile number to continue'
             })
         }
-        // if phone number found insert in final lead
 
         await connection.beginTransaction();
+
+        /*
+         * Verified inside the transaction: the OTP is only marked used if the
+         * lead insert below actually commits.
+         */
+        const verifiedOtp = await verifyOtp(otp, rawLeadId, connection);
+        if (!verifiedOtp.success) {
+            await connection.rollback();
+            return resp.status(verifiedOtp.httpStatus || 400).json({
+                success: false,
+                message: verifiedOtp.message
+            });
+        }
+
+        // if phone number found insert in final lead
         await insertFinalLead(connection, req, phone_number, rawLeadId);
         await updateRawLead(connection, rawLeadId);
         await connection.commit();
@@ -173,27 +161,27 @@ const checkLeadId = async (rawLeadId) => {
 
 }
 
+/*
+ * Field checks live here, separate from the insert, so saveLead can run them
+ * before the OTP is touched. PAN stays optional; only its format is checked.
+ */
+const validateLeadInput = (body) => {
+    const { name, net_monthly_salary, product, loan_amount, source, pancard } = body;
+    if (!name || !net_monthly_salary || !product || loan_amount === undefined || !source) {
+        return { valid: false, message: 'All fields are required' };
+    }
+    if (pancard) {
+        const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+        if (!panRegex.test(String(pancard).trim().toUpperCase())) {
+            return { valid: false, message: 'Invalid PAN card format. Expected format: ABCDE1234F' };
+        }
+    }
+    return { valid: true };
+}
+
 const insertFinalLead = async (connection, req, phoneNumber, rawLeadId) => {
     try {
         const { name, city, net_monthly_salary, product, loan_amount, source, occupation, pancard } = req.body;
-        if (!name || !net_monthly_salary || !product || loan_amount === undefined || !source || !rawLeadId || !phoneNumber) {
-            throw {
-                status: 400,
-                message: 'All fields are required'
-            }
-        }
-
-        // Validate PAN if provided
-        if (pancard) {
-            const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-            if (!panRegex.test(pancard.trim().toUpperCase())) {
-                throw {
-                    status: 400,
-                    message: 'Invalid PAN card format. Expected format: ABCDE1234F'
-                }
-            }
-        }
-
         const sql = `INSERT INTO loan_applications
             (raw_lead_id, name, phone_number, city, net_monthly_salary, product, loan_amount, source, occupation, pancard)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -504,15 +492,32 @@ const sendOtp = async(req, resp) => {
 
         // if phone number found generate otp
         const otp = crypto.randomInt(100000, 1000000).toString( );
-        const whatsappResp = await sendWhatsappOtp.sendWhatsappOtp(phone_number,otp);
-        if(whatsappResp.success !== true) {
+
+        /*
+         * The attempt is recorded first, then the provider is called. Doing it
+         * the other way round meant a provider outage produced no row at all,
+         * so neither the cooldown nor the daily cap above could see the traffic.
+         */
+        const otpId = await insertOtp(otp, phone_number, rawLeadId);
+
+        try {
+            await sendWhatsappOtp(phone_number, otp);
+        } catch (error) {
+            await markOtpSendStatus(otpId, 'failed', error?.message);
+            /*
+             * Tagged so it can be grepped out of a host's log stream, and the
+             * message is repeated in otp_verifications.error_message so the
+             * cause is recoverable from SQL when the logs are not reachable.
+             */
+            console.error("[send-otp] whatsapp send failed:", error?.message, error);
             return resp.status(500).json({
                 success : false,
                 rawLeadId : rawLeadId,
                 message : "Something went wrong while sending OTP"
             });
         }
-        await insertOtp(otp,phone_number, rawLeadId);
+
+        await markOtpSendStatus(otpId, 'sent', null);
         return resp.status(200).json({
             success : true,
             rawLeadId : rawLeadId,
@@ -533,54 +538,88 @@ const sendOtp = async(req, resp) => {
 
 const insertOtp = async(otp, phone_number, rawLeadId) => {
     const otpHash = crypto.createHash("sha256").update(otp).digest('hex');
-    const expiresAt = new Date(Date.now() + 5 *60*1000);
-    const sql = "INSERT INTO otp_verifications (lead_id,phone,otp_hash,expires_at,attempts,last_sent_at,created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())";
-    const values = [rawLeadId,phone_number,otpHash,expiresAt,0,new Date()];
-    await db.query(sql,values);
+    /*
+     * Written BEFORE the provider is called so that a failed send still
+     * counts against the rate limit. Previously the row was only inserted
+     * on success, which left the endpoint completely unthrottled for as
+     * long as the provider was erroring.
+     */
+    const sql = `INSERT INTO otp_verifications
+                    (lead_id, phone, otp_hash, expires_at, attempts, status, last_sent_at, created_at)
+                 VALUES (?, ?, ?, DATE_ADD(NOW(), INTERVAL 5 MINUTE), 0, 'pending', NOW(), NOW())`;
+    const [result] = await db.query(sql, [rawLeadId, phone_number, otpHash]);
+    return result.insertId;
+}
+
+const markOtpSendStatus = async(otpId, status, errorMessage) => {
+    try {
+        const sql = "UPDATE otp_verifications SET status = ?, error_message = ? WHERE id = ?";
+        await db.query(sql, [status, errorMessage ? String(errorMessage).slice(0, 255) : null, otpId]);
+    } catch (error) {
+        // Never let bookkeeping failure mask the actual send result
+        console.error("markOtpSendStatus error:", error);
+    }
 }
 
 const getOtpByRawLeadId = async(leadId) => {
-    const sql = "SELECT * from otp_verifications where lead_id = ? ORDER BY id DESC LIMIT 1" ;
+    /*
+     * Rows whose provider call failed are skipped: the user never received
+     * that code, so it must not shadow an earlier one that did arrive.
+     * Expiry is computed by MySQL so all time math stays on one clock.
+     */
+    const sql = `SELECT *, (expires_at <= NOW()) AS is_expired
+                 FROM otp_verifications
+                 WHERE lead_id = ? AND status <> 'failed'
+                 ORDER BY id DESC LIMIT 1`;
     const [rows] = await db.query(sql, [leadId]);
     return rows[0] || null;
 }
 
-const verifyOtp = async (otp, rawLeadId) => {
+const verifyOtp = async (otp, rawLeadId, connection) => {
     try {
         if (!rawLeadId || !otp) {
             return {
                 success: false,
+                status: 'missing',
+                httpStatus: 400,
                 message: "OTP is required"
             };
         }
 
         // Get latest OTP for this lead
         const otpRecord = await getOtpByRawLeadId(rawLeadId);
-        console.log(otpRecord);
 
         // OTP record not found
         if (!otpRecord) {
             return {
                 success: false,
-                found: false,
-                message: "OTP not found. Please request a new OTP."
+                status: 'not_found',
+                httpStatus: 404,
+                message: "Please generate new OTP..."
             };
         }
 
         // OTP already used
-        if (otpRecord.is_verified === 1) {
+        if (Number(otpRecord.is_verified) === 1) {
             return {
                 success: false,
-                verified: true,
+                status: 'already_used',
+                httpStatus: 400,
                 message: "OTP has already been used. Please request a new OTP."
             };
         }
 
-        // OTP expired
-        if (new Date() >= new Date(otpRecord.expires_at)) {
+        /*
+         * Expiry is evaluated by MySQL (see getOtpByRawLeadId) instead of
+         * comparing a DB timestamp against the Node clock. On shared hosting
+         * the two can sit in different timezones, which silently shifts the
+         * expiry window by hours.
+         */
+        if (Number(otpRecord.is_expired) === 1) {
             return {
                 success: false,
-                expired: true,
+                status: 'expired',
+                httpStatus: 410,
                 message: "OTP has expired. Please request a new OTP."
             };
         }
@@ -589,7 +628,8 @@ const verifyOtp = async (otp, rawLeadId) => {
         if (otpRecord.attempts >= 5) {
             return {
                 success: false,
-                blocked: true,
+                status: 'blocked',
+                httpStatus: 429,
                 message: "Too many incorrect attempts. Please request a new OTP."
             };
         }
@@ -611,6 +651,10 @@ const verifyOtp = async (otp, rawLeadId) => {
              * attempts < 5 is checked inside the UPDATE itself.
              * This makes the increment atomic and prevents
              * concurrent requests from bypassing the 5-attempt limit.
+             *
+             * This runs on the pool and NOT on the caller's transaction
+             * connection: a wrong OTP must stay counted even though the
+             * caller rolls its transaction back on failure.
              */
             const [result] = await db.query(
                 `UPDATE otp_verifications
@@ -628,8 +672,8 @@ const verifyOtp = async (otp, rawLeadId) => {
             if (result.affectedRows === 0) {
                 return {
                     success: false,
-                    valid: 0,
-                    blocked: true,
+                    status: 'blocked',
+                    httpStatus: 429,
                     message: "Too many incorrect attempts. Please request a new OTP."
                 };
             }
@@ -645,16 +689,17 @@ const verifyOtp = async (otp, rawLeadId) => {
             if (newAttempts >= 5) {
                 return {
                     success: false,
-                    valid: 0,
-                    blocked: true,
+                    status: 'blocked',
+                    httpStatus: 429,
                     message: "Too many incorrect attempts. Please request a new OTP."
                 };
             }
 
             return {
                 success: false,
-                valid: 0,
-                message: "Invalid OTP"
+                status: 'invalid',
+                httpStatus: 400,
+                message: "Please enter valid OTP"
             };
         }
 
@@ -668,8 +713,14 @@ const verifyOtp = async (otp, rawLeadId) => {
          * If two requests submit the same correct OTP at almost
          * exactly the same time, only ONE request can change
          * is_verified from 0 to 1.
+         *
+         * This runs on the caller's transaction connection when one is
+         * passed, so the OTP is only really consumed if the lead insert
+         * that follows commits. Otherwise a rejected form would burn the
+         * OTP and force the user to spend another send.
          */
-        const [result] = await db.query(
+        const runner = connection || db;
+        const [result] = await runner.query(
             `UPDATE otp_verifications
              SET is_verified = 1,
                  verified_at = NOW()
@@ -687,7 +738,8 @@ const verifyOtp = async (otp, rawLeadId) => {
         if (result.affectedRows === 0) {
             return {
                 success: false,
-                verified: true,
+                status: 'already_used',
+                httpStatus: 400,
                 message: "OTP has already been used. Please request a new OTP."
             };
         }
@@ -702,7 +754,8 @@ const verifyOtp = async (otp, rawLeadId) => {
 
         return {
             success: false,
-            error: 1,
+            status: 'error',
+            httpStatus: 500,
             message: "Something went wrong"
         };
     }
