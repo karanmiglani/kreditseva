@@ -1190,6 +1190,19 @@
 </a>
 
 
+<!-- Verify OTP popup — opens on Apply Now; Submit sends form + OTP -->
+<div class="dc-otp-overlay" id="dcOtpOverlay" aria-hidden="true">
+  <div class="dc-otp-box" role="dialog" aria-modal="true" aria-labelledby="dcOtpTitle">
+    <button type="button" class="dc-otp-close" id="dcOtpClose" aria-label="Close">&times;</button>
+    <div class="dc-otp-title" id="dcOtpTitle">Verify OTP</div>
+    <p class="dc-otp-sub" id="dcOtpSub">Enter the OTP sent to your mobile number.</p>
+    <input type="tel" class="dc-otp-input" id="dcOtpInput" maxlength="6" inputmode="numeric" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="one-time-code" />
+    <span class="dc-otp-err" id="dcOtpErr"></span>
+    <button type="button" class="dc-otp-save" id="dcOtpSave">Submit</button>
+    <button type="button" class="dc-otp-resend" id="dcOtpResend">Resend OTP</button>
+  </div>
+</div>
+
 <!-- =========================
      SCRIPTS
 ========================= -->

@@ -252,9 +252,139 @@ try {
 
 
 
+/*
+ * Submit is a two-step flow, same as /apply-now: the form is validated and an
+ * OTP is sent, but nothing is written to loan_applications until the user
+ * enters the code. The backend's /apply-now/save-lead rejects a request with
+ * no otp, so the form values are held here and posted together with the code.
+ */
+let dcPendingForm = null;
+let dcOtpResendTimer = null;
+let dcOtpResendSeconds = 0;
+
+function collectDcFormData(product) {
+  return {
+    name: document.getElementById('dcName').value.trim().toLowerCase(),
+    city: document.getElementById('dcCity').value.trim().toLowerCase(),
+    net_monthly_salary: document.getElementById('formSalary').value,
+    loan_amount: document.getElementById('formOutstanding').value,
+    occupation: document.getElementById('dc-occupation')?.value || 'salaried',
+    product: product,
+    source: window.location.pathname
+  };
+}
+
+function maskDcPhone(phone) {
+  const p = String(phone || '');
+  if (p.length < 4) return p;
+  return p.slice(0, 2) + '******' + p.slice(-2);
+}
+
+function openDcOtpPopup() {
+  const overlay = document.getElementById('dcOtpOverlay');
+  if (!overlay) return;
+  const input = document.getElementById('dcOtpInput');
+  const err = document.getElementById('dcOtpErr');
+  const sub = document.getElementById('dcOtpSub');
+
+  if (sub) sub.innerHTML = 'Enter the OTP sent to <strong>+91 ' + maskDcPhone(phone_number) + '</strong>';
+  if (input) input.value = '';
+  if (err) err.textContent = '';
+
+  overlay.classList.add('active');
+  overlay.setAttribute('aria-hidden', 'false');
+  setTimeout(() => input?.focus(), 80);
+}
+
+function closeDcOtpPopup() {
+  const overlay = document.getElementById('dcOtpOverlay');
+  if (!overlay) return;
+  overlay.classList.remove('active');
+  overlay.setAttribute('aria-hidden', 'true');
+}
+
+function startDcOtpResendCooldown(seconds = 90) {
+  const btn = document.getElementById('dcOtpResend');
+  if (!btn) return;
+  clearInterval(dcOtpResendTimer);
+  dcOtpResendSeconds = Number(seconds) || 90;
+  btn.disabled = true;
+  btn.textContent = `Resend OTP in ${dcOtpResendSeconds}s`;
+  dcOtpResendTimer = setInterval(() => {
+    dcOtpResendSeconds -= 1;
+    if (dcOtpResendSeconds <= 0) {
+      clearInterval(dcOtpResendTimer);
+      btn.disabled = false;
+      btn.textContent = 'Resend OTP';
+      return;
+    }
+    btn.textContent = `Resend OTP in ${dcOtpResendSeconds}s`;
+  }, 1000);
+}
+
+// POST /api/leads/send-otp — returns true only when the code actually went out
+async function sendDcOtp() {
+  const id = sessionStorage.getItem('id');
+  if (!id) {
+    showMsg('err-dcPhone', 'Session expired, Please enter your mobile number again');
+    return false;
+  }
+  rawLeadId = id;
+
+  try {
+    const resp = await fetch(`${window.location.origin}/api/leads/send-otp`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        rawLeadId,
+        phone_number: phone_number,
+        product: 'debt-consolidation'
+      })
+    });
+    const data = await resp.json().catch(() => ({}));
+
+    if (resp.ok && data.success) {
+      if (typeof showToast === 'function') showToast(data.message || 'OTP sent to your WhatsApp');
+      // Cooldown length is the backend's call, not the browser's
+      startDcOtpResendCooldown(Number(data.retryAfter) || 90);
+      return true;
+    }
+
+    // Rate limited — daily cap or the 90s cooldown between sends
+    if (data.rateLimited) {
+      if (data.retryAfter) startDcOtpResendCooldown(Number(data.retryAfter));
+      const msg = data.message || 'Please wait before requesting another OTP.';
+      if (typeof showToast === 'function') showToast(msg);
+      const err = document.getElementById('dcOtpErr');
+      if (err && document.getElementById('dcOtpOverlay')?.classList.contains('active')) {
+        err.textContent = msg;
+      }
+      return false;
+    }
+
+    /*
+     * Session gone server-side — the raw lead expired or was already completed.
+     * Status-checked: send-otp's generic 500 handler also returns rawLeadId:null,
+     * and a database blip must not wipe a session that is still valid.
+     */
+    if (resp.status === 400 && data.rawLeadId === null) {
+      sessionStorage.removeItem('id');
+      showMsg('err-dcPhone', data.message || 'Session expired, Please enter your mobile number again');
+      return false;
+    }
+
+    if (typeof showToast === 'function') showToast(data.message || 'Could not send OTP. Please try again.');
+    return false;
+  } catch (error) {
+    console.error('sendDcOtp:', error);
+    if (typeof showToast === 'function') showToast('Network error. Please try again.');
+    return false;
+  }
+}
+
 async function submitDebtConsolidationForm(product){
-  
-  console.log('Function called');
+
   if(!phone_number || phone_number === undefined || !validatePhone() ) { showMsg('err-dcPhone','Please enter valid mobile number'); return; }
   const name = document.getElementById('dcName').value.trim().toLowerCase();
   if(!name) { showMsg('err-dcName','Please enter your name'); return;}
@@ -264,33 +394,81 @@ async function submitDebtConsolidationForm(product){
   if(!city){ showMsg('err-dcCity', 'Please enter city'); return;}
   const net_monthly_salary = document.getElementById('formSalary').value;
   if(!net_monthly_salary) { showMsg('err-dcSalary','Please select income.'); return;}
-  const occupation = document.getElementById('dc-occupation')?.value || 'salaried';
-  const source = window.location.pathname;
+
   const spinner = document.querySelector('.dc-btn-spinner');
+  const btnText = document.querySelector('.dc-btn-text');
   const btn = document.getElementById('dc-submit-btn');
   const successMsg = document.getElementById('dc-success-msg');
+
   if(!sessionStorage.getItem('id')){
+    successMsg.style.display = 'block';
     successMsg.style.color = '#dc2626';
     successMsg.innerText =  'Session expired, Please try again';
     return;
-  } else{
-    rawLeadId = sessionStorage.getItem('id');
+  }
+  rawLeadId = sessionStorage.getItem('id');
+
+  // Held until the OTP comes back — the lead is saved in one call with the code
+  dcPendingForm = collectDcFormData(product);
+
+  try {
+    spinner.style.display = 'inline-flex';
+    if (btnText) btnText.style.display = 'none';
+    btn.disabled = true;
+
+    const sent = await sendDcOtp();
+    if (sent) openDcOtpPopup();
+  } finally {
+    spinner.style.display = 'none';
+    if (btnText) btnText.style.display = '';
+    btn.disabled = false;
+  }
+}
+
+// OTP popup Submit → POST /apply-now/save-lead with the held form + the code
+async function saveDcLeadWithOtp() {
+  const otp = (document.getElementById('dcOtpInput')?.value || '').trim();
+  const err = document.getElementById('dcOtpErr');
+  const saveBtn = document.getElementById('dcOtpSave');
+  const btn = document.getElementById('dc-submit-btn');
+  const successMsg = document.getElementById('dc-success-msg');
+
+  if (!/^\d{4,6}$/.test(otp)) {
+    if (err) err.textContent = 'Please enter a valid OTP';
+    return;
+  }
+  if (err) err.textContent = '';
+
+  const id = sessionStorage.getItem('id');
+  if (!id) {
+    if (err) err.textContent = 'Session expired. Please start again.';
+    return;
+  }
+
+  // Re-read the fields at save time so an edit behind the popup is not lost
+  const form = dcPendingForm ? collectDcFormData(dcPendingForm.product) : null;
+  if (!form) {
+    if (err) err.textContent = 'Please fill the form again.';
+    return;
+  }
+
+  if (saveBtn) {
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Submitting...';
   }
 
   try {
-      spinner.style.display = 'inline-flex';
-      btn.disabled = true;
     const resp = await fetch(`${window.location.origin}/apply-now/save-lead`, {
-      method : 'POST',
-      headers : {
-        'Content-Type' : 'application/json'
-      },
-      body : JSON.stringify({
-        rawLeadId, name, city, net_monthly_salary, product, loan_amount: total_outstanding_amount, source, occupation
-      })
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ rawLeadId: id, otp, ...form })
     });
-    const data = await resp.json();
-    if(data.success){
+    const data = await resp.json().catch(() => ({}));
+
+    if (data.success) {
+      closeDcOtpPopup();
+      clearInterval(dcOtpResendTimer);
+      dcPendingForm = null;
       btn.style.display = 'none';
       successMsg.style.display = 'block';
       successMsg.style.color = '#0ec68f';
@@ -299,29 +477,57 @@ async function submitDebtConsolidationForm(product){
       document.getElementById('dc-form-id').reset();
       document.getElementById('formSalary').value = "";
       sessionStorage.clear();
-       if (typeof showCelebration === 'function') showCelebration();
+      if (typeof showCelebration === 'function') showCelebration();
       setTimeout(() => {
         btn.style.display = 'block';
         successMsg.style.display = 'none';
-      successMsg.innerText = '';
-      window.location.reload();
-      },5000)
-    }else{
-      successMsg.style.display = 'block';
-      successMsg.style.color = '#dc2626';
-      successMsg.innerText = data.message || 'Something went wrong';
+        successMsg.innerText = '';
+        window.location.reload();
+      }, 5000);
+    } else {
+      if (err) err.textContent = data.message || 'Invalid OTP. Please try again.';
+      // Raw lead expired server-side — the popup can do nothing more
+      if (data.rawLeadId === null) {
+        sessionStorage.removeItem('id');
+        if (typeof showToast === 'function') showToast(data.message || 'Session expired');
+        setTimeout(() => window.location.reload(), 2500);
+      }
     }
   } catch (error) {
-    console.error(error);
-    successMsg.style.display = 'block';
-      successMsg.style.color = '#dc2626';
-      successMsg.innerText = data.message || 'Network error, please try again.';
-  }finally{
-    spinner.style.display = 'none';
-    btn.disabled = false;
+    console.error('saveDcLeadWithOtp:', error);
+    if (err) err.textContent = 'Network error, please try again.';
+  } finally {
+    if (saveBtn) {
+      saveBtn.disabled = false;
+      saveBtn.textContent = 'Submit';
+    }
   }
-  
 }
+
+// OTP popup events
+document.getElementById('dcOtpClose')?.addEventListener('click', closeDcOtpPopup);
+document.getElementById('dcOtpOverlay')?.addEventListener('click', function (e) {
+  if (e.target === this) closeDcOtpPopup();
+});
+document.getElementById('dcOtpInput')?.addEventListener('input', function () {
+  this.value = this.value.replace(/\D/g, '').slice(0, 6);
+  const errEl = document.getElementById('dcOtpErr');
+  if (errEl) errEl.textContent = '';
+});
+document.getElementById('dcOtpSave')?.addEventListener('click', saveDcLeadWithOtp);
+document.getElementById('dcOtpResend')?.addEventListener('click', async function () {
+  if (this.disabled) return;
+  await sendDcOtp();
+});
+document.addEventListener('keydown', function (e) {
+  const open = document.getElementById('dcOtpOverlay')?.classList.contains('active');
+  if (!open) return;
+  if (e.key === 'Escape') closeDcOtpPopup();
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    saveDcLeadWithOtp();
+  }
+});
 
 function showMsg(id, msg){
   document.getElementById(id).innerText = msg;
