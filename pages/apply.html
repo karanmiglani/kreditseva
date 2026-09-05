@@ -183,7 +183,7 @@
       border-radius: 24px;
       /*
        * No overflow:hidden here. select2 appends its dropdown inside
-       * #ap-step-1 / #ap-step-5, so clipping the card would cut off the
+       * #ap-step-1 / #ap-step-3, so clipping the card would cut off the
        * loan-type list. The head rounds its own corners instead.
        */
       box-shadow:
@@ -244,7 +244,7 @@
       transition: width .45s cubic-bezier(.3, .8, .3, 1);
     }
 
-    /* Five dividers — one per boundary, none at 0% or 100%, so a finished
+    /* Two dividers — one per boundary, none at 0% or 100%, so a finished
        bar actually reads as finished. */
     .ap-progress-bar::after {
       content: '';
@@ -252,12 +252,9 @@
       inset: 0;
       background-image:
         linear-gradient(var(--ap-well), var(--ap-well)),
-        linear-gradient(var(--ap-well), var(--ap-well)),
-        linear-gradient(var(--ap-well), var(--ap-well)),
-        linear-gradient(var(--ap-well), var(--ap-well)),
         linear-gradient(var(--ap-well), var(--ap-well));
       background-size: 3px 100%;
-      background-position: 16.6667% 0, 33.3333% 0, 50% 0, 66.6667% 0, 83.3333% 0;
+      background-position: 33.3333% 0, 66.6667% 0;
       background-repeat: no-repeat;
       pointer-events: none;
     }
@@ -273,13 +270,12 @@
       flex-shrink: 0;
     }
 
-    .ap-progress-label::after { content: ' / 6'; color: #B7C1D8; }
+    .ap-progress-label::after { content: ' / 3'; color: #B7C1D8; }
 
     /* ── card body ── */
     /*
-     * min-height keeps steps 1-4 and 6 the same height, so the centred card
-     * does not jump as you move between them. Step 5 asks for three fields
-     * and is legitimately taller.
+     * min-height is a floor, so the centred card does not collapse on the
+     * shortest step. Step 3 asks for four fields and is legitimately taller.
      */
     .ap-card-body {
       padding: 30px 26px 30px;
@@ -1147,19 +1143,19 @@
       <div class="ap-card-head">
         <a href="javascript:history.back()" class="ap-back-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg> <span>Back</span></a>
         <div class="ap-progress-wrap">
-          <div class="ap-progress-bar"><div class="ap-progress-fill" id="ap-progress-fill" style="width:16%;"></div></div>
+          <div class="ap-progress-bar"><div class="ap-progress-fill" id="ap-progress-fill" style="width:33%;"></div></div>
           <div class="ap-progress-label" id="ap-progress-label">Step 1</div>
         </div>
       </div>
 
       <div class="ap-card-body">
 
-        <h2 class="ap-form-title" id="ap-form-title">Select Loan Type</h2>
-        <p class="ap-form-sub" id="ap-form-sub">Choose the loan product you want to apply for.</p>
+        <h2 class="ap-form-title" id="ap-form-title">Loan Type &amp; Mobile Number</h2>
+        <p class="ap-form-sub" id="ap-form-sub">Pick the loan you want and the number we should verify.</p>
 
         <form id="applyForm" onsubmit="return false;">
 
-          <!-- STEP 1: Loan Type -->
+          <!-- STEP 1: Loan type + mobile -->
           <div class="ap-step active" id="ap-step-1" data-step="1">
             <div class="ap-fields-grid">
               <div class="ap-field ap-field-full" id="ap-product-field">
@@ -1197,18 +1193,7 @@
                 </select>
                 <span class="ap-err" id="err-product"></span>
               </div>
-            </div>
-            <div class="ap-step-actions">
-              <button type="button" class="ap-next-btn is-visible" id="ap-next-btn" onclick="goToApplyStep(2)">
-                Continue
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </button>
-            </div>
-          </div>
 
-          <!-- STEP 2: Mobile -->
-          <div class="ap-step" id="ap-step-2" data-step="2">
-            <div class="ap-fields-grid">
               <div class="ap-field ap-field-full" id="ap-phone-field">
                 <div class="ap-flabel">Mobile Number <span>*</span></div>
                 <div class="ap-phone-wrap">
@@ -1219,6 +1204,51 @@
               </div>
             </div>
             <p class="ap-assurance"><i class="fa-solid fa-shield-halved"></i> We send a one-time code to this number on WhatsApp to confirm it is yours.</p>
+            <div class="ap-step-actions">
+              <button type="button" class="ap-next-btn" id="ap-next-btn-1" onclick="goToApplyStep(2)">
+                Continue
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Occupation + city -->
+          <div class="ap-step" id="ap-step-2" data-step="2">
+            <div class="ap-fields-grid">
+              <div class="ap-field ap-field-full" id="ap-occupation-field">
+                <div class="ap-flabel">Occupation <span>*</span></div>
+                <div class="ap-occ-cards" id="ap-occ-cards">
+                  <button type="button" class="ap-occ-card" data-occ="salaried" aria-pressed="false">
+                    <span class="ap-occ-card-check"><i class="fa-solid fa-check"></i></span>
+                    <span class="ap-occ-icon"><i class="fa-solid fa-briefcase"></i></span>
+                    <span class="ap-occ-text">
+                      <strong>Salaried</strong>
+                      <span class="ap-occ-hint">I draw a monthly salary from an employer</span>
+                    </span>
+                  </button>
+                  <button type="button" class="ap-occ-card" data-occ="self-employed" aria-pressed="false">
+                    <span class="ap-occ-card-check"><i class="fa-solid fa-check"></i></span>
+                    <span class="ap-occ-icon"><i class="fa-solid fa-store"></i></span>
+                    <span class="ap-occ-text">
+                      <strong>Self employed</strong>
+                      <span class="ap-occ-hint">I earn from a business or my own practice</span>
+                    </span>
+                  </button>
+                </div>
+                <input type="hidden" id="af-occupation" value="">
+                <span class="ap-err" id="err-occupation"></span>
+              </div>
+
+              <div class="ap-field ap-field-full" id="ap-city-field">
+                <div class="ap-flabel">City <span>*</span></div>
+                <div class="ap-city-wrap">
+                  <span class="ap-city-prefix"><i class="fa-solid fa-location-dot"></i></span>
+                  <input type="text" id="af-city" placeholder="e.g. Delhi, Mumbai, Bengaluru" autocomplete="address-level2" />
+                </div>
+                <span class="ap-err" id="err-city"></span>
+              </div>
+            </div>
+            <p class="ap-assurance"><i class="fa-solid fa-building-columns"></i> Lenders differ by city — this decides which offers you can be matched with.</p>
             <div class="ap-step-nav">
               <button type="button" class="ap-prev-btn" onclick="goToApplyStep(1)">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
@@ -1231,67 +1261,8 @@
             </div>
           </div>
 
-          <!-- STEP 3: Occupation -->
+          <!-- STEP 3: Income / Amount / Name / PAN + Submit -->
           <div class="ap-step" id="ap-step-3" data-step="3">
-            <div class="ap-occ-cards" id="ap-occ-cards">
-              <button type="button" class="ap-occ-card" data-occ="salaried" aria-pressed="false">
-                <span class="ap-occ-card-check"><i class="fa-solid fa-check"></i></span>
-                <span class="ap-occ-icon"><i class="fa-solid fa-briefcase"></i></span>
-                <span class="ap-occ-text">
-                  <strong>Salaried</strong>
-                  <span class="ap-occ-hint">I draw a monthly salary from an employer</span>
-                </span>
-              </button>
-              <button type="button" class="ap-occ-card" data-occ="self-employed" aria-pressed="false">
-                <span class="ap-occ-card-check"><i class="fa-solid fa-check"></i></span>
-                <span class="ap-occ-icon"><i class="fa-solid fa-store"></i></span>
-                <span class="ap-occ-text">
-                  <strong>Self employed</strong>
-                  <span class="ap-occ-hint">I earn from a business or my own practice</span>
-                </span>
-              </button>
-            </div>
-            <input type="hidden" id="af-occupation" value="">
-            <span class="ap-err" id="err-occupation"></span>
-            <div class="ap-step-nav">
-              <button type="button" class="ap-prev-btn" onclick="goToApplyStep(2)">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-                <span>Back</span>
-              </button>
-              <button type="button" class="ap-next-btn" id="ap-next-btn-3" onclick="goToApplyStep(4)">
-                Continue
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- STEP 4: City -->
-          <div class="ap-step" id="ap-step-4" data-step="4">
-            <div class="ap-fields-grid">
-              <div class="ap-field ap-field-full" id="ap-city-field">
-                <div class="ap-flabel">City <span>*</span></div>
-                <div class="ap-city-wrap">
-                  <span class="ap-city-prefix"><i class="fa-solid fa-location-dot"></i></span>
-                  <input type="text" id="af-city" placeholder="e.g. Delhi, Mumbai, Bengaluru" autocomplete="address-level2" />
-                </div>
-                <span class="ap-err" id="err-city"></span>
-              </div>
-            </div>
-            <p class="ap-assurance"><i class="fa-solid fa-building-columns"></i> Lenders differ by city — this decides which offers you can be matched with.</p>
-            <div class="ap-step-nav">
-              <button type="button" class="ap-prev-btn" onclick="goToApplyStep(3)">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-                <span>Back</span>
-              </button>
-              <button type="button" class="ap-next-btn" id="ap-next-btn-4" onclick="goToApplyStep(5)">
-                Continue
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- STEP 5: Income / Amount / PAN -->
-          <div class="ap-step" id="ap-step-5" data-step="5">
             <div class="ap-fields-grid">
               <div class="ap-field ap-field-full" id="ap-income-field">
                 <div class="ap-flabel" id="ap-income-label">Net Monthly Income <span>*</span></div>
@@ -1313,6 +1284,12 @@
                 <span class="ap-err" id="err-loan-amount"></span>
               </div>
 
+              <div class="ap-field ap-field-full" id="ap-name-field">
+                <div class="ap-flabel">Full Name <span>*</span></div>
+                <input type="text" id="af-name" placeholder="Name as printed on your PAN" autocomplete="name" />
+                <span class="ap-err" id="err-name"></span>
+              </div>
+
               <div class="ap-field ap-field-full" id="ap-pan-field">
                 <div class="ap-flabel">PAN Card <span style="color:#93A0BC;font-weight:500;">(optional)</span></div>
                 <input type="text" id="af-pan" placeholder="ABCDE1234F" maxlength="10" autocomplete="off" />
@@ -1322,27 +1299,6 @@
 
             <p class="ap-assurance"><i class="fa-solid fa-lock"></i> PAN is used only to check your eligibility with lending partners. Leave it blank if you would rather not share it now.</p>
 
-            <div class="ap-step-nav">
-              <button type="button" class="ap-prev-btn" onclick="goToApplyStep(4)">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-                <span>Back</span>
-              </button>
-              <button type="button" class="ap-next-btn" id="ap-next-btn-5" onclick="goToApplyStep(6)">
-                Continue
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- STEP 6: Name + Submit -->
-          <div class="ap-step" id="ap-step-6" data-step="6">
-            <div class="ap-fields-grid">
-              <div class="ap-field ap-field-full">
-                <div class="ap-flabel">Full Name <span>*</span></div>
-                <input type="text" id="af-name" placeholder="Name as printed on your PAN" autocomplete="name" />
-                <span class="ap-err" id="err-name"></span>
-              </div>
-            </div>
             <div class="ks-consent">
               <input type="checkbox" id="ks-agree" checked />
               <label for="ks-agree">I agree to KreditSeva's <a href="/terms-condition" target="_blank" rel="noopener">Terms &amp; Conditions</a>, <a href="/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>, and authorise contact via Call, SMS, Email, or WhatsApp.</label>
@@ -1351,7 +1307,7 @@
             <span class="ap-success-msg" id="apply-success-msg" style="display:none;"></span>
 
             <div class="ap-step-nav">
-              <button type="button" class="ap-prev-btn" onclick="goToApplyStep(5)">
+              <button type="button" class="ap-prev-btn" onclick="goToApplyStep(2)">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
                 <span>Back</span>
               </button>
@@ -1431,7 +1387,7 @@
       placeholder: 'Select Income',
       allowClear: true,
       width: '100%',
-      dropdownParent: $('#ap-step-5')
+      dropdownParent: $('#ap-step-3')
     });
   }
 
@@ -1462,7 +1418,6 @@
       errIncome.style.display = 'none';
     }
 
-    if (typeof syncIncomeStepNextButton === 'function') syncIncomeStepNextButton();
   }
 
   function updateApplyAmountField() {
@@ -1488,7 +1443,6 @@
       }
     }
 
-    if (typeof syncIncomeStepNextButton === 'function') syncIncomeStepNextButton();
   }
 
   window.updateApplyAmountField = updateApplyAmountField;
@@ -1510,8 +1464,8 @@
     const product = this.value || '';
     localStorage.setItem('product', product);
 
-    if (typeof setApplyNextVisible === 'function') {
-      setApplyNextVisible(!!product, 'ap-next-btn');
+    if (typeof syncApplyStep1Next === 'function') {
+      syncApplyStep1Next();
     }
 
     const err = document.getElementById('err-product');
@@ -1523,10 +1477,6 @@
     updateApplyAmountField();
   });
 
-  $('#af-income').on('change', function () {
-    if (typeof syncIncomeStepNextButton === 'function') syncIncomeStepNextButton();
-  });
-
   document.getElementById('af-loan-amount').addEventListener('input', function () {
     const n = parseInt(this.value.replace(/[^0-9]/g, '')) || 0;
     const el = document.getElementById('af-loan-amount-words');
@@ -1535,7 +1485,6 @@
     else if (n >= 100000) el.textContent = '₹ ' + (n / 100000).toFixed(2).replace(/\.?0+$/, '') + ' Lakh';
     else if (n >= 1000)   el.textContent = '₹ ' + (n / 1000).toFixed(2).replace(/\.?0+$/, '') + ' Thousand';
     else el.textContent = '₹ ' + n;
-    if (typeof syncIncomeStepNextButton === 'function') syncIncomeStepNextButton();
   });
 
   document.getElementById('af-pan')?.addEventListener('input', function () {
@@ -1573,8 +1522,8 @@
     var selectedProduct = urlProduct || lsProduct || 'personal-loan';
     $('#af-product').val(selectedProduct).trigger('change');
     localStorage.setItem('product', selectedProduct);
-    if (typeof setApplyNextVisible === 'function') {
-      setApplyNextVisible(true, 'ap-next-btn');
+    if (typeof syncApplyStep1Next === 'function') {
+      syncApplyStep1Next();
     }
   });
   </script>

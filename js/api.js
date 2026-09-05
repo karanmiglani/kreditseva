@@ -28,8 +28,8 @@ function bindPhoneSave(input, errId) {
 
     const current = this.value.trim();
     if (current !== lastSavedphoneNumber || !phoneNumberSave) {
-      setApplyNextVisible(false, 'ap-next-btn-2');
       phoneNumberSave = false;
+      syncApplyStep1Next();
     }
 
     phoneTimer = setTimeout(() => {
@@ -40,7 +40,7 @@ function bindPhoneSave(input, errId) {
         return;
       }
       if (phoneNumber === lastSavedphoneNumber && phoneNumberSave) {
-        setApplyNextVisible(true, 'ap-next-btn-2');
+        syncApplyStep1Next();
         return;
       }
       lastSavedphoneNumber = phoneNumber;
@@ -69,57 +69,39 @@ async function savePhoneNumber() {
     if (data.success) {
       sessionStorage.setItem('id', data.rawLeadId);
       phoneNumberSave = true;
-      setApplyNextVisible(true, 'ap-next-btn-2');
+      syncApplyStep1Next();
       if (typeof showToast === 'function') showToast(data.message || 'Mobile number saved');
     } else {
       phoneNumberSave = false;
-      setApplyNextVisible(false, 'ap-next-btn-2');
+      syncApplyStep1Next();
       showMessage('err-phone', data.message || 'Could not save mobile number');
     }
   } catch (error) {
-    console.log(error);
+    console.error('savePhoneNumber:', error);
     phoneNumberSave = false;
-    setApplyNextVisible(false, 'ap-next-btn-2');
+    syncApplyStep1Next();
     showMessage('err-phone', 'Network error. Please try again.');
   }
 }
 
 const APPLY_STEP_META = {
   1: {
-    width: '16%',
+    width: '33%',
     label: 'Step 1',
-    title: 'Select Loan Type',
-    sub: 'Choose the loan product you want to apply for.'
+    title: 'Loan Type & Mobile Number',
+    sub: 'Pick the loan you want and the number we should verify.'
   },
   2: {
-    width: '33%',
+    width: '66%',
     label: 'Step 2',
-    title: 'Enter Your Mobile Number',
-    sub: "We'll use this number to verify and contact you about your loan."
+    title: 'How You Earn & Where',
+    sub: 'Your occupation and city decide which lenders can match you.'
   },
   3: {
-    width: '50%',
-    label: 'Step 3',
-    title: 'Select Your Occupation',
-    sub: 'Choose the option that best matches how you earn.'
-  },
-  4: {
-    width: '66%',
-    label: 'Step 4',
-    title: 'Enter Your City',
-    sub: 'Tell us where you currently live or work.'
-  },
-  5: {
-    width: '83%',
-    label: 'Step 5',
-    title: 'Income & Amount Details',
-    sub: 'Share your income, required amount, and PAN if available.'
-  },
-  6: {
     width: '100%',
-    label: 'Step 6',
-    title: 'Enter Your Full Name',
-    sub: 'Almost done — confirm your name and submit the application.'
+    label: 'Step 3',
+    title: 'Income & Your Details',
+    sub: 'Share your income, required amount, name, and PAN if available.'
   }
 };
 
@@ -127,10 +109,35 @@ function isValidApplyCity(value) {
   return /^[a-zA-Z\s.'-]{2,60}$/.test((value || '').trim());
 }
 
-function syncCityNextButton() {
+/*
+ * A step's Continue stays dimmed until every field on that step is filled, so
+ * the two questions merged into each step are gated together rather than one
+ * unlocking the button on its own.
+ */
+function applyHasSavedPhone() {
+  const typed = (document.getElementById('af-phone')?.value || '').trim();
+  const saved = phoneNumberSave || !!sessionStorage.getItem('id');
+  // A number in the box must be a valid one that reached the server. An empty
+  // box still passes on a saved session: send-otp works off the lead id, not
+  // this field, so a reloaded page must not strand the user.
+  if (typed) return phoneRegex.test(typed) && saved;
+  return saved;
+}
+
+function syncApplyStep1Next() {
+  const product = document.getElementById('af-product')?.value || '';
+  setApplyNextVisible(!!product && applyHasSavedPhone(), 'ap-next-btn-1');
+}
+
+function syncApplyStep2Next() {
+  const occupation = document.getElementById('af-occupation')?.value || '';
+  const city = document.getElementById('af-city')?.value || '';
+  setApplyNextVisible(!!occupation && isValidApplyCity(city), 'ap-next-btn-2');
+}
+
+function syncCityField() {
   const city = document.getElementById('af-city')?.value || '';
   const valid = isValidApplyCity(city);
-  setApplyNextVisible(valid, 'ap-next-btn-4');
   const err = document.getElementById('err-city');
   if (err && city.trim().length > 0 && !valid) {
     err.textContent = 'Please enter a valid city name';
@@ -139,56 +146,48 @@ function syncCityNextButton() {
     err.textContent = '';
     err.style.display = 'none';
   }
+  syncApplyStep2Next();
 }
 
-function syncProductNextButton() {
-  const product = document.getElementById('af-product')?.value || '';
-  setApplyNextVisible(!!product, 'ap-next-btn');
-}
+window.syncApplyStep1Next = syncApplyStep1Next;
+window.syncApplyStep2Next = syncApplyStep2Next;
 
-function syncIncomeStepNextButton() {
-  const income = document.getElementById('af-income')?.value || '';
-  const product = document.getElementById('af-product')?.value || '';
-  const amount = (document.getElementById('af-loan-amount')?.value || '').trim();
-  const amountRequired = product !== 'credit-card';
-  const amountOk = !amountRequired || (parseInt(amount, 10) >= 1000);
-  setApplyNextVisible(!!income && amountOk, 'ap-next-btn-5');
+/*
+ * Changing step used to send the window to the top, which on a phone threw
+ * the fields being read off-screen. Correct the scroll only when the card is
+ * genuinely out of view, and never further than the top of the card.
+ */
+function keepApplyFormInView() {
+  const card = document.querySelector('.ap-card');
+  if (!card) return;
+  const rect = card.getBoundingClientRect();
+  const outOfView = rect.top < 0 || rect.top > window.innerHeight * 0.5;
+  if (!outOfView) return;
+  window.scrollTo({ top: window.scrollY + rect.top - 16, behavior: 'smooth' });
 }
-
-window.syncIncomeStepNextButton = syncIncomeStepNextButton;
 
 function goToApplyStep(step) {
   const target = document.getElementById('ap-step-' + step);
   if (!target) return;
 
-  if (step === 2 && !document.getElementById('af-product')?.value) {
-    localStorage.setItem('product',document.getElementById('af-product')?.value);
-    showMessage('err-product', 'Please select a loan type');
-    return;
+  if (step === 2) {
+    if (!document.getElementById('af-product')?.value) {
+      showMessage('err-product', 'Please select a loan type');
+      return;
+    }
+    if (!applyHasSavedPhone()) {
+      showMessage('err-phone', 'Please enter a valid mobile number first');
+      return;
+    }
   }
 
-  if (step === 3 && !phoneNumberSave && !sessionStorage.getItem('id')) {
-    showMessage('err-phone', 'Please enter a valid mobile number first');
-    return;
-  }
-
-  if (step === 4 && !document.getElementById('af-occupation')?.value) {
-    showMessage('err-occupation', 'Please select your occupation');
-    return;
-  }
-
-  if (step === 5 && !isValidApplyCity(document.getElementById('af-city')?.value)) {
-    showMessage('err-city', 'Please enter a valid city name');
-    return;
-  }
-
-  if (step === 6) {
-    const income = document.getElementById('af-income')?.value;
-    const product = document.getElementById('af-product')?.value || '';
-    const amount = (document.getElementById('af-loan-amount')?.value || '').trim();
-    if (!income) { showMessage('err-income', 'Please select income'); return; }
-    if (product !== 'credit-card' && !(parseInt(amount, 10) >= 1000)) {
-      showMessage('err-loan-amount', 'Please enter amount');
+  if (step === 3) {
+    if (!document.getElementById('af-occupation')?.value) {
+      showMessage('err-occupation', 'Please select your occupation');
+      return;
+    }
+    if (!isValidApplyCity(document.getElementById('af-city')?.value)) {
+      showMessage('err-city', 'Please enter a valid city name');
       return;
     }
   }
@@ -207,8 +206,8 @@ function goToApplyStep(step) {
     if (label) label.textContent = meta.label;
     if (title) title.textContent = meta.title;
     if (sub) {
-      if (step === 5 && document.getElementById('af-product')?.value === 'debt-consolidation') {
-        sub.textContent = 'Enter income, total outstanding amount, and PAN (optional).';
+      if (step === 3 && document.getElementById('af-product')?.value === 'debt-consolidation') {
+        sub.textContent = 'Enter income, total outstanding amount, name, and PAN (optional).';
       } else {
         sub.textContent = meta.sub;
       }
@@ -217,31 +216,16 @@ function goToApplyStep(step) {
 
   if (step === 1) {
     if (typeof initApplyProductSelect2 === 'function') initApplyProductSelect2();
-    const selected = document.getElementById('af-product')?.value || 'personal-loan';
-    if (window.jQuery) {
-      window.jQuery('#af-product').val(selected).trigger('change');
-    } else {
-      syncProductNextButton();
-    }
+    syncApplyStep1Next();
   }
 
   if (step === 2) {
-    if (phoneNumberSave) setApplyNextVisible(true, 'ap-next-btn-2');
-    else setApplyNextVisible(false, 'ap-next-btn-2');
-    setTimeout(() => document.getElementById('af-phone')?.focus(), 120);
+    syncApplyStep2Next();
+    // preventScroll: focusing a field must not undo the scroll rule above
+    setTimeout(() => document.getElementById('af-city')?.focus({ preventScroll: true }), 120);
   }
 
   if (step === 3) {
-    const occ = document.getElementById('af-occupation')?.value;
-    setApplyNextVisible(!!occ, 'ap-next-btn-3');
-  }
-
-  if (step === 4) {
-    syncCityNextButton();
-    setTimeout(() => document.getElementById('af-city')?.focus(), 120);
-  }
-
-  if (step === 5) {
     if (typeof updateApplyAmountField === 'function') updateApplyAmountField();
     const occ = document.getElementById('af-occupation')?.value;
     const incomeLabel = document.getElementById('ap-income-label');
@@ -249,14 +233,9 @@ function goToApplyStep(step) {
       incomeLabel.innerHTML = (occ === 'self-employed' ? 'Annual Income' : 'Net Monthly Income') + ' <span>*</span>';
     }
     if (typeof initApplyIncomeSelect2 === 'function') initApplyIncomeSelect2();
-    syncIncomeStepNextButton();
   }
 
-  if (step === 6) {
-    setTimeout(() => document.getElementById('af-name')?.focus(), 120);
-  }
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  keepApplyFormInView();
 }
 
 function selectApplyOccupation(occ) {
@@ -276,7 +255,7 @@ function selectApplyOccupation(occ) {
     err.style.display = 'none';
   }
 
-  setApplyNextVisible(true, 'ap-next-btn-3');
+  syncApplyStep2Next();
 
   if (typeof updateApplyIncomeField === 'function') {
     updateApplyIncomeField();
@@ -294,7 +273,7 @@ document.querySelectorAll('.ap-occ-card').forEach((card) => {
 
 document.getElementById('af-city')?.addEventListener('input', function () {
   this.value = this.value.replace(/[^a-zA-Z\s.'-]/g, '');
-  syncCityNextButton();
+  syncCityField();
 });
 
 document.getElementById('af-city')?.addEventListener('keydown', function (e) {
@@ -409,7 +388,7 @@ async function sendApplyOtp() {
       );
     }
 
-    goToApplyStep(2);
+    goToApplyStep(1);
     return false;
   }
 
@@ -543,7 +522,7 @@ async function submitForm() {
 
   if (!sessionStorage.getItem('id')) {
     if (typeof showToast === 'function') showToast('Session expired, Please enter your phone number to continue...');
-    goToApplyStep(2);
+    goToApplyStep(1);
     return;
   }
 
