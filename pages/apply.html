@@ -178,7 +178,7 @@
     .ap-card {
       position: relative;
       width: 100%;
-      max-width: 460px;
+      max-width: 410px;
       background: var(--ap-card);
       border-radius: 24px;
       /*
@@ -196,8 +196,8 @@
     .ap-card-head {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 18px 26px;
+      gap: 14px;
+      padding: 15px 22px;
       background: var(--ap-well);
       border-bottom: 1px solid var(--ap-line);
       border-radius: 24px 24px 0 0;
@@ -278,13 +278,13 @@
      * shortest step. Step 3 asks for four fields and is legitimately taller.
      */
     .ap-card-body {
-      padding: 30px 26px 30px;
-      min-height: 310px;
+      padding: 24px 22px 26px;
+      min-height: 250px;
       border-radius: 0 0 24px 24px;
     }
 
     .ap-form-title {
-      font-size: 1.42rem;
+      font-size: 1.24rem;
       font-weight: 700;
       letter-spacing: -.02em;
       line-height: 1.22;
@@ -292,13 +292,13 @@
     }
 
     .ap-form-sub {
-      font-size: .88rem;
+      font-size: .82rem;
       line-height: 1.6;
       color: var(--ap-muted);
       margin-top: 8px;
     }
 
-    #applyForm { margin-top: 26px; }
+    #applyForm { margin-top: 20px; }
 
     .ap-step { display: none; }
     .ap-step.active { display: block; }
@@ -306,17 +306,17 @@
     .ap-fields-grid {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 15px;
     }
 
     .ap-field-full { width: 100%; }
 
     .ap-flabel {
-      font-size: .78rem;
+      font-size: .75rem;
       font-weight: 700;
       letter-spacing: .01em;
       color: var(--ap-text);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .ap-flabel span { color: var(--ap-blue); }
@@ -330,14 +330,14 @@
       width: 100%;
       background: var(--ap-well);
       border: 1.5px solid var(--ap-line);
-      border-radius: 12px;
+      border-radius: 11px;
       font-family: var(--ap-ui);
-      font-size: 1rem;
+      font-size: .94rem;
       color: var(--ap-text);
       transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
     }
 
-    .ap-field > input { padding: 15px 16px; }
+    .ap-field > input { padding: 12px 14px; }
     .ap-field input::placeholder { color: #93A0BC; }
 
     .ap-field > input:focus {
@@ -366,9 +366,9 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      padding: 0 14px;
+      padding: 0 12px;
       font-family: var(--ap-mono);
-      font-size: .92rem;
+      font-size: .87rem;
       font-weight: 500;
       color: var(--ap-text);
       border-right: 1.5px solid var(--ap-line);
@@ -382,8 +382,8 @@
       min-width: 0;
       border: none !important;
       background: transparent !important;
-      padding: 15px 16px !important;
-      font-size: 1rem;
+      padding: 12px 14px !important;
+      font-size: .94rem;
       color: var(--ap-text);
       box-shadow: none !important;
     }
@@ -401,23 +401,24 @@
     #af-loan-amount-words {
       display: block;
       font-family: var(--ap-mono);
-      font-size: .8rem;
+      font-size: .76rem;
       font-weight: 500;
       color: var(--ap-blue);
-      margin-top: 7px;
-      min-height: 18px;
+      margin-top: 5px;
     }
 
+    #af-loan-amount-words:empty { display: none; }
+
     /* ── occupation ── */
-    .ap-occ-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .ap-occ-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
     .ap-occ-card {
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 14px;
-      padding: 20px 18px;
+      gap: 10px;
+      padding: 14px 13px;
       background: var(--ap-well);
       border: 1.5px solid var(--ap-line);
       border-radius: 15px;
@@ -438,9 +439,9 @@
     .ap-occ-icon {
       display: grid;
       place-items: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 11px;
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
       background: rgba(12, 23, 51, .06);
       color: var(--ap-ink);
       font-size: 1rem;
@@ -451,14 +452,14 @@
 
     .ap-occ-text strong {
       display: block;
-      font-size: .97rem;
+      font-size: .9rem;
       font-weight: 700;
       color: var(--ap-text);
     }
 
     .ap-occ-hint {
       display: block;
-      font-size: .76rem;
+      font-size: .72rem;
       line-height: 1.45;
       color: var(--ap-muted);
       margin-top: 3px;
@@ -590,17 +591,18 @@
       font-weight: 600;
       color: var(--ap-red);
       margin-top: 6px;
-      min-height: 15px;
     }
 
+    .ap-err:empty { display: none; }
+
     /* ── actions ── */
-    .ap-step-actions { margin-top: 26px; }
+    .ap-step-actions { margin-top: 18px; }
 
     .ap-step-nav {
       display: flex;
       align-items: stretch;
-      gap: 11px;
-      margin-top: 26px;
+      gap: 10px;
+      margin-top: 18px;
     }
 
     .ap-next-btn,
@@ -610,13 +612,13 @@
       align-items: center;
       justify-content: center;
       gap: 9px;
-      padding: 16px 22px;
+      padding: 13px 18px;
       background: var(--ap-blue);
       color: #fff;
       border: none;
       border-radius: 12px;
       font-family: var(--ap-ui);
-      font-size: .97rem;
+      font-size: .92rem;
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 8px 20px rgba(26, 82, 204, .28);
@@ -643,13 +645,13 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 16px 19px;
+      padding: 13px 16px;
       background: transparent;
       color: var(--ap-muted);
       border: 1.5px solid var(--ap-line);
       border-radius: 12px;
       font-family: var(--ap-ui);
-      font-size: .93rem;
+      font-size: .88rem;
       font-weight: 600;
       cursor: pointer;
       transition: border-color .18s ease, color .18s ease, background .18s ease;
@@ -668,9 +670,9 @@
     .ks-consent {
       display: flex;
       align-items: flex-start;
-      gap: 11px;
-      margin-top: 20px;
-      padding: 14px 15px;
+      gap: 10px;
+      margin-top: 15px;
+      padding: 11px 13px;
       background: var(--ap-well);
       border: 1px solid var(--ap-line);
       border-radius: 12px;
@@ -700,9 +702,9 @@
       display: flex;
       align-items: flex-start;
       gap: 9px;
-      margin-top: 22px;
-      font-size: .77rem;
-      line-height: 1.55;
+      margin-top: 15px;
+      font-size: .74rem;
+      line-height: 1.5;
       color: var(--ap-muted);
     }
 
@@ -978,27 +980,27 @@
       .ap-intro p { display: none; }
 
       .ap-card { border-radius: 20px; }
-      .ap-card-head { padding: 15px 18px; border-radius: 20px 20px 0 0; }
-      .ap-card-body { padding: 24px 18px 26px; min-height: 0; border-radius: 0 0 20px 20px; }
+      .ap-card-head { padding: 13px 16px; border-radius: 20px 20px 0 0; }
+      .ap-card-body { padding: 20px 16px 22px; min-height: 0; border-radius: 0 0 20px 20px; }
 
-      .ap-form-title { font-size: 1.24rem; }
+      .ap-form-title { font-size: 1.12rem; }
 
       .ap-occ-cards { grid-template-columns: 1fr; }
 
       .ap-occ-card {
         flex-direction: row;
         align-items: center;
-        padding: 15px 16px;
+        padding: 12px 13px;
       }
 
-      .ap-occ-icon { width: 38px; height: 38px; }
+      .ap-occ-icon { width: 32px; height: 32px; }
 
       .ap-next-btn,
       .ap-submit,
-      .ap-prev-btn { min-height: 54px; padding: 15px 16px; }
+      .ap-prev-btn { min-height: 48px; padding: 12px 14px; }
 
       /* Back keeps only its arrow so Continue gets the width it needs. */
-      .ap-prev-btn { flex: 0 0 auto; padding: 15px 17px; }
+      .ap-prev-btn { flex: 0 0 auto; padding: 12px 15px; }
       .ap-prev-btn span { display: none; }
 
       .ap-trust { gap: 8px 18px; }
